@@ -428,7 +428,7 @@ export default function DesignerPortfolio() {
           letterSpacing: '-0.02em',
           fontFamily: '"Archivo Black", sans-serif'
         }}>
-          ARIA CHEN
+          DIANA G
         </div>
 
         <div style={{
