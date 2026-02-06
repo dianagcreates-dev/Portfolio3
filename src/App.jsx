@@ -20,7 +20,7 @@ const translations = {
     },
     about: {
       title: 'Design Philosophy',
-      description: "I believe great design is invisible—it doesn't shout for attention, it earns it. Every pixel serves a purpose. Every interaction tells a story. My work bridges the gap between user needs and business goals, creating experiences that feel effortless yet deliberate.",
+      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don’t just look good—they feel natural to use.",
       skills: ['Strategy', 'Interaction', 'Visual', 'Research'],
       skillLabel: 'Core Focus'
     },
@@ -84,7 +84,7 @@ const translations = {
     },
     about: {
       title: 'Design-Philosophie',
-      description: 'Meine Arbeit bewegt sich an der Schittstelle von Design,Technologie und Emotion- mit Fokus auf durchdachte UX,elegante UI und sinnvolle KI-Integration',
+      description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen.',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
       skillLabel: 'Kernfokus'
     },
