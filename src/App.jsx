@@ -34,34 +34,34 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Nebula",
-        category: "Product Design",
-        year: "2024",
-        description: "AI-powered creative suite reimagining digital artistry",
+        title: "Palmi",
+        category: "AI Product Design",
+        year: "2026",
+        description: "Helping Parents Understand  their Child’s Emotions",
         color: "#6366F1"
       },
       {
         id: 2,
-        title: "Cascade",
-        category: "Brand Identity",
-        year: "2024",
-        description: "Visual system for sustainable fashion platform",
+        title: "Synkro",
+        category: "Digital Experience ",
+        year: "2025",
+        description: "Digital Business Card",
         color: "#EC4899"
       },
       {
         id: 3,
-        title: "Terminus",
-        category: "Mobile Experience",
-        year: "2023",
-        description: "Transit app designed for urban explorers",
+        title: "Social Media",
+        category: "Graphic Design",
+        year: "2024",
+        description: "Product Post Design",
         color: "#F59E0B"
       },
       {
         id: 4,
-        title: "Meridian",
-        category: "Web Platform",
+        title: "Magi",
+        category: "Mobile App",
         year: "2023",
-        description: "B2B analytics dashboard with real-time insights",
+        description: "Augmented Reality Greeting Cards",
         color: "#10B981"
       }
     ]
@@ -98,34 +98,34 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Nebula",
-        category: "Produktdesign",
-        year: "2024",
-        description: "KI-gestütztes kreatives Suite, das digitale Kunstfertigkeit neu definiert",
+        title: "Palmi",
+        category: "AI Produktdesign",
+        year: "2026",
+        description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
         color: "#6366F1"
       },
       {
         id: 2,
-        title: "Cascade",
-        category: "Markenidentität",
-        year: "2024",
-        description: "Visuelles System für nachhaltige Modeplattform",
+        title: "Synkro",
+        category: "digitales Erlebnis",
+        year: "2025",
+        description: "Digitale Visitenkarte",
         color: "#EC4899"
       },
       {
         id: 3,
-        title: "Terminus",
-        category: "Mobile Erfahrung",
-        year: "2023",
-        description: "Transit-App für urbane Entdecker",
+        title: "Soziale Medien",
+        category: "Grafikdesign",
+        year: "2024",
+        description: "Produkt-Post-Design",
         color: "#F59E0B"
       },
       {
         id: 4,
-        title: "Meridian",
-        category: "Web-Plattform",
+        title: "Magi",
+        category: "Mobile Anwendung",
         year: "2023",
-        description: "B2B-Analyse-Dashboard mit Echtzeit-Einblicken",
+        description: "Grußkarten mit erweiterter Realität",
         color: "#10B981"
       }
     ]
