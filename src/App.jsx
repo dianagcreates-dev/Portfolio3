@@ -11,7 +11,7 @@ const translations = {
     },
     home: {
       headline: 'Design that speaks volumes',
-      subheadline: 'UX/UI Designer crafting digital experiences at the intersection of beauty and function',
+      subheadline: 'UX/UI Designer & AI Specialist building beautiful, functional digital experiences',
       cta: 'View Projects'
     },
     work: {
@@ -75,7 +75,7 @@ const translations = {
     },
     home: {
       headline: 'Design das Bände spricht',
-      subheadline: 'UX/UI Designer entwickelt digitale Erlebnisse an der Schnittstelle von Schönheit und Funktion',
+      subheadline: 'UX/UI Designer & KI-Spezialist für schöne, funktionale digitale Erlebnisse',
       cta: 'Projekte Ansehen'
     },
     work: {
