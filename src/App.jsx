@@ -802,18 +802,14 @@ export default function DesignerPortfolio() {
                     <div
                       onClick={() => setSelectedProject(project)}
                       onMouseEnter={(e) => {
-                        const corners = e.currentTarget.querySelectorAll('.corner-glow');
-                        corners.forEach(corner => {
-                          corner.style.opacity = '1';
-                        });
-                        e.currentTarget.style.border = `1px solid ${project.color}60`;
+                        e.currentTarget.style.background = `rgba(255,255,255,0.15)`;
+                        e.currentTarget.style.border = `1px solid ${project.color}90`;
+                        e.currentTarget.style.boxShadow = `0 15px 60px rgba(0,0,0,0.4), 0 0 40px ${project.color}30`;
                       }}
                       onMouseLeave={(e) => {
-                        const corners = e.currentTarget.querySelectorAll('.corner-glow');
-                        corners.forEach(corner => {
-                          corner.style.opacity = '0';
-                        });
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
                         e.currentTarget.style.border = '1px solid rgba(255,255,255,0.2)';
+                        e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.3)';
                       }}
                       style={{
                         background: 'rgba(255,255,255,0.1)',
@@ -822,82 +818,13 @@ export default function DesignerPortfolio() {
                         borderRadius: '20px',
                         padding: '2rem',
                         cursor: 'pointer',
-                        transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        transition: 'all 0.3s ease',
                         position: 'relative',
-                        overflow: 'visible',
+                        overflow: 'hidden',
                         transformStyle: 'preserve-3d',
                         boxShadow: '0 10px 50px rgba(0,0,0,0.3)'
                       }}
                     >
-                      {/* Top-right corner glow */}
-                      <div 
-                        className="corner-glow"
-                        style={{
-                          position: 'absolute',
-                          top: '-30px',
-                          right: '-30px',
-                          width: '80px',
-                          height: '80px',
-                          background: `radial-gradient(circle, ${project.color}80, ${project.color}40, transparent 70%)`,
-                          borderRadius: '50%',
-                          opacity: '0',
-                          transition: 'opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                          pointerEvents: 'none',
-                          filter: 'blur(15px)'
-                        }}
-                      />
-                      {/* Top-left corner glow */}
-                      <div 
-                        className="corner-glow"
-                        style={{
-                          position: 'absolute',
-                          top: '-30px',
-                          left: '-30px',
-                          width: '80px',
-                          height: '80px',
-                          background: `radial-gradient(circle, ${project.color}80, ${project.color}40, transparent 70%)`,
-                          borderRadius: '50%',
-                          opacity: '0',
-                          transition: 'opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s',
-                          pointerEvents: 'none',
-                          filter: 'blur(15px)'
-                        }}
-                      />
-                      {/* Bottom-right corner glow */}
-                      <div 
-                        className="corner-glow"
-                        style={{
-                          position: 'absolute',
-                          bottom: '-30px',
-                          right: '-30px',
-                          width: '80px',
-                          height: '80px',
-                          background: `radial-gradient(circle, ${project.color}80, ${project.color}40, transparent 70%)`,
-                          borderRadius: '50%',
-                          opacity: '0',
-                          transition: 'opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s',
-                          pointerEvents: 'none',
-                          filter: 'blur(15px)'
-                        }}
-                      />
-                      {/* Bottom-left corner glow */}
-                      <div 
-                        className="corner-glow"
-                        style={{
-                          position: 'absolute',
-                          bottom: '-30px',
-                          left: '-30px',
-                          width: '80px',
-                          height: '80px',
-                          background: `radial-gradient(circle, ${project.color}80, ${project.color}40, transparent 70%)`,
-                          borderRadius: '50%',
-                          opacity: '0',
-                          transition: 'opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s',
-                          pointerEvents: 'none',
-                          filter: 'blur(15px)'
-                        }}
-                      />
-
                       <div style={{
                         position: 'absolute',
                         top: 0,
