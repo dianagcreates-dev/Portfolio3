@@ -34,10 +34,10 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Nebula",
+        title: "Palmi",
         category: "Product Design",
-        year: "2024",
-        description: "AI-powered creative suite reimagining digital artistry",
+        year: "2025",
+        description: "Helping Parents Understand  their Child’s Emotions",
         color: "#6366F1"
       },
       {
@@ -98,10 +98,10 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Nebula",
+        title: "Palmi",
         category: "Produktdesign",
-        year: "2024",
-        description: "KI-gestütztes kreatives Suite, das digitale Kunstfertigkeit neu definiert",
+        year: "2025",
+        description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
         color: "#6366F1"
       },
       {
