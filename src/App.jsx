@@ -10,7 +10,7 @@ const translations = {
       contact: 'Contact'
     },
     home: {
-      headline: 'Design that Speakes Volumes',
+      headline: 'Design that speaks volumes',
       subheadline: 'UX/UI Designer crafting digital experiences at the intersection of beauty and function',
       cta: 'View Projects'
     },
@@ -134,6 +134,7 @@ const translations = {
 
 export default function DesignerPortfolio() {
   const canvasRef = useRef(null);
+  const audioRef = useRef(null);
   const timeRef = useRef(0);
   const animationFrameRef = useRef(null);
   const contentRef = useRef(null);
@@ -143,6 +144,7 @@ export default function DesignerPortfolio() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
+ 
 
   // Get current translations
   const t = translations[language];
@@ -323,6 +325,22 @@ export default function DesignerPortfolio() {
     };
   }, [activeSection, isScrolling]);
 
+  // Toggle audio play/pause
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => {
+          console.log('Audio play failed:', err);
+        });
+      }
+    }
+  };
+
   const navItems = [
     { id: 'home', label: t.nav.home },
     { id: 'work', label: t.nav.work },
@@ -342,6 +360,12 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
+      <audio
+        ref={audioRef}
+        src="/background.mp3"
+        loop
+      />
+
       <canvas
         ref={canvasRef}
         style={{
@@ -357,7 +381,14 @@ export default function DesignerPortfolio() {
       {showStartPrompt && (
         <div
           onClick={() => {
-            setIsPlaying(true);
+            if (audioRef.current) {
+              audioRef.current.volume = 0.5;
+              audioRef.current.play().then(() => {
+                setIsPlaying(true);
+              }).catch(err => {
+                console.log('Audio play failed:', err);
+              });
+            }
             setShowStartPrompt(false);
           }}
           style={{
@@ -428,7 +459,7 @@ export default function DesignerPortfolio() {
           letterSpacing: '-0.02em',
           fontFamily: '"Archivo Black", sans-serif'
         }}>
-          DIANA G
+          DIANA G.
         </div>
 
         <div style={{
@@ -519,7 +550,7 @@ export default function DesignerPortfolio() {
           ))}
           
           <button
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={toggleAudio}
             style={{
               background: 'rgba(255,255,255,0.1)',
               border: '1px solid rgba(255,255,255,0.3)',
@@ -1080,9 +1111,9 @@ export default function DesignerPortfolio() {
               alignItems: 'center'
             }}>
               {[
-                { label: t.contact.email, value: 'dianagcreates@gmail.com' },
-                { label: t.contact.linkedin, value: 'dianagcreates' },
-                { label: t.Location., value: 'Brandenburg' }
+                { label: t.contact.email, value: 'dianagcreates@mail.com' },
+                { label: t.contact.linkedin, value: 'linkedin.com/in/dianagcreates' },
+                { label: t.Current.Location, value: 'Brandenburg' }
               ].map((item, i) => (
                 <div key={item.label} style={{
                   padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
