@@ -1080,9 +1080,9 @@ export default function DesignerPortfolio() {
               alignItems: 'center'
             }}>
               {[
-                { label: t.contact.email, value: 'aria.chen@design.studio' },
-                { label: t.contact.linkedin, value: 'linkedin.com/in/ariachen' },
-                { label: t.contact.dribbble, value: 'dribbble.com/ariachen' }
+                { label: t.contact.email, value: 'dianagcreates@gmail.com' },
+                { label: t.contact.linkedin, value: 'dianagcreates' },
+                { label: t.Location., value: 'Brandenburg' }
               ].map((item, i) => (
                 <div key={item.label} style={{
                   padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
