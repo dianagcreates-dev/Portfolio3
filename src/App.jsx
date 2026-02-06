@@ -50,10 +50,10 @@ const translations = {
       },
       {
         id: 3,
-        title: "Terminus",
+        title: "Synkro",
         category: "Mobile Experience",
-        year: "2023",
-        description: "Transit app designed for urban explorers",
+        year: "2025",
+        description: "Digital Business Card",
         color: "#F59E0B"
       },
       {
@@ -114,10 +114,10 @@ const translations = {
       },
       {
         id: 3,
-        title: "Terminus",
+        title: "Synkro",
         category: "Mobile Erfahrung",
-        year: "2023",
-        description: "Transit-App für urbane Entdecker",
+        year: "2025",
+        description: "Digitale Visitenkarte",
         color: "#F59E0B"
       },
       {
