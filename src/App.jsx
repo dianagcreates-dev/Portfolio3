@@ -10,7 +10,7 @@ const translations = {
       contact: 'Contact'
     },
     home: {
-      headline: 'Human-Centered AI',
+      headline: 'Intelligent Design, Human Focused',
       subheadline: 'UX/UI Designer & AI Specialist building beautiful, functional digital experiences',
       cta: 'View Projects'
     },
@@ -74,7 +74,7 @@ const translations = {
       contact: 'Kontakt'
     },
     home: {
-      headline: 'Menschzentrierte KI',
+      headline: 'Intelligentes Design, menschzentriert',
       subheadline: 'UX/UI Designer & KI-Spezialist für schöne, funktionale digitale Erlebnisse',
       cta: 'Projekte Ansehen'
     },
