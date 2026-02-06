@@ -10,8 +10,8 @@ const translations = {
       contact: 'Contact'
     },
     home: {
-      headline: 'Design that speaks volumes',
-      subheadline: 'UX/UI Designer crafting digital experiences at the intersection of beauty and function',
+      headline: 'Design that Useful',
+      subheadline: 'I'am a UX/UI Designer crafting digital experiences at the intersection of beauty and function',
       cta: 'View Projects'
     },
     work: {
