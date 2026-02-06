@@ -34,10 +34,10 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Palmi",
+        title: "Nebula",
         category: "Product Design",
-        year: "2025",
-        description: "Helping Parents Understand  their Child’s Emotions",
+        year: "2024",
+        description: "AI-powered creative suite reimagining digital artistry",
         color: "#6366F1"
       },
       {
@@ -50,10 +50,10 @@ const translations = {
       },
       {
         id: 3,
-        title: "Synkro",
+        title: "Terminus",
         category: "Mobile Experience",
-        year: "2025",
-        description: "Digital Business Card",
+        year: "2023",
+        description: "Transit app designed for urban explorers",
         color: "#F59E0B"
       },
       {
@@ -98,10 +98,10 @@ const translations = {
     projects: [
       {
         id: 1,
-        title: "Palmi",
+        title: "Nebula",
         category: "Produktdesign",
-        year: "2025",
-        description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
+        year: "2024",
+        description: "KI-gestütztes kreatives Suite, das digitale Kunstfertigkeit neu definiert",
         color: "#6366F1"
       },
       {
@@ -114,10 +114,10 @@ const translations = {
       },
       {
         id: 3,
-        title: "Synkro",
+        title: "Terminus",
         category: "Mobile Erfahrung",
-        year: "2025",
-        description: "Digitale Visitenkarte",
+        year: "2023",
+        description: "Transit-App für urbane Entdecker",
         color: "#F59E0B"
       },
       {
@@ -293,6 +293,9 @@ export default function DesignerPortfolio() {
   // Handle wheel scroll for section navigation
   useEffect(() => {
     const handleWheel = (e) => {
+      // Don't hijack scroll when in project view
+      if (selectedProject) return;
+      
       if (isScrolling) return;
       
       e.preventDefault();
@@ -323,7 +326,7 @@ export default function DesignerPortfolio() {
         contentEl.removeEventListener('wheel', handleWheel);
       }
     };
-  }, [activeSection, isScrolling]);
+  }, [activeSection, isScrolling, selectedProject]);
 
   // Toggle audio play/pause
   const toggleAudio = () => {
@@ -599,7 +602,7 @@ export default function DesignerPortfolio() {
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 100,
-        display: 'flex',
+        display: selectedProject ? 'none' : 'flex',
         flexDirection: 'column',
         gap: '1.5rem',
         opacity: 0,
@@ -933,97 +936,682 @@ export default function DesignerPortfolio() {
           </div>
         )}
 
-        {selectedProject && (
+        {activeSection === 'work' && selectedProject && (
           <div style={{
             width: '100%',
-            maxWidth: '800px',
-            textAlign: 'center',
-            opacity: 0,
-            animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-          }}>
-            <button
-              onClick={() => setSelectedProject(null)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
-                cursor: 'pointer',
-                marginBottom: '2rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                transition: 'color 0.3s ease',
-                fontFamily: '"Space Mono", monospace',
-                letterSpacing: '0.05em'
-              }}
-              onMouseEnter={(e) => e.target.style.color = '#ffffff'}
-              onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
-            >
-              {t.work.backButton}
-            </button>
-
+            height: '100%',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            padding: 'clamp(2rem, 4vw, 3rem)',
+            paddingTop: 'clamp(5rem, 10vh, 7rem)',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+          className="hide-scrollbar"
+          >
             <div style={{
-              width: '100%',
-              aspectRatio: '16/10',
-              background: `linear-gradient(135deg, ${selectedProject.color}40, ${selectedProject.color}20)`,
-              borderRadius: '20px',
-              marginBottom: '2rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: `2px solid ${selectedProject.color}60`,
-              backdropFilter: 'blur(20px)'
+              maxWidth: '1200px',
+              margin: '0 auto'
             }}>
+              {/* Header with back button */}
               <div style={{
-                fontSize: 'clamp(3rem, 8vw, 5rem)',
-                color: 'rgba(255,255,255,0.3)',
-                fontWeight: 900,
-                fontFamily: '"Archivo Black", sans-serif'
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '3rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
               }}>
-                {selectedProject.title}
-              </div>
-            </div>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  style={{
+                    background: 'rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    color: '#ffffff',
+                    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+                    cursor: 'pointer',
+                    padding: '0.8rem 1.5rem',
+                    borderRadius: '50px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    transition: 'all 0.3s ease',
+                    fontFamily: '"Space Mono", monospace',
+                    letterSpacing: '0.05em'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'rgba(255,255,255,0.2)';
+                    e.target.style.transform = 'translateX(-5px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255,255,255,0.1)';
+                    e.target.style.transform = 'translateX(0)';
+                  }}
+                >
+                  ← {t.work.backButton}
+                </button>
 
-            <h2 style={{
-              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-              color: '#ffffff',
-              margin: '0 0 1.5rem 0',
-              fontWeight: 900,
-              fontFamily: '"Archivo Black", sans-serif'
-            }}>
-              {selectedProject.title}
-            </h2>
-
-            <p style={{
-              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-              color: 'rgba(255,255,255,0.8)',
-              lineHeight: 1.7,
-              marginBottom: '2rem',
-              fontFamily: '"Inter", sans-serif'
-            }}>
-              {selectedProject.description}
-            </p>
-
-            <div style={{
-              display: 'flex',
-              gap: '1rem',
-              justifyContent: 'center',
-              flexWrap: 'wrap'
-            }}>
-              {t.work.skills.map((skill) => (
-                <span key={skill} style={{
-                  padding: '0.6rem 1.2rem',
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '30px',
-                  fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
-                  color: 'rgba(255,255,255,0.8)',
+                <div style={{
+                  fontSize: 'clamp(0.8rem, 1.3vw, 0.9rem)',
+                  color: 'rgba(255,255,255,0.5)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
                   fontFamily: '"Space Mono", monospace'
                 }}>
-                  {skill}
-                </span>
-              ))}
+                  {selectedProject.category} · {selectedProject.year}
+                </div>
+              </div>
+
+              {/* Project title */}
+              <h1 style={{
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                color: '#ffffff',
+                margin: '0 0 1rem 0',
+                fontWeight: 900,
+                fontFamily: '"Archivo Black", sans-serif',
+                lineHeight: 1.1,
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards'
+              }}>
+                {selectedProject.title}
+              </h1>
+
+              {/* Project description */}
+              <p style={{
+                fontSize: 'clamp(1.1rem, 2.2vw, 1.4rem)',
+                color: 'rgba(255,255,255,0.8)',
+                lineHeight: 1.7,
+                marginBottom: '3rem',
+                maxWidth: '800px',
+                fontFamily: '"Inter", sans-serif',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards'
+              }}>
+                {selectedProject.description}
+              </p>
+
+              {/* Hero image */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '16/9',
+                background: `linear-gradient(135deg, ${selectedProject.color}60, ${selectedProject.color}20)`,
+                borderRadius: '20px',
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: `2px solid ${selectedProject.color}80`,
+                backdropFilter: 'blur(20px)',
+                position: 'relative',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards'
+              }}>
+                <div style={{
+                  fontSize: 'clamp(4rem, 10vw, 8rem)',
+                  color: 'rgba(255,255,255,0.2)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif'
+                }}>
+                  {selectedProject.title}
+                </div>
+                
+                {/* Decorative gradient overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: `radial-gradient(circle at 30% 30%, ${selectedProject.color}40, transparent 50%)`,
+                  pointerEvents: 'none'
+                }} />
+              </div>
+
+              {/* Project details grid */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '2rem',
+                marginBottom: '4rem'
+              }}>
+                {/* Skills section */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards'
+                }}>
+                  <h3 style={{
+                    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+                    color: 'rgba(255,255,255,0.6)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.15em',
+                    marginBottom: '1.5rem',
+                    fontFamily: '"Space Mono", monospace'
+                  }}>
+                    Skills Used
+                  </h3>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.8rem'
+                  }}>
+                    {t.work.skills.map((skill) => (
+                      <div key={skill} style={{
+                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        color: '#ffffff',
+                        fontFamily: '"Inter", sans-serif',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.8rem'
+                      }}>
+                        <span style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: selectedProject.color
+                        }} />
+                        {skill}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Project info */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards'
+                }}>
+                  <h3 style={{
+                    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+                    color: 'rgba(255,255,255,0.6)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.15em',
+                    marginBottom: '1.5rem',
+                    fontFamily: '"Space Mono", monospace'
+                  }}>
+                    Project Details
+                  </h3>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.2rem'
+                  }}>
+                    <div>
+                      <div style={{
+                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        color: 'rgba(255,255,255,0.5)',
+                        marginBottom: '0.3rem',
+                        fontFamily: '"Space Mono", monospace'
+                      }}>
+                        Category
+                      </div>
+                      <div style={{
+                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        color: '#ffffff',
+                        fontFamily: '"Inter", sans-serif'
+                      }}>
+                        {selectedProject.category}
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{
+                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        color: 'rgba(255,255,255,0.5)',
+                        marginBottom: '0.3rem',
+                        fontFamily: '"Space Mono", monospace'
+                      }}>
+                        Year
+                      </div>
+                      <div style={{
+                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        color: '#ffffff',
+                        fontFamily: '"Inter", sans-serif'
+                      }}>
+                        {selectedProject.year}
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{
+                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        color: 'rgba(255,255,255,0.5)',
+                        marginBottom: '0.3rem',
+                        fontFamily: '"Space Mono", monospace'
+                      }}>
+                        Status
+                      </div>
+                      <div style={{
+                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        color: selectedProject.color,
+                        fontFamily: '"Inter", sans-serif',
+                        fontWeight: 600
+                      }}>
+                        Completed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Project Content Sections - Easy to customize */}
+              
+              {/* Section 1: Full-width text */}
+              <div style={{
+                marginBottom: '4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards'
+              }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                  color: '#ffffff',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  marginBottom: '1.5rem',
+                  lineHeight: 1.2
+                }}>
+                  The Challenge
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                  color: 'rgba(255,255,255,0.75)',
+                  lineHeight: 1.8,
+                  fontFamily: '"Inter", sans-serif',
+                  maxWidth: '900px'
+                }}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This is where you can describe the problem you were solving, the client's needs, or the initial context of the project. You can write multiple paragraphs here to give more detail about the background and challenges.
+                </p>
+              </div>
+
+              {/* Section 2: Single large image */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '16/10',
+                background: `linear-gradient(45deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards'
+              }}>
+                <div style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem'
+                }}>
+                  Full Width Image<br/>
+                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>16:10 Aspect Ratio</span>
+                </div>
+              </div>
+
+              {/* Section 3: Text + Image side by side */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '3rem',
+                alignItems: 'center',
+                marginBottom: '4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards'
+              }}>
+                <div>
+                  <h2 style={{
+                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.2rem',
+                    lineHeight: 1.2
+                  }}>
+                    Design Process
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.7,
+                    fontFamily: '"Inter", sans-serif'
+                  }}>
+                    Describe your design process, methodology, or approach here. This section combines text with an image side by side. Perfect for showing your workflow, research findings, or design iterations. Add as much detail as needed to explain your creative decisions.
+                  </p>
+                </div>
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '4/3',
+                  background: `linear-gradient(135deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                  borderRadius: '16px',
+                  border: `1px solid ${selectedProject.color}40`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <div style={{
+                    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center'
+                  }}>
+                    Process Image
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 4: Two images side by side */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '2rem',
+                marginBottom: '4rem'
+              }}>
+                {[1, 2].map((num) => (
+                  <div key={num} style={{
+                    width: '100%',
+                    aspectRatio: '4/3',
+                    background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.0 + num * 0.1}s forwards`
+                  }}>
+                    <div style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Image {num}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Section 5: Image + Text (reversed layout) */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '3rem',
+                alignItems: 'center',
+                marginBottom: '4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards'
+              }}>
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '4/3',
+                  background: `linear-gradient(315deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                  borderRadius: '16px',
+                  border: `1px solid ${selectedProject.color}40`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  order: 1
+                }}>
+                  <div style={{
+                    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center'
+                  }}>
+                    Solution Image
+                  </div>
+                </div>
+                <div style={{ order: 2 }}>
+                  <h2 style={{
+                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.2rem',
+                    lineHeight: 1.2
+                  }}>
+                    The Solution
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.7,
+                    fontFamily: '"Inter", sans-serif'
+                  }}>
+                    Explain the final solution, key features, or implementation details. This layout reverses the image and text placement for visual variety. You can describe the outcomes, results, or impact of your design work here.
+                  </p>
+                </div>
+              </div>
+
+              {/* Section 6: Quote/Highlight block */}
+              <div style={{
+                background: `linear-gradient(135deg, ${selectedProject.color}15, ${selectedProject.color}05)`,
+                border: `2px solid ${selectedProject.color}40`,
+                borderRadius: '20px',
+                padding: 'clamp(2.5rem, 5vw, 4rem)',
+                marginBottom: '4rem',
+                textAlign: 'center',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards'
+              }}>
+                <div style={{
+                  fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+                  color: selectedProject.color,
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  marginBottom: '1rem',
+                  lineHeight: 1.3
+                }}>
+                  "Add a client quote or key insight here"
+                </div>
+                <div style={{
+                  fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
+                  color: 'rgba(255,255,255,0.6)',
+                  fontFamily: '"Inter", sans-serif',
+                  fontStyle: 'italic'
+                }}>
+                  — Client Name or Project Takeaway
+                </div>
+              </div>
+
+              {/* Section 7: Three column grid */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '2rem',
+                marginBottom: '4rem'
+              }}>
+                {[1, 2, 3].map((num) => (
+                  <div key={num} style={{
+                    background: 'rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '16px',
+                    padding: '2rem',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.4 + num * 0.1}s forwards`
+                  }}>
+                    <div style={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '12px',
+                      background: `${selectedProject.color}30`,
+                      border: `2px solid ${selectedProject.color}60`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1.5rem',
+                      fontSize: '1.5rem',
+                      fontWeight: 900,
+                      color: selectedProject.color,
+                      fontFamily: '"Archivo Black", sans-serif'
+                    }}>
+                      {num}
+                    </div>
+                    <h3 style={{
+                      fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      marginBottom: '0.8rem'
+                    }}>
+                      Feature Title {num}
+                    </h3>
+                    <p style={{
+                      fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                      color: 'rgba(255,255,255,0.7)',
+                      lineHeight: 1.6,
+                      fontFamily: '"Inter", sans-serif'
+                    }}>
+                      Describe a key feature, outcome, or metric. This grid works great for highlighting multiple points.
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Section 8: Final full-width image */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '21/9',
+                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
+              }}>
+                <div style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem'
+                }}>
+                  Wide Banner Image<br/>
+                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                </div>
+              </div>
+
+              {/* Section 9: Results/Outcomes */}
+              <div style={{
+                marginBottom: '4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards'
+              }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                  color: '#ffffff',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  marginBottom: '1.5rem',
+                  lineHeight: 1.2
+                }}>
+                  Results & Impact
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                  color: 'rgba(255,255,255,0.75)',
+                  lineHeight: 1.8,
+                  fontFamily: '"Inter", sans-serif',
+                  maxWidth: '900px',
+                  marginBottom: '2rem'
+                }}>
+                  Share the outcomes, learnings, or metrics from the project. What impact did your design have? What would you do differently next time? This final text section wraps up the project story.
+                </p>
+                
+                {/* Metrics grid */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                  gap: '2rem',
+                  marginTop: '2rem'
+                }}>
+                  {[
+                    { value: '150%', label: 'User Growth' },
+                    { value: '85%', label: 'Satisfaction' },
+                    { value: '40%', label: 'Faster Tasks' }
+                  ].map((metric, i) => (
+                    <div key={i} style={{ textAlign: 'center' }}>
+                      <div style={{
+                        fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                        fontWeight: 900,
+                        color: selectedProject.color,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        marginBottom: '0.5rem'
+                      }}>
+                        {metric.value}
+                      </div>
+                      <div style={{
+                        fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                        color: 'rgba(255,255,255,0.6)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontFamily: '"Space Mono", monospace'
+                      }}>
+                        {metric.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom navigation */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop: '2rem',
+                paddingBottom: '4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards'
+              }}>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  style={{
+                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                    fontWeight: 600,
+                    padding: 'clamp(1rem, 2vw, 1.2rem) clamp(2.5rem, 5vw, 3.5rem)',
+                    border: `2px solid ${selectedProject.color}`,
+                    background: `${selectedProject.color}20`,
+                    color: '#ffffff',
+                    cursor: 'pointer',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '50px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    transition: 'all 0.3s ease',
+                    fontFamily: '"Space Mono", monospace'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = selectedProject.color;
+                    e.target.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = `${selectedProject.color}20`;
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  Back to Projects
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1238,6 +1826,16 @@ export default function DesignerPortfolio() {
 
         button {
           font-family: inherit;
+        }
+
+        /* Hide scrollbar for project page */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </div>
