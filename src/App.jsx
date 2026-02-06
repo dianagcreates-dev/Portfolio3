@@ -1113,7 +1113,7 @@ export default function DesignerPortfolio() {
               {[
                 { label: t.contact.email, value: 'dianagcreates@mail.com' },
                 { label: t.contact.linkedin, value: 'linkedin.com/in/dianagcreates' },
-                { label: t.Current.Location, value: 'Brandenburg' }
+                { label: t.Current.Location, value: 'Brandenburg' },
               ].map((item, i) => (
                 <div key={item.label} style={{
                   padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
