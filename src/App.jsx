@@ -84,7 +84,7 @@ const translations = {
     },
     about: {
       title: 'Design-Philosophie',
-      description: 'Ich glaube, dass großartiges Design unsichtbar ist – es schreit nicht nach Aufmerksamkeit, es verdient sie. Jedes Pixel dient einem Zweck. Jede Interaktion erzählt eine Geschichte. Meine Arbeit überbrückt die Lücke zwischen Nutzerbedürfnissen und Geschäftszielen und schafft Erlebnisse, die mühelos und dennoch bewusst wirken.',
+      description: 'Meine Arbeit bewegt sich an der Schittstelle von Design,Technologie und Emotion- mit Fokus auf durchdachte UX,elegante UI und sinnvolle KI-Integration',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
       skillLabel: 'Kernfokus'
     },
