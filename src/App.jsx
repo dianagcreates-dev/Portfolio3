@@ -37,7 +37,7 @@ const translations = {
         title: "Palmi",
         category: "AI Product Design",
         year: "2026",
-        description: "Helping Parents Understand  their Child’s Emotions",
+        description: "Helping Parents Understand  their Child's Emotions",
         color: "#6366F1"
       },
       {
@@ -624,24 +624,6 @@ export default function DesignerPortfolio() {
               justifyContent: 'flex-end'
             }}
           >
-            <div
-              className="nav-label"
-              style={{
-                fontSize: '0.75rem',
-                color: '#ffffff',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                fontWeight: 600,
-                opacity: activeSection === item.id ? '1' : '0',
-                transform: activeSection === item.id ? 'translateX(0)' : 'translateX(10px)',
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                fontFamily: '"Space Mono", monospace'
-              }}
-            >
-              {item.label}
-            </div>
-            
             <div style={{
               position: 'relative',
               width: '12px',
@@ -988,7 +970,7 @@ export default function DesignerPortfolio() {
                     e.target.style.transform = 'translateX(0)';
                   }}
                 >
-                  ← {t.work.backButton}
+                  {t.work.backButton}
                 </button>
 
                 <div style={{
@@ -1030,13 +1012,13 @@ export default function DesignerPortfolio() {
                 {selectedProject.description}
               </p>
 
-              {/* Hero image */}
+              {/* Full width image */}
               <div style={{
                 width: '100%',
                 aspectRatio: '16/9',
                 background: `linear-gradient(135deg, ${selectedProject.color}60, ${selectedProject.color}20)`,
                 borderRadius: '20px',
-                marginBottom: '4rem',
+                marginBottom: '2rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -1068,11 +1050,11 @@ export default function DesignerPortfolio() {
                 }} />
               </div>
 
-              {/* Project details grid */}
+              {/* Project details grid - compact */}
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '2rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '1.5rem',
                 marginBottom: '4rem'
               }}>
                 {/* Skills section */}
@@ -1080,17 +1062,17 @@ export default function DesignerPortfolio() {
                   background: 'rgba(255,255,255,0.05)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px',
-                  padding: '2rem',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
                   opacity: 0,
                   animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards'
                 }}>
                   <h3 style={{
-                    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+                    fontSize: 'clamp(0.75rem, 1.3vw, 0.85rem)',
                     color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em',
-                    marginBottom: '1.5rem',
+                    marginBottom: '1rem',
                     fontFamily: '"Space Mono", monospace'
                   }}>
                     Skills Used
@@ -1098,20 +1080,20 @@ export default function DesignerPortfolio() {
                   <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.8rem'
+                    gap: '0.6rem'
                   }}>
                     {t.work.skills.map((skill) => (
                       <div key={skill} style={{
-                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
                         color: '#ffffff',
                         fontFamily: '"Inter", sans-serif',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.8rem'
+                        gap: '0.6rem'
                       }}>
                         <span style={{
-                          width: '6px',
-                          height: '6px',
+                          width: '5px',
+                          height: '5px',
                           borderRadius: '50%',
                           background: selectedProject.color
                         }} />
@@ -1126,17 +1108,17 @@ export default function DesignerPortfolio() {
                   background: 'rgba(255,255,255,0.05)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px',
-                  padding: '2rem',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
                   opacity: 0,
                   animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards'
                 }}>
                   <h3 style={{
-                    fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+                    fontSize: 'clamp(0.75rem, 1.3vw, 0.85rem)',
                     color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em',
-                    marginBottom: '1.5rem',
+                    marginBottom: '1rem',
                     fontFamily: '"Space Mono", monospace'
                   }}>
                     Project Details
@@ -1144,19 +1126,19 @@ export default function DesignerPortfolio() {
                   <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '1.2rem'
+                    gap: '0.8rem'
                   }}>
                     <div>
                       <div style={{
-                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)',
                         color: 'rgba(255,255,255,0.5)',
-                        marginBottom: '0.3rem',
+                        marginBottom: '0.2rem',
                         fontFamily: '"Space Mono", monospace'
                       }}>
                         Category
                       </div>
                       <div style={{
-                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
                         color: '#ffffff',
                         fontFamily: '"Inter", sans-serif'
                       }}>
@@ -1165,15 +1147,15 @@ export default function DesignerPortfolio() {
                     </div>
                     <div>
                       <div style={{
-                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)',
                         color: 'rgba(255,255,255,0.5)',
-                        marginBottom: '0.3rem',
+                        marginBottom: '0.2rem',
                         fontFamily: '"Space Mono", monospace'
                       }}>
                         Year
                       </div>
                       <div style={{
-                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
                         color: '#ffffff',
                         fontFamily: '"Inter", sans-serif'
                       }}>
@@ -1182,15 +1164,15 @@ export default function DesignerPortfolio() {
                     </div>
                     <div>
                       <div style={{
-                        fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                        fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)',
                         color: 'rgba(255,255,255,0.5)',
-                        marginBottom: '0.3rem',
+                        marginBottom: '0.2rem',
                         fontFamily: '"Space Mono", monospace'
                       }}>
                         Status
                       </div>
                       <div style={{
-                        fontSize: 'clamp(1rem, 1.8vw, 1.1rem)',
+                        fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
                         color: selectedProject.color,
                         fontFamily: '"Inter", sans-serif',
                         fontWeight: 600
@@ -1254,9 +1236,42 @@ export default function DesignerPortfolio() {
                   textAlign: 'center',
                   padding: '2rem'
                 }}>
-                  Full Width Image<br/>
+                  Process Image 1<br/>
                   <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>16:10 Aspect Ratio</span>
                 </div>
+              </div>
+
+              {/* Section 2b: Three images in a row */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '1.5rem',
+                marginBottom: '4rem'
+              }}>
+                {[1, 2, 3].map((num) => (
+                  <div key={num} style={{
+                    width: '100%',
+                    aspectRatio: '4/3',
+                    background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`
+                  }}>
+                    <div style={{
+                      fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Process {num}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               {/* Section 3: Text + Image side by side */}
@@ -1267,7 +1282,7 @@ export default function DesignerPortfolio() {
                 alignItems: 'center',
                 marginBottom: '4rem',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards'
               }}>
                 <div>
                   <h2 style={{
@@ -1311,6 +1326,34 @@ export default function DesignerPortfolio() {
                 </div>
               </div>
 
+              {/* Section 3b: Full width process image */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '21/9',
+                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.25s forwards'
+              }}>
+                <div style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem'
+                }}>
+                  Wide Process Image<br/>
+                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                </div>
+              </div>
+
               {/* Section 4: Two images side by side */}
               <div style={{
                 display: 'grid',
@@ -1329,7 +1372,7 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.0 + num * 0.1}s forwards`
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.35 + num * 0.1}s forwards`
                   }}>
                     <div style={{
                       fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
@@ -1338,10 +1381,42 @@ export default function DesignerPortfolio() {
                       fontFamily: '"Archivo Black", sans-serif',
                       textAlign: 'center'
                     }}>
-                      Image {num}
+                      Detail {num}
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Section 4b: Single portrait image */}
+              <div style={{
+                maxWidth: '600px',
+                margin: '0 auto 4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.55s forwards'
+              }}>
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '3/4',
+                  background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                  borderRadius: '20px',
+                  border: `1px solid ${selectedProject.color}50`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Portrait Image<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Aspect Ratio</span>
+                  </div>
+                </div>
               </div>
 
               {/* Section 5: Image + Text (reversed layout) */}
@@ -1483,7 +1558,40 @@ export default function DesignerPortfolio() {
                 ))}
               </div>
 
-              {/* Section 8: Final full-width image */}
+              {/* Section 8: Four image grid */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '2rem',
+                marginBottom: '4rem'
+              }}>
+                {[1, 2, 3, 4].map((num) => (
+                  <div key={num} style={{
+                    width: '100%',
+                    aspectRatio: '1/1',
+                    background: `linear-gradient(${num * 90}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.7 + num * 0.08}s forwards`
+                  }}>
+                    <div style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Screen {num}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Section 9: Final full-width image */}
               <div style={{
                 width: '100%',
                 aspectRatio: '21/9',
@@ -1496,7 +1604,7 @@ export default function DesignerPortfolio() {
                 justifyContent: 'center',
                 overflow: 'hidden',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.02s forwards'
               }}>
                 <div style={{
                   fontSize: 'clamp(2rem, 5vw, 3.5rem)',
@@ -1506,16 +1614,16 @@ export default function DesignerPortfolio() {
                   textAlign: 'center',
                   padding: '2rem'
                 }}>
-                  Wide Banner Image<br/>
+                  Final Mockup<br/>
                   <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
                 </div>
               </div>
 
-              {/* Section 9: Results/Outcomes */}
+              {/* Section 10: Results/Outcomes */}
               <div style={{
                 marginBottom: '4rem',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.1s forwards'
               }}>
                 <h2 style={{
                   fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
