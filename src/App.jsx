@@ -804,6 +804,30 @@ export default function DesignerPortfolio() {
     };
   }, [activeSection, isScrolling, selectedProject]);
 
+  // Audio visualization loop
+  useEffect(() => {
+    if (!isPlaying || !analyzerRef.current || !dataArrayRef.current) {
+      return;
+    }
+
+    let animationId;
+    const visualize = () => {
+      if (analyzerRef.current && dataArrayRef.current) {
+        analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
+        setFrequencyData([...dataArrayRef.current]);
+      }
+      animationId = requestAnimationFrame(visualize);
+    };
+    
+    visualize();
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [isPlaying]);
+
   // Initialize audio analyzer
   const initializeAudioAnalyzer = () => {
     if (!audioContextRef.current && audioRef.current) {
@@ -827,36 +851,17 @@ export default function DesignerPortfolio() {
     }
   };
 
-  // Start visualization loop
-  const startVisualization = () => {
-    const visualize = () => {
-      if (!isPlaying || !analyzerRef.current || !dataArrayRef.current) {
-        return;
-      }
-      
-      analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
-      setFrequencyData([...dataArrayRef.current]);
-      
-      animationIdRef.current = requestAnimationFrame(visualize);
-    };
-    visualize();
-  };
-
   // Toggle audio play/pause
   const toggleAudio = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
         setIsPlaying(false);
-        if (animationIdRef.current) {
-          cancelAnimationFrame(animationIdRef.current);
-        }
       } else {
         initializeAudioAnalyzer();
         
         audioRef.current.play().then(() => {
           setIsPlaying(true);
-          startVisualization();
         }).catch(err => {
           console.log('Audio play failed:', err);
         });
@@ -976,7 +981,6 @@ export default function DesignerPortfolio() {
               initializeAudioAnalyzer();
               audioRef.current.play().then(() => {
                 setIsPlaying(true);
-                startVisualization();
               }).catch(err => {
                 console.log('Audio play failed:', err);
               });
