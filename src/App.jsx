@@ -40,7 +40,24 @@ const translations = {
         category: "AI Product Design",
         year: "2026",
         description: "Helping Parents Understand  their Child's Emotions",
-        color: "#6366F1"
+        color: "#6366F1",
+        images: {
+          hero: "/images/palmi/hero.jpg",              // 1920x1200px (16:10)
+          process1: "/images/palmi/process1.jpg",      // 1920x1200px (16:10)
+          process2: "/images/palmi/process2.jpg",      // 800x600px (4:3)
+          process3: "/images/palmi/process3.jpg",      // 800x600px (4:3)
+          process4: "/images/palmi/process4.jpg",      // 800x600px (4:3)
+          processWide: "/images/palmi/process-wide.jpg", // 2100x900px (21:9)
+          detail1: "/images/palmi/detail1.jpg",        // 800x600px (4:3)
+          detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
+          portrait: "/images/palmi/portrait.jpg",      // 600x800px (3:4)
+          solution: "/images/palmi/solution.jpg",      // 800x600px (4:3)
+          screen1: "/images/palmi/screen1.jpg",        // 800x800px (1:1)
+          screen2: "/images/palmi/screen2.jpg",        // 800x800px (1:1)
+          screen3: "/images/palmi/screen3.jpg",        // 800x800px (1:1)
+          screen4: "/images/palmi/screen4.jpg",        // 800x800px (1:1)
+          final: "/images/palmi/final.jpg"             // 2100x900px (21:9)
+        }
       },
       {
         id: 2,
@@ -48,7 +65,24 @@ const translations = {
         category: "Digital Experience ",
         year: "2025",
         description: "Digital Business Card",
-        color: "#EC4899"
+        color: "#EC4899",
+        images: {
+          hero: "/images/synkro/hero.jpg",
+          process1: "/images/synkro/process1.jpg",
+          process2: "/images/synkro/process2.jpg",
+          process3: "/images/synkro/process3.jpg",
+          process4: "/images/synkro/process4.jpg",
+          processWide: "/images/synkro/process-wide.jpg",
+          detail1: "/images/synkro/detail1.jpg",
+          detail2: "/images/synkro/detail2.jpg",
+          portrait: "/images/synkro/portrait.jpg",
+          solution: "/images/synkro/solution.jpg",
+          screen1: "/images/synkro/screen1.jpg",
+          screen2: "/images/synkro/screen2.jpg",
+          screen3: "/images/synkro/screen3.jpg",
+          screen4: "/images/synkro/screen4.jpg",
+          final: "/images/synkro/final.jpg"
+        }
       },
       {
         id: 3,
@@ -56,7 +90,24 @@ const translations = {
         category: "Graphic Design",
         year: "2024",
         description: "Product Post Design",
-        color: "#F59E0B"
+        color: "#F59E0B",
+        images: {
+          hero: "/images/social-media/hero.jpg",
+          process1: "/images/social-media/process1.jpg",
+          process2: "/images/social-media/process2.jpg",
+          process3: "/images/social-media/process3.jpg",
+          process4: "/images/social-media/process4.jpg",
+          processWide: "/images/social-media/process-wide.jpg",
+          detail1: "/images/social-media/detail1.jpg",
+          detail2: "/images/social-media/detail2.jpg",
+          portrait: "/images/social-media/portrait.jpg",
+          solution: "/images/social-media/solution.jpg",
+          screen1: "/images/social-media/screen1.jpg",
+          screen2: "/images/social-media/screen2.jpg",
+          screen3: "/images/social-media/screen3.jpg",
+          screen4: "/images/social-media/screen4.jpg",
+          final: "/images/social-media/final.jpg"
+        }
       },
       {
         id: 4,
@@ -64,7 +115,24 @@ const translations = {
         category: "Mobile App",
         year: "2023",
         description: "Augmented Reality Greeting Cards",
-        color: "#10B981"
+        color: "#10B981",
+        images: {
+          hero: "/images/magi/hero.jpg",
+          process1: "/images/magi/process1.jpg",
+          process2: "/images/magi/process2.jpg",
+          process3: "/images/magi/process3.jpg",
+          process4: "/images/magi/process4.jpg",
+          processWide: "/images/magi/process-wide.jpg",
+          detail1: "/images/magi/detail1.jpg",
+          detail2: "/images/magi/detail2.jpg",
+          portrait: "/images/magi/portrait.jpg",
+          solution: "/images/magi/solution.jpg",
+          screen1: "/images/magi/screen1.jpg",
+          screen2: "/images/magi/screen2.jpg",
+          screen3: "/images/magi/screen3.jpg",
+          screen4: "/images/magi/screen4.jpg",
+          final: "/images/magi/final.jpg"
+        }
       }
     ]
   },
@@ -106,7 +174,24 @@ const translations = {
         category: "AI Produktdesign",
         year: "2026",
         description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
-        color: "#6366F1"
+        color: "#6366F1",
+        images: {
+          hero: "/images/palmi/hero.jpg",
+          process1: "/images/palmi/process1.jpg",
+          process2: "/images/palmi/process2.jpg",
+          process3: "/images/palmi/process3.jpg",
+          process4: "/images/palmi/process4.jpg",
+          processWide: "/images/palmi/process-wide.jpg",
+          detail1: "/images/palmi/detail1.jpg",
+          detail2: "/images/palmi/detail2.jpg",
+          portrait: "/images/palmi/portrait.jpg",
+          solution: "/images/palmi/solution.jpg",
+          screen1: "/images/palmi/screen1.jpg",
+          screen2: "/images/palmi/screen2.jpg",
+          screen3: "/images/palmi/screen3.jpg",
+          screen4: "/images/palmi/screen4.jpg",
+          final: "/images/palmi/final.jpg"
+        }
       },
       {
         id: 2,
@@ -114,7 +199,24 @@ const translations = {
         category: "digitales Erlebnis",
         year: "2025",
         description: "Digitale Visitenkarte",
-        color: "#EC4899"
+        color: "#EC4899",
+        images: {
+          hero: "/images/synkro/hero.jpg",
+          process1: "/images/synkro/process1.jpg",
+          process2: "/images/synkro/process2.jpg",
+          process3: "/images/synkro/process3.jpg",
+          process4: "/images/synkro/process4.jpg",
+          processWide: "/images/synkro/process-wide.jpg",
+          detail1: "/images/synkro/detail1.jpg",
+          detail2: "/images/synkro/detail2.jpg",
+          portrait: "/images/synkro/portrait.jpg",
+          solution: "/images/synkro/solution.jpg",
+          screen1: "/images/synkro/screen1.jpg",
+          screen2: "/images/synkro/screen2.jpg",
+          screen3: "/images/synkro/screen3.jpg",
+          screen4: "/images/synkro/screen4.jpg",
+          final: "/images/synkro/final.jpg"
+        }
       },
       {
         id: 3,
@@ -122,7 +224,24 @@ const translations = {
         category: "Grafikdesign",
         year: "2024",
         description: "Produkt-Post-Design",
-        color: "#F59E0B"
+        color: "#F59E0B",
+        images: {
+          hero: "/images/social-media/hero.jpg",
+          process1: "/images/social-media/process1.jpg",
+          process2: "/images/social-media/process2.jpg",
+          process3: "/images/social-media/process3.jpg",
+          process4: "/images/social-media/process4.jpg",
+          processWide: "/images/social-media/process-wide.jpg",
+          detail1: "/images/social-media/detail1.jpg",
+          detail2: "/images/social-media/detail2.jpg",
+          portrait: "/images/social-media/portrait.jpg",
+          solution: "/images/social-media/solution.jpg",
+          screen1: "/images/social-media/screen1.jpg",
+          screen2: "/images/social-media/screen2.jpg",
+          screen3: "/images/social-media/screen3.jpg",
+          screen4: "/images/social-media/screen4.jpg",
+          final: "/images/social-media/final.jpg"
+        }
       },
       {
         id: 4,
@@ -130,7 +249,24 @@ const translations = {
         category: "Mobile Anwendung",
         year: "2023",
         description: "Grußkarten mit erweiterter Realität",
-        color: "#10B981"
+        color: "#10B981",
+        images: {
+          hero: "/images/magi/hero.jpg",
+          process1: "/images/magi/process1.jpg",
+          process2: "/images/magi/process2.jpg",
+          process3: "/images/magi/process3.jpg",
+          process4: "/images/magi/process4.jpg",
+          processWide: "/images/magi/process-wide.jpg",
+          detail1: "/images/magi/detail1.jpg",
+          detail2: "/images/magi/detail2.jpg",
+          portrait: "/images/magi/portrait.jpg",
+          solution: "/images/magi/solution.jpg",
+          screen1: "/images/magi/screen1.jpg",
+          screen2: "/images/magi/screen2.jpg",
+          screen3: "/images/magi/screen3.jpg",
+          screen4: "/images/magi/screen4.jpg",
+          final: "/images/magi/final.jpg"
+        }
       }
     ]
   }
@@ -1202,22 +1338,25 @@ export default function DesignerPortfolio() {
                 overflow: 'hidden',
                 opacity: 0,
                 animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards',
+                backgroundImage: selectedProject.images?.hero ? `url(${selectedProject.images.hero})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}>
-                {/* Placeholder text - will be hidden when you add background image */}
-                <div style={{
-                  fontSize: 'clamp(3rem, 8vw, 6rem)',
-                  color: 'rgba(255,255,255,0.15)',
-                  fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif',
-                  textAlign: 'center',
-                  padding: '2rem',
-                  zIndex: 1
-                }}>
-                  Hero Image
-                </div>
+                {/* Placeholder text - only shows if no image */}
+                {!selectedProject.images?.hero && (
+                  <div style={{
+                    fontSize: 'clamp(3rem, 8vw, 6rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem',
+                    zIndex: 1
+                  }}>
+                    Hero Image
+                  </div>
+                )}
                 
                 {/* Decorative gradient overlay */}
                 <div style={{
@@ -1407,19 +1546,25 @@ export default function DesignerPortfolio() {
                 justifyContent: 'center',
                 overflow: 'hidden',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards',
+                backgroundImage: selectedProject.images?.process1 ? `url(${selectedProject.images.process1})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
               }}>
-                <div style={{
-                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                  color: 'rgba(255,255,255,0.15)',
-                  fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif',
-                  textAlign: 'center',
-                  padding: '2rem'
-                }}>
-                  Process Image 1<br/>
-                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>16:10 Aspect Ratio</span>
-                </div>
+                {!selectedProject.images?.process1 && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Process Image 1<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>16:10 Aspect Ratio</span>
+                  </div>
+                )}
               </div>
 
               {/* Section 2b: Three images in a row */}
@@ -1429,7 +1574,7 @@ export default function DesignerPortfolio() {
                 gap: '1.5rem',
                 marginBottom: '4rem'
               }}>
-                {[1, 2, 3].map((num) => (
+                {[2, 3, 4].map((num) => (
                   <div key={num} style={{
                     width: '100%',
                     aspectRatio: '4/3',
@@ -1440,17 +1585,24 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`,
+                    backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{
-                      fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                      color: 'rgba(255,255,255,0.15)',
-                      fontWeight: 900,
-                      fontFamily: '"Archivo Black", sans-serif',
-                      textAlign: 'center'
-                    }}>
-                      Process {num}
-                    </div>
+                    {!selectedProject.images?.[`process${num}`] && (
+                      <div style={{
+                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Process {num}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1520,19 +1672,25 @@ export default function DesignerPortfolio() {
                 justifyContent: 'center',
                 overflow: 'hidden',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.25s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.25s forwards',
+                backgroundImage: selectedProject.images?.processWide ? `url(${selectedProject.images.processWide})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
               }}>
-                <div style={{
-                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                  color: 'rgba(255,255,255,0.15)',
-                  fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif',
-                  textAlign: 'center',
-                  padding: '2rem'
-                }}>
-                  Wide Process Image<br/>
-                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
-                </div>
+                {!selectedProject.images?.processWide && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Wide Process Image<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                  </div>
+                )}
               </div>
 
               {/* Section 4: Two images side by side */}
@@ -1553,17 +1711,24 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.35 + num * 0.1}s forwards`
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.35 + num * 0.1}s forwards`,
+                    backgroundImage: selectedProject.images?.[`detail${num}`] ? `url(${selectedProject.images[`detail${num}`]})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{
-                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                      color: 'rgba(255,255,255,0.15)',
-                      fontWeight: 900,
-                      fontFamily: '"Archivo Black", sans-serif',
-                      textAlign: 'center'
-                    }}>
-                      Detail {num}
-                    </div>
+                    {!selectedProject.images?.[`detail${num}`] && (
+                      <div style={{
+                        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Detail {num}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1584,19 +1749,25 @@ export default function DesignerPortfolio() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  backgroundImage: selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
                 }}>
-                  <div style={{
-                    fontSize: 'clamp(2rem, 5vw, 3rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem'
-                  }}>
-                    Portrait Image<br/>
-                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Aspect Ratio</span>
-                  </div>
+                  {!selectedProject.images?.portrait && (
+                    <div style={{
+                      fontSize: 'clamp(2rem, 5vw, 3rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center',
+                      padding: '2rem'
+                    }}>
+                      Portrait Image<br/>
+                      <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Aspect Ratio</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -1619,17 +1790,24 @@ export default function DesignerPortfolio() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  order: 1
+                  order: 1,
+                  backgroundImage: selectedProject.images?.solution ? `url(${selectedProject.images.solution})` : 'none',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  overflow: 'hidden'
                 }}>
-                  <div style={{
-                    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center'
-                  }}>
-                    Solution Image
-                  </div>
+                  {!selectedProject.images?.solution && (
+                    <div style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Solution Image
+                    </div>
+                  )}
                 </div>
                 <div style={{ order: 2 }}>
                   <h2 style={{
@@ -1757,17 +1935,24 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.7 + num * 0.08}s forwards`
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.7 + num * 0.08}s forwards`,
+                    backgroundImage: selectedProject.images?.[`screen${num}`] ? `url(${selectedProject.images[`screen${num}`]})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-                      color: 'rgba(255,255,255,0.15)',
-                      fontWeight: 900,
-                      fontFamily: '"Archivo Black", sans-serif',
-                      textAlign: 'center'
-                    }}>
-                      Screen {num}
-                    </div>
+                    {!selectedProject.images?.[`screen${num}`] && (
+                      <div style={{
+                        fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Screen {num}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1785,19 +1970,25 @@ export default function DesignerPortfolio() {
                 justifyContent: 'center',
                 overflow: 'hidden',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.02s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.02s forwards',
+                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
               }}>
-                <div style={{
-                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                  color: 'rgba(255,255,255,0.15)',
-                  fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif',
-                  textAlign: 'center',
-                  padding: '2rem'
-                }}>
-                  Final Mockup<br/>
-                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
-                </div>
+                {!selectedProject.images?.final && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Final Mockup<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                  </div>
+                )}
               </div>
 
               {/* Section 10: Results/Outcomes */}
