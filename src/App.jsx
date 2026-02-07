@@ -1529,7 +1529,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Inter", sans-serif',
                   maxWidth: '900px'
                 }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This is where you can describe the problem you were solving, the client's needs, or the initial context of the project. You can write multiple paragraphs here to give more detail about the background and challenges.
+                  Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.
                 </p>
               </div>
 
