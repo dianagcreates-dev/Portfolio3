@@ -1877,6 +1877,55 @@ export default function DesignerPortfolio() {
                 }}>
                   {selectedProject.content?.challenge || "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap."}
                 </p>
+                
+                {/* Loading bar statistic */}
+                <div style={{
+                  marginTop: '2.5rem',
+                  maxWidth: '600px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '0.8rem'
+                  }}>
+                    <span style={{
+                      fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
+                      color: 'rgba(255,255,255,0.9)',
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 600
+                    }}>
+                      Children under 10 struggle to name complex emotions
+                    </span>
+                    <span style={{
+                      fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                      color: '#ffffff',
+                      fontFamily: '"Archivo Black", sans-serif',
+                      fontWeight: 900
+                    }}>
+                      70%
+                    </span>
+                  </div>
+                  <div style={{
+                    width: '100%',
+                    height: '12px',
+                    background: 'rgba(255,255,255,0.1)',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
+                    <div style={{
+                      width: '70%',
+                      height: '100%',
+                      background: `linear-gradient(90deg, ${selectedProject.color}, ${selectedProject.color}cc)`,
+                      borderRadius: '10px',
+                      position: 'relative',
+                      animation: 'loadBar 1.5s ease-out 0.5s forwards',
+                      transformOrigin: 'left',
+                      boxShadow: `0 0 20px ${selectedProject.color}80`
+                    }} />
+                  </div>
+                </div>
               </div>
 
               {/* Section 2: Single large image */}
@@ -2743,6 +2792,15 @@ export default function DesignerPortfolio() {
           50% {
             opacity: 0.5;
             transform: translate(-50%, -50%) scale(1.2);
+          }
+        }
+
+        @keyframes loadBar {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
           }
         }
 
