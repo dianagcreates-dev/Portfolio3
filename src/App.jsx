@@ -148,6 +148,8 @@ export default function DesignerPortfolio() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
+  const [carouselRotation, setCarouselRotation] = useState(0);
+  const carouselAnimationRef = useRef(null);
  
 
   // Get current translations
@@ -347,6 +349,32 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
+  // Carousel rotation animation
+  useEffect(() => {
+    if (activeSection === 'work' && !selectedProject) {
+      let animationId;
+      const rotationSpeed = 360 / 30000; // 360 degrees in 30 seconds
+      let lastTime = Date.now();
+      
+      const animate = () => {
+        const currentTime = Date.now();
+        const deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+        
+        setCarouselRotation(prev => (prev + (deltaTime * rotationSpeed)) % 360);
+        animationId = requestAnimationFrame(animate);
+      };
+      
+      animationId = requestAnimationFrame(animate);
+      
+      return () => {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      };
+    }
+  }, [activeSection, selectedProject]);
+
   // Handle wheel scroll for section navigation
   useEffect(() => {
     const handleWheel = (e) => {
@@ -519,7 +547,7 @@ export default function DesignerPortfolio() {
           letterSpacing: '-0.02em',
           fontFamily: '"Archivo Black", sans-serif'
         }}>
-          DIANA×STUDIO
+          DIANA STUDIO
         </div>
 
         <div style={{
@@ -803,13 +831,15 @@ export default function DesignerPortfolio() {
             animation: 'fadeIn 0.6s ease 0.1s forwards',
             perspective: '2000px'
           }}>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              height: '500px',
-              transformStyle: 'preserve-3d',
-              animation: 'carousel3DRotate 30s linear infinite'
-            }}
+            <div 
+              ref={carouselAnimationRef}
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '500px',
+                transformStyle: 'preserve-3d',
+                transform: `rotateY(${carouselRotation}deg)`
+              }}
             >
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
@@ -835,7 +865,9 @@ export default function DesignerPortfolio() {
                     }}
                   >
                     <div
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => {
+                        setSelectedProject(project);
+                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = `rgba(0,0,0,0.8)`;
                         e.currentTarget.style.border = `2px solid ${project.color}`;
