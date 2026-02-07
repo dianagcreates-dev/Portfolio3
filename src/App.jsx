@@ -33,6 +33,7 @@ const translations = {
       linkedin: 'LinkedIn',
       dribbble: 'Dribbble'
     },
+    
     palmi: {
       challenge: "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.",
       designProcessTitle: "Design Process",
@@ -56,8 +57,7 @@ const translations = {
       ],
       purposeTitle: "Purpose of the Data",
       purposeText: "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."
-    },
-    projects: [
+    },projects: [
       {
         id: 1,
         title: "Palmi",
