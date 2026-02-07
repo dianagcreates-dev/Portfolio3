@@ -33,6 +33,30 @@ const translations = {
       linkedin: 'LinkedIn',
       dribbble: 'Dribbble'
     },
+    palmi: {
+      challenge: "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.",
+      designProcessTitle: "Design Process",
+      designProcessText: "Device objective to bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns.",
+      solutionTitle: "The Solution",
+      solutionText: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
+      highlightQuote: "Palmi - Helping Parents Understand their Child's Emotions",
+      features: [
+        {
+          title: "Facial Expression Tracking",
+          description: "Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data."
+        },
+        {
+          title: "Voice Pattern Analysis",
+          description: "Palmi listens to how something is said, such as tone and rhythm, rather than what is being said, allowing patterns to be understood without capturing speech content."
+        },
+        {
+          title: "Emotional Pattern Insights",
+          description: "Facial and voice cues are combined over time into emotional patterns that parents can view through the app to support a clearer understanding of their child's emotions."
+        }
+      ],
+      purposeTitle: "Purpose of the Data",
+      purposeText: "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."
+    },
     projects: [
       {
         id: 1,
