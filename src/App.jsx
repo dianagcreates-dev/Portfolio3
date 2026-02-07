@@ -519,7 +519,7 @@ export default function DesignerPortfolio() {
           letterSpacing: '-0.02em',
           fontFamily: '"Archivo Black", sans-serif'
         }}>
-          DIANA G.
+          DIANA STUDIO
         </div>
 
         <div style={{
