@@ -783,21 +783,21 @@ export default function DesignerPortfolio() {
                     <div
                       onClick={() => setSelectedProject(project)}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = `rgba(255,255,255,0.2)`;
+                        e.currentTarget.style.background = `rgba(0,0,0,0.8)`;
                         e.currentTarget.style.border = `2px solid ${project.color}`;
                         e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
                         e.currentTarget.style.transform = 'scale(1.05)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                        e.currentTarget.style.border = '1px solid rgba(255,255,255,0.2)';
-                        e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.3)';
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                        e.currentTarget.style.border = '1px solid rgba(255,255,255,0.15)';
+                        e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.2)';
                         e.currentTarget.style.transform = 'scale(1)';
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.1)',
+                        background: 'rgba(255,255,255,0.05)',
                         backdropFilter: 'blur(30px)',
-                        border: '1px solid rgba(255,255,255,0.2)',
+                        border: '1px solid rgba(255,255,255,0.15)',
                         borderRadius: '20px',
                         padding: '2rem',
                         cursor: 'pointer',
@@ -805,7 +805,7 @@ export default function DesignerPortfolio() {
                         position: 'relative',
                         overflow: 'hidden',
                         transformStyle: 'preserve-3d',
-                        boxShadow: '0 10px 50px rgba(0,0,0,0.3)'
+                        boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
                       }}
                     >
                       <div style={{
