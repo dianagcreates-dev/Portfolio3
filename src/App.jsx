@@ -172,7 +172,7 @@ export default function DesignerPortfolio() {
     window.addEventListener('resize', resizeCanvas);
 
     const particles = [];
-    const numParticles = 400;
+    const numParticles = 200;
     for (let i = 0; i < numParticles; i++) {
       const angle = Math.random() * Math.PI * 2;
       const radius = Math.random() * 300;
@@ -201,6 +201,24 @@ export default function DesignerPortfolio() {
       });
     }
 
+    const glowParticles = [];
+    const numGlowParticles = 15;
+    for (let i = 0; i < numGlowParticles; i++) {
+      glowParticles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.5 + 0.8,
+        baseSize: Math.random() * 1.5 + 0.8,
+        speed: Math.random() * 0.3 + 0.1,
+        angle: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.015 + 0.008,
+        pulsePhase: Math.random() * Math.PI * 2,
+        opacity: Math.random() * 0.3 + 0.2,
+        hue: Math.random() * 20 + 45,
+        glowIntensity: Math.random() * 0.4 + 0.4
+      });
+    }
+
     const render = () => {
       timeRef.current += 0.005;
       const time = timeRef.current;
@@ -212,6 +230,41 @@ export default function DesignerPortfolio() {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      glowParticles.forEach((glow) => {
+        glow.pulsePhase += glow.pulseSpeed;
+        const pulse = Math.sin(glow.pulsePhase);
+        glow.size = glow.baseSize + pulse * 0.8;
+        
+        glow.x += Math.cos(glow.angle) * glow.speed;
+        glow.y += Math.sin(glow.angle) * glow.speed;
+
+        if (glow.x < -50) glow.x = width + 50;
+        if (glow.x > width + 50) glow.x = -50;
+        if (glow.y < -50) glow.y = height + 50;
+        if (glow.y > height + 50) glow.y = -50;
+
+        const currentOpacity = glow.opacity * (0.7 + pulse * 0.3);
+
+        const glowGradient = ctx.createRadialGradient(
+          glow.x, glow.y, 0,
+          glow.x, glow.y, glow.size * 12
+        );
+        glowGradient.addColorStop(0, `hsla(${glow.hue}, 85%, 65%, ${currentOpacity * glow.glowIntensity * 0.8})`);
+        glowGradient.addColorStop(0.2, `hsla(${glow.hue}, 75%, 55%, ${currentOpacity * glow.glowIntensity * 0.5})`);
+        glowGradient.addColorStop(0.5, `hsla(${glow.hue}, 65%, 45%, ${currentOpacity * glow.glowIntensity * 0.2})`);
+        glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        ctx.fillStyle = glowGradient;
+        ctx.beginPath();
+        ctx.arc(glow.x, glow.y, glow.size * 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = `hsla(${glow.hue}, 95%, 75%, ${currentOpacity * glow.glowIntensity})`;
+        ctx.beginPath();
+        ctx.arc(glow.x, glow.y, glow.size, 0, Math.PI * 2);
         ctx.fill();
       });
 
@@ -756,7 +809,8 @@ export default function DesignerPortfolio() {
               height: '500px',
               transformStyle: 'preserve-3d',
               animation: 'carousel3DRotate 30s linear infinite'
-            }}>
+            }}
+            >
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
