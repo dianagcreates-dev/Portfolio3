@@ -783,14 +783,16 @@ export default function DesignerPortfolio() {
                     <div
                       onClick={() => setSelectedProject(project)}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = `rgba(255,255,255,0.15)`;
-                        e.currentTarget.style.border = `1px solid ${project.color}90`;
-                        e.currentTarget.style.boxShadow = `0 15px 60px rgba(0,0,0,0.4), 0 0 40px ${project.color}30`;
+                        e.currentTarget.style.background = `rgba(255,255,255,0.2)`;
+                        e.currentTarget.style.border = `2px solid ${project.color}`;
+                        e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
+                        e.currentTarget.style.transform = 'scale(1.05)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
                         e.currentTarget.style.border = '1px solid rgba(255,255,255,0.2)';
                         e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.3)';
+                        e.currentTarget.style.transform = 'scale(1)';
                       }}
                       style={{
                         background: 'rgba(255,255,255,0.1)',
