@@ -306,7 +306,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/palmi/hero.jpg",
+          hero: "/images/palmi/hero.png",
           process1: "/images/palmi/process1.jpg",
           process2: "/images/palmi/process2.jpg",
           process3: "/images/palmi/process3.jpg",
