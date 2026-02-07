@@ -1903,7 +1903,7 @@ export default function DesignerPortfolio() {
                       fontFamily: '"Archivo Black", sans-serif',
                       marginBottom: '0.8rem'
                     }}>
-                      Facial Expression Tracking {num}
+                      Facial Expression Tracking
                     </h3>
                     <p style={{
                       fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
@@ -2005,7 +2005,7 @@ export default function DesignerPortfolio() {
                   marginBottom: '1.5rem',
                   lineHeight: 1.2
                 }}>
-                  Results & Impact
+                  Purpose of the Data
                 </h2>
                 <p style={{
                   fontSize: 'clamp(1rem, 2vw, 1.15rem)',
@@ -2015,7 +2015,7 @@ export default function DesignerPortfolio() {
                   maxWidth: '900px',
                   marginBottom: '2rem'
                 }}>
-                  Share the outcomes, learnings, or metrics from the project. What impact did your design have? What would you do differently next time? This final text section wraps up the project story.
+                  The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.
                 </p>
                 
                 {/* Metrics grid */}
