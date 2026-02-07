@@ -486,6 +486,10 @@ export default function DesignerPortfolio() {
   const timeRef = useRef(0);
   const animationFrameRef = useRef(null);
   const contentRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const analyzerRef = useRef(null);
+  const dataArrayRef = useRef(null);
+  const animationIdRef = useRef(null);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -499,6 +503,7 @@ export default function DesignerPortfolio() {
   const [isHovering, setIsHovering] = useState(false);
   const [mouseTrail, setMouseTrail] = useState([]);
   const mouseTrailRef = useRef([]);
+  const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
  
 
   // Get current translations
@@ -805,9 +810,36 @@ export default function DesignerPortfolio() {
       if (isPlaying) {
         audioRef.current.pause();
         setIsPlaying(false);
+        if (animationIdRef.current) {
+          cancelAnimationFrame(animationIdRef.current);
+        }
       } else {
+        // Initialize audio context and analyzer
+        if (!audioContextRef.current) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioContextRef.current = new AudioContext();
+          analyzerRef.current = audioContextRef.current.createAnalyser();
+          analyzerRef.current.fftSize = 64;
+          const bufferLength = analyzerRef.current.frequencyBinCount;
+          dataArrayRef.current = new Uint8Array(bufferLength);
+          
+          const source = audioContextRef.current.createMediaElementSource(audioRef.current);
+          source.connect(analyzerRef.current);
+          analyzerRef.current.connect(audioContextRef.current.destination);
+        }
+        
         audioRef.current.play().then(() => {
           setIsPlaying(true);
+          // Start visualization loop
+          const visualize = () => {
+            if (!analyzerRef.current || !dataArrayRef.current) return;
+            
+            analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
+            setFrequencyData([...dataArrayRef.current]);
+            
+            animationIdRef.current = requestAnimationFrame(visualize);
+          };
+          visualize();
         }).catch(err => {
           console.log('Audio play failed:', err);
         });
@@ -1123,6 +1155,37 @@ export default function DesignerPortfolio() {
               }} />
             )}
           </button>
+          
+          {/* Frequency Visualizer */}
+          <div style={{
+            display: 'flex',
+            gap: '2px',
+            alignItems: 'flex-end',
+            height: '40px',
+            marginLeft: '1rem',
+            padding: '0 0.5rem'
+          }}>
+            {frequencyData.slice(0, 16).map((value, i) => {
+              const height = isPlaying ? (value / 255) * 30 + 4 : 4;
+              const colors = ['#6366F1', '#EC4899', '#F59E0B', '#10B981'];
+              const color = colors[i % colors.length];
+              
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: '3px',
+                    height: `${height}px`,
+                    background: `linear-gradient(to top, ${color}, rgba(255,255,255,0.8))`,
+                    borderRadius: '2px',
+                    transition: 'height 0.05s ease',
+                    opacity: isPlaying ? 0.9 : 0.3,
+                    boxShadow: isPlaying ? `0 0 8px ${color}` : 'none'
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
       </nav>
 
@@ -1222,8 +1285,36 @@ export default function DesignerPortfolio() {
               fontFamily: '"Archivo Black", sans-serif',
               textShadow: '0 4px 20px rgba(0,0,0,0.4)'
             }}>
-              {t.home.headline.split(' ').slice(0, 2).join(' ')}<br />
-              {t.home.headline.split(' ').slice(2).join(' ')}
+              {t.home.headline.split('').map((char, index) => {
+                if (char === ' ' && index === t.home.headline.indexOf('Design') - 1) {
+                  return <br key={index} />;
+                }
+                if (char === ' ') {
+                  return <span key={index}> </span>;
+                }
+                return (
+                  <span
+                    key={index}
+                    style={{
+                      display: 'inline-block',
+                      position: 'relative',
+                      transition: 'text-shadow 0.2s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left - rect.width / 2;
+                      const y = e.clientY - rect.top - rect.height / 2;
+                      e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8), 0 4px 20px rgba(0,0,0,0.4)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textShadow = '0 4px 20px rgba(0,0,0,0.4)';
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
             </h1>
             <p style={{
               fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
@@ -2346,7 +2437,33 @@ export default function DesignerPortfolio() {
               fontFamily: '"Archivo Black", sans-serif',
               lineHeight: 1.2
             }}>
-              {t.about.title}
+              {t.about.title.split('').map((char, index) => {
+                if (char === ' ') {
+                  return <span key={index}> </span>;
+                }
+                return (
+                  <span
+                    key={index}
+                    style={{
+                      display: 'inline-block',
+                      position: 'relative',
+                      transition: 'text-shadow 0.2s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left - rect.width / 2;
+                      const y = e.clientY - rect.top - rect.height / 2;
+                      e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textShadow = 'none';
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
             </h2>
             <p style={{
               fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
@@ -2456,7 +2573,33 @@ export default function DesignerPortfolio() {
               fontWeight: 900,
               fontFamily: '"Archivo Black", sans-serif'
             }}>
-              {t.contact.title}
+              {t.contact.title.split('').map((char, index) => {
+                if (char === ' ') {
+                  return <span key={index}> </span>;
+                }
+                return (
+                  <span
+                    key={index}
+                    style={{
+                      display: 'inline-block',
+                      position: 'relative',
+                      transition: 'text-shadow 0.2s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left - rect.width / 2;
+                      const y = e.clientY - rect.top - rect.height / 2;
+                      e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textShadow = 'none';
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
             </h2>
             <p style={{
               fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
@@ -2474,7 +2617,7 @@ export default function DesignerPortfolio() {
               alignItems: 'center'
             }}>
               {[
-                { label: t.contact.email, value: 'dianagcreates@gmail.com' },
+                { label: t.contact.email, value: 'dianaxstudio@gmail.com' },
                 { label: t.contact.linkedin, value: 'linkedin.com/in/diana' },
                 { label: 'Location', value: 'Brandenburg, Germany' }
               ].map((item, i) => (
