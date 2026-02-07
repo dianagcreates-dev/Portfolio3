@@ -492,7 +492,8 @@ export default function DesignerPortfolio() {
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 padding: '0.5rem 0',
-                fontFamily: '"Space Mono", monospace'
+                fontFamily: '"Space Mono", monospace',
+                outline: 'none'
               }}
               onMouseEnter={(e) => {
                 e.target.style.color = '#ffffff';
@@ -526,7 +527,8 @@ export default function DesignerPortfolio() {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 fontFamily: '"Space Mono", monospace',
-                letterSpacing: '0.05em'
+                letterSpacing: '0.05em',
+                outline: 'none'
               }}
               onMouseEnter={(e) => {
                 if (language !== lang.toLowerCase()) {
@@ -559,7 +561,8 @@ export default function DesignerPortfolio() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginLeft: '0.5rem'
+              marginLeft: '0.5rem',
+              outline: 'none'
             }}
             onMouseEnter={(e) => {
               e.target.style.background = 'rgba(255,255,255,0.2)';
