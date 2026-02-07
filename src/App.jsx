@@ -287,6 +287,7 @@ export default function DesignerPortfolio() {
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [mouseTrail, setMouseTrail] = useState([]);
   const mouseTrailRef = useRef([]);
@@ -489,11 +490,12 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Custom cursor tracking
+  // Custom cursor tracking with smooth movement
   useEffect(() => {
     const handleMouseMove = (e) => {
+      targetMousePosition.current = { x: e.clientX, y: e.clientY };
+      
       const newPos = { x: e.clientX, y: e.clientY, id: Date.now() };
-      setMousePosition(newPos);
       
       // Add to trail
       mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
@@ -502,8 +504,26 @@ export default function DesignerPortfolio() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    // Smooth cursor animation using lerp
+    let animationFrameId;
+    const smoothCursor = () => {
+      setMousePosition(prev => {
+        const lerp = 0.15; // Lower = smoother but slower, Higher = faster but less smooth
+        return {
+          x: prev.x + (targetMousePosition.current.x - prev.x) * lerp,
+          y: prev.y + (targetMousePosition.current.y - prev.y) * lerp
+        };
+      });
+      animationFrameId = requestAnimationFrame(smoothCursor);
+    };
+    
+    animationFrameId = requestAnimationFrame(smoothCursor);
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, []);
 
@@ -639,7 +659,8 @@ export default function DesignerPortfolio() {
         top: mousePosition.y,
         pointerEvents: 'none',
         zIndex: 9999,
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        willChange: 'left, top'
       }}>
         {/* Outer glow */}
         <div style={{
@@ -651,8 +672,9 @@ export default function DesignerPortfolio() {
           background: 'radial-gradient(circle, rgba(200, 220, 255, 0.4), rgba(150, 180, 255, 0.2), transparent)',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s ease, height 0.3s ease',
-          boxShadow: '0 0 20px rgba(150, 180, 255, 0.5)'
+          transition: 'width 0.2s cubic-bezier(0.4, 0, 0.2, 1), height 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 0 20px rgba(150, 180, 255, 0.5)',
+          willChange: 'width, height'
         }} />
         
         {/* Core particle */}
@@ -665,8 +687,9 @@ export default function DesignerPortfolio() {
           background: 'radial-gradient(circle, rgba(255, 255, 255, 1), rgba(200, 220, 255, 0.8))',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s ease, height 0.3s ease',
-          boxShadow: '0 0 12px rgba(200, 220, 255, 1), 0 0 6px rgba(255, 255, 255, 0.8)'
+          transition: 'width 0.2s cubic-bezier(0.4, 0, 0.2, 1), height 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 0 12px rgba(200, 220, 255, 1), 0 0 6px rgba(255, 255, 255, 0.8)',
+          willChange: 'width, height'
         }} />
       </div>
 
@@ -1869,52 +1892,143 @@ export default function DesignerPortfolio() {
                 gap: '2rem',
                 marginBottom: '4rem'
               }}>
-                {[1, 2, 3].map((num) => (
-                  <div key={num} style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '16px',
-                    padding: '2rem',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.4 + num * 0.1}s forwards`
+                {/* Column 1 */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  opacity: 0,
+                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards`
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '12px',
+                    background: `${selectedProject.color}30`,
+                    border: `2px solid ${selectedProject.color}60`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    color: selectedProject.color,
+                    fontFamily: '"Archivo Black", sans-serif'
                   }}>
-                    <div style={{
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '12px',
-                      background: `${selectedProject.color}30`,
-                      border: `2px solid ${selectedProject.color}60`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: '1.5rem',
-                      fontSize: '1.5rem',
-                      fontWeight: 900,
-                      color: selectedProject.color,
-                      fontFamily: '"Archivo Black", sans-serif'
-                    }}>
-                      {num}
-                    </div>
-                    <h3 style={{
-                      fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      fontFamily: '"Archivo Black", sans-serif',
-                      marginBottom: '0.8rem'
-                    }}>
-                      Facial Expression Tracking
-                    </h3>
-                    <p style={{
-                      fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
-                      color: 'rgba(255,255,255,0.7)',
-                      lineHeight: 1.6,
-                      fontFamily: '"Inter", sans-serif'
-                    }}>
-                      Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data.
-                    </p>
+                    1
                   </div>
-                ))}
+                  <h3 style={{
+                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '0.8rem'
+                  }}>
+                    Facial Expression Tracking
+                  </h3>
+                  <p style={{
+                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: 1.6,
+                    fontFamily: '"Inter", sans-serif'
+                  }}>
+                    Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data.
+                  </p>
+                </div>
+
+                {/* Column 2 */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  opacity: 0,
+                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards`
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '12px',
+                    background: `${selectedProject.color}30`,
+                    border: `2px solid ${selectedProject.color}60`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    color: selectedProject.color,
+                    fontFamily: '"Archivo Black", sans-serif'
+                  }}>
+                    2
+                  </div>
+                  <h3 style={{
+                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '0.8rem'
+                  }}>
+                    Voice Pattern Analysis
+                  </h3>
+                  <p style={{
+                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: 1.6,
+                    fontFamily: '"Inter", sans-serif'
+                  }}>
+                    Palmi listens to how something is said, such as tone and rhythm, rather than what is being said, allowing patterns to be understood without capturing speech content.
+                  </p>
+                </div>
+
+                {/* Column 3 */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  opacity: 0,
+                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards`
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '12px',
+                    background: `${selectedProject.color}30`,
+                    border: `2px solid ${selectedProject.color}60`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    color: selectedProject.color,
+                    fontFamily: '"Archivo Black", sans-serif'
+                  }}>
+                    3
+                  </div>
+                  <h3 style={{
+                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '0.8rem'
+                  }}>
+                    
+                  </h3>Emotional Pattern Insights
+                  <p style={{
+                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: 1.6,
+                    fontFamily: '"Inter", sans-serif'
+                  }}>
+                    Facial and voice cues are combined over time into emotional patterns that parents can view through the app to support a clearer understanding of their child's emotions.
+                  </p>
+                </div>
               </div>
 
               {/* Section 8: Four image grid */}
