@@ -119,7 +119,7 @@ const translations = {
           ]
         },
         images: {
-          <img src="/images/palmi/hero.png" alt="Hero" />
+            hero: "/images/palmi/hero.png",
           process1: "/images/synkro/process1.jpg",
           process2: "/images/synkro/process2.jpg",
           process3: "/images/synkro/process3.jpg",
