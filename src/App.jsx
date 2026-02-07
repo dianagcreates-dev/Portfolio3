@@ -804,6 +804,42 @@ export default function DesignerPortfolio() {
     };
   }, [activeSection, isScrolling, selectedProject]);
 
+  // Initialize audio analyzer
+  const initializeAudioAnalyzer = () => {
+    if (!audioContextRef.current && audioRef.current) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioContext();
+        analyzerRef.current = audioContextRef.current.createAnalyser();
+        analyzerRef.current.fftSize = 128;
+        analyzerRef.current.smoothingTimeConstant = 0.8;
+        const bufferLength = analyzerRef.current.frequencyBinCount;
+        dataArrayRef.current = new Uint8Array(bufferLength);
+        
+        const source = audioContextRef.current.createMediaElementSource(audioRef.current);
+        source.connect(analyzerRef.current);
+        analyzerRef.current.connect(audioContextRef.current.destination);
+      } catch (err) {
+        console.log('Audio context initialization failed:', err);
+      }
+    }
+  };
+
+  // Start visualization loop
+  const startVisualization = () => {
+    const visualize = () => {
+      if (!isPlaying || !analyzerRef.current || !dataArrayRef.current) {
+        return;
+      }
+      
+      analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
+      setFrequencyData([...dataArrayRef.current]);
+      
+      animationIdRef.current = requestAnimationFrame(visualize);
+    };
+    visualize();
+  };
+
   // Toggle audio play/pause
   const toggleAudio = () => {
     if (audioRef.current) {
@@ -814,32 +850,11 @@ export default function DesignerPortfolio() {
           cancelAnimationFrame(animationIdRef.current);
         }
       } else {
-        // Initialize audio context and analyzer
-        if (!audioContextRef.current) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          audioContextRef.current = new AudioContext();
-          analyzerRef.current = audioContextRef.current.createAnalyser();
-          analyzerRef.current.fftSize = 64;
-          const bufferLength = analyzerRef.current.frequencyBinCount;
-          dataArrayRef.current = new Uint8Array(bufferLength);
-          
-          const source = audioContextRef.current.createMediaElementSource(audioRef.current);
-          source.connect(analyzerRef.current);
-          analyzerRef.current.connect(audioContextRef.current.destination);
-        }
+        initializeAudioAnalyzer();
         
         audioRef.current.play().then(() => {
           setIsPlaying(true);
-          // Start visualization loop
-          const visualize = () => {
-            if (!analyzerRef.current || !dataArrayRef.current) return;
-            
-            analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
-            setFrequencyData([...dataArrayRef.current]);
-            
-            animationIdRef.current = requestAnimationFrame(visualize);
-          };
-          visualize();
+          startVisualization();
         }).catch(err => {
           console.log('Audio play failed:', err);
         });
@@ -956,8 +971,10 @@ export default function DesignerPortfolio() {
           onClick={() => {
             if (audioRef.current) {
               audioRef.current.volume = 0.5;
+              initializeAudioAnalyzer();
               audioRef.current.play().then(() => {
                 setIsPlaying(true);
+                startVisualization();
               }).catch(err => {
                 console.log('Audio play failed:', err);
               });
@@ -1166,9 +1183,7 @@ export default function DesignerPortfolio() {
             padding: '0 0.5rem'
           }}>
             {frequencyData.slice(0, 16).map((value, i) => {
-              const height = isPlaying ? (value / 255) * 30 + 4 : 4;
-              const colors = ['#6366F1', '#EC4899', '#F59E0B', '#10B981'];
-              const color = colors[i % colors.length];
+              const height = isPlaying ? Math.max((value / 255) * 35, 4) : 4;
               
               return (
                 <div
@@ -1176,11 +1191,11 @@ export default function DesignerPortfolio() {
                   style={{
                     width: '3px',
                     height: `${height}px`,
-                    background: `linear-gradient(to top, ${color}, rgba(255,255,255,0.8))`,
+                    background: 'rgba(255,255,255,0.9)',
                     borderRadius: '2px',
-                    transition: 'height 0.05s ease',
-                    opacity: isPlaying ? 0.9 : 0.3,
-                    boxShadow: isPlaying ? `0 0 8px ${color}` : 'none'
+                    transition: 'height 0.08s ease-out',
+                    opacity: isPlaying ? 0.95 : 0.3,
+                    boxShadow: isPlaying && value > 50 ? '0 0 10px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.6)' : 'none'
                   }}
                 />
               );
