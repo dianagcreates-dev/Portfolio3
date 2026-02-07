@@ -1010,13 +1010,13 @@ export default function DesignerPortfolio() {
                 {selectedProject.description}
               </p>
 
-              {/* Full width image */}
+              {/* Hero Image */}
               <div style={{
                 width: '100%',
-                aspectRatio: '16/9',
+                height: '500px',
                 background: `linear-gradient(135deg, ${selectedProject.color}60, ${selectedProject.color}20)`,
                 borderRadius: '20px',
-                marginBottom: '2rem',
+                marginBottom: '4rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -1025,15 +1025,22 @@ export default function DesignerPortfolio() {
                 position: 'relative',
                 overflow: 'hidden',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
               }}>
+                {/* Placeholder text - will be hidden when you add background image */}
                 <div style={{
-                  fontSize: 'clamp(4rem, 10vw, 8rem)',
-                  color: 'rgba(255,255,255,0.2)',
+                  fontSize: 'clamp(3rem, 8vw, 6rem)',
+                  color: 'rgba(255,255,255,0.15)',
                   fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif'
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem',
+                  zIndex: 1
                 }}>
-                  {selectedProject.title}
+                  Hero Image
                 </div>
                 
                 {/* Decorative gradient overlay */}
@@ -1043,12 +1050,12 @@ export default function DesignerPortfolio() {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: `radial-gradient(circle at 30% 30%, ${selectedProject.color}40, transparent 50%)`,
+                  background: `radial-gradient(circle at 30% 30%, ${selectedProject.color}40, transparent 70%)`,
                   pointerEvents: 'none'
                 }} />
               </div>
 
-              {/* Project details grid - compact */}
+              {/* Skills and Project Details - Compact Row */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
