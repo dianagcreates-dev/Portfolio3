@@ -811,8 +811,10 @@ export default function DesignerPortfolio() {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         audioContextRef.current = new AudioContext();
         analyzerRef.current = audioContextRef.current.createAnalyser();
-        analyzerRef.current.fftSize = 128;
-        analyzerRef.current.smoothingTimeConstant = 0.8;
+        analyzerRef.current.fftSize = 256;
+        analyzerRef.current.smoothingTimeConstant = 0.7;
+        analyzerRef.current.minDecibels = -90;
+        analyzerRef.current.maxDecibels = -10;
         const bufferLength = analyzerRef.current.frequencyBinCount;
         dataArrayRef.current = new Uint8Array(bufferLength);
         
@@ -1177,25 +1179,28 @@ export default function DesignerPortfolio() {
           <div style={{
             display: 'flex',
             gap: '2px',
-            alignItems: 'flex-end',
+            alignItems: 'center',
             height: '40px',
             marginLeft: '1rem',
             padding: '0 0.5rem'
           }}>
-            {frequencyData.slice(0, 16).map((value, i) => {
-              const height = isPlaying ? Math.max((value / 255) * 35, 4) : 4;
+            {frequencyData.slice(0, 20).map((value, i) => {
+              const normalizedHeight = (value / 255) * 100;
+              const height = isPlaying ? Math.max(normalizedHeight * 0.35, 3) : 3;
               
               return (
                 <div
                   key={i}
                   style={{
-                    width: '3px',
+                    width: '2.5px',
                     height: `${height}px`,
-                    background: 'rgba(255,255,255,0.9)',
-                    borderRadius: '2px',
-                    transition: 'height 0.08s ease-out',
-                    opacity: isPlaying ? 0.95 : 0.3,
-                    boxShadow: isPlaying && value > 50 ? '0 0 10px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.6)' : 'none'
+                    background: 'rgba(255,255,255,0.95)',
+                    borderRadius: '1.5px',
+                    transition: 'none',
+                    opacity: isPlaying ? 1 : 0.25,
+                    boxShadow: isPlaying && value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none',
+                    transform: 'scaleY(1)',
+                    transformOrigin: 'center'
                   }}
                 />
               );
