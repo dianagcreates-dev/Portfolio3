@@ -471,11 +471,11 @@ export default function DesignerPortfolio() {
       fontFamily: '"Space Mono", "Courier New", monospace',
       cursor: 'none'
     }}>
-      {/* Shooting Star Cursor */}
+      {/* Particle Cursor */}
       {/* Trail particles */}
       {mouseTrail.map((pos, index) => {
-        const opacity = (index / mouseTrail.length) * 0.6;
-        const size = ((index / mouseTrail.length) * 8) + 2;
+        const opacity = (index / mouseTrail.length) * 0.5;
+        const size = ((index / mouseTrail.length) * 6) + 1;
         return (
           <div
             key={pos.id}
@@ -485,80 +485,52 @@ export default function DesignerPortfolio() {
               top: pos.y,
               width: `${size}px`,
               height: `${size}px`,
-              background: `radial-gradient(circle, rgba(255, 255, 255, ${opacity}), rgba(255, 200, 100, ${opacity * 0.6}), transparent)`,
+              background: `radial-gradient(circle, rgba(150, 180, 255, ${opacity}), rgba(100, 150, 255, ${opacity * 0.5}), transparent)`,
               borderRadius: '50%',
               pointerEvents: 'none',
               zIndex: 9998,
               transform: 'translate(-50%, -50%)',
-              boxShadow: `0 0 ${size * 2}px rgba(255, 255, 255, ${opacity * 0.8})`
+              boxShadow: `0 0 ${size * 3}px rgba(150, 180, 255, ${opacity * 0.6})`
             }}
           />
         );
       })}
       
-      {/* Main star */}
+      {/* Main particle */}
       <div style={{
         position: 'fixed',
         left: mousePosition.x,
         top: mousePosition.y,
-        width: '0',
-        height: '0',
         pointerEvents: 'none',
         zIndex: 9999,
         transform: 'translate(-50%, -50%)'
       }}>
-        {/* Star glow */}
+        {/* Outer glow */}
         <div style={{
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: isHovering ? '30px' : '20px',
-          height: isHovering ? '30px' : '20px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 220, 150, 0.6), transparent)',
+          width: isHovering ? '24px' : '18px',
+          height: isHovering ? '24px' : '18px',
+          background: 'radial-gradient(circle, rgba(200, 220, 255, 0.4), rgba(150, 180, 255, 0.2), transparent)',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
           transition: 'width 0.3s ease, height 0.3s ease',
-          boxShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 200, 100, 0.4)'
+          boxShadow: '0 0 20px rgba(150, 180, 255, 0.5)'
         }} />
         
-        {/* Star points */}
+        {/* Core particle */}
         <div style={{
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: isHovering ? '16px' : '12px',
-          height: isHovering ? '16px' : '12px',
-          transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s ease, height 0.3s ease'
-        }}>
-          {[0, 45, 90, 135].map((angle) => (
-            <div
-              key={angle}
-              style={{
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                width: '2px',
-                height: isHovering ? '16px' : '12px',
-                background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1), transparent)',
-                transform: `translate(-50%, -50%) rotate(${angle}deg)`,
-                transformOrigin: 'center'
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Center bright point */}
-        <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: '4px',
-          height: '4px',
-          background: '#ffffff',
+          width: isHovering ? '8px' : '6px',
+          height: isHovering ? '8px' : '6px',
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 1), rgba(200, 220, 255, 0.8))',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 10px rgba(255, 255, 255, 1)'
+          transition: 'width 0.3s ease, height 0.3s ease',
+          boxShadow: '0 0 12px rgba(200, 220, 255, 1), 0 0 6px rgba(255, 255, 255, 0.8)'
         }} />
       </div>
 
