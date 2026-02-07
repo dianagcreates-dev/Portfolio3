@@ -41,6 +41,32 @@ const translations = {
         year: "2026",
         description: "Helping Parents Understand  their Child's Emotions",
         color: "#6366F1",
+        content: {
+          challenge: "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.",
+          solution: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
+          quote: "Understanding emotions early helps build resilience for life.",
+          deviceObjective: "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns.",
+          purposeOfData: "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.",
+          metrics: [
+            { value: '150%', label: 'User Growth' },
+            { value: '85%', label: 'Satisfaction' },
+            { value: '40%', label: 'Faster Tasks' }
+          ],
+          features: [
+            {
+              title: "Facial Expression Tracking",
+              description: "Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data."
+            },
+            {
+              title: "Voice Pattern Analysis",
+              description: "Palmi listens to how something is said, such as tone and rhythm, rather than what is being said, allowing patterns to be understood without capturing speech content."
+            },
+            {
+              title: "Emotional Pattern Insights",
+              description: "Facial and voice cues are combined over time into emotional patterns that parents can view through the app to support a clearer understanding of their child's emotions."
+            }
+          ]
+        },
         images: {
           hero: "/images/palmi/hero.jpg",              // 1920x1200px (16:10)
           process1: "/images/palmi/process1.jpg",      // 1920x1200px (16:10)
@@ -66,6 +92,32 @@ const translations = {
         year: "2025",
         description: "Digital Business Card",
         color: "#EC4899",
+        content: {
+          challenge: "Traditional business cards are easily lost and fail to capture the full scope of professional identity in today's digital world.",
+          solution: "Synkro transforms networking with a dynamic digital business card that updates in real-time and creates meaningful connections.",
+          quote: "Your network is your net worth.",
+          deviceObjective: "To revolutionize networking: enable instant sharing, real-time updates, and seamless contact management across all platforms.",
+          purposeOfData: "The data collected helps professionals track networking effectiveness, understand connection patterns, and optimize their professional presence.",
+          metrics: [
+            { value: '200%', label: 'Connections Made' },
+            { value: '92%', label: 'Retention Rate' },
+            { value: '3x', label: 'Faster Sharing' }
+          ],
+          features: [
+            {
+              title: "Instant QR Sharing",
+              description: "Share your digital card instantly via QR code, NFC, or link - no app download required for recipients."
+            },
+            {
+              title: "Real-Time Updates",
+              description: "Update your information once and all shared cards automatically reflect the changes across all contacts."
+            },
+            {
+              title: "Analytics Dashboard",
+              description: "Track who viewed your card, when connections were made, and measure your networking effectiveness over time."
+            }
+          ]
+        },
         images: {
           hero: "/images/synkro/hero.jpg",
           process1: "/images/synkro/process1.jpg",
@@ -91,6 +143,32 @@ const translations = {
         year: "2024",
         description: "Product Post Design",
         color: "#F59E0B",
+        content: {
+          challenge: "Standing out in crowded social feeds requires eye-catching designs that communicate product value instantly.",
+          solution: "Strategic visual designs that blend aesthetics with clear messaging to drive engagement and conversions.",
+          quote: "Design is the silent ambassador of your brand.",
+          deviceObjective: "To maximize social media impact: create scroll-stopping visuals, communicate value instantly, and drive measurable engagement.",
+          purposeOfData: "Analytics help understand which design elements resonate most with audiences, enabling data-driven creative decisions.",
+          metrics: [
+            { value: '300%', label: 'Engagement Boost' },
+            { value: '95%', label: 'Brand Recall' },
+            { value: '2.5x', label: 'Conversion Rate' }
+          ],
+          features: [
+            {
+              title: "Platform Optimization",
+              description: "Designs optimized for each platform's specific requirements, aspect ratios, and best practices for maximum reach."
+            },
+            {
+              title: "Brand Consistency",
+              description: "Maintain cohesive visual identity across all social channels while adapting to platform-specific aesthetics."
+            },
+            {
+              title: "Engagement-Driven Design",
+              description: "Every element is crafted to stop scrolling, communicate value instantly, and drive meaningful user actions."
+            }
+          ]
+        },
         images: {
           hero: "/images/social-media/hero.jpg",
           process1: "/images/social-media/process1.jpg",
@@ -116,6 +194,32 @@ const translations = {
         year: "2023",
         description: "Augmented Reality Greeting Cards",
         color: "#10B981",
+        content: {
+          challenge: "Traditional greeting cards lack the personal touch and interactive experience modern users expect.",
+          solution: "Magi brings greeting cards to life through AR technology, creating memorable and shareable moments.",
+          quote: "The future of connection is augmented reality.",
+          deviceObjective: "To modernize greeting cards: blend physical cards with digital AR experiences, enable personalization, and create shareable moments.",
+          purposeOfData: "User interaction data helps improve AR experiences, personalize content recommendations, and enhance card creation features.",
+          metrics: [
+            { value: '500%', label: 'Engagement Time' },
+            { value: '88%', label: 'Share Rate' },
+            { value: '4x', label: 'Repeat Usage' }
+          ],
+          features: [
+            {
+              title: "AR Card Scanning",
+              description: "Point your phone at any Magi card to unlock immersive 3D animations, videos, and interactive experiences."
+            },
+            {
+              title: "Personalization Studio",
+              description: "Create custom AR experiences with photos, videos, messages, and animations tailored to your recipient."
+            },
+            {
+              title: "Memory Preservation",
+              description: "AR experiences are saved in the cloud, allowing recipients to relive special moments anytime, anywhere."
+            }
+          ]
+        },
         images: {
           hero: "/images/magi/hero.jpg",
           process1: "/images/magi/process1.jpg",
@@ -175,6 +279,32 @@ const translations = {
         year: "2026",
         description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
         color: "#6366F1",
+        content: {
+          challenge: "Viele Kinder erleben Emotionen, die sie noch nicht in Worte fassen können, während Eltern oft nur auf das Verhalten angewiesen sind, um zu verstehen, wie sich ihr Kind fühlt. Forschungen der Weltgesundheitsorganisation und der Centers for Disease Control and Prevention zeigen, dass 70% der Kinder unter 10 Jahren Schwierigkeiten haben, komplexe Emotionen zu benennen, was eine weit verbreitete emotionale Lücke schafft.",
+          solution: "Palmi ist ein emotionaler Begleiter, der die Lücke zwischen den Gefühlen eines Kindes und dem Verständnis der Eltern überbrückt. Es bietet Kindern einen sicheren Raum, um Emotionen auszudrücken, während es emotionale Muster im Laufe der Zeit leise verfolgt.",
+          quote: "Emotionen frühzeitig zu verstehen hilft, Resilienz fürs Leben aufzubauen.",
+          deviceObjective: "Um diese emotionale Lücke zu schließen: Jede Lösung muss es Kindern ermöglichen, Gefühle auszudrücken, Orientierung im Moment zu bieten und emotionale Muster zu verfolgen.",
+          purposeOfData: "Der Zweck dieser Daten besteht darin, Bewusstsein und Gespräche zu unterstützen. Sie sind nicht zur Diagnose oder Bewertung gedacht, sondern sollen Eltern helfen, ihr Kind besser zu verstehen und bei Bedarf professionelle Unterstützung zu suchen.",
+          metrics: [
+            { value: '150%', label: 'Nutzerwachstum' },
+            { value: '85%', label: 'Zufriedenheit' },
+            { value: '40%', label: 'Schnellere Aufgaben' }
+          ],
+          features: [
+            {
+              title: "Gesichtsausdruck-Tracking",
+              description: "Unterstützt das Verständnis des Systems für die emotionalen Signale eines Kindes und vermeidet dabei die Erfassung von Roh-Bilddaten."
+            },
+            {
+              title: "Stimmungsmuster-Analyse",
+              description: "Palmi hört darauf, wie etwas gesagt wird, wie Tonfall und Rhythmus, anstatt was gesagt wird, sodass Muster verstanden werden können, ohne Sprachinhalte zu erfassen."
+            },
+            {
+              title: "Emotionale Muster-Einblicke",
+              description: "Gesichts- und Stimmsignale werden im Laufe der Zeit zu emotionalen Mustern kombiniert, die Eltern über die App einsehen können, um ein klareres Verständnis für die Emotionen ihres Kindes zu erhalten."
+            }
+          ]
+        },
         images: {
           hero: "/images/palmi/hero.jpg",
           process1: "/images/palmi/process1.jpg",
@@ -200,6 +330,32 @@ const translations = {
         year: "2025",
         description: "Digitale Visitenkarte",
         color: "#EC4899",
+        content: {
+          challenge: "Traditionelle Visitenkarten gehen leicht verloren und erfassen nicht das volle Spektrum der beruflichen Identität in der heutigen digitalen Welt.",
+          solution: "Synkro revolutioniert das Networking mit einer dynamischen digitalen Visitenkarte, die sich in Echtzeit aktualisiert und bedeutungsvolle Verbindungen schafft.",
+          quote: "Ihr Netzwerk ist Ihr Vermögen.",
+          deviceObjective: "Um das Networking zu revolutionieren: Sofortiges Teilen ermöglichen, Echtzeit-Updates und nahtloses Kontaktmanagement über alle Plattformen hinweg.",
+          purposeOfData: "Die gesammelten Daten helfen Fachleuten, die Networking-Effektivität zu verfolgen, Verbindungsmuster zu verstehen und ihre professionelle Präsenz zu optimieren.",
+          metrics: [
+            { value: '200%', label: 'Verbindungen' },
+            { value: '92%', label: 'Bindungsrate' },
+            { value: '3x', label: 'Schnelleres Teilen' }
+          ],
+          features: [
+            {
+              title: "Sofortiges QR-Teilen",
+              description: "Teilen Sie Ihre digitale Karte sofort per QR-Code, NFC oder Link - kein App-Download für Empfänger erforderlich."
+            },
+            {
+              title: "Echtzeit-Updates",
+              description: "Aktualisieren Sie Ihre Informationen einmal und alle geteilten Karten spiegeln automatisch die Änderungen bei allen Kontakten wider."
+            },
+            {
+              title: "Analytics-Dashboard",
+              description: "Verfolgen Sie, wer Ihre Karte angesehen hat, wann Verbindungen hergestellt wurden, und messen Sie Ihre Networking-Effektivität im Laufe der Zeit."
+            }
+          ]
+        },
         images: {
           hero: "/images/synkro/hero.jpg",
           process1: "/images/synkro/process1.jpg",
@@ -225,6 +381,32 @@ const translations = {
         year: "2024",
         description: "Produkt-Post-Design",
         color: "#F59E0B",
+        content: {
+          challenge: "Sich in überfüllten Social-Media-Feeds abzuheben erfordert auffällige Designs, die den Produktwert sofort kommunizieren.",
+          solution: "Strategische visuelle Designs, die Ästhetik mit klarer Botschaft verbinden, um Engagement und Conversions zu steigern.",
+          quote: "Design ist der stille Botschafter Ihrer Marke.",
+          deviceObjective: "Um die Social-Media-Wirkung zu maximieren: Scroll-stoppende Visuals erstellen, Wert sofort kommunizieren und messbares Engagement fördern.",
+          purposeOfData: "Analysen helfen zu verstehen, welche Designelemente beim Publikum am besten ankommen und ermöglichen datengesteuerte kreative Entscheidungen.",
+          metrics: [
+            { value: '300%', label: 'Engagement-Boost' },
+            { value: '95%', label: 'Markenerinnerung' },
+            { value: '2.5x', label: 'Conversion-Rate' }
+          ],
+          features: [
+            {
+              title: "Plattform-Optimierung",
+              description: "Designs optimiert für die spezifischen Anforderungen, Seitenverhältnisse und Best Practices jeder Plattform für maximale Reichweite."
+            },
+            {
+              title: "Marken-Konsistenz",
+              description: "Wahren Sie eine kohärente visuelle Identität über alle Social-Media-Kanäle hinweg und passen Sie sich gleichzeitig an plattformspezifische Ästhetiken an."
+            },
+            {
+              title: "Engagement-gesteuertes Design",
+              description: "Jedes Element ist darauf ausgelegt, das Scrollen zu stoppen, Wert sofort zu kommunizieren und bedeutungsvolle Nutzeraktionen zu fördern."
+            }
+          ]
+        },
         images: {
           hero: "/images/social-media/hero.jpg",
           process1: "/images/social-media/process1.jpg",
@@ -250,6 +432,32 @@ const translations = {
         year: "2023",
         description: "Grußkarten mit erweiterter Realität",
         color: "#10B981",
+        content: {
+          challenge: "Traditionelle Grußkarten fehlt die persönliche Note und das interaktive Erlebnis, das moderne Nutzer erwarten.",
+          solution: "Magi erweckt Grußkarten durch AR-Technologie zum Leben und schafft unvergessliche und teilbare Momente.",
+          quote: "Die Zukunft der Verbindung ist erweiterte Realität.",
+          deviceObjective: "Um Grußkarten zu modernisieren: Physische Karten mit digitalen AR-Erlebnissen verbinden, Personalisierung ermöglichen und teilbare Momente schaffen.",
+          purposeOfData: "Benutzerinteraktionsdaten helfen, AR-Erlebnisse zu verbessern, Inhaltsempfehlungen zu personalisieren und Kartenerstellungsfunktionen zu optimieren.",
+          metrics: [
+            { value: '500%', label: 'Engagement-Zeit' },
+            { value: '88%', label: 'Teilungsrate' },
+            { value: '4x', label: 'Wiederholte Nutzung' }
+          ],
+          features: [
+            {
+              title: "AR-Karten-Scannen",
+              description: "Richten Sie Ihr Telefon auf jede Magi-Karte, um immersive 3D-Animationen, Videos und interaktive Erlebnisse freizuschalten."
+            },
+            {
+              title: "Personalisierungs-Studio",
+              description: "Erstellen Sie benutzerdefinierte AR-Erlebnisse mit Fotos, Videos, Nachrichten und Animationen, die auf Ihren Empfänger zugeschnitten sind."
+            },
+            {
+              title: "Erinnerungs-Bewahrung",
+              description: "AR-Erlebnisse werden in der Cloud gespeichert, sodass Empfänger besondere Momente jederzeit und überall wieder erleben können."
+            }
+          ]
+        },
         images: {
           hero: "/images/magi/hero.jpg",
           process1: "/images/magi/process1.jpg",
@@ -1552,7 +1760,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Inter", sans-serif',
                   maxWidth: '900px'
                 }}>
-                  Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.
+                  {selectedProject.content?.challenge || "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap."}
                 </p>
               </div>
 
@@ -1657,7 +1865,7 @@ export default function DesignerPortfolio() {
                     lineHeight: 1.7,
                     fontFamily: '"Inter", sans-serif'
                   }}>
-                    To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns.",
+                    {selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
                   </p>
                 </div>
                 <div style={{
@@ -1849,7 +2057,7 @@ export default function DesignerPortfolio() {
                     lineHeight: 1.7,
                     fontFamily: '"Inter", sans-serif'
                   }}>
-                    Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.
+                    {selectedProject.content?.solution || "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time."}
                   </p>
                 </div>
               </div>
@@ -1873,7 +2081,7 @@ export default function DesignerPortfolio() {
                   marginBottom: '1rem',
                   lineHeight: 1.3
                 }}>
-                  " Helping Parents Understand their Child's Emotions"
+                  " {selectedProject.content?.quote || selectedProject.description}"
                 </div>
                 <div style={{
                   fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
@@ -1881,7 +2089,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Inter", sans-serif',
                   fontStyle: 'italic'
                 }}>
-                  — Palmi
+                  — {selectedProject.title}
                 </div>
               </div>
 
@@ -1892,143 +2100,56 @@ export default function DesignerPortfolio() {
                 gap: '2rem',
                 marginBottom: '4rem'
               }}>
-                {/* Column 1 */}
-                <div style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px',
-                  padding: '2rem',
-                  opacity: 0,
-                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards`
-                }}>
-                  <div style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '12px',
-                    background: `${selectedProject.color}30`,
-                    border: `2px solid ${selectedProject.color}60`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1.5rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 900,
-                    color: selectedProject.color,
-                    fontFamily: '"Archivo Black", sans-serif'
+                {(selectedProject.content?.features || [
+                  { title: "Feature 1", description: "Description for feature 1" },
+                  { title: "Feature 2", description: "Description for feature 2" },
+                  { title: "Feature 3", description: "Description for feature 3" }
+                ]).map((feature, index) => (
+                  <div key={index} style={{
+                    background: 'rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '16px',
+                    padding: '2rem',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.5 + index * 0.1}s forwards`
                   }}>
-                    1
+                    <div style={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '12px',
+                      background: `${selectedProject.color}30`,
+                      border: `2px solid ${selectedProject.color}60`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1.5rem',
+                      fontSize: '1.5rem',
+                      fontWeight: 900,
+                      color: selectedProject.color,
+                      fontFamily: '"Archivo Black", sans-serif'
+                    }}>
+                      {index + 1}
+                    </div>
+                    <h3 style={{
+                      fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      marginBottom: '0.8rem'
+                    }}>
+                      {feature.title}
+                    </h3>
+                    <p style={{
+                      fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
+                      color: 'rgba(255,255,255,0.7)',
+                      lineHeight: 1.6,
+                      fontFamily: '"Inter", sans-serif'
+                    }}>
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 style={{
-                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '0.8rem'
-                  }}>
-                    Facial Expression Tracking
-                  </h3>
-                  <p style={{
-                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
-                    color: 'rgba(255,255,255,0.7)',
-                    lineHeight: 1.6,
-                    fontFamily: '"Inter", sans-serif'
-                  }}>
-                    Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data.
-                  </p>
-                </div>
-
-                {/* Column 2 */}
-                <div style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px',
-                  padding: '2rem',
-                  opacity: 0,
-                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards`
-                }}>
-                  <div style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '12px',
-                    background: `${selectedProject.color}30`,
-                    border: `2px solid ${selectedProject.color}60`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1.5rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 900,
-                    color: selectedProject.color,
-                    fontFamily: '"Archivo Black", sans-serif'
-                  }}>
-                    2
-                  </div>
-                  <h3 style={{
-                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '0.8rem'
-                  }}>
-                    Voice Pattern Analysis
-                  </h3>
-                  <p style={{
-                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
-                    color: 'rgba(255,255,255,0.7)',
-                    lineHeight: 1.6,
-                    fontFamily: '"Inter", sans-serif'
-                  }}>
-                    Palmi listens to how something is said, such as tone and rhythm, rather than what is being said, allowing patterns to be understood without capturing speech content.
-                  </p>
-                </div>
-
-                {/* Column 3 */}
-                <div style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px',
-                  padding: '2rem',
-                  opacity: 0,
-                  animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards`
-                }}>
-                  <div style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '12px',
-                    background: `${selectedProject.color}30`,
-                    border: `2px solid ${selectedProject.color}60`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1.5rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 900,
-                    color: selectedProject.color,
-                    fontFamily: '"Archivo Black", sans-serif'
-                  }}>
-                    3
-                  </div>
-                  <h3 style={{
-                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '0.8rem'
-                  }}>
-                    Emotional Pattern Insights
-                  </h3>
-                  <p style={{
-                    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
-                    color: 'rgba(255,255,255,0.7)',
-                    lineHeight: 1.6,
-                    fontFamily: '"Inter", sans-serif'
-                  }}>
-                    Facial and voice cues are combined over time into emotional patterns that parents can view through the app to support a clearer understanding of their child's emotions.
-                  </p>
-                </div>
+                ))}
               </div>
 
               {/* Section 8: Four image grid */}
@@ -2129,7 +2250,7 @@ export default function DesignerPortfolio() {
                   maxWidth: '900px',
                   marginBottom: '2rem'
                 }}>
-                  The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.
+                  {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
                 </p>
                 
                 {/* Metrics grid */}
@@ -2139,11 +2260,11 @@ export default function DesignerPortfolio() {
                   gap: '2rem',
                   marginTop: '2rem'
                 }}>
-                  {[
+                  {(selectedProject.content?.metrics || [
                     { value: '150%', label: 'User Growth' },
                     { value: '85%', label: 'Satisfaction' },
                     { value: '40%', label: 'Faster Tasks' }
-                  ].map((metric, i) => (
+                  ]).map((metric, i) => (
                     <div key={i} style={{ textAlign: 'center' }}>
                       <div style={{
                         fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
