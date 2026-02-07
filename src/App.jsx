@@ -1626,7 +1626,7 @@ export default function DesignerPortfolio() {
                     marginBottom: '1.2rem',
                     lineHeight: 1.2
                   }}>
-                    Design Process
+                    Device Objective
                   </h2>
                   <p style={{
                     fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
@@ -1634,7 +1634,7 @@ export default function DesignerPortfolio() {
                     lineHeight: 1.7,
                     fontFamily: '"Inter", sans-serif'
                   }}>
-                    Describe your design process, methodology, or approach here. This section combines text with an image side by side. Perfect for showing your workflow, research findings, or design iterations. Add as much detail as needed to explain your creative decisions.
+                    To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns.",
                   </p>
                 </div>
                 <div style={{
@@ -1826,7 +1826,7 @@ export default function DesignerPortfolio() {
                     lineHeight: 1.7,
                     fontFamily: '"Inter", sans-serif'
                   }}>
-                    Explain the final solution, key features, or implementation details. This layout reverses the image and text placement for visual variety. You can describe the outcomes, results, or impact of your design work here.
+                    Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.
                   </p>
                 </div>
               </div>
@@ -1850,7 +1850,7 @@ export default function DesignerPortfolio() {
                   marginBottom: '1rem',
                   lineHeight: 1.3
                 }}>
-                  "Add a client quote or key insight here"
+                  " Helping Parents Understand their Child's Emotions"
                 </div>
                 <div style={{
                   fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
@@ -1858,7 +1858,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Inter", sans-serif',
                   fontStyle: 'italic'
                 }}>
-                  — Client Name or Project Takeaway
+                  — Palmi
                 </div>
               </div>
 
@@ -1894,7 +1894,7 @@ export default function DesignerPortfolio() {
                       color: selectedProject.color,
                       fontFamily: '"Archivo Black", sans-serif'
                     }}>
-                      {num}
+                      Facial Expression Tracking{num}
                     </div>
                     <h3 style={{
                       fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
@@ -1903,7 +1903,7 @@ export default function DesignerPortfolio() {
                       fontFamily: '"Archivo Black", sans-serif',
                       marginBottom: '0.8rem'
                     }}>
-                      Feature Title {num}
+                      Facial Expression Tracking{num}
                     </h3>
                     <p style={{
                       fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
@@ -1911,7 +1911,7 @@ export default function DesignerPortfolio() {
                       lineHeight: 1.6,
                       fontFamily: '"Inter", sans-serif'
                     }}>
-                      Describe a key feature, outcome, or metric. This grid works great for highlighting multiple points.
+                      Supports the system's understanding of a child's emotional cues while avoiding the capture of raw image data.
                     </p>
                   </div>
                 ))}
