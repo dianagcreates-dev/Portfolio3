@@ -150,6 +150,10 @@ export default function DesignerPortfolio() {
   const [showStartPrompt, setShowStartPrompt] = useState(true);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [mouseTrail, setMouseTrail] = useState([]);
+  const mouseTrailRef = useRef([]);
  
 
   // Get current translations
@@ -349,6 +353,24 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
+  // Custom cursor tracking
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const newPos = { x: e.clientX, y: e.clientY, id: Date.now() };
+      setMousePosition(newPos);
+      
+      // Add to trail
+      mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
+      setMouseTrail(mouseTrailRef.current);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   // Carousel rotation animation
   useEffect(() => {
     if (activeSection === 'work' && !selectedProject) {
@@ -446,8 +468,100 @@ export default function DesignerPortfolio() {
       overflow: 'hidden',
       margin: 0,
       padding: 0,
-      fontFamily: '"Space Mono", "Courier New", monospace'
+      fontFamily: '"Space Mono", "Courier New", monospace',
+      cursor: 'none'
     }}>
+      {/* Shooting Star Cursor */}
+      {/* Trail particles */}
+      {mouseTrail.map((pos, index) => {
+        const opacity = (index / mouseTrail.length) * 0.6;
+        const size = ((index / mouseTrail.length) * 8) + 2;
+        return (
+          <div
+            key={pos.id}
+            style={{
+              position: 'fixed',
+              left: pos.x,
+              top: pos.y,
+              width: `${size}px`,
+              height: `${size}px`,
+              background: `radial-gradient(circle, rgba(255, 255, 255, ${opacity}), rgba(255, 200, 100, ${opacity * 0.6}), transparent)`,
+              borderRadius: '50%',
+              pointerEvents: 'none',
+              zIndex: 9998,
+              transform: 'translate(-50%, -50%)',
+              boxShadow: `0 0 ${size * 2}px rgba(255, 255, 255, ${opacity * 0.8})`
+            }}
+          />
+        );
+      })}
+      
+      {/* Main star */}
+      <div style={{
+        position: 'fixed',
+        left: mousePosition.x,
+        top: mousePosition.y,
+        width: '0',
+        height: '0',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        transform: 'translate(-50%, -50%)'
+      }}>
+        {/* Star glow */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: isHovering ? '30px' : '20px',
+          height: isHovering ? '30px' : '20px',
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 220, 150, 0.6), transparent)',
+          borderRadius: '50%',
+          transform: 'translate(-50%, -50%)',
+          transition: 'width 0.3s ease, height 0.3s ease',
+          boxShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 200, 100, 0.4)'
+        }} />
+        
+        {/* Star points */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: isHovering ? '16px' : '12px',
+          height: isHovering ? '16px' : '12px',
+          transform: 'translate(-50%, -50%)',
+          transition: 'width 0.3s ease, height 0.3s ease'
+        }}>
+          {[0, 45, 90, 135].map((angle) => (
+            <div
+              key={angle}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                width: '2px',
+                height: isHovering ? '16px' : '12px',
+                background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1), transparent)',
+                transform: `translate(-50%, -50%) rotate(${angle}deg)`,
+                transformOrigin: 'center'
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Center bright point */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: '4px',
+          height: '4px',
+          background: '#ffffff',
+          borderRadius: '50%',
+          transform: 'translate(-50%, -50%)',
+          boxShadow: '0 0 10px rgba(255, 255, 255, 1)'
+        }} />
+      </div>
+
       <audio
         ref={audioRef}
         src="/background.mp3"
@@ -786,6 +900,18 @@ export default function DesignerPortfolio() {
             </p>
             <button
               onClick={() => setActiveSection('work')}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#ffffff';
+                e.target.style.color = '#1a1a1a';
+                e.target.style.transform = 'translateY(-2px)';
+                setIsHovering(true);
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.15)';
+                e.target.style.color = '#ffffff';
+                e.target.style.transform = 'translateY(0)';
+                setIsHovering(false);
+              }}
               style={{
                 fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
                 fontWeight: 600,
@@ -801,16 +927,6 @@ export default function DesignerPortfolio() {
                 transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                 boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
                 fontFamily: '"Space Mono", monospace'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = '#ffffff';
-                e.target.style.color = '#1a1a1a';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.15)';
-                e.target.style.color = '#ffffff';
-                e.target.style.transform = 'translateY(0)';
               }}
             >
               {t.home.cta}
@@ -873,12 +989,14 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.border = `2px solid ${project.color}`;
                         e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
                         e.currentTarget.style.transform = 'scale(1.05)';
+                        setIsHovering(true);
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
                         e.currentTarget.style.border = '1px solid rgba(255,255,255,0.15)';
                         e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.2)';
                         e.currentTarget.style.transform = 'scale(1)';
+                        setIsHovering(false);
                       }}
                       style={{
                         background: 'rgba(255,255,255,0.05)',
@@ -2014,6 +2132,7 @@ export default function DesignerPortfolio() {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
+          cursor: none !important;
         }
 
         html, body, #root {
@@ -2023,6 +2142,7 @@ export default function DesignerPortfolio() {
           position: fixed;
           margin: 0;
           padding: 0;
+          cursor: none !important;
         }
 
         @keyframes fadeIn {
