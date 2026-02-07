@@ -20,9 +20,11 @@ const translations = {
     },
     about: {
       title: 'Design Philosophy',
-      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don’t just look good—they feel natural to use.",
+      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use.",
       skills: ['Strategy', 'Interaction', 'Visual', 'Research'],
-      skillLabel: 'Core Focus'
+      skillLabel: 'Core Focus',
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD'],
+      toolsLabel: 'Tools & Technologies'
     },
     contact: {
       title: "Let's Connect",
@@ -86,7 +88,9 @@ const translations = {
       title: 'Design-Philosophie',
       description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen.',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
-      skillLabel: 'Kernfokus'
+      skillLabel: 'Kernfokus',
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD'],
+      toolsLabel: 'Tools & Technologien'
     },
     contact: {
       title: 'Kontakt Aufnehmen',
@@ -498,17 +502,6 @@ export default function DesignerPortfolio() {
               }}
             >
               {item.label}
-              {activeSection === item.id && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: '2px',
-                  background: '#ffffff',
-                  animation: 'expandWidth 0.3s ease'
-                }} />
-              )}
             </button>
           ))}
         </div>
@@ -1765,22 +1758,72 @@ export default function DesignerPortfolio() {
                     fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
                     fontWeight: 900,
                     color: '#ffffff',
-                    marginBottom: '0.3rem',
                     fontFamily: '"Archivo Black", sans-serif'
                   }}>
                     {skill}
                   </div>
-                  <div style={{
-                    fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
-                    color: 'rgba(255,255,255,0.6)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    fontFamily: '"Space Mono", monospace'
-                  }}>
-                    {t.about.skillLabel}
-                  </div>
                 </div>
               ))}
+            </div>
+
+            {/* Software Tools Section */}
+            <div style={{
+              marginTop: '4rem',
+              paddingTop: '3rem',
+              borderTop: '1px solid rgba(255,255,255,0.1)',
+              opacity: 0,
+              animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards'
+            }}>
+              <h3 style={{
+                fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
+                color: 'rgba(255,255,255,0.6)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                marginBottom: '2rem',
+                fontFamily: '"Space Mono", monospace'
+              }}>
+                {t.about.toolsLabel}
+              </h3>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                {t.about.tools.map((tool, i) => (
+                  <div
+                    key={tool}
+                    style={{
+                      padding: '0.8rem 1.5rem',
+                      background: 'rgba(255,255,255,0.08)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      borderRadius: '50px',
+                      fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
+                      color: '#ffffff',
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 500,
+                      transition: 'all 0.3s ease',
+                      cursor: 'default',
+                      opacity: 0,
+                      animation: `fadeIn 0.5s ease ${0.8 + i * 0.1}s forwards`
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {tool}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -1907,11 +1950,6 @@ export default function DesignerPortfolio() {
           to {
             transform: rotateY(360deg);
           }
-        }
-
-        @keyframes expandWidth {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
         }
 
         @keyframes pulse {
