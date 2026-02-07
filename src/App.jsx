@@ -1894,7 +1894,7 @@ export default function DesignerPortfolio() {
                       color: selectedProject.color,
                       fontFamily: '"Archivo Black", sans-serif'
                     }}>
-                      Facial Expression Tracking{num}
+                      {num}
                     </div>
                     <h3 style={{
                       fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
@@ -1903,7 +1903,7 @@ export default function DesignerPortfolio() {
                       fontFamily: '"Archivo Black", sans-serif',
                       marginBottom: '0.8rem'
                     }}>
-                      Facial Expression Tracking{num}
+                      Featured{num}
                     </h3>
                     <p style={{
                       fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
