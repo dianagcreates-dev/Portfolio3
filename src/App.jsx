@@ -2018,8 +2018,8 @@ export default function DesignerPortfolio() {
                     fontFamily: '"Archivo Black", sans-serif',
                     marginBottom: '0.8rem'
                   }}>
-                    
-                  </h3>Emotional Pattern Insights
+                    Emotional Pattern Insights
+                  </h3>
                   <p style={{
                     fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
                     color: 'rgba(255,255,255,0.7)',
