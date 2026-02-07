@@ -1000,7 +1000,7 @@ export default function DesignerPortfolio() {
           letterSpacing: '-0.02em',
           fontFamily: '"Archivo Black", sans-serif'
         }}>
-          DIANA STUDIO
+          DIANA×STUDIO
         </div>
 
         <div style={{
