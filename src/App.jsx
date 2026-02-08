@@ -84,7 +84,7 @@ const translations = {
           screen3: "/images/palmi/screen3.jpg",        // 800x800px (1:1)
           screen4: "/images/palmi/screen4.jpg",        // 800x800px (1:1)
           final: "/images/palmi/final.jpg"             // 2100x900px (21:9)
-        }
+        },
       },
       {
         id: 2,
