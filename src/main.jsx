@@ -8,3 +8,7 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+
+import ImageTest from './ImageTest'
+   
+   root.render(<ImageTest />)
