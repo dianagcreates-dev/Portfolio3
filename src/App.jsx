@@ -68,7 +68,6 @@ const translations = {
           ]
         },
         images: {
-         images: {
           hero: "/images/palmi/hero1.png",              // 1920x1200px (16:10)
           process1: "/images/palmi/process1.png",      // 1920x1200px (16:10)
           process2: "/images/palmi/process2.png",      // 800x600px (4:3)
@@ -85,7 +84,7 @@ const translations = {
           screen4: "/images/palmi/screen4.jpg",        // 800x800px (1:1)
           final: "/images/palmi/final.jpg"             // 2100x900px (21:9)
         },
-      },
+      
      },
       
       {
