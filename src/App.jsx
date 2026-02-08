@@ -68,7 +68,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/palmi/hero1.png",              // 1920x1200px (16:10)
+          hero: "/images/palmi/hero.png",              // 1920x1200px (16:10)
           process1: "/images/palmi/process1.png",      // 1920x1200px (16:10)
           process2: "/images/palmi/process2.png",      // 800x600px (4:3)
           process3: "/images/palmi/process3.png",      // 800x600px (4:3)
