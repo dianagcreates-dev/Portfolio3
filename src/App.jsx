@@ -222,21 +222,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/magi/hero.jpg",
-          process1: "/images/magi/process1.jpg",
-          process2: "/images/magi/process2.jpg",
-          process3: "/images/magi/process3.jpg",
-          process4: "/images/magi/process4.jpg",
-          processWide: "/images/magi/process-wide.jpg",
-          detail1: "/images/magi/detail1.jpg",
-          detail2: "/images/magi/detail2.jpg",
-          portrait: "/images/magi/portrait.jpg",
-          solution: "/images/magi/solution.jpg",
-          screen1: "/images/magi/screen1.jpg",
-          screen2: "/images/magi/screen2.jpg",
-          screen3: "/images/magi/screen3.jpg",
-          screen4: "/images/magi/screen4.jpg",
-          final: "/images/magi/final.jpg"
+          hero: "/images/magi/hero.png",
+          process1: "/images/magi/process1.png",
+          process2: "/images/magi/process2.png",
+          process3: "/images/magi/process3.png",
+          process4: "/images/magi/process4.png",
+          processWide: "/images/magi/process-wide.png",
+          detail1: "/images/magi/detail1.png",
+          detail2: "/images/magi/detail2.png",
+          portrait: "/images/magi/portrait.png",
+          solution: "/images/magi/solution.png",
+          screen1: "/images/magi/screen1.png",
+          screen2: "/images/magi/screen2.png",
+          screen3: "/images/magi/screen3.png",
+          screen4: "/images/magi/screen4.png",
+          final: "/images/magi/final.png"
         }
       }
     ]
