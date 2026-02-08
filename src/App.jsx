@@ -86,6 +86,8 @@ const translations = {
           final: "/images/palmi/final.jpg"             // 2100x900px (21:9)
         },
       },
+     },
+      
       {
         id: 2,
         title: "Synkro",
