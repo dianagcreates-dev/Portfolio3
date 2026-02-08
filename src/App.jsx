@@ -1672,7 +1672,7 @@ export default function DesignerPortfolio() {
               <div style={{
                 width: '100%',
                 height: '500px',
-                background: `linear-gradient(135deg, ${selectedProject.color}60, ${selectedProject.color}20)`,
+               
                 borderRadius: '20px',
                 marginBottom: '4rem',
                 display: 'flex',
