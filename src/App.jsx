@@ -70,9 +70,9 @@ const translations = {
         images: {
           hero: "/images/palmi/heropal.png",              // 1920x1200px (16:10)
           process1: "/images/palmi/process1.png",      // 1920x1200px (16:10)
-          process2: "/images/palmi/process2.png",      // 800x600px (4:3)
-          process3: "/images/palmi/process3.png",      // 800x600px (4:3)
-          process4: "/images/palmi/process4.png",      // 800x600px (4:3)
+          process2: "/images/palmi/process6.png",      // 800x600px (4:3)
+          process3: "/images/palmi/process7.png",      // 800x600px (4:3)
+          process4: "/images/palmi/process8.png",      // 800x600px (4:3)
           processWide: "/images/palmi/process-wide.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
           detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
@@ -308,9 +308,9 @@ const translations = {
         images: {
           hero: "/images/palmi/heropal.png",
           process1: "/images/palmi/process1.png",
-          process2: "/images/palmi/process2.png",
-          process3: "/images/palmi/process3.png",
-          process4: "/images/palmi/process4.png",
+          process2: "/images/palmi/process6.png",
+          process3: "/images/palmi/process7.png",
+          process4: "/images/palmi/process8.png",
           processWide: "/images/palmi/process-wide.png",
           detail1: "/images/palmi/detail1.jpg",
           detail2: "/images/palmi/detail2.jpg",
