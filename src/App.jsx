@@ -1921,14 +1921,48 @@ export default function DesignerPortfolio() {
                 </div>
               </div>
 
-              {/* Section 2: Four process images in a row */}
+              {/* Section 2: Process 1 - Large full-width image (16:10) */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '16/10',
+                background: `linear-gradient(45deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards',
+                backgroundImage: selectedProject.images?.process1 ? `url(${selectedProject.images.process1})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}>
+                {!selectedProject.images?.process1 && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Process Image 1<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1920x1200px (16:10)</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Section 2b: Process 2, 3, 4 - Three images in a row (4:3) */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: '1.5rem',
                 marginBottom: '4rem'
               }}>
-                {[1, 2, 3, 4].map((num) => (
+                {[2, 3, 4].map((num) => (
                   <div key={num} style={{
                     width: '100%',
                     aspectRatio: '4/3',
@@ -1954,7 +1988,8 @@ export default function DesignerPortfolio() {
                         fontFamily: '"Archivo Black", sans-serif',
                         textAlign: 'center'
                       }}>
-                        Process {num}
+                        Process {num}<br/>
+                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>800x600px (4:3)</span>
                       </div>
                     )}
                   </div>
