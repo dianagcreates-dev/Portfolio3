@@ -1704,14 +1704,14 @@ export default function DesignerPortfolio() {
                   </div>
                 )}
                 
-                {/* Decorative gradient overlay */}
+                
                 <div style={{
                   position: 'absolute',
                   top: 0,
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: `radial-gradient(circle at 30% 30%, ${selectedProject.color}40, transparent 70%)`,
+                  background: `radial-gradient(circle at 30% 30%, ${selectedProject.color}15, transparent 70%)`,
                   pointerEvents: 'none'
                 }} />
               </div>
