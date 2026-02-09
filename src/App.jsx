@@ -73,7 +73,7 @@ const translations = {
           process2: "/images/palmi/process6.png",      // 800x600px (4:3)
           process3: "/images/palmi/process7.png",      // 800x600px (4:3)
           process4: "/images/palmi/process8.png",      // 800x600px (4:3)
-          processWide: "/images/palmi/process-wide.png", // 2100x900px (21:9)
+          processWide: "/images/palmi/process-wide1.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
           detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
           portrait: "/images/palmi/portrait.jpg",      // 600x800px (3:4)
@@ -311,7 +311,7 @@ const translations = {
           process2: "/images/palmi/process6.png",
           process3: "/images/palmi/process7.png",
           process4: "/images/palmi/process8.png",
-          processWide: "/images/palmi/process-wide.png",
+          processWide: "/images/palmi/process-wide1.png",
           detail1: "/images/palmi/detail1.jpg",
           detail2: "/images/palmi/detail2.jpg",
           portrait: "/images/palmi/portrait.jpg",
