@@ -76,7 +76,7 @@ const translations = {
           processWide: "/images/palmi/process-wide1.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
           detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
-          portrait: "/images/palmi/portrait.png",      // 600x800px (3:4)
+          portrait: "/images/palmi/portrait.jpg",      // 600x800px (3:4)
           solution: "/images/palmi/solution.jpg",      // 800x600px (4:3)
           screen1: "/images/palmi/screen1.jpg",        // 800x800px (1:1)
           screen2: "/images/palmi/screen2.jpg",        // 800x800px (1:1)
@@ -314,7 +314,7 @@ const translations = {
           processWide: "/images/palmi/process-wide1.png",
           detail1: "/images/palmi/detail1.jpg",
           detail2: "/images/palmi/detail2.jpg",
-          portrait: "/images/palmi/portrait.png",
+          portrait: "/images/palmi/portrait.jpg",
           solution: "/images/palmi/solution.jpg",
           screen1: "/images/palmi/screen1.jpg",
           screen2: "/images/palmi/screen2.jpg",
@@ -703,10 +703,11 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Custom cursor tracking with smooth movement
+  // Custom cursor tracking with instant movement
   useEffect(() => {
     const handleMouseMove = (e) => {
-      targetMousePosition.current = { x: e.clientX, y: e.clientY };
+      // Set cursor position instantly
+      setMousePosition({ x: e.clientX, y: e.clientY });
       
       const newPos = { x: e.clientX, y: e.clientY, id: Date.now() };
       
@@ -717,26 +718,8 @@ export default function DesignerPortfolio() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Smooth cursor animation using lerp
-    let animationFrameId;
-    const smoothCursor = () => {
-      setMousePosition(prev => {
-        const lerp = 0.15; // Lower = smoother but slower, Higher = faster but less smooth
-        return {
-          x: prev.x + (targetMousePosition.current.x - prev.x) * lerp,
-          y: prev.y + (targetMousePosition.current.y - prev.y) * lerp
-        };
-      });
-      animationFrameId = requestAnimationFrame(smoothCursor);
-    };
-    
-    animationFrameId = requestAnimationFrame(smoothCursor);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
     };
   }, []);
 
@@ -890,10 +873,10 @@ export default function DesignerPortfolio() {
       cursor: 'none'
     }}>
       {/* Particle Cursor */}
-      {/* Trail particles */}
+      {/* Trail particles - glowing orbs */}
       {mouseTrail.map((pos, index) => {
-        const opacity = (index / mouseTrail.length) * 0.5;
-        const size = ((index / mouseTrail.length) * 6) + 1;
+        const opacity = (index / mouseTrail.length) * 0.6;
+        const size = ((index / mouseTrail.length) * 10) + 4;
         return (
           <div
             key={pos.id}
@@ -903,18 +886,19 @@ export default function DesignerPortfolio() {
               top: pos.y,
               width: `${size}px`,
               height: `${size}px`,
-              background: `radial-gradient(circle, rgba(150, 180, 255, ${opacity}), rgba(100, 150, 255, ${opacity * 0.5}), transparent)`,
+              background: `radial-gradient(circle, rgba(147, 197, 253, ${opacity}), rgba(59, 130, 246, ${opacity * 0.7}), transparent)`,
               borderRadius: '50%',
               pointerEvents: 'none',
               zIndex: 9998,
               transform: 'translate(-50%, -50%)',
-              boxShadow: `0 0 ${size * 3}px rgba(150, 180, 255, ${opacity * 0.6})`
+              boxShadow: `0 0 ${size * 3}px rgba(59, 130, 246, ${opacity * 0.8})`,
+              filter: 'blur(0.5px)'
             }}
           />
         );
       })}
       
-      {/* Main particle */}
+      {/* Main particle cursor */}
       <div style={{
         position: 'fixed',
         left: mousePosition.x,
@@ -924,19 +908,20 @@ export default function DesignerPortfolio() {
         transform: 'translate(-50%, -50%)',
         willChange: 'left, top'
       }}>
-        {/* Outer glow */}
+        {/* Outer glow ring */}
         <div style={{
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: isHovering ? '24px' : '18px',
-          height: isHovering ? '24px' : '18px',
-          background: 'radial-gradient(circle, rgba(200, 220, 255, 0.4), rgba(150, 180, 255, 0.2), transparent)',
+          width: isHovering ? '60px' : '50px',
+          height: isHovering ? '60px' : '50px',
+          background: 'radial-gradient(circle, rgba(147, 197, 253, 0.3), rgba(59, 130, 246, 0.2), transparent)',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
-          transition: 'width 0.2s cubic-bezier(0.4, 0, 0.2, 1), height 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 0 20px rgba(150, 180, 255, 0.5)',
-          willChange: 'width, height'
+          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)',
+          willChange: 'width, height',
+          animation: 'pulse 2s ease-in-out infinite'
         }} />
         
         {/* Core particle */}
@@ -944,14 +929,30 @@ export default function DesignerPortfolio() {
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: isHovering ? '8px' : '6px',
-          height: isHovering ? '8px' : '6px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 1), rgba(200, 220, 255, 0.8))',
+          width: isHovering ? '16px' : '14px',
+          height: isHovering ? '16px' : '14px',
+          background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1), rgba(147, 197, 253, 0.95), rgba(59, 130, 246, 0.85))',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
-          transition: 'width 0.2s cubic-bezier(0.4, 0, 0.2, 1), height 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 0 12px rgba(200, 220, 255, 1), 0 0 6px rgba(255, 255, 255, 0.8)',
-          willChange: 'width, height'
+          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 0 15px rgba(147, 197, 253, 0.9), 0 0 5px rgba(255, 255, 255, 0.8), inset 0 0 3px rgba(255, 255, 255, 0.9)',
+          willChange: 'width, height',
+          border: '1px solid rgba(255, 255, 255, 0.5)'
+        }} />
+        
+        {/* Sparkle highlight */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: isHovering ? '5px' : '4px',
+          height: isHovering ? '5px' : '4px',
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), transparent)',
+          borderRadius: '50%',
+          transform: 'translate(-120%, -120%)',
+          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          willChange: 'width, height',
+          boxShadow: '0 0 4px rgba(255, 255, 255, 0.9)'
         }} />
       </div>
 
@@ -2285,14 +2286,14 @@ export default function DesignerPortfolio() {
                 ))}
               </div>
 
-              {/* Section 8: Four image grid */}
+              {/* Section 8: Three square screen images (1, 2, 3) */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 gap: '2rem',
                 marginBottom: '4rem'
               }}>
-                {[1, 2, 3, 4].map((num) => (
+                {[1, 2, 3].map((num) => (
                   <div key={num} style={{
                     width: '100%',
                     aspectRatio: '1/1',
@@ -2323,6 +2324,44 @@ export default function DesignerPortfolio() {
                     )}
                   </div>
                 ))}
+              </div>
+
+              {/* Section 8b: Screen 4 - Portrait style (same as portrait image) */}
+              <div style={{
+                maxWidth: '600px',
+                margin: '0 auto 4rem',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
+              }}>
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '3/4',
+                  background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                  borderRadius: '20px',
+                  border: `1px solid ${selectedProject.color}50`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  backgroundImage: selectedProject.images?.screen4 ? `url(${selectedProject.images.screen4})` : 'none',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}>
+                  {!selectedProject.images?.screen4 && (
+                    <div style={{
+                      fontSize: 'clamp(2rem, 5vw, 3rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center',
+                      padding: '2rem'
+                    }}>
+                      Screen 4<br/>
+                      <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Section 9: Final full-width image */}
