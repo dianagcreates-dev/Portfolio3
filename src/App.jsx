@@ -82,7 +82,7 @@ const translations = {
           screen2: "/images/palmi/screen2.jpg",        // 800x800px (1:1)
           screen3: "/images/palmi/screen3.jpg",        // 800x800px (1:1)
           screen4: "/images/palmi/screen4.png",        // 800x800px (1:1)
-          final: "/images/palmi/final.jpg"             // 2100x900px (21:9)
+          final: "/images/palmi/final.png"             // 2100x900px (21:9)
      },
       },
       {
@@ -320,7 +320,7 @@ const translations = {
           screen2: "/images/palmi/screen2.jpg",
           screen3: "/images/palmi/screen3.jpg",
           screen4: "/images/palmi/screen4.png",
-          final: "/images/palmi/final.jpg"
+          final: "/images/palmi/final.png"
         }
       },
       {
