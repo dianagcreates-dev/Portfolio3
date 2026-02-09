@@ -1706,7 +1706,7 @@ export default function DesignerPortfolio() {
                 
                 
               
-                }} />
+                
               </div>
 
               {/* Skills and Project Details - Compact Row */}
