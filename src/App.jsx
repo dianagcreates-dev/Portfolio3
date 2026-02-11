@@ -75,12 +75,12 @@ const translations = {
           process4: "/images/palmi/process8.png",      // 800x600px (4:3)
           processWide: "/images/palmi/process-wide1.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
-          detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
+          detail2: "/images/palmi/detail2.png",        // 800x600px (4:3)
           portrait: "/images/palmi/portrait1.png",      // 600x800px (3:4)
           solution: "/images/palmi/solution.png",      // 800x600px (4:3)
-          screen1: "/images/palmi/screen1.jpg",        // 800x800px (1:1)
-          screen2: "/images/palmi/screen2.jpg",        // 800x800px (1:1)
-          screen3: "/images/palmi/screen3.jpg",        // 800x800px (1:1)
+          screen1: "/images/palmi/screen1.png",        // 800x800px (1:1)
+          screen2: "/images/palmi/screen2.png",        // 800x800px (1:1)
+          screen3: "/images/palmi/screen3.png",        // 800x800px (1:1)
           screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
           final: "/images/palmi/final.png"             // 2100x900px (21:9)
      },
@@ -312,13 +312,13 @@ const translations = {
           process3: "/images/palmi/process7.png",
           process4: "/images/palmi/process8.png",
           processWide: "/images/palmi/process-wide1.png",
-          detail1: "/images/palmi/detail1.jpg",
-          detail2: "/images/palmi/detail2.jpg",
+          detail1: "/images/palmi/detail1.png",
+          detail2: "/images/palmi/detail2.png",
           portrait: "/images/palmi/portrait1.png",
           solution: "/images/palmi/solution.png",
-          screen1: "/images/palmi/screen1.jpg",
-          screen2: "/images/palmi/screen2.jpg",
-          screen3: "/images/palmi/screen3.jpg",
+          screen1: "/images/palmi/screen1.png",
+          screen2: "/images/palmi/screen2.png",
+          screen3: "/images/palmi/screen3.png",
           screen4: "/images/palmi/screen5.png",
           final: "/images/palmi/final.png"
         }
