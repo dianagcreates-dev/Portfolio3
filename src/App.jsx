@@ -398,45 +398,11 @@
                 </p>
               </div>
 
-              {/* Section 10: Final full-width image */}
-              <div style={{
-                width: '100%',
-                aspectRatio: '21/9',
-                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
-                borderRadius: '20px',
-                border: `1px solid ${selectedProject.color}50`,
-                marginBottom: '4rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.1s forwards',
-                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}>
-                {!selectedProject.images?.final && (
-                  <div style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem'
-                  }}>
-                    Final Mockup<br/>
-                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Section 11: Metrics at the bottom */}
+              {/* Section 10: Metrics */}
               <div style={{
                 marginBottom: '4rem',
                 opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.18s forwards'
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.1s forwards'
               }}>
                 {/* Metrics grid */}
                 <div style={{
@@ -472,6 +438,42 @@
                   ))}
                 </div>
               </div>
+
+
+              {/* Section 11: Final full-width image */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '21/9',
+                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.18s forwards',
+                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}>
+                {!selectedProject.images?.final && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Final Mockup<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                  </div>
+                )}
+              </div>
+
 
               {/* Bottom navigation */}
               <div style={{
