@@ -130,6 +130,7 @@ const translations = {
           beforeDefine: "/images/synkro/before-define.png", // 1920x1080px (16:9)
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
+          beforePortrait: "/images/synkro/before-portrait.png", // 1366x812px
           portrait: "/images/synkro/portrait.png",
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
@@ -2226,6 +2227,34 @@ export default function DesignerPortfolio() {
                 ))}
               </div>
 
+              {/* Section 4a: Before Portrait Image - Only for Synkro (1366x812) */}
+              {selectedProject.id === 2 && selectedProject.images?.beforePortrait && (
+                <div style={{
+                  width: '100%',
+                  maxWidth: '1200px',
+                  margin: '0 auto 4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '1366/812',
+                    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                    borderRadius: '20px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    backgroundImage: `url(${selectedProject.images.beforePortrait})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}>
+                  </div>
+                </div>
+              )}
+
               {/* Section 4b: Single portrait image */}
               <div style={{
                 maxWidth: '600px',
@@ -2235,7 +2264,7 @@ export default function DesignerPortfolio() {
               }}>
                 <div style={{
                   width: '100%',
-                  aspectRatio: '3/4',
+                  aspectRatio: selectedProject.id === 2 ? '1366/2116' : '3/4',
                   background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
                   borderRadius: '20px',
                   border: `1px solid ${selectedProject.color}50`,
@@ -2258,7 +2287,9 @@ export default function DesignerPortfolio() {
                       padding: '2rem'
                     }}>
                       Portrait Image<br/>
-                      <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Aspect Ratio</span>
+                      <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>
+                        {selectedProject.id === 2 ? '1366x2116px' : '3:4 Aspect Ratio'}
+                      </span>
                     </div>
                   )}
                 </div>
