@@ -119,21 +119,21 @@ const translations = {
           ]
         },
         images: {
-            hero: "/images/synkro/hero.jpg",
-          process1: "/images/synkro/process1.jpg",
-          process2: "/images/synkro/process2.jpg",
-          process3: "/images/synkro/process3.jpg",
-          process4: "/images/synkro/process4.jpg",
-          processWide: "/images/synkro/process-wide.jpg",
-          detail1: "/images/synkro/detail1.jpg",
-          detail2: "/images/synkro/detail2.jpg",
-          portrait: "/images/synkro/portrait.jpg",
-          solution: "/images/synkro/solution.jpg",
-          screen1: "/images/synkro/screen1.jpg",
-          screen2: "/images/synkro/screen2.jpg",
-          screen3: "/images/synkro/screen3.jpg",
-          screen4: "/images/synkro/screen4.jpg",
-          final: "/images/synkro/final.jpg"
+            hero: "/images/synkro/hero.png",
+          process1: "/images/synkro/process1.png",
+          process2: "/images/synkro/process2.png",
+          process3: "/images/synkro/process3.png",
+          process4: "/images/synkro/process4.png",
+          processWide: "/images/synkro/process-wide.png",
+          detail1: "/images/synkro/detail1.png",
+          detail2: "/images/synkro/detail2.png",
+          portrait: "/images/synkro/portrait.png",
+          solution: "/images/synkro/solution.png",
+          screen1: "/images/synkro/screen1.png",
+          screen2: "/images/synkro/screen2.png",
+          screen3: "/images/synkro/screen3.png",
+          screen4: "/images/synkro/screen4.png",
+          final: "/images/synkro/final.png"
         }
       },
       {
@@ -357,21 +357,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/synkro/hero.jpg",
-          process1: "/images/synkro/process1.jpg",
-          process2: "/images/synkro/process2.jpg",
-          process3: "/images/synkro/process3.jpg",
-          process4: "/images/synkro/process4.jpg",
-          processWide: "/images/synkro/process-wide.jpg",
-          detail1: "/images/synkro/detail1.jpg",
-          detail2: "/images/synkro/detail2.jpg",
-          portrait: "/images/synkro/portrait.jpg",
-          solution: "/images/synkro/solution.jpg",
-          screen1: "/images/synkro/screen1.jpg",
-          screen2: "/images/synkro/screen2.jpg",
-          screen3: "/images/synkro/screen3.jpg",
-          screen4: "/images/synkro/screen4.jpg",
-          final: "/images/synkro/final.jpg"
+          hero: "/images/synkro/hero.png",
+          process1: "/images/synkro/process1.png",
+          process2: "/images/synkro/process2.png",
+          process3: "/images/synkro/process3.png",
+          process4: "/images/synkro/process4.png",
+          processWide: "/images/synkro/process-wide.png",
+          detail1: "/images/synkro/detail1.png",
+          detail2: "/images/synkro/detail2.png",
+          portrait: "/images/synkro/portrait.png",
+          solution: "/images/synkro/solution.png",
+          screen1: "/images/synkro/screen1.png",
+          screen2: "/images/synkro/screen2.png",
+          screen3: "/images/synkro/screen3.png",
+          screen4: "/images/synkro/screen4.png",
+          final: "/images/synkro/final.png"
         }
       },
       {
