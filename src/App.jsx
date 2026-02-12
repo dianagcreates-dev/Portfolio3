@@ -720,7 +720,7 @@ export default function DesignerPortfolio() {
 
     const smoothUpdate = () => {
       // Smooth interpolation - lower value = smoother but slower
-      const smoothing = 0.01;
+      const smoothing = 0.1;
       
       currentPos.x += (targetPos.x - currentPos.x) * smoothing;
       currentPos.y += (targetPos.y - currentPos.y) * smoothing;
