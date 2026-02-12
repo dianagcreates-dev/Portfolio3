@@ -75,12 +75,12 @@ const translations = {
           process4: "/images/palmi/process8.png",      // 800x600px (4:3)
           processWide: "/images/palmi/process-wide1.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
-          detail2: "/images/palmi/detail2.png",        // 800x600px (4:3)
+          detail2: "/images/palmi/detail2.jpg",        // 800x600px (4:3)
           portrait: "/images/palmi/portrait1.png",      // 600x800px (3:4)
           solution: "/images/palmi/solution.png",      // 800x600px (4:3)
-          screen1: "/images/palmi/screen1.png",        // 800x800px (1:1)
-          screen2: "/images/palmi/screen2.png",        // 800x800px (1:1)
-          screen3: "/images/palmi/screen3.png",        // 800x800px (1:1)
+          screen1: "/images/palmi/screen1.jpg",        // 800x800px (1:1)
+          screen2: "/images/palmi/screen2.jpg",        // 800x800px (1:1)
+          screen3: "/images/palmi/screen3.jpg",        // 800x800px (1:1)
           screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
           final: "/images/palmi/final.png"             // 2100x900px (21:9)
      },
@@ -312,13 +312,13 @@ const translations = {
           process3: "/images/palmi/process7.png",
           process4: "/images/palmi/process8.png",
           processWide: "/images/palmi/process-wide1.png",
-          detail1: "/images/palmi/detail1.png",
-          detail2: "/images/palmi/detail2.png",
+          detail1: "/images/palmi/detail1.jpg",
+          detail2: "/images/palmi/detail2.jpg",
           portrait: "/images/palmi/portrait1.png",
           solution: "/images/palmi/solution.png",
-          screen1: "/images/palmi/screen1.png",
-          screen2: "/images/palmi/screen2.png",
-          screen3: "/images/palmi/screen3.png",
+          screen1: "/images/palmi/screen1.jpg",
+          screen2: "/images/palmi/screen2.jpg",
+          screen3: "/images/palmi/screen3.jpg",
           screen4: "/images/palmi/screen5.png",
           final: "/images/palmi/final.png"
         }
@@ -499,6 +499,10 @@ export default function DesignerPortfolio() {
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragStartRotation, setDragStartRotation] = useState(0);
+  const [showDragGuide, setShowDragGuide] = useState(true);
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [mouseTrail, setMouseTrail] = useState([]);
@@ -703,29 +707,46 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Custom cursor tracking with instant movement
+  // Custom cursor tracking with smooth interpolation for easier control
   useEffect(() => {
+    let animationFrameId;
+    const targetPos = { x: 0, y: 0 };
+    const currentPos = { x: 0, y: 0 };
+    
     const handleMouseMove = (e) => {
-      // Set cursor position instantly
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      targetPos.x = e.clientX;
+      targetPos.y = e.clientY;
+    };
+
+    const smoothUpdate = () => {
+      // Smooth interpolation - lower value = smoother but slower
+      const smoothing = 0.2;
       
-      const newPos = { x: e.clientX, y: e.clientY, id: Date.now() };
+      currentPos.x += (targetPos.x - currentPos.x) * smoothing;
+      currentPos.y += (targetPos.y - currentPos.y) * smoothing;
       
-      // Add to trail
+      setMousePosition({ x: currentPos.x, y: currentPos.y });
+      
+      // Update trail with smoother positions
+      const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
       mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
       setMouseTrail(mouseTrailRef.current);
+      
+      animationFrameId = requestAnimationFrame(smoothUpdate);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    animationFrameId = requestAnimationFrame(smoothUpdate);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  // Carousel rotation animation
+  // Carousel auto-rotation (continuous, doesn't reset)
   useEffect(() => {
-    if (activeSection === 'work' && !selectedProject) {
+    if (activeSection === 'work' && !selectedProject && !isDragging) {
       let animationId;
       const rotationSpeed = 360 / 30000; // 360 degrees in 30 seconds
       let lastTime = Date.now();
@@ -735,7 +756,7 @@ export default function DesignerPortfolio() {
         const deltaTime = currentTime - lastTime;
         lastTime = currentTime;
         
-        setCarouselRotation(prev => (prev + (deltaTime * rotationSpeed)) % 360);
+        setCarouselRotation(prev => prev + (deltaTime * rotationSpeed));
         animationId = requestAnimationFrame(animate);
       };
       
@@ -747,7 +768,40 @@ export default function DesignerPortfolio() {
         }
       };
     }
-  }, [activeSection, selectedProject]);
+  }, [activeSection, selectedProject, isDragging]);
+
+  // Carousel drag control only (no auto-rotation)
+  useEffect(() => {
+    if (activeSection === 'work' && !selectedProject) {
+      const handleMouseMove = (e) => {
+        if (isDragging) {
+          const deltaX = e.clientX - dragStartX;
+          // Sensitivity: 0.5 means dragging 100px = 50 degrees rotation
+          const rotationDelta = deltaX * 0.5;
+          const newRotation = (dragStartRotation + rotationDelta) % 360;
+          setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
+        }
+      };
+
+      const handleMouseUp = () => {
+        if (isDragging) {
+          setIsDragging(false);
+          // Update the drag start rotation to current position for smooth continuation
+          setDragStartRotation(carouselRotation);
+        }
+      };
+
+      if (isDragging) {
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+      }
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragStartX, dragStartRotation, carouselRotation, activeSection, selectedProject]);
 
   // Handle wheel scroll for section navigation
   useEffect(() => {
@@ -1400,16 +1454,31 @@ export default function DesignerPortfolio() {
             justifyContent: 'center',
             opacity: 0,
             animation: 'fadeIn 0.6s ease 0.1s forwards',
-            perspective: '2000px'
-          }}>
+            perspective: '2000px',
+            cursor: isDragging ? 'grabbing' : 'grab',
+            paddingBottom: '3rem'
+          }}
+          onMouseDown={(e) => {
+            // Only start dragging if clicking on background, not on project cards
+            if (e.target === e.currentTarget || e.target.closest('[data-carousel-container]')) {
+              setIsDragging(true);
+              setDragStartX(e.clientX);
+              setDragStartRotation(carouselRotation);
+              setShowDragGuide(false); // Hide guide when user starts dragging
+            }
+          }}
+          >
             <div 
               ref={carouselAnimationRef}
+              data-carousel-container="true"
               style={{
                 position: 'relative',
                 width: '100%',
                 height: '500px',
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${carouselRotation}deg)`
+                transform: `rotateY(${carouselRotation}deg)`,
+                transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                userSelect: 'none'
               }}
             >
               {t.projects.map((project, index) => {
@@ -1436,8 +1505,15 @@ export default function DesignerPortfolio() {
                     }}
                   >
                     <div
-                      onClick={() => {
-                        setSelectedProject(project);
+                      onClick={(e) => {
+                        // Only open project if we didn't drag
+                        if (!isDragging) {
+                          setSelectedProject(project);
+                        }
+                      }}
+                      onMouseDown={(e) => {
+                        // Stop propagation so card click doesn't trigger carousel drag
+                        e.stopPropagation();
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = `rgba(0,0,0,0.8)`;
@@ -1548,29 +1624,77 @@ export default function DesignerPortfolio() {
 
             <div style={{
               position: 'absolute',
-              bottom: '2rem',
+              bottom: '1.5rem',
               left: '50%',
               transform: 'translateX(-50%)',
-              fontSize: '0.85rem',
-              color: 'rgba(255,255,255,0.4)',
-              fontFamily: '"Space Mono", monospace',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem'
+              textAlign: 'center',
+              zIndex: 10
             }}>
-              <span style={{
-                width: '30px',
-                height: '1px',
-                background: 'rgba(255,255,255,0.3)'
-              }}></span>
-              Auto-rotating carousel
-              <span style={{
-                width: '30px',
-                height: '1px',
-                background: 'rgba(255,255,255,0.3)'
-              }}></span>
+              <div style={{
+                fontSize: '0.85rem',
+                color: 'rgba(255,255,255,0.4)',
+                fontFamily: '"Space Mono", monospace',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1rem',
+                marginBottom: '1rem'
+              }}>
+                <span style={{
+                  width: '30px',
+                  height: '1px',
+                  background: 'rgba(255,255,255,0.3)'
+                }}></span>
+                Auto-rotating carousel
+                <span style={{
+                  width: '30px',
+                  height: '1px',
+                  background: 'rgba(255,255,255,0.3)'
+                }}></span>
+              </div>
+
+              {/* Drag Guide - shows once */}
+              {showDragGuide && (
+                <div style={{
+                  pointerEvents: 'none',
+                  opacity: 0,
+                  animation: 'fadeIn 1s ease 1.5s forwards'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.8rem',
+                    fontSize: 'clamp(0.85rem, 1.6vw, 1rem)',
+                    color: '#ffffff',
+                    fontFamily: '"Space Mono", monospace',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.15em'
+                  }}>
+                    <div style={{
+                      animation: 'slideLeft 2s ease-in-out infinite',
+                      fontSize: '1.2rem'
+                    }}>←</div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.08)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      borderRadius: '50px',
+                      padding: '0.6rem 1.5rem',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                    }}>
+                      Click & Drag
+                    </div>
+                    <div style={{
+                      animation: 'slideRight 2s ease-in-out infinite',
+                      fontSize: '1.2rem'
+                    }}>→</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -2365,39 +2489,6 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 9: Final full-width image */}
-              <div style={{
-                width: '100%',
-                aspectRatio: '21/9',
-                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
-                borderRadius: '20px',
-                border: `1px solid ${selectedProject.color}50`,
-                marginBottom: '4rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.02s forwards',
-                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}>
-                {!selectedProject.images?.final && (
-                  <div style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem'
-                  }}>
-                    Final Mockup<br/>
-                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
-                  </div>
-                )}
-              </div>
-
               {/* Section 10: Results/Outcomes */}
               <div style={{
                 marginBottom: '4rem',
@@ -2459,6 +2550,40 @@ export default function DesignerPortfolio() {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Final Image - moved to bottom */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '21/9',
+                background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                borderRadius: '20px',
+                border: `1px solid ${selectedProject.color}50`,
+                marginBottom: '4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                opacity: 0,
+                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards',
+                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}>
+                {!selectedProject.images?.final && (
+                  <div style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    color: 'rgba(255,255,255,0.15)',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    textAlign: 'center',
+                    padding: '2rem'
+                  }}>
+                    Final Mockup<br/>
+                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                  </div>
+                )}
               </div>
 
               {/* Bottom navigation */}
@@ -2809,6 +2934,77 @@ export default function DesignerPortfolio() {
           }
           to {
             transform: scaleX(1);
+          }
+        }
+
+        @keyframes slideLeft {
+          0%, 100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          50% {
+            transform: translateX(-10px);
+            opacity: 0.5;
+          }
+        }
+
+        @keyframes slideRight {
+          0%, 100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          50% {
+            transform: translateX(10px);
+            opacity: 0.5;
+          }
+        }
+
+        @keyframes handDrag {
+          0%, 100% {
+            transform: translateX(0) rotate(0deg);
+          }
+          25% {
+            transform: translateX(-15px) rotate(-5deg);
+          }
+          50% {
+            transform: translateX(0) rotate(0deg);
+          }
+          75% {
+            transform: translateX(15px) rotate(5deg);
+          }
+        }
+
+        @keyframes dragLineLeft {
+          0%, 100% {
+            opacity: 0;
+            transform: translateX(10px);
+          }
+          25% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          50%, 75% {
+            opacity: 0;
+            transform: translateX(-10px);
+          }
+        }
+
+        @keyframes dragLineRight {
+          0%, 25% {
+            opacity: 0;
+            transform: translateX(-10px);
+          }
+          50% {
+            opacity: 0;
+            transform: translateX(10px);
+          }
+          75% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(10px);
           }
         }
 
