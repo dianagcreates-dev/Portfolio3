@@ -127,6 +127,7 @@ const translations = {
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.png",
           processWide: "/images/synkro/process-wide2.png",
+          beforeDefine: "/images/synkro/before-define.png", // 1920x1080px (16:9)
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
@@ -1991,35 +1992,6 @@ export default function DesignerPortfolio() {
                 )}
               </div>
 
-              {/* Discovery Section - Only for Synkro */}
-              {selectedProject.id === 2 && selectedProject.content?.discovery && (
-                <div style={{
-                  marginBottom: '4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards'
-                }}>
-                  <h2 style={{
-                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-                    color: '#ffffff',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '1.5rem',
-                    lineHeight: 1.2
-                  }}>
-                    Discovery
-                  </h2>
-                  <p style={{
-                    fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                    color: 'rgba(255,255,255,0.75)',
-                    lineHeight: 1.8,
-                    fontFamily: '"Inter", sans-serif',
-                    maxWidth: '900px'
-                  }}>
-                    {selectedProject.content.discovery}
-                  </p>
-                </div>
-              )}
-
               {/* Section 2: Process 1 - Large full-width image (16:10) */}
               <div style={{
                 width: '100%',
@@ -2053,6 +2025,58 @@ export default function DesignerPortfolio() {
                   </div>
                 )}
               </div>
+
+              {/* Discovery Section - Only for Synkro, after Process 1 */}
+              {selectedProject.id === 2 && selectedProject.content?.discovery && (
+                <div style={{
+                  marginBottom: '4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.82s forwards'
+                }}>
+                  <h2 style={{
+                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.5rem',
+                    lineHeight: 1.2
+                  }}>
+                    Discovery
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.8,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content.discovery}
+                  </p>
+                </div>
+              )}
+
+              {/* Before Define Image - Only for Synkro (1920x1080) */}
+              {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '16/9',
+                  background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                  borderRadius: '20px',
+                  border: `1px solid ${selectedProject.color}50`,
+                  marginBottom: '4rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.84s forwards',
+                  backgroundImage: `url(${selectedProject.images.beforeDefine})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}>
+                </div>
+              )}
 
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
