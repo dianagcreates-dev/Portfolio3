@@ -45,7 +45,7 @@ const translations = {
           challenge: "There is a critical gap in early emotional communication. Children frequently experience feelings they cannot yet articulate, leaving parents to interpret meaning through behavior rather than dialogue. This dynamic limits emotional clarity at a formative developmental stage.",
           solution: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
           quote: "Understanding emotions early helps build resilience for life.",
-          DesignApproach: "The device inspiration from the form language of a woman's compact an object associated with privacy,care,and personal ritual. This reference informed both the physical interaction and emotional symbolism of the product. The compact 70 mm X 70 mm dimension was deliberately selected to fit comfortably within a child's hands. The scale reinfores a sense of ownership and wmotional safety,preventing the object from feeling technical or intimidating. The dual states open and closed were designed as metaphors for emotional bounderies. Opening represent readiness for expression ans engagement closing signals privacy, containment, and emotional rest.",
+          designApproach: "The device inspiration from the form language of a woman's compact an object associated with privacy,care,and personal ritual. This reference informed both the physical interaction and emotional symbolism of the product. The compact 70 mm X 70 mm dimension was deliberately selected to fit comfortably within a child's hands. The scale reinfores a sense of ownership and wmotional safety,preventing the object from feeling technical or intimidating. The dual states open and closed were designed as metaphors for emotional bounderies. Opening represent readiness for expression ans engagement closing signals privacy, containment, and emotional rest.",
           purposeOfData: "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.",
           metrics: [
             { value: '150%', label: 'User Growth' },
@@ -923,8 +923,7 @@ export default function DesignerPortfolio() {
       overflow: 'hidden',
       margin: 0,
       padding: 0,
-      fontFamily: '"Space Mono", "Courier New", monospace',
-      cursor: 'none'
+      fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
       {/* Particle Cursor */}
       {/* Trail particles - glowing orbs */}
@@ -952,64 +951,6 @@ export default function DesignerPortfolio() {
         );
       })}
       
-      {/* Main particle cursor */}
-      <div style={{
-        position: 'fixed',
-        left: mousePosition.x,
-        top: mousePosition.y,
-        pointerEvents: 'none',
-        zIndex: 9999,
-        transform: 'translate(-50%, -50%)',
-        willChange: 'left, top'
-      }}>
-        {/* Outer glow ring */}
-        <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: isHovering ? '60px' : '50px',
-          height: isHovering ? '60px' : '50px',
-          background: 'radial-gradient(circle, rgba(147, 197, 253, 0.3), rgba(59, 130, 246, 0.2), transparent)',
-          borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)',
-          willChange: 'width, height',
-          animation: 'pulse 2s ease-in-out infinite'
-        }} />
-        
-        {/* Core particle */}
-        <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: isHovering ? '16px' : '14px',
-          height: isHovering ? '16px' : '14px',
-          background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1), rgba(147, 197, 253, 0.95), rgba(59, 130, 246, 0.85))',
-          borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 0 15px rgba(147, 197, 253, 0.9), 0 0 5px rgba(255, 255, 255, 0.8), inset 0 0 3px rgba(255, 255, 255, 0.9)',
-          willChange: 'width, height',
-          border: '1px solid rgba(255, 255, 255, 0.5)'
-        }} />
-        
-        {/* Sparkle highlight */}
-        <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: isHovering ? '5px' : '4px',
-          height: isHovering ? '5px' : '4px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), transparent)',
-          borderRadius: '50%',
-          transform: 'translate(-120%, -120%)',
-          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          willChange: 'width, height',
-          boxShadow: '0 0 4px rgba(255, 255, 255, 0.9)'
-        }} />
-      </div>
-
       <audio
         ref={audioRef}
         src="/background1.mp3"
@@ -2121,32 +2062,34 @@ export default function DesignerPortfolio() {
                 ))}
               </div>
 
-              {/* Section 3: Device Objective Text */}
-              <div style={{
-                marginBottom: '4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards'
-              }}>
-                <h2 style={{
-                  fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
-                  color: '#ffffff',
-                  fontWeight: 900,
-                  fontFamily: '"Archivo Black", sans-serif',
-                  marginBottom: '1.2rem',
-                  lineHeight: 1.2
+              {/* Section 3: Device Objective / Design Approach Text */}
+              {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
+                <div style={{
+                  marginBottom: '4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards'
                 }}>
-                  Device Objective
-                </h2>
-                <p style={{
-                  fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-                  color: 'rgba(255,255,255,0.75)',
-                  lineHeight: 1.7,
-                  fontFamily: '"Inter", sans-serif',
-                  maxWidth: '900px'
-                }}>
-                  {selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
-                </p>
-              </div>
+                  <h2 style={{
+                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.2rem',
+                    lineHeight: 1.2
+                  }}>
+                    {selectedProject.content?.designApproach ? 'Design Approach' : 'Device Objective'}
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.7,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
+                  </p>
+                </div>
+              )}
 
               {/* Section 3b: Full width process image */}
               <div style={{
@@ -2879,7 +2822,6 @@ export default function DesignerPortfolio() {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
-          cursor: none !important;
         }
 
         html, body, #root {
@@ -2889,7 +2831,6 @@ export default function DesignerPortfolio() {
           position: fixed;
           margin: 0;
           padding: 0;
-          cursor: none !important;
         }
 
         @keyframes fadeIn {
