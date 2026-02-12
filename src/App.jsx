@@ -73,7 +73,7 @@ const translations = {
           process2: "/images/palmi/process6.png",      // 800x600px (4:3)
           process3: "/images/palmi/process7.png",      // 800x600px (4:3)
           process4: "/images/palmi/process8.png",      // 800x600px (4:3)
-          processWide: "/images/palmi/process-wide1.png", // 2100x900px (21:9)
+          processWide: "/images/palmi/process-wide2.png", // 2100x900px (21:9)
           detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
           detail2: "/images/palmi/detail2.png",        // 800x600px (4:3)
           portrait: "/images/palmi/portrait1.png",      // 600x800px (3:4)
@@ -82,7 +82,7 @@ const translations = {
           screen2: "/images/palmi/screen2.2.png",        // 800x800px (1:1)
           screen3: "/images/palmi/screen3.2.png",        // 800x800px (1:1)
           screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
-          final: "/images/palmi/final.png"             // 2100x900px (21:9)
+          final: "/images/palmi/final1.png"             // 2100x900px (21:9)
      },
       },
       {
@@ -124,7 +124,7 @@ const translations = {
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.png",
-          processWide: "/images/synkro/process-wide.png",
+          processWide: "/images/synkro/process-wide2.png",
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
@@ -311,7 +311,7 @@ const translations = {
           process2: "/images/palmi/process6.png",
           process3: "/images/palmi/process7.png",
           process4: "/images/palmi/process8.png",
-          processWide: "/images/palmi/process-wide1.png",
+          processWide: "/images/palmi/process-wide2.png",
           detail1: "/images/palmi/detail1.png",
           detail2: "/images/palmi/detail2.png",
           portrait: "/images/palmi/portrait1.png",
@@ -320,7 +320,7 @@ const translations = {
           screen2: "/images/palmi/screen2.2.png",
           screen3: "/images/palmi/screen3.2.png",
           screen4: "/images/palmi/screen5.png",
-          final: "/images/palmi/final.png"
+          final: "/images/palmi/fina1.png"
         }
       },
       {
@@ -362,7 +362,7 @@ const translations = {
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.png",
-          processWide: "/images/synkro/process-wide.png",
+          processWide: "/images/synkro/process-wide2.png",
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
