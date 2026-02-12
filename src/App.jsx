@@ -95,6 +95,7 @@ const translations = {
         color: "#EC4899",
         content: {
           challenge: "Traditional business cards are easily lost and fail to capture the full scope of professional identity in today's digital world.",
+          discovery: "Through user research and competitive analysis, we identified key pain points in traditional networking: physical cards get lost, contact information becomes outdated, and follow-up is inconsistent. Users need a solution that bridges physical and digital networking seamlessly.",
           solution: "Synkro transforms networking with a dynamic digital business card that updates in real-time and creates meaningful connections.",
           quote: "Your network is your net worth.",
           deviceObjective: "To revolutionize networking: enable instant sharing, real-time updates, and seamless contact management across all platforms.",
@@ -114,8 +115,8 @@ const translations = {
               description: "Update your information once and all shared cards automatically reflect the changes across all contacts."
             },
             {
-              title: "Analytics Dashboard",
-              description: "Track who viewed your card, when connections were made, and measure your networking effectiveness over time."
+              title: "Wallet DBC",
+              description: "Store all your network's digital business cards in one place and chat directly with your connections without leaving the app."
             }
           ]
         },
@@ -1938,55 +1939,86 @@ export default function DesignerPortfolio() {
                   {selectedProject.content?.challenge || "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap."}
                 </p>
                 
-                {/* Loading bar statistic */}
-                <div style={{
-                  marginTop: '2.5rem',
-                  maxWidth: '600px'
-                }}>
+                {/* Loading bar statistic - Only for Palmi */}
+                {selectedProject.id === 1 && (
                   <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '0.8rem'
-                  }}>
-                    <span style={{
-                      fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
-                      color: 'rgba(255,255,255,0.9)',
-                      fontFamily: '"Inter", sans-serif',
-                      fontWeight: 600
-                    }}>
-                      Children under 10 struggle to name complex emotions
-                    </span>
-                    <span style={{
-                      fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                      color: '#ffffff',
-                      fontFamily: '"Archivo Black", sans-serif',
-                      fontWeight: 900
-                    }}>
-                      70%
-                    </span>
-                  </div>
-                  <div style={{
-                    width: '100%',
-                    height: '12px',
-                    background: 'rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    overflow: 'hidden',
-                    position: 'relative'
+                    marginTop: '2.5rem',
+                    maxWidth: '600px'
                   }}>
                     <div style={{
-                      width: '70%',
-                      height: '100%',
-                      background: `linear-gradient(90deg, ${selectedProject.color}, ${selectedProject.color}cc)`,
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '0.8rem'
+                    }}>
+                      <span style={{
+                        fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
+                        color: 'rgba(255,255,255,0.9)',
+                        fontFamily: '"Inter", sans-serif',
+                        fontWeight: 600
+                      }}>
+                        Children under 10 struggle to name complex emotions
+                      </span>
+                      <span style={{
+                        fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                        color: '#ffffff',
+                        fontFamily: '"Archivo Black", sans-serif',
+                        fontWeight: 900
+                      }}>
+                        70%
+                      </span>
+                    </div>
+                    <div style={{
+                      width: '100%',
+                      height: '12px',
+                      background: 'rgba(255,255,255,0.1)',
                       borderRadius: '10px',
-                      position: 'relative',
-                      animation: 'loadBar 1.5s ease-out 0.5s forwards',
-                      transformOrigin: 'left',
-                      boxShadow: `0 0 20px ${selectedProject.color}80`
-                    }} />
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}>
+                      <div style={{
+                        width: '70%',
+                        height: '100%',
+                        background: `linear-gradient(90deg, ${selectedProject.color}, ${selectedProject.color}cc)`,
+                        borderRadius: '10px',
+                        position: 'relative',
+                        animation: 'loadBar 1.5s ease-out 0.5s forwards',
+                        transformOrigin: 'left',
+                        boxShadow: `0 0 20px ${selectedProject.color}80`
+                      }} />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
+
+              {/* Discovery Section - Only for Synkro */}
+              {selectedProject.id === 2 && selectedProject.content?.discovery && (
+                <div style={{
+                  marginBottom: '4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards'
+                }}>
+                  <h2 style={{
+                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.5rem',
+                    lineHeight: 1.2
+                  }}>
+                    Discovery
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.8,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content.discovery}
+                  </p>
+                </div>
+              )}
 
               {/* Section 2: Process 1 - Large full-width image (16:10) */}
               <div style={{
@@ -2021,6 +2053,39 @@ export default function DesignerPortfolio() {
                   </div>
                 )}
               </div>
+
+              {/* Section 3: Device Objective / Design Approach / Define Text */}
+              {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
+                <div style={{
+                  marginBottom: '4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards'
+                }}>
+                  <h2 style={{
+                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.2rem',
+                    lineHeight: 1.2
+                  }}>
+                    {selectedProject.content?.designApproach 
+                      ? 'Design Approach' 
+                      : selectedProject.id === 2 
+                        ? 'Define' 
+                        : 'Device Objective'}
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.7,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
+                  </p>
+                </div>
+              )}
 
               {/* Section 2b: Process 2, 3, 4 - Three images in a row (4:3) */}
               <div style={{
@@ -2062,35 +2127,6 @@ export default function DesignerPortfolio() {
                   </div>
                 ))}
               </div>
-
-              {/* Section 3: Device Objective / Design Approach Text */}
-              {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
-                <div style={{
-                  marginBottom: '4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards'
-                }}>
-                  <h2 style={{
-                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
-                    color: '#ffffff',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '1.2rem',
-                    lineHeight: 1.2
-                  }}>
-                    {selectedProject.content?.designApproach ? 'Design Approach' : 'Device Objective'}
-                  </h2>
-                  <p style={{
-                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-                    color: 'rgba(255,255,255,0.75)',
-                    lineHeight: 1.7,
-                    fontFamily: '"Inter", sans-serif',
-                    maxWidth: '900px'
-                  }}>
-                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
-                  </p>
-                </div>
-              )}
 
               {/* Section 3b: Full width process image */}
               <div style={{
@@ -2251,7 +2287,7 @@ export default function DesignerPortfolio() {
                     marginBottom: '1.2rem',
                     lineHeight: 1.2
                   }}>
-                    The Solution
+                    {selectedProject.id === 2 ? 'Design' : 'The Solution'}
                   </h2>
                   <p style={{
                     fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
