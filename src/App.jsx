@@ -78,9 +78,9 @@ const translations = {
           detail2: "/images/palmi/detail2.png",        // 800x600px (4:3)
           portrait: "/images/palmi/portrait1.png",      // 600x800px (3:4)
           solution: "/images/palmi/solution.png",      // 800x600px (4:3)
-          screen1: "/images/palmi/screen1.1.png",        // 800x800px (1:1)
-          screen2: "/images/palmi/screen2.1.png",        // 800x800px (1:1)
-          screen3: "/images/palmi/screen3.1.png",        // 800x800px (1:1)
+          screen1: "/images/palmi/screen1.2.png",        // 800x800px (1:1)
+          screen2: "/images/palmi/screen2.2.png",        // 800x800px (1:1)
+          screen3: "/images/palmi/screen3.2.png",        // 800x800px (1:1)
           screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
           final: "/images/palmi/final.png"             // 2100x900px (21:9)
      },
@@ -316,9 +316,9 @@ const translations = {
           detail2: "/images/palmi/detail2.png",
           portrait: "/images/palmi/portrait1.png",
           solution: "/images/palmi/solution.png",
-          screen1: "/images/palmi/screen1.1.png",
-          screen2: "/images/palmi/screen2.1.png",
-          screen3: "/images/palmi/screen3.1.png",
+          screen1: "/images/palmi/screen1.2.png",
+          screen2: "/images/palmi/screen2.2.png",
+          screen3: "/images/palmi/screen3.2.png",
           screen4: "/images/palmi/screen5.png",
           final: "/images/palmi/final.png"
         }
