@@ -42,7 +42,7 @@ const translations = {
         description: "Helping Parents Understand  their Child's Emotions",
         color: "#6366F1",
         content: {
-          challenge: "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap.",
+          challenge: "There is a critical gap in early emotional communication. Children frequently experience feelings they cannot yet articulate, leaving parents to interpret meaning through behavior rather than dialogue. This dynamic limits emotional clarity at a formative developmental stage.",
           solution: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
           quote: "Understanding emotions early helps build resilience for life.",
           deviceObjective: "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns.",
@@ -280,7 +280,7 @@ const translations = {
         description: "Eltern dabei helfen, die Gefühle ihres Kindes zu verstehen",
         color: "#6366F1",
         content: {
-          challenge: "Viele Kinder erleben Emotionen, die sie noch nicht in Worte fassen können, während Eltern oft nur auf das Verhalten angewiesen sind, um zu verstehen, wie sich ihr Kind fühlt. Forschungen der Weltgesundheitsorganisation und der Centers for Disease Control and Prevention zeigen, dass 70% der Kinder unter 10 Jahren Schwierigkeiten haben, komplexe Emotionen zu benennen, was eine weit verbreitete emotionale Lücke schafft.",
+          challenge: "Es besteht eine wesentliche Lücke in der frühkindlichen emotionalen Kommunikation. Kinder erleben häufig Gefühle, die sie noch nicht sprachlich ausdrücken können, wodurch Eltern gezwungen sind, Bedeutungen eher über Verhalten als über Dialog zu interpretieren. Diese Dynamik begrenzt die emotionale Klarheit in einer prägenden Entwicklungsphase.",
           solution: "Palmi ist ein emotionaler Begleiter, der die Lücke zwischen den Gefühlen eines Kindes und dem Verständnis der Eltern überbrückt. Es bietet Kindern einen sicheren Raum, um Emotionen auszudrücken, während es emotionale Muster im Laufe der Zeit leise verfolgt.",
           quote: "Emotionen frühzeitig zu verstehen hilft, Resilienz fürs Leben aufzubauen.",
           deviceObjective: "Um diese emotionale Lücke zu schließen: Jede Lösung muss es Kindern ermöglichen, Gefühle auszudrücken, Orientierung im Moment zu bieten und emotionale Muster zu verfolgen.",
