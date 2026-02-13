@@ -132,8 +132,8 @@ const translations = {
           detail2: "/images/synkro/detail2.png",
           beforePortrait: "/images/synkro/before-portrait.png", // 1366x812px
           portrait: "/images/synkro/portrait.png",
-          beforeDesign1: "/images/synkro/before-design1.png", // 1366x182px
-          beforeDesign2: "/images/synkro/before-design2.png", // 1366x182px
+          beforeDesign1: "/images/synkro/before-design1.png", // 1366x812px
+          beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
@@ -372,8 +372,8 @@ const translations = {
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
-          beforeDesign1: "/images/synkro/before-design1.png", // 1366x182px
-          beforeDesign2: "/images/synkro/before-design2.png", // 1366x182px
+          beforeDesign1: "/images/synkro/before-design1.png", // 1366x812px
+          beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
@@ -2092,7 +2092,7 @@ export default function DesignerPortfolio() {
   }}>
     <div style={{
       width: '100%',
-      aspectRatio: '1366/182',
+      aspectRatio: '1366/812',
       background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
       borderRadius: '16px',
       border: `1px solid ${selectedProject.color}40`,
@@ -2116,14 +2116,14 @@ export default function DesignerPortfolio() {
           textAlign: 'center'
         }}>
           Wide Image 1<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x182px</span>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
         </div>
       )}
     </div>
 
     <div style={{
       width: '100%',
-      aspectRatio: '1366/182',
+      aspectRatio: '1366/812',
       background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
       borderRadius: '16px',
       border: `1px solid ${selectedProject.color}40`,
@@ -2147,12 +2147,12 @@ export default function DesignerPortfolio() {
           textAlign: 'center'
         }}>
           Wide Image 2<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x182px</span>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
         </div>
       )}
     </div>
   </div>
-)}
+)}}
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
                 <div style={{
