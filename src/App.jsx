@@ -125,7 +125,7 @@ const translations = {
           process1: "/images/synkro/process1.2.png",
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
-          process4: "/images/synkro/process4.png",
+          process4: "/images/synkro/process4.1.png",
           processWide: "/images/synkro/process-wide2.png",
           beforeDefine: "/images/synkro/before-define.png", // 1920x1080px (16:9)
           detail1: "/images/synkro/detail1.png",
@@ -365,7 +365,7 @@ const translations = {
           process1: "/images/synkro/process1.2.png",
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
-          process4: "/images/synkro/process4.png",
+          process4: "/images/synkro/process4.1.png",
           processWide: "/images/synkro/process-wide2.png",
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
