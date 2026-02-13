@@ -2142,7 +2142,7 @@ export default function DesignerPortfolio() {
                     overflow: 'hidden'
                   }}>
                      </div>
-                  )}
+                
                    {/* Two wide images before Design section - Only for Synkro */}
 {selectedProject.id === 2 && (
   <div style={{
