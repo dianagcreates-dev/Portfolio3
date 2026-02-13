@@ -2082,6 +2082,16 @@ export default function DesignerPortfolio() {
                 }}>
                 </div>
               )}
+              {/* Section 5: Image + Text (reversed layout) */}
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gap: '3rem',
+  alignItems: 'center',
+  marginBottom: '4rem',
+  opacity: 0,
+  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards'
+}}>
               {/* Two wide images before Design section - Only for Synkro */}
 {selectedProject.id === 2 && (
   <div style={{
