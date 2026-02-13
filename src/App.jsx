@@ -131,6 +131,8 @@ const translations = {
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           beforePortrait: "/images/synkro/before-portrait.png", // 1366x812px
+          beforeDesign1: "/images/synkro/before-design1.png", // 1366x182px
+          beforeDesign2: "/images/synkro/before-design2.png", // 1366x182px
           portrait: "/images/synkro/portrait.png",
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
@@ -370,6 +372,8 @@ const translations = {
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
+          beforeDesign1: "/images/synkro/before-design1.png", // 1366x182px
+          beforeDesign2: "/images/synkro/before-design2.png", // 1366x182px
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
@@ -2056,7 +2060,7 @@ export default function DesignerPortfolio() {
                 </div>
               )}
 
-              {/* Before Define Image - Only for Synkro (1920x1080) */}
+              {/* Before Design Image - Only for Synkro (1920x1080) */}
               {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
                 <div style={{
                   width: '100%',
@@ -2137,6 +2141,79 @@ export default function DesignerPortfolio() {
                     backgroundRepeat: 'no-repeat',
                     overflow: 'hidden'
                   }}>
+                     </div>
+                  )}
+                   {/* Two wide images before Design section - Only for Synkro */}
+{selectedProject.id === 2 && (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2rem',
+    marginBottom: '4rem'
+  }}>
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/182',
+      background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
+      borderRadius: '16px',
+      border: `1px solid ${selectedProject.color}40`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      opacity: 0,
+      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.86s forwards',
+      backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      {!selectedProject.images?.beforeDesign1 && (
+        <div style={{
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center'
+        }}>
+          Wide Image 1<br/>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x182px</span>
+        </div>
+      )}
+    </div>
+
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/182',
+      background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
+      borderRadius: '16px',
+      border: `1px solid ${selectedProject.color}40`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      opacity: 0,
+      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards',
+      backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      {!selectedProject.images?.beforeDesign2 && (
+        <div style={{
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center'
+        }}>
+          Wide Image 2<br/>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x182px</span>
+        </div>
+      )}
+    </div>
+  </div>
+)}
                     {!selectedProject.images?.[`process${num}`] && (
                       <div style={{
                         fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
