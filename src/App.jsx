@@ -2337,8 +2337,7 @@ export default function DesignerPortfolio() {
           <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
         </div>
       )}
-    </div>
-    })}
+      {
    {/* Final Mockup - Only for Synkro (1366x2171) */}
 {selectedProject.id === 2 && (
   <div style={{
