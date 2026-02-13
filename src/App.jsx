@@ -2082,7 +2082,7 @@ export default function DesignerPortfolio() {
                 }}>
                 </div>
               )}
-              }{/* Two wide images before Design section - Only for Synkro */}
+              {/* Two wide images before Design section - Only for Synkro */}
 {selectedProject.id === 2 && (
   <div style={{
     display: 'flex',
