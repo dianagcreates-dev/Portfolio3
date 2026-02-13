@@ -2338,7 +2338,7 @@ export default function DesignerPortfolio() {
         </div>
       )}
     </div>
-    {/* Final Mockup - Only for Synkro (1366x2171) */}
+   {/* Final Mockup - Only for Synkro (1366x2171) */}
 {selectedProject.id === 2 && (
   <div style={{
     maxWidth: '800px',
@@ -2377,66 +2377,6 @@ export default function DesignerPortfolio() {
     </div>
   </div>
 )}
-
-{/* Section 5: Image + Text (reversed layout) */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-  gap: '3rem',
-  alignItems: 'center',
-  marginBottom: '4rem',
-  opacity: 0,
-  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
-}}>
-  <div style={{
-    width: '100%',
-    aspectRatio: '4/3',
-    background: `linear-gradient(315deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
-    borderRadius: '16px',
-    border: `1px solid ${selectedProject.color}40`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    order: 1,
-    backgroundImage: selectedProject.images?.solution ? `url(${selectedProject.images.solution})` : 'none',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    overflow: 'hidden'
-  }}>
-    {!selectedProject.images?.solution && (
-      <div style={{
-        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-        color: 'rgba(255,255,255,0.15)',
-        fontWeight: 900,
-        fontFamily: '"Archivo Black", sans-serif',
-        textAlign: 'center'
-      }}>
-        Solution Image
-      </div>
-    )}
-  </div>
-  <div style={{ order: 2 }}>
-    <h2 style={{
-      fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
-      color: '#ffffff',
-      fontWeight: 900,
-      fontFamily: '"Archivo Black", sans-serif',
-      marginBottom: '1.2rem',
-      lineHeight: 1.2
-    }}>
-      {selectedProject.id === 2 ? 'Design' : 'The Solution'}
-    </h2>
-    <p style={{
-      fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-      color: 'rgba(255,255,255,0.75)',
-      lineHeight: 1.7,
-      fontFamily: '"Inter", sans-serif'
-    }}>
-      {selectedProject.content?.solution || "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time."}
-    </p>
-  </div>
-</div>
     <div style={{
       width: '100%',
       aspectRatio: '1366/812',
