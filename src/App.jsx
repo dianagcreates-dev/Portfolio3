@@ -2337,9 +2337,8 @@ export default function DesignerPortfolio() {
           <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
         </div>
       )}
-    </div>
-  
-)}
+    </div> 
+
     <div style={{
       width: '100%',
       aspectRatio: '1366/812',
