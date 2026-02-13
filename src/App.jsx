@@ -131,9 +131,9 @@ const translations = {
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           beforePortrait: "/images/synkro/before-portrait.png", // 1366x812px
+          portrait: "/images/synkro/portrait.png",
           beforeDesign1: "/images/synkro/before-design1.png", // 1366x182px
           beforeDesign2: "/images/synkro/before-design2.png", // 1366x182px
-          portrait: "/images/synkro/portrait.png",
           solution: "/images/synkro/solution.png",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
@@ -2060,7 +2060,7 @@ export default function DesignerPortfolio() {
                 </div>
               )}
 
-              {/* Before Design Image - Only for Synkro (1920x1080) */}
+              {/* Before Define Image - Only for Synkro (1920x1080) */}
               {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
                 <div style={{
                   width: '100%',
@@ -2082,68 +2082,7 @@ export default function DesignerPortfolio() {
                 }}>
                 </div>
               )}
-
-              {/* Section 3: Device Objective / Design Approach / Define Text */}
-              {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
-                <div style={{
-                  marginBottom: '4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards'
-                }}>
-                  <h2 style={{
-                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
-                    color: '#ffffff',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    marginBottom: '1.2rem',
-                    lineHeight: 1.2
-                  }}>
-                    {selectedProject.content?.designApproach 
-                      ? 'Design Approach' 
-                      : selectedProject.id === 2 
-                        ? 'Define' 
-                        : 'Device Objective'}
-                  </h2>
-                  <p style={{
-                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-                    color: 'rgba(255,255,255,0.75)',
-                    lineHeight: 1.7,
-                    fontFamily: '"Inter", sans-serif',
-                    maxWidth: '900px'
-                  }}>
-                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
-                  </p>
-                </div>
-              )}
-
-              {/* Section 2b: Process 2, 3, 4 - Three images in a row (4:3) */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '1.5rem',
-                marginBottom: '4rem'
-              }}>
-                {[2, 3, 4].map((num) => (
-                  <div key={num} style={{
-                    width: '100%',
-                    aspectRatio: '4/3',
-                    background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
-                    borderRadius: '16px',
-                    border: `1px solid ${selectedProject.color}40`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`,
-                    backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    overflow: 'hidden'
-                  }}>
-                     </div>
-                  )
-                   {/* Two wide images before Design section - Only for Synkro */}
+              }{/* Two wide images before Design section - Only for Synkro */}
 {selectedProject.id === 2 && (
   <div style={{
     display: 'flex',
@@ -2214,6 +2153,64 @@ export default function DesignerPortfolio() {
     </div>
   </div>
 )}
+              {/* Section 3: Device Objective / Design Approach / Define Text */}
+              {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
+                <div style={{
+                  marginBottom: '4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards'
+                }}>
+                  <h2 style={{
+                    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontFamily: '"Archivo Black", sans-serif',
+                    marginBottom: '1.2rem',
+                    lineHeight: 1.2
+                  }}>
+                    {selectedProject.content?.designApproach 
+                      ? 'Design Approach' 
+                      : selectedProject.id === 2 
+                        ? 'Define' 
+                        : 'Device Objective'}
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.7,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
+                  </p>
+                </div>
+              )}
+
+              {/* Section 2b: Process 2, 3, 4 - Three images in a row (4:3) */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '1.5rem',
+                marginBottom: '4rem'
+              }}>
+                {[2, 3, 4].map((num) => (
+                  <div key={num} style={{
+                    width: '100%',
+                    aspectRatio: '4/3',
+                    background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0,
+                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`,
+                    backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    overflow: 'hidden'
+                  }}>
                     {!selectedProject.images?.[`process${num}`] && (
                       <div style={{
                         fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
