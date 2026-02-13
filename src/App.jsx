@@ -2082,87 +2082,7 @@ export default function DesignerPortfolio() {
                 }}>
                 </div>
               )}
-              {/* Section 5: Image + Text (reversed layout) */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-  gap: '3rem',
-  alignItems: 'center',
-  marginBottom: '4rem',
-  opacity: 0,
-  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards'
-}}>
-              {/* Two wide images before Design section - Only for Synkro */}
-{selectedProject.id === 2 && (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '2rem',
-    marginBottom: '4rem'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/812',
-      background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
-      borderRadius: '16px',
-      border: `1px solid ${selectedProject.color}40`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      opacity: 0,
-      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.86s forwards',
-      backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.beforeDesign1 && (
-        <div style={{
-          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center'
-        }}>
-          Wide Image 1<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-        </div>
-      )}
-    </div>
 
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/812',
-      background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
-      borderRadius: '16px',
-      border: `1px solid ${selectedProject.color}40`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      opacity: 0,
-      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards',
-      backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.beforeDesign2 && (
-        <div style={{
-          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center'
-        }}>
-          Wide Image 2<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}}
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
                 <div style={{
@@ -2378,7 +2298,77 @@ export default function DesignerPortfolio() {
                   )}
                 </div>
               </div>
+              {/* Two wide images before Design section - Only for Synkro */}
+{selectedProject.id === 2 && (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2rem',
+    marginBottom: '4rem'
+  }}>
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/812',
+      background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
+      borderRadius: '16px',
+      border: `1px solid ${selectedProject.color}40`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      opacity: 0,
+      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards',
+      backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      {!selectedProject.images?.beforeDesign1 && (
+        <div style={{
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center'
+        }}>
+          Wide Image 1<br/>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+        </div>
+      )}
+    </div>
 
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/812',
+      background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
+      borderRadius: '16px',
+      border: `1px solid ${selectedProject.color}40`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      opacity: 0,
+      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.65s forwards',
+      backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      {!selectedProject.images?.beforeDesign2 && (
+        <div style={{
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center'
+        }}>
+          Wide Image 2<br/>
+          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+        </div>
+      )}
+    </div>
+  </div>
+)}
               {/* Section 5: Image + Text (reversed layout) */}
               <div style={{
                 display: 'grid',
