@@ -2338,8 +2338,7 @@ export default function DesignerPortfolio() {
         </div>
       )}
     </div>
-     </div>
-)}
+    {
    {/* Final Mockup - Only for Synkro (1366x2171) */}
 {selectedProject.id === 2 && (
   <div style={{
