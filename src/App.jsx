@@ -2084,45 +2084,7 @@ export default function DesignerPortfolio() {
                 }}>
                 </div>
               )}
-              {/* Final Mockup - Only for Synkro (1366x2171) */}
-{selectedProject.id === 2 && (
-  <div style={{
-    maxWidth: '800px',
-    margin: '0 auto 4rem',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/2171',
-      background: `linear-gradient(180deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
-      borderRadius: '20px',
-      border: `1px solid ${selectedProject.color}50`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      backgroundImage: selectedProject.images?.finalMockup ? `url(${selectedProject.images.finalMockup})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.finalMockup && (
-        <div style={{
-          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center',
-          padding: '2rem'
-        }}>
-          Final Mockup<br/>
-          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x2171px</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+              
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
                 <div style={{
@@ -2376,7 +2338,56 @@ export default function DesignerPortfolio() {
         </div>
       )}
     </div>
+{/* Final Mockup - Only for Synkro (1366x2171) */}
+{selectedProject.id === 2 && (
+  <div style={{
+    maxWidth: '800px',
+    margin: '0 auto 4rem',
+    opacity: 0,
+    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
+  }}>
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/2171',
+      background: `linear-gradient(180deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+      borderRadius: '20px',
+      border: `1px solid ${selectedProject.color}50`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      backgroundImage: selectedProject.images?.finalMockup ? `url(${selectedProject.images.finalMockup})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      {!selectedProject.images?.finalMockup && (
+        <div style={{
+          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center',
+          padding: '2rem'
+        }}>
+          Final Mockup<br/>
+          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x2171px</span>
+        </div>
+      )}
+    </div>
+  </div>
+)}
 
+{/* Section 5: Image + Text (reversed layout) - Solution/Design section */}
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gap: '3rem',
+  alignItems: 'center',
+  marginBottom: '4rem',
+  opacity: 0,
+  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
+}}>
     <div style={{
       width: '100%',
       aspectRatio: '1366/812',
