@@ -85,7 +85,6 @@ function RotatingText() {
     </>
   );
 }
-{
 // Translation content
 const translations = {
 
