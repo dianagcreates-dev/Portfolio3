@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
 
 // Rotating text component for hero
 function RotatingText() {
