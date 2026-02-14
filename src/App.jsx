@@ -136,6 +136,7 @@ const translations = {
           beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
           solution: "/images/synkro/solution.png",
           finalMockup: "/images/synkro/final-mockup.png",
+          demoVideo: "/images/synkro/demo-video.mp4",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
           screen3: "/images/synkro/screen3.png",
@@ -377,6 +378,7 @@ const translations = {
           beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
           solution: "/images/synkro/solution.png",
           finalMockup: "/images/synkro/final-mockup.png",
+          demoVideo: "/images/synkro/demo-video.mp4",
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.png",
           screen3: "/images/synkro/screen3.png",
@@ -2409,7 +2411,60 @@ export default function DesignerPortfolio() {
       )}
     </div>
   </div>
-)}        
+)}     
+              {/* Video Section - Only for Synkro (1366x768) */}
+{selectedProject.id === 2 && (
+  <div style={{
+    width: '100%',
+    maxWidth: '1200px',
+    margin: '0 auto 4rem',
+    opacity: 0,
+    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
+  }}>
+    <div style={{
+      width: '100%',
+      aspectRatio: '1366/768',
+      background: `linear-gradient(135deg, ${selectedProject.color}30, ${selectedProject.color}10)`,
+      borderRadius: '20px',
+      border: `1px solid ${selectedProject.color}50`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      position: 'relative'
+    }}>
+      {selectedProject.images?.demoVideo ? (
+        <video
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={selectedProject.images.demoVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <div style={{
+          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+          color: 'rgba(255,255,255,0.15)',
+          fontWeight: 900,
+          fontFamily: '"Archivo Black", sans-serif',
+          textAlign: 'center',
+          padding: '2rem'
+        }}>
+          Demo Video<br/>
+          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x768px MP4</span>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
               {/* Section 5: Image + Text (reversed layout) */}
               <div style={{
                 display: 'grid',
