@@ -51,7 +51,6 @@ function RotatingText() {
         );
       })}
       <span
-        }
         style={{
           display: 'inline-block',
           position: 'relative',
@@ -86,7 +85,7 @@ function RotatingText() {
     </>
   );
 }
-
+{
 // Translation content
 const translations = {
 
