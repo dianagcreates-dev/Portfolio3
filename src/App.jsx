@@ -1416,21 +1416,16 @@ export default function DesignerPortfolio() {
   fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
   color: 'rgba(255,255,255,0.8)',
   marginBottom: '2.5rem',
-  // ... rest of paragraph style
-            <p style={{
-              fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
-              color: 'rgba(255,255,255,0.8)',
-              marginBottom: '2.5rem',
-              lineHeight: 1.6,
-              fontWeight: 400,
-              maxWidth: '600px',
-              margin: '0 auto 2.5rem',
-              fontFamily: '"Inter", sans-serif'
-            }}>
-              {t.home.subheadline}
-            </p>
-            <button
-              onClick={() => setActiveSection('work')}
+  lineHeight: 1.6,
+  fontWeight: 400,
+  maxWidth: '600px',
+  margin: '0 auto 2.5rem',
+  fontFamily: '"Inter", sans-serif'
+}}>
+  {t.home.subheadline}
+</p>
+<button
+  onClick={() => setActiveSection('work')}
               onMouseEnter={(e) => {
                 e.target.style.background = '#ffffff';
                 e.target.style.color = '#1a1a1a';
