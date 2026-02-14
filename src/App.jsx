@@ -1399,38 +1399,24 @@ export default function DesignerPortfolio() {
   textShadow: '0 4px 20px rgba(0,0,0,0.4)'
 }}>
   <RotatingText />
+<h1 style={{
+  fontSize: 'clamp(2.5rem, 10vw, 6rem)',
+  fontWeight: 900,
+  margin: 0,
+  marginBottom: '1rem',
+  color: '#ffffff',
+  lineHeight: 1.1,
+  letterSpacing: '-0.03em',
+  fontFamily: '"Archivo Black", sans-serif',
+  textShadow: '0 4px 20px rgba(0,0,0,0.4)'
+}}>
+  <RotatingText />
 </h1>
-              {t.home.headline.split('').map((char, index) => {
-                if (char === ' ' && index === t.home.headline.indexOf('Design') - 1) {
-                  return <br key={index} />;
-                }
-                if (char === ' ') {
-                  return <span key={index}> </span>;
-                }
-                return (
-                  <span
-                    key={index}
-                    style={{
-                      display: 'inline-block',
-                      position: 'relative',
-                      transition: 'text-shadow 0.2s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - rect.left - rect.width / 2;
-                      const y = e.clientY - rect.top - rect.height / 2;
-                      e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8), 0 4px 20px rgba(0,0,0,0.4)`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.textShadow = '0 4px 20px rgba(0,0,0,0.4)';
-                    }}
-                  >
-                    {char}
-                  </span>
-                );
-              })}
-            </h1>
+<p style={{
+  fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
+  color: 'rgba(255,255,255,0.8)',
+  marginBottom: '2.5rem',
+  // ... rest of paragraph style
             <p style={{
               fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
               color: 'rgba(255,255,255,0.8)',
