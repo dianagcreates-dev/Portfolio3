@@ -2693,28 +2693,76 @@ export default function DesignerPortfolio() {
                 </div>
               </div>
 
-              {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
-              {selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
-                <div style={{
-                  width: '100%',
-                  aspectRatio: '16/9',
-                  background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
-                  borderRadius: '20px',
-                  border: `1px solid ${selectedProject.color}50`,
-                  marginBottom: '4rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  overflow: 'hidden',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
-                  backgroundImage: `url(${selectedProject.images.beforePurpose})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
-                }}>
-                </div>
-              )}
+              {/* Section 8c: Before Purpose - Image for Palmi, Video for Synkro */}
+{selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
+  <div style={{
+    width: '100%',
+    aspectRatio: '16/9',
+    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+    borderRadius: '20px',
+    border: `1px solid ${selectedProject.color}50`,
+    marginBottom: '4rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    opacity: 0,
+    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
+    backgroundImage: `url(${selectedProject.images.beforePurpose})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  }}>
+  </div>
+)}
+
+{/* Video before Purpose - Only for Synkro (16:9) */}
+{selectedProject.id === 2 && (
+  <div style={{
+    width: '100%',
+    aspectRatio: '16/9',
+    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+    borderRadius: '20px',
+    border: `1px solid ${selectedProject.color}50`,
+    marginBottom: '4rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    opacity: 0,
+    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
+    position: 'relative'
+  }}>
+    {selectedProject.images?.beforePurposeVideo ? (
+      <video
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover'
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src={selectedProject.images.beforePurposeVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ) : (
+      <div style={{
+        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+        color: 'rgba(255,255,255,0.15)',
+        fontWeight: 900,
+        fontFamily: '"Archivo Black", sans-serif',
+        textAlign: 'center',
+        padding: '2rem'
+      }}>
+        Before Purpose Video<br/>
+        <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>16:9 MP4</span>
+      </div>
+    )}
+  </div>
+)}
 
               {/* Section 9: Final full-width image */}
               {/* Section 10: Results/Outcomes */}
