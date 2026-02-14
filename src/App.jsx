@@ -1454,22 +1454,24 @@ export default function DesignerPortfolio() {
       </button>
     </div>
   )}
+{activeSection === 'work' && !selectedProject && (
+  <div style={{
+    width: '100%',
+    height: '80vh',
+    maxWidth: '1200px',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0,
+    animation: 'fadeIn 0.6s ease 0.1s forwards',
+    perspective: '2000px',
+    cursor: isDragging ? 'grabbing' : 'grab',
+    paddingBottom: '3rem'
+  }}
+  onMouseDown={(e) => {
 
-  {activeSection === 'work' && !selectedProject && (  
 
-  fontSize: 'clamp(2.5rem, 10vw, 6rem)',
-  fontWeight: 900,
-  margin: 0,
-  marginBottom: '1rem',
-  color: '#ffffff',
-  lineHeight: 1.1,
-  letterSpacing: '-0.03em',
-  fontFamily: '"Archivo Black", sans-serif',
-  textShadow: '0 4px 20px rgba(0,0,0,0.4)'
-
-          </div>
-        )}
-        {activeSection === 'work' && !selectedProject && (
           <div style={{
             width: '100%',
             height: '80vh',
