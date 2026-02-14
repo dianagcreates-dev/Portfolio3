@@ -1373,33 +1373,90 @@ export default function DesignerPortfolio() {
         ))}
       </div>
 
-      <div
-        ref={contentRef}
+   <div
+  ref={contentRef}
+  style={{
+    position: 'relative',
+    zIndex: 1,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 'clamp(2rem, 4vw, 3rem)',
+    paddingTop: 'clamp(5rem, 10vh, 7rem)'
+  }}
+>
+  {activeSection === 'home' && (
+    <div style={{
+      textAlign: 'center',
+      maxWidth: '900px',
+      opacity: 0,
+      animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+    }}>
+      <h1 style={{
+        fontSize: 'clamp(2.5rem, 10vw, 6rem)',
+        fontWeight: 900,
+        margin: 0,
+        marginBottom: '1rem',
+        color: '#ffffff',
+        lineHeight: 1.1,
+        letterSpacing: '-0.03em',
+        fontFamily: '"Archivo Black", sans-serif',
+        textShadow: '0 4px 20px rgba(0,0,0,0.4)'
+      }}>
+        <RotatingText />
+      </h1>
+      <p style={{
+        fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
+        color: 'rgba(255,255,255,0.8)',
+        marginBottom: '2.5rem',
+        lineHeight: 1.6,
+        fontWeight: 400,
+        maxWidth: '600px',
+        margin: '0 auto 2.5rem',
+        fontFamily: '"Inter", sans-serif'
+      }}>
+        {t.home.subheadline}
+      </p>
+      <button
+        onClick={() => setActiveSection('work')}
+        onMouseEnter={(e) => {
+          e.target.style.background = '#ffffff';
+          e.target.style.color = '#1a1a1a';
+          e.target.style.transform = 'translateY(-2px)';
+          setIsHovering(true);
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.background = 'rgba(255,255,255,0.15)';
+          e.target.style.color = '#ffffff';
+          e.target.style.transform = 'translateY(0)';
+          setIsHovering(false);
+        }}
         style={{
-          position: 'relative',
-          zIndex: 1,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 'clamp(2rem, 4vw, 3rem)',
-          paddingTop: 'clamp(5rem, 10vh, 7rem)'
+          fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+          fontWeight: 600,
+          padding: 'clamp(0.9rem, 2vw, 1.1rem) clamp(2rem, 4vw, 2.8rem)',
+          border: '2px solid #ffffff',
+          background: 'rgba(255,255,255,0.15)',
+          color: '#ffffff',
+          cursor: 'pointer',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '50px',
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+          fontFamily: '"Space Mono", monospace'
         }}
       >
-        <h1 style={{
-  fontSize: 'clamp(2.5rem, 10vw, 6rem)',
-  fontWeight: 900,
-  margin: 0,
-  marginBottom: '1rem',
-  color: '#ffffff',
-  lineHeight: 1.1,
-  letterSpacing: '-0.03em',
-  fontFamily: '"Archivo Black", sans-serif',
-  textShadow: '0 4px 20px rgba(0,0,0,0.4)'
-}}>
-  <RotatingText />
-<h1 style={{
+        {t.home.cta}
+      </button>
+    </div>
+  )}
+
+  {activeSection === 'work' && !selectedProject && (  
+
   fontSize: 'clamp(2.5rem, 10vw, 6rem)',
   fontWeight: 900,
   margin: 0,
