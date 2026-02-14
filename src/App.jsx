@@ -51,6 +51,7 @@ function RotatingText() {
         );
       })}
       <span
+        }
         style={{
           display: 'inline-block',
           position: 'relative',
