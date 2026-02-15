@@ -1725,7 +1725,6 @@ export default function DesignerPortfolio() {
               )}
             </div>
           </div>
-       </div>
         )}
         {activeSection === 'work' && selectedProject && (
           <div style={{
