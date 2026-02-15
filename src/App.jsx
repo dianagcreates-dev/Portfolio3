@@ -83,6 +83,7 @@ const translations = {
           screen3: "/images/palmi/screen3.2.png",        // 800x800px (1:1)
           screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
           beforePurpose: "/images/palmi/before-purpose.png", // 1920x1080px (16:9)
+          beforeFinal: "/images/palmi/before-final.png",     // 1920x1080px (16:9)
           final: "/images/palmi/final2.png"             // 2100x900px (21:9)
      },
       },
@@ -329,6 +330,7 @@ const translations = {
           screen2: "/images/palmi/screen2.2.png",
           screen3: "/images/palmi/screen3.2.png",
           screen4: "/images/palmi/screen5.png",
+          beforeFinal: "/images/palmi/before-final.png",     // 1920x1080px (16:9)
           final: "/images/palmi/fina2.png"
         }
       },
@@ -2770,7 +2772,28 @@ export default function DesignerPortfolio() {
   }}>
   </div>
 )}
-
+{/* Before Final Image - Only for Palmi (1920x1080) */}
+{selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
+  <div style={{
+    width: '100%',
+    aspectRatio: '16/9',
+    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+    borderRadius: '20px',
+    border: `1px solid ${selectedProject.color}50`,
+    marginBottom: '4rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    opacity: 0,
+    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.15s forwards',
+    backgroundImage: `url(${selectedProject.images.beforeFinal})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  }}>
+  </div>
+)}
 
               {/* Section 9: Final full-width image */}
               {/* Section 10: Results/Outcomes */}
