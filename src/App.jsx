@@ -140,7 +140,7 @@ const translations = {
           demoVideo: "/images/synkro/demo-video.mp4",
           beforePurposeVideo: "/images/synkro/before-purpose-video.mp4",
           screen1: "/images/synkro/screen1.png",
-          screen2: "/images/synkro/screen2.png",
+          screen2: "/images/synkro/screen2.1.png",
           screen3: "/images/synkro/screen3.png",
           screen4Video: "/images/synkro/screen4-video1.mp4", 
           final: "/images/synkro/final.png"
@@ -384,7 +384,7 @@ const translations = {
           demoVideo: "/images/synkro/demo-video.mp4",
           beforePurposeVideo: "/images/synkro/before-purpose-video.mp4",
           screen1: "/images/synkro/screen1.png",
-          screen2: "/images/synkro/screen2.png",
+          screen2: "/images/synkro/screen2.1.png",
           screen3: "/images/synkro/screen3.png",
           screen4Video: "/images/synkro/screen4-video1.mp4", 
           final: "/images/synkro/final.png"
