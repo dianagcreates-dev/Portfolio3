@@ -142,7 +142,7 @@ const translations = {
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.1.png",
           screen3: "/images/synkro/screen3.png",
-          screen4Video: "/images/synkro/screen4-video1.mp4", 
+          screen4Video: "/images/synkro/screen4-video2.mp4", 
           final: "/images/synkro/final.png"
         }
       },
@@ -386,7 +386,7 @@ const translations = {
           screen1: "/images/synkro/screen1.png",
           screen2: "/images/synkro/screen2.1.png",
           screen3: "/images/synkro/screen3.png",
-          screen4Video: "/images/synkro/screen4-video1.mp4", 
+          screen4Video: "/images/synkro/screen4-video2.mp4", 
           final: "/images/synkro/final.png"
         }
       },
