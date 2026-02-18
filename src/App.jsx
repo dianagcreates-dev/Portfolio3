@@ -156,8 +156,8 @@ const translations = {
         content: {
           challenge: "Standing out in crowded social feeds requires eye-catching designs that communicate product value instantly.",
           solution: "Strategic visual designs that blend aesthetics with clear messaging to drive engagement and conversions.",
-          quote: "Design is the silent ambassador of your brand.",
-          deviceObjective: "To maximize social media impact: create scroll-stopping visuals, communicate value instantly, and drive measurable engagement.",
+          quote: "Great design is invisible until it makes you stop scrolling..",
+          designObjective: "To maximize social media impact I create scroll-stopping visuals, communicate value instantly, and drive measurable engagement.",
           purposeOfData: "Analytics help understand which design elements resonate most with audiences, enabling data-driven creative decisions.",
           metrics: [
             { value: '300%', label: 'Engagement Boost' },
@@ -400,8 +400,8 @@ const translations = {
         content: {
           challenge: "Sich in überfüllten Social-Media-Feeds abzuheben erfordert auffällige Designs, die den Produktwert sofort kommunizieren.",
           solution: "Strategische visuelle Designs, die Ästhetik mit klarer Botschaft verbinden, um Engagement und Conversions zu steigern.",
-          quote: "Design ist der stille Botschafter Ihrer Marke.",
-          deviceObjective: "Um die Social-Media-Wirkung zu maximieren: Scroll-stoppende Visuals erstellen, Wert sofort kommunizieren und messbares Engagement fördern.",
+          quote: "Großartiges Design ist unsichtbar – bis es dich dazu bringt, mit dem Scrollen aufzuhören..",
+          designObjective: "Um die Social-Media-Wirkung zu maximieren: Scroll-stoppende Visuals erstellen, Wert sofort kommunizieren und messbares Engagement fördern.",
           purposeOfData: "Analysen helfen zu verstehen, welche Designelemente beim Publikum am besten ankommen und ermöglichen datengesteuerte kreative Entscheidungen.",
           metrics: [
             { value: '300%', label: 'Engagement-Boost' },
