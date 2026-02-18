@@ -2809,6 +2809,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Archivo Black", sans-serif',
                   marginBottom: '1.5rem',
                   lineHeight: 1.2
+                 }}>
                 {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
                 <p style={{
                   fontSize: 'clamp(1rem, 2vw, 1.15rem)',
