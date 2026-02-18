@@ -2807,10 +2807,11 @@ export default function DesignerPortfolio() {
                   color: '#ffffff',
                   fontWeight: 900,
                   fontFamily: '"Archivo Black", sans-serif',
-                  marginBottom: '1.5rem',
+                marginBottom: '1.5rem',
                   lineHeight: 1.2
-                 }}>
-                {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
+                }}>
+                  {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
+                </h2>
                 <p style={{
                   fontSize: 'clamp(1rem, 2vw, 1.15rem)',
                   color: 'rgba(255,255,255,0.75)',
