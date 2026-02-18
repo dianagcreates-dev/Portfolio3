@@ -180,7 +180,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero.png",
+          hero: "/images/social-media/hero1.png",
           process1: "/images/social-media/process1.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
@@ -424,7 +424,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero.png",
+          hero: "/images/social-media/hero1.png",
           process1: "/images/social-media/process1.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
