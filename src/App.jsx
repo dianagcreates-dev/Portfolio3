@@ -46,7 +46,7 @@ const translations = {
           solution: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
           quote: "Understanding emotions early helps build resilience for life.",
           designApproach: "The device inspiration from the form language of a woman's compact an object associated with privacy,care,and personal ritual. This reference informed both the physical interaction and emotional symbolism of the product. The compact 70 mm X 70 mm dimension was deliberately selected to fit comfortably within a child's hands. The scale reinfores a sense of ownership and wmotional safety,preventing the object from feeling technical or intimidating. The dual states open and closed were designed as metaphors for emotional bounderies. Opening represent readiness for expression ans engagement closing signals privacy, containment, and emotional rest.",
-          purposeOfData: "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.",
+          BrandPackaging: "Because Palmi is designed for emotional support, the packaging should speak to children first. It’s calm, friendly, non-technical, helping the child feel safe even before opening the product ",
           metrics: [
             { value: '150%', label: 'User Growth' },
             { value: '85%', label: 'Satisfaction' },
@@ -294,7 +294,7 @@ const translations = {
           solution: "Palmi ist ein emotionaler Begleiter, der die Lücke zwischen den Gefühlen eines Kindes und dem Verständnis der Eltern überbrückt. Es bietet Kindern einen sicheren Raum, um Emotionen auszudrücken, während es emotionale Muster im Laufe der Zeit leise verfolgt.",
           quote: "Emotionen frühzeitig zu verstehen hilft, Resilienz fürs Leben aufzubauen.",
           DeviceApproach: "Das Gerät orientiert sich formal an einem klassischen Damenkompaktspiegel einem Objekt, das mit Privatsphäre,Fürsorge und persönlichem Ritual verbunden wird. Diese Referenz prägte sowohl  die physische Interaktion als auch die emotionale Symbolik des Produkts. Die kompakte Größe von 70 mm × 70 mm wurde bewusst gewählt, um ergonomisch in die Hände eines Kindes zu passen. Der Maßstab unterstützt ein Gefühl von Eigenständigkeit und emotionaler Sicherheit, ohne technisch oder überfordernd zu wirken.Die beiden Zustände – geöffnet und geschlossen – fungieren als Metaphern für emotionale Grenzen Das Öffnen steht für Bereitschaft zur Ausdrucksfähigkeit und Interaktion. Das Schließen signalisiert Rückzug, Schutz und emotionale Ruhe.",
-          purposeOfData: "Der Zweck dieser Daten besteht darin, Bewusstsein und Gespräche zu unterstützen. Sie sind nicht zur Diagnose oder Bewertung gedacht, sondern sollen Eltern helfen, ihr Kind besser zu verstehen und bei Bedarf professionelle Unterstützung zu suchen.",
+          BrandPackaging: "Da Palmi für emotionale Unterstützung konzipiert ist, sollte die Verpackung in erster Linie Kinder ansprechen. Sie wirkt ruhig, freundlich und nicht technisch, sodass das Kind sich bereits vor dem Öffnen des Produkts sicher und geborgen fühlt.  ",
           metrics: [
             { value: '150%', label: 'Nutzerwachstum' },
             { value: '85%', label: 'Zufriedenheit' },
@@ -2809,9 +2809,7 @@ export default function DesignerPortfolio() {
                   fontFamily: '"Archivo Black", sans-serif',
                   marginBottom: '1.5rem',
                   lineHeight: 1.2
-                }}>
-                  Purpose of the Data
-                </h2>
+                {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
                 <p style={{
                   fontSize: 'clamp(1rem, 2vw, 1.15rem)',
                   color: 'rgba(255,255,255,0.75)',
@@ -2820,7 +2818,9 @@ export default function DesignerPortfolio() {
                   maxWidth: '900px',
                   marginBottom: '2rem'
                 }}>
-                  {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
+                 {selectedProject.id === 1
+  ? selectedProject.content?.purposeOfData
+  : selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
                 </p>
                 
                 {/* Metrics grid */}
