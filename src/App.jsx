@@ -180,21 +180,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero.jpg",
-          process1: "/images/social-media/process1.jpg",
-          process2: "/images/social-media/process2.jpg",
-          process3: "/images/social-media/process3.jpg",
-          process4: "/images/social-media/process4.jpg",
-          processWide: "/images/social-media/process-wide.jpg",
-          detail1: "/images/social-media/detail1.jpg",
-          detail2: "/images/social-media/detail2.jpg",
-          portrait: "/images/social-media/portrait.jpg",
-          solution: "/images/social-media/solution.jpg",
-          screen1: "/images/social-media/screen1.jpg",
-          screen2: "/images/social-media/screen2.jpg",
-          screen3: "/images/social-media/screen3.jpg",
-          screen4: "/images/social-media/screen4.jpg",
-          final: "/images/social-media/final.jpg"
+          hero: "/images/social-media/hero.png",
+          process1: "/images/social-media/process1.png",
+          process2: "/images/social-media/process2.png",
+          process3: "/images/social-media/process3.png",
+          process4: "/images/social-media/process4.png",
+          processWide: "/images/social-media/process-wide.png",
+          detail1: "/images/social-media/detail1.png",
+          detail2: "/images/social-media/detail2.png",
+          portrait: "/images/social-media/portrait.png",
+          solution: "/images/social-media/solution.png",
+          screen1: "/images/social-media/screen1.png",
+          screen2: "/images/social-media/screen2.png",
+          screen3: "/images/social-media/screen3.png",
+          screen4: "/images/social-media/screen4.png",
+          final: "/images/social-media/final.png"
         }
       },
       {
@@ -424,21 +424,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero.jpg",
-          process1: "/images/social-media/process1.jpg",
-          process2: "/images/social-media/process2.jpg",
-          process3: "/images/social-media/process3.jpg",
-          process4: "/images/social-media/process4.jpg",
-          processWide: "/images/social-media/process-wide.jpg",
-          detail1: "/images/social-media/detail1.jpg",
-          detail2: "/images/social-media/detail2.jpg",
-          portrait: "/images/social-media/portrait.jpg",
-          solution: "/images/social-media/solution.jpg",
-          screen1: "/images/social-media/screen1.jpg",
-          screen2: "/images/social-media/screen2.jpg",
-          screen3: "/images/social-media/screen3.jpg",
-          screen4: "/images/social-media/screen4.jpg",
-          final: "/images/social-media/final.jpg"
+          hero: "/images/social-media/hero.png",
+          process1: "/images/social-media/process1.png",
+          process2: "/images/social-media/process2.png",
+          process3: "/images/social-media/process3.png",
+          process4: "/images/social-media/process4.png",
+          processWide: "/images/social-media/process-wide.png",
+          detail1: "/images/social-media/detail1.png",
+          detail2: "/images/social-media/detail2.png",
+          portrait: "/images/social-media/portrait.png",
+          solution: "/images/social-media/solution.png",
+          screen1: "/images/social-media/screen1.png",
+          screen2: "/images/social-media/screen2.png",
+          screen3: "/images/social-media/screen3.png",
+          screen4: "/images/social-media/screen4.png",
+          final: "/images/social-media/final.png"
         }
       },
       {
