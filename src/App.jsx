@@ -2820,7 +2820,7 @@ export default function DesignerPortfolio() {
                   maxWidth: '900px',
                   marginBottom: '2rem'
                 }}>
- {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.",
+ {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.
                 </p>
                 
                 {/* Metrics grid */}
