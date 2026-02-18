@@ -2106,11 +2106,13 @@ export default function DesignerPortfolio() {
                     marginBottom: '1.2rem',
                     lineHeight: 1.2
                   }}>
-                    {selectedProject.content?.designApproach 
-                      ? 'Design Approach' 
-                      : selectedProject.id === 2 
-                        ? 'Define' 
-                        : 'Device Objective'}
+                   {selectedProject.content?.designApproach 
+  ? 'Design Approach' 
+  : selectedProject.id === 2 
+    ? 'Define' 
+    : selectedProject.id === 3
+      ? 'Design Objective'
+      : 'Device Objective'}
                   </h2>
                   <p style={{
                     fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
