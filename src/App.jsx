@@ -181,7 +181,7 @@ const translations = {
         },
         images: {
           hero: "/images/social-media/hero1.1.png",
-          process1: "/images/social-media/process1.png",
+          process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
           process4: "/images/social-media/process4.png",
@@ -425,7 +425,7 @@ const translations = {
         },
         images: {
           hero: "/images/social-media/hero1.1.png",
-          process1: "/images/social-media/process1.png",
+          process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
           process4: "/images/social-media/process4.png",
