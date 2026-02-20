@@ -2204,8 +2204,10 @@ export default function DesignerPortfolio() {
               {/* Section 4: Two images side by side */}
               <div style={{
                display: 'grid',
-gridTemplateColumns: selectedProject.id === 3 ? 'repeat(2, 300px)' : 'repeat(auto-fit, minmax(300px, 1fr))',
-gap: selectedProject.id === 3 ? '4rem' : '2rem',
+gridTemplateColumns: selectedProject.id === 3 ? 'repeat(2, 375px)' : 'repeat(auto-fit, minmax(300px, 1fr))',
+gap: selectedProject.id === 3 ? '2rem' : '2rem',
+maxWidth: selectedProject.id === 3 ? '800px' : '100%',
+margin: selectedProject.id === 3 ? '0 auto 4rem' : '0 0 4rem',
 marginBottom: '4rem',
 justifyContent: selectedProject.id === 3 ? 'center' : 'start'
               }}>
