@@ -2203,16 +2203,16 @@ export default function DesignerPortfolio() {
 
               {/* Section 4: Two images side by side */}
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem',
-                marginBottom: '4rem'
+               display: 'grid',
+gridTemplateColumns: selectedProject.id === 3 ? 'repeat(2, 300px)' : 'repeat(auto-fit, minmax(300px, 1fr))',
+gap: '2rem',
+marginBottom: '4rem',
+justifyContent: selectedProject.id === 3 ? 'center' : 'start'
               }}>
-                {[1, 2].map((num) => (
-                <div key={num} style={{
-                 width: '100%',
-                  aspectRatio: selectedProject.id === 3 ? '1/1' : '4/3',
-                  width: selectedProject.id === 3 ? '75%' : '100%',
+               {[1, 2].map((num) => (
+               <div key={num} style={{
+                width: '100%',
+                 aspectRatio: selectedProject.id === 3 ? '1/1' : '4/3',
                     background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
                     borderRadius: '16px',
                     border: `1px solid ${selectedProject.color}50`,
