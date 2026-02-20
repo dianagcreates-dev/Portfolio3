@@ -186,8 +186,8 @@ const translations = {
           process3: "/images/social-media/process3.png",
           process4: "/images/social-media/process4.1.png",
           processWide: "/images/social-media/process-wide.png",
-          detail1: "/images/social-media/detail1.1.png",
-          detail2: "/images/social-media/detail2.1.png",
+          detail1: "/images/social-media/detail1.png",
+          detail2: "/images/social-media/detail2.png",
           portrait: "/images/social-media/portrait.png",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
@@ -430,8 +430,8 @@ const translations = {
           process3: "/images/social-media/process3.png",
           process4: "/images/social-media/process4.1.png",
           processWide: "/images/social-media/process-wide.png",
-          detail1: "/images/social-media/detail1.1.png",
-          detail2: "/images/social-media/detail2.1.png",
+          detail1: "/images/social-media/detail1.png",
+          detail2: "/images/social-media/detail2.png",
           portrait: "/images/social-media/portrait.png",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
@@ -2203,18 +2203,15 @@ export default function DesignerPortfolio() {
 
               {/* Section 4: Two images side by side */}
               <div style={{
-               display: 'grid',
-gridTemplateColumns: selectedProject.id === 3 ? 'repeat(2, 375px)' : 'repeat(auto-fit, minmax(300px, 1fr))',
-gap: selectedProject.id === 3 ? '2rem' : '2rem',
-maxWidth: selectedProject.id === 3 ? '800px' : '100%',
-margin: selectedProject.id === 3 ? '0 auto 4rem' : '0 0 4rem',
-marginBottom: '4rem',
-justifyContent: selectedProject.id === 3 ? 'center' : 'start'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '2rem',
+                marginBottom: '4rem'
               }}>
-               {[1, 2].map((num) => (
-               <div key={num} style={{
-                width: '100%',
-                 aspectRatio: selectedProject.id === 3 ? '1/1' : '4/3',
+                {[1, 2].map((num) => (
+                  <div key={num} style={{
+                    width: '100%',
+                    aspectRatio: '4/3',
                     background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
                     borderRadius: '16px',
                     border: `1px solid ${selectedProject.color}50`,
