@@ -2211,7 +2211,8 @@ export default function DesignerPortfolio() {
                 {[1, 2].map((num) => (
                 <div key={num} style={{
                  width: '100%',
-                   aspectRatio: selectedProject.id === 3 ? '1/1' : '4/3',
+                  aspectRatio: selectedProject.id === 3 ? '1/1' : '4/3',
+                  width: selectedProject.id === 3 ? '75%' : '100%',
                     background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
                     borderRadius: '16px',
                     border: `1px solid ${selectedProject.color}50`,
