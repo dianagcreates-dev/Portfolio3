@@ -2205,7 +2205,7 @@ export default function DesignerPortfolio() {
               <div style={{
                display: 'grid',
 gridTemplateColumns: selectedProject.id === 3 ? 'repeat(2, 300px)' : 'repeat(auto-fit, minmax(300px, 1fr))',
-gap: '2rem',
+gap: selectedProject.id === 3 ? '4rem' : '2rem',
 marginBottom: '4rem',
 justifyContent: selectedProject.id === 3 ? 'center' : 'start'
               }}>
