@@ -46,7 +46,7 @@ const translations = {
           solution: "Palmi is an emotional companion that bridges the gap between a child's feelings and a parent's understanding. It offers children a safe space to express emotions while quietly tracking emotional patterns over time.",
           quote: "Understanding emotions early helps build resilience for life.",
           designApproach: "The device inspiration from the form language of a woman's compact an object associated with privacy,care,and personal ritual. This reference informed both the physical interaction and emotional symbolism of the product. The compact 70 mm X 70 mm dimension was deliberately selected to fit comfortably within a child's hands. The scale reinfores a sense of ownership and wmotional safety,preventing the object from feeling technical or intimidating. The dual states open and closed were designed as metaphors for emotional bounderies. Opening represent readiness for expression ans engagement closing signals privacy, containment, and emotional rest.",
-          BrandPackaging: "Because Palmi is designed for emotional support, the packaging should speak to children first. It’s calm, friendly, non-technical, helping the child feel safe even before opening the product ",
+          BrandPackaging: "Because Palmi is designed for emotional support, the packaging should speak to children first. It's calm, friendly, non-technical, helping the child feel safe even before opening the product ",
           metrics: [
             { value: '150%', label: 'User Growth' },
             { value: '85%', label: 'Satisfaction' },
@@ -68,24 +68,24 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/palmi/hero.png",              // 1920x1200px (16:10)
-          process1: "/images/palmi/process1.png",      // 1920x1200px (16:10)
-          process2: "/images/palmi/process6.png",      // 800x600px (4:3)
-          process3: "/images/palmi/process7.png",      // 800x600px (4:3)
-          process4: "/images/palmi/process8.png",      // 800x600px (4:3)
-          processWide: "/images/palmi/process-wide2.png", // 2100x900px (21:9)
-          detail1: "/images/palmi/detail1.png",        // 800x600px (4:3)
-          detail2: "/images/palmi/detail2.png",        // 800x600px (4:3)
-          portrait: "/images/palmi/portrait1.png",      // 600x800px (3:4)
-          solution: "/images/palmi/solution.png",      // 800x600px (4:3)
-          screen1: "/images/palmi/screen1.3.png",        // 800x800px (1:1)
-          screen2: "/images/palmi/screen2.2.png",        // 800x800px (1:1)
-          screen3: "/images/palmi/screen3.2.png",        // 800x800px (1:1)
-          screen4: "/images/palmi/screen5.png",        // 800x800px (1:1)
-          beforePurpose: "/images/palmi/before-purpose.png", // 1920x1080px (16:9)
-          beforeFinal: "/images/palmi/before-final.png",     // 1920x1080px (16:9)
-          final: "/images/palmi/final2.png"             // 2100x900px (21:9)
-     },
+          hero: "/images/palmi/hero.png",
+          process1: "/images/palmi/process1.png",
+          process2: "/images/palmi/process6.png",
+          process3: "/images/palmi/process7.png",
+          process4: "/images/palmi/process8.png",
+          processWide: "/images/palmi/process-wide2.png",
+          detail1: "/images/palmi/detail1.png",
+          detail2: "/images/palmi/detail2.png",
+          portrait: "/images/palmi/portrait1.png",
+          solution: "/images/palmi/solution.png",
+          screen1: "/images/palmi/screen1.3.png",
+          screen2: "/images/palmi/screen2.2.png",
+          screen3: "/images/palmi/screen3.2.png",
+          screen4: "/images/palmi/screen5.png",
+          beforePurpose: "/images/palmi/before-purpose.png",
+          beforeFinal: "/images/palmi/before-final.png",
+          final: "/images/palmi/final2.png"
+        },
       },
       {
         id: 2,
@@ -128,13 +128,13 @@ const translations = {
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.2.png",
           processWide: "/images/synkro/process-wide2.png",
-          beforeDefine: "/images/synkro/before-define.png", // 1920x1080px (16:9)
+          beforeDefine: "/images/synkro/before-define.png",
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
-          beforePortrait: "/images/synkro/before-portrait.png", // 1366x812px
+          beforePortrait: "/images/synkro/before-portrait.png",
           portrait: "/images/synkro/portrait.png",
-          beforeDesign1: "/images/synkro/before-design1.png", // 1366x812px
-          beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
+          beforeDesign1: "/images/synkro/before-design1.png",
+          beforeDesign2: "/images/synkro/before-design2.png",
           solution: "/images/synkro/solution.png",
           finalMockup: "/images/synkro/final-mockup.png",
           demoVideo: "/images/synkro/demo-video.mp4",
@@ -330,7 +330,7 @@ const translations = {
           screen2: "/images/palmi/screen2.2.png",
           screen3: "/images/palmi/screen3.2.png",
           screen4: "/images/palmi/screen5.png",
-          beforeFinal: "/images/palmi/before-final.png",     // 1920x1080px (16:9)
+          beforeFinal: "/images/palmi/before-final.png",
           final: "/images/palmi/fina2.png"
         }
       },
@@ -377,8 +377,8 @@ const translations = {
           detail1: "/images/synkro/detail1.png",
           detail2: "/images/synkro/detail2.png",
           portrait: "/images/synkro/portrait.png",
-          beforeDesign1: "/images/synkro/before-design1.png", // 1366x812px
-          beforeDesign2: "/images/synkro/before-design2.png", // 1366x812px
+          beforeDesign1: "/images/synkro/before-design1.png",
+          beforeDesign2: "/images/synkro/before-design2.png",
           solution: "/images/synkro/solution.png",
           finalMockup: "/images/synkro/final-mockup.png",
           demoVideo: "/images/synkro/demo-video.mp4",
@@ -449,7 +449,7 @@ const translations = {
         description: "Grußkarten mit erweiterter Realität",
         color: "#10B981",
         content: {
-          challenge: "Traditionelle Grußkarten fehlt die persönliche Note und das interaktive Erlebnis, das moderne Nutzer erwarten.",
+          challenge: "Traditionellen Grußkarten fehlt die persönliche Note und das interaktive Erlebnis, das moderne Nutzer erwarten.",
           solution: "Magi erweckt Grußkarten durch AR-Technologie zum Leben und schafft unvergessliche und teilbare Momente.",
           quote: "Die Zukunft der Verbindung ist erweiterte Realität.",
           deviceObjective: "Um Grußkarten zu modernisieren: Physische Karten mit digitalen AR-Erlebnissen verbinden, Personalisierung ermöglichen und teilbare Momente schaffen.",
@@ -735,7 +735,6 @@ export default function DesignerPortfolio() {
     };
 
     const smoothUpdate = () => {
-      // Smooth interpolation - lower value = smoother but slower
       const smoothing = 0.1;
       
       currentPos.x += (targetPos.x - currentPos.x) * smoothing;
@@ -743,7 +742,6 @@ export default function DesignerPortfolio() {
       
       setMousePosition({ x: currentPos.x, y: currentPos.y });
       
-      // Update trail with smoother positions
       const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
       mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
       setMouseTrail(mouseTrailRef.current);
@@ -764,7 +762,7 @@ export default function DesignerPortfolio() {
   useEffect(() => {
     if (activeSection === 'work' && !selectedProject && !isDragging) {
       let animationId;
-      const rotationSpeed = 360 / 30000; // 360 degrees in 30 seconds
+      const rotationSpeed = 360 / 30000;
       let lastTime = Date.now();
       
       const animate = () => {
@@ -792,7 +790,6 @@ export default function DesignerPortfolio() {
       const handleMouseMove = (e) => {
         if (isDragging) {
           const deltaX = e.clientX - dragStartX;
-          // Sensitivity: 0.5 means dragging 100px = 50 degrees rotation
           const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
           setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
@@ -802,7 +799,6 @@ export default function DesignerPortfolio() {
       const handleMouseUp = () => {
         if (isDragging) {
           setIsDragging(false);
-          // Update the drag start rotation to current position for smooth continuation
           setDragStartRotation(carouselRotation);
         }
       };
@@ -822,7 +818,6 @@ export default function DesignerPortfolio() {
   // Handle wheel scroll for section navigation
   useEffect(() => {
     const handleWheel = (e) => {
-      // Don't hijack scroll when in project view
       if (selectedProject) return;
       
       if (isScrolling) return;
@@ -942,7 +937,6 @@ export default function DesignerPortfolio() {
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
       {/* Particle Cursor */}
-      {/* Trail particles - glowing orbs */}
       {mouseTrail.map((pos, index) => {
         const opacity = (index / mouseTrail.length) * 0.6;
         const size = ((index / mouseTrail.length) * 10) + 4;
@@ -1416,12 +1410,11 @@ export default function DesignerPortfolio() {
             paddingBottom: '3rem'
           }}
           onMouseDown={(e) => {
-            // Only start dragging if clicking on background, not on project cards
             if (e.target === e.currentTarget || e.target.closest('[data-carousel-container]')) {
               setIsDragging(true);
               setDragStartX(e.clientX);
               setDragStartRotation(carouselRotation);
-              setShowDragGuide(false); // Hide guide when user starts dragging
+              setShowDragGuide(false);
             }
           }}
           >
@@ -1463,13 +1456,11 @@ export default function DesignerPortfolio() {
                   >
                     <div
                       onClick={(e) => {
-                        // Only open project if we didn't drag
                         if (!isDragging) {
                           setSelectedProject(project);
                         }
                       }}
                       onMouseDown={(e) => {
-                        // Stop propagation so card click doesn't trigger carousel drag
                         e.stopPropagation();
                       }}
                       onMouseEnter={(e) => {
@@ -1612,7 +1603,6 @@ export default function DesignerPortfolio() {
                 }}></span>
               </div>
 
-              {/* Drag Guide - shows once */}
               {showDragGuide && (
                 <div style={{
                   pointerEvents: 'none',
@@ -1771,7 +1761,6 @@ export default function DesignerPortfolio() {
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}>
-                {/* Placeholder text - only shows if no image */}
                 {!selectedProject.images?.hero && (
                   <div style={{
                     fontSize: 'clamp(3rem, 8vw, 6rem)',
@@ -1785,10 +1774,6 @@ export default function DesignerPortfolio() {
                     Hero Image
                   </div>
                 )}
-                
-                
-              
-                
               </div>
 
               {/* Skills and Project Details - Compact Row */}
@@ -1798,7 +1783,6 @@ export default function DesignerPortfolio() {
                 gap: '1.5rem',
                 marginBottom: '4rem'
               }}>
-                {/* Skills section */}
                 <div style={{
                   background: 'rgba(255,255,255,0.05)',
                   backdropFilter: 'blur(20px)',
@@ -1844,7 +1828,6 @@ export default function DesignerPortfolio() {
                   </div>
                 </div>
 
-                {/* Project info */}
                 <div style={{
                   background: 'rgba(255,255,255,0.05)',
                   backdropFilter: 'blur(20px)',
@@ -1925,8 +1908,6 @@ export default function DesignerPortfolio() {
                 </div>
               </div>
 
-              {/* Project Content Sections - Easy to customize */}
-              
               {/* Section 1: Full-width text */}
               <div style={{
                 marginBottom: '4rem',
@@ -2269,7 +2250,7 @@ export default function DesignerPortfolio() {
                 </div>
               )}
 
-              {/* Section 4b: Single portrait image */}
+              {/* Section 4b: Single portrait image / video */}
               <div style={{
                 maxWidth: '600px',
                 margin: '0 auto 4rem',
@@ -2286,12 +2267,25 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  backgroundImage: selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
+                  // ─── CHANGE 1: For social media project (id=3), don't use backgroundImage ───
+                  backgroundImage: selectedProject.id !== 3 && selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
+                  backgroundRepeat: 'no-repeat',
+                  position: 'relative'
                 }}>
-                  {!selectedProject.images?.portrait && (
+                  {/* Social media project uses <video> for portrait */}
+                  {selectedProject.id === 3 && selectedProject.images?.portrait ? (
+                    <video
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src={selectedProject.images.portrait} type="video/mp4" />
+                    </video>
+                  ) : !selectedProject.images?.portrait && (
                     <div style={{
                       fontSize: 'clamp(2rem, 5vw, 3rem)',
                       color: 'rgba(255,255,255,0.15)',
@@ -2308,168 +2302,171 @@ export default function DesignerPortfolio() {
                   )}
                 </div>
               </div>
-              {/* Two wide images before Design section - Only for Synkro */}
-{selectedProject.id === 2 && (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '2rem',
-    marginBottom: '4rem'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/812',
-      background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
-      borderRadius: '16px',
-      border: `1px solid ${selectedProject.color}40`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      opacity: 0,
-      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards',
-      backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.beforeDesign1 && (
-        <div style={{
-          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center'
-        }}>
-          Wide Image 1<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-        </div>
-      )}
-    </div> 
 
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/812',
-      background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
-      borderRadius: '16px',
-      border: `1px solid ${selectedProject.color}40`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      opacity: 0,
-      animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.65s forwards',
-      backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.beforeDesign2 && (
-        <div style={{
-          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center'
-        }}>
-          Wide Image 2<br/>
-          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
-      {/* Final Mockup - Only for Synkro (1366x2171) */}
-{selectedProject.id === 2 && (
-  <div style={{
-    maxWidth: '800px',
-    margin: '0 auto 4rem',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/2171',
-      background: `linear-gradient(180deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
-      borderRadius: '20px',
-      border: `1px solid ${selectedProject.color}50`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      backgroundImage: selectedProject.images?.finalMockup ? `url(${selectedProject.images.finalMockup})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.finalMockup && (
-        <div style={{
-          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center',
-          padding: '2rem'
-        }}>
-          Final Mockup<br/>
-          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x2171px</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}     
+              {/* Two wide images before Design section - Only for Synkro */}
+              {selectedProject.id === 2 && (
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2rem',
+                  marginBottom: '4rem'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '1366/812',
+                    background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    opacity: 0,
+                    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards',
+                    backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}>
+                    {!selectedProject.images?.beforeDesign1 && (
+                      <div style={{
+                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Wide Image 1<br/>
+                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+                      </div>
+                    )}
+                  </div> 
+
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '1366/812',
+                    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    opacity: 0,
+                    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.65s forwards',
+                    backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}>
+                    {!selectedProject.images?.beforeDesign2 && (
+                      <div style={{
+                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Wide Image 2<br/>
+                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Final Mockup - Only for Synkro (1366x2171) */}
+              {selectedProject.id === 2 && (
+                <div style={{
+                  maxWidth: '800px',
+                  margin: '0 auto 4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '1366/2171',
+                    background: `linear-gradient(180deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                    borderRadius: '20px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    backgroundImage: selectedProject.images?.finalMockup ? `url(${selectedProject.images.finalMockup})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}>
+                    {!selectedProject.images?.finalMockup && (
+                      <div style={{
+                        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center',
+                        padding: '2rem'
+                      }}>
+                        Final Mockup<br/>
+                        <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x2171px</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Video Section - Only for Synkro (1366x768) */}
-{selectedProject.id === 2 && (
-  <div style={{
-    width: '100%',
-    maxWidth: '1200px',
-    margin: '0 auto 4rem',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '1366/768',
-      background: `linear-gradient(135deg, ${selectedProject.color}30, ${selectedProject.color}10)`,
-      borderRadius: '20px',
-      border: `1px solid ${selectedProject.color}50`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      position: 'relative'
-    }}>
-      {selectedProject.images?.demoVideo ? (
-        <video
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          }}
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src={selectedProject.images.demoVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      ) : (
-        <div style={{
-          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center',
-          padding: '2rem'
-        }}>
-          Demo Video<br/>
-          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x768px MP4</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+              {selectedProject.id === 2 && (
+                <div style={{
+                  width: '100%',
+                  maxWidth: '1200px',
+                  margin: '0 auto 4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '1366/768',
+                    background: `linear-gradient(135deg, ${selectedProject.color}30, ${selectedProject.color}10)`,
+                    borderRadius: '20px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
+                    {selectedProject.images?.demoVideo ? (
+                      <video
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={selectedProject.images.demoVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <div style={{
+                        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center',
+                        padding: '2rem'
+                      }}>
+                        Demo Video<br/>
+                        <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x768px MP4</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Section 5: Image + Text (reversed layout) */}
               <div style={{
@@ -2661,143 +2658,158 @@ export default function DesignerPortfolio() {
                 ))}
               </div>
 
-              {/* Section 8b: Screen 4 - Portrait style (Image for all, Video for Synkro) */}
-{selectedProject.id !== 2 && (
-  <div style={{
-    maxWidth: '600px',
-    margin: '0 auto 4rem',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '3/4',
-      background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
-      borderRadius: '20px',
-      border: `1px solid ${selectedProject.color}50`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      backgroundImage: selectedProject.images?.screen4 ? `url(${selectedProject.images.screen4})` : 'none',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
-      {!selectedProject.images?.screen4 && (
-        <div style={{
-          fontSize: 'clamp(2rem, 5vw, 3rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center',
-          padding: '2rem'
-        }}>
-          Screen 4<br/>
-          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+              {/* Section 8b: Screen 4 - Portrait style
+                  For non-Synkro projects: image, EXCEPT social media (id=3) which uses video */}
+              {selectedProject.id !== 2 && (
+                <div style={{
+                  maxWidth: '600px',
+                  margin: '0 auto 4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '3/4',
+                    background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                    borderRadius: '20px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    // ─── CHANGE 2: For social media project (id=3), don't use backgroundImage ───
+                    backgroundImage: selectedProject.id !== 3 && selectedProject.images?.screen4 ? `url(${selectedProject.images.screen4})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    position: 'relative'
+                  }}>
+                    {/* Social media project uses <video> for screen4 */}
+                    {selectedProject.id === 3 && selectedProject.images?.screen4 ? (
+                      <video
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={selectedProject.images.screen4} type="video/mp4" />
+                      </video>
+                    ) : !selectedProject.images?.screen4 && (
+                      <div style={{
+                        fontSize: 'clamp(2rem, 5vw, 3rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center',
+                        padding: '2rem'
+                      }}>
+                        Screen 4<br/>
+                        <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
-{/* Screen 4 Video - Only for Synkro (3:4 Portrait) */}
-{selectedProject.id === 2 && (
-  <div style={{
-    maxWidth: '600px',
-    margin: '0 auto 4rem',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
-  }}>
-    <div style={{
-      width: '100%',
-      aspectRatio: '3/4',
-      background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
-      borderRadius: '20px',
-      border: `1px solid ${selectedProject.color}50`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      position: 'relative'
-    }}>
-      {selectedProject.images?.screen4Video ? (
-        <video
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          }}
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src={selectedProject.images.screen4Video} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      ) : (
-        <div style={{
-          fontSize: 'clamp(2rem, 5vw, 3rem)',
-          color: 'rgba(255,255,255,0.15)',
-          fontWeight: 900,
-          fontFamily: '"Archivo Black", sans-serif',
-          textAlign: 'center',
-          padding: '2rem'
-        }}>
-          Screen 4 Video<br/>
-          <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait MP4</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
-  {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
-{selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
-  <div style={{
-    width: '100%',
-    aspectRatio: '16/9',
-    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
-    borderRadius: '20px',
-    border: `1px solid ${selectedProject.color}50`,
-    marginBottom: '4rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
-    backgroundImage: `url(${selectedProject.images.beforePurpose})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  }}>
-  </div>
-)}
-{/* Before Final Image - Only for Palmi (1920x1080) */}
-{selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
-  <div style={{
-    width: '100%',
-    aspectRatio: '16/9',
-    background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
-    borderRadius: '20px',
-    border: `1px solid ${selectedProject.color}50`,
-    marginBottom: '4rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    opacity: 0,
-    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.15s forwards',
-    backgroundImage: `url(${selectedProject.images.beforeFinal})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  }}>
-  </div>
-)}
+              {/* Screen 4 Video - Only for Synkro (3:4 Portrait) */}
+              {selectedProject.id === 2 && (
+                <div style={{
+                  maxWidth: '600px',
+                  margin: '0 auto 4rem',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '3/4',
+                    background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
+                    borderRadius: '20px',
+                    border: `1px solid ${selectedProject.color}50`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
+                    {selectedProject.images?.screen4Video ? (
+                      <video
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={selectedProject.images.screen4Video} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <div style={{
+                        fontSize: 'clamp(2rem, 5vw, 3rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center',
+                        padding: '2rem'
+                      }}>
+                        Screen 4 Video<br/>
+                        <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait MP4</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
-              {/* Section 9: Final full-width image */}
+              {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
+              {selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '16/9',
+                  background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                  borderRadius: '20px',
+                  border: `1px solid ${selectedProject.color}50`,
+                  marginBottom: '4rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
+                  backgroundImage: `url(${selectedProject.images.beforePurpose})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}>
+                </div>
+              )}
+
+              {/* Before Final Image - Only for Palmi (1920x1080) */}
+              {selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '16/9',
+                  background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
+                  borderRadius: '20px',
+                  border: `1px solid ${selectedProject.color}50`,
+                  marginBottom: '4rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.15s forwards',
+                  backgroundImage: `url(${selectedProject.images.beforeFinal})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}>
+                </div>
+              )}
+
               {/* Section 10: Results/Outcomes */}
               <div style={{
                 marginBottom: '4rem',
@@ -2809,7 +2821,7 @@ export default function DesignerPortfolio() {
                   color: '#ffffff',
                   fontWeight: 900,
                   fontFamily: '"Archivo Black", sans-serif',
-                marginBottom: '1.5rem',
+                  marginBottom: '1.5rem',
                   lineHeight: 1.2
                 }}>
                   {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
@@ -2822,7 +2834,7 @@ export default function DesignerPortfolio() {
                   maxWidth: '900px',
                   marginBottom: '2rem'
                 }}>
- {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed.
+                  {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
                 </p>
                 
                 {/* Metrics grid */}
