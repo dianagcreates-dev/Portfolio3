@@ -188,12 +188,12 @@ const translations = {
           processWide: "/images/social-media/process-wide1.png",
           detail1: "/images/social-media/detail1.3.png",
           detail2: "/images/social-media/detail2.4.png",
-          portrait: "/images/social-media/portrait.mp4",
+          portrait: "/images/social-media/portrait1.mp4",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
           screen2: "/images/social-media/screen2.png",
           screen3: "/images/social-media/screen3.png",
-          screen4: "/images/social-media/screen4.mp4",
+          screen4: "/images/social-media/screen41.mp4",
           final: "/images/social-media/final.png"
         }
       },
@@ -432,12 +432,12 @@ const translations = {
           processWide: "/images/social-media/process-wide1.png",
           detail1: "/images/social-media/detail1.3.png",
           detail2: "/images/social-media/detail2.4.png",
-          portrait: "/images/social-media/portrait.mp4",
+          portrait: "/images/social-media/portrait1.mp4",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
           screen2: "/images/social-media/screen2.png",
           screen3: "/images/social-media/screen3.png",
-          screen4: "/images/social-media/screen4.mp4",
+          screen4: "/images/social-media/screen41.mp4",
           final: "/images/social-media/final.png"
         }
       },
