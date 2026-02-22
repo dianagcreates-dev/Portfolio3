@@ -180,7 +180,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero1.1.png",
+          hero: "/images/social-media/hero1.2.png",
           process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
@@ -231,21 +231,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/magi/hero.png",
-          process1: "/images/magi/process1.png",
-          process2: "/images/magi/process2.png",
-          process3: "/images/magi/process3.png",
-          process4: "/images/magi/process4.png",
-          processWide: "/images/magi/process-wide.png",
-          detail1: "/images/magi/detail1.png",
-          detail2: "/images/magi/detail2.png",
-          portrait: "/images/magi/portrait.png",
-          solution: "/images/magi/solution.png",
-          screen1: "/images/magi/screen1.png",
-          screen2: "/images/magi/screen2.png",
-          screen3: "/images/magi/screen3.png",
-          screen4: "/images/magi/screen4.png",
-          final: "/images/magi/final.png"
+          hero: "/images/particle/hero.png",
+          process1: "/images/particle/process1.png",
+          process2: "/images/particle/process2.png",
+          process3: "/images/particle/process3.png",
+          process4: "/images/particle/process4.png",
+          processWide: "/images/particle/process-wide.png",
+          detail1: "/images/particle/detail1.png",
+          detail2: "/images/particle/detail2.png",
+          portrait: "/images/particle/portrait.mp4",
+          solution: "/images/particle/solution.png",
+          screen1: "/images/particle/screen1.png",
+          screen2: "/images/particle/screen2.png",
+          screen3: "/images/particle/screen3.png",
+          screen4: "/images/particle/screen4.png",
+          final: "/images/particle/final.mp4"
         }
       }
     ]
@@ -424,7 +424,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero1.1.png",
+          hero: "/images/social-media/hero1.2.png",
           process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
@@ -475,21 +475,21 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/magi/hero.png",
-          process1: "/images/magi/process1.png",
-          process2: "/images/magi/process2.png",
-          process3: "/images/magi/process3.png",
-          process4: "/images/magi/process4.png",
-          processWide: "/images/magi/process-wide.png",
-          detail1: "/images/magi/detail1.png",
-          detail2: "/images/magi/detail2.png",
-          portrait: "/images/magi/portrait.png",
-          solution: "/images/magi/solution.png",
-          screen1: "/images/magi/screen1.png",
-          screen2: "/images/magi/screen2.png",
-          screen3: "/images/magi/screen3.png",
-          screen4: "/images/magi/screen4.png",
-          final: "/images/magi/final.png"
+          hero: "/images/particle/hero.png",
+          process1: "/images/particle/process1.png",
+          process2: "/images/particle/process2.png",
+          process3: "/images/particle/process3.png",
+          process4: "/images/particle/process4.png",
+          processWide: "/images/particle/process-wide.png",
+          detail1: "/images/particle/detail1.png",
+          detail2: "/images/particle/detail2.png",
+          portrait: "/images/particle/portrait.mp4",
+          solution: "/images/particle/solution.png",
+          screen1: "/images/particle/screen1.png",
+          screen2: "/images/particle/screen2.png",
+          screen3: "/images/particle/screen3.png",
+          screen4: "/images/particle/screen4.png",
+          final: "/images/particle/final.mp4"
         }
       }
     ]
