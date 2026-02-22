@@ -566,8 +566,20 @@ export default function DesignerPortfolio() {
   // Returns inline style for scroll-triggered entrance based on project id
   const scrollReveal = (id, projectId, extraStyle = {}) => {
     const visible = visibleSections[id];
+
+    // Stagger delay based on section number within the page
+    const sNum = parseInt(id.replace('s', ''), 10) || 0;
+    const stagger = `${(sNum % 4) * 0.07}s`;
+
+    const transitions = {
+      1: `opacity 0.75s ease ${stagger}, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${stagger}`,       // Palmi: smooth slide up
+      2: `opacity 0.75s ease ${stagger}, transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) ${stagger}`,   // Synkro: springy from right
+      3: `opacity 0.6s ease ${stagger}, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${stagger}`,         // Social: scale pop
+      4: `opacity 0.9s ease ${stagger}, transform 0.9s ease ${stagger}, filter 0.9s ease ${stagger}`,      // Particle Self: slow blur drift
+    };
+
     const base = {
-      transition: 'opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease',
+      transition: transitions[projectId] || transitions[1],
       ...extraStyle
     };
 
@@ -575,19 +587,18 @@ export default function DesignerPortfolio() {
       return { ...base, opacity: 1, transform: 'none', filter: 'none' };
     }
 
-    // Unique hidden state per project
     if (projectId === 1) {
-      // Palmi: slide up
-      return { ...base, opacity: 0, transform: 'translateY(50px)' };
+      // Palmi: slides up cleanly
+      return { ...base, opacity: 0, transform: 'translateY(55px)' };
     } else if (projectId === 2) {
-      // Synkro: slide from right
-      return { ...base, opacity: 0, transform: 'translateX(60px)' };
+      // Synkro: springs in from the right with slight overshoot
+      return { ...base, opacity: 0, transform: 'translateX(70px)' };
     } else if (projectId === 3) {
-      // Social Media: scale up from center
-      return { ...base, opacity: 0, transform: 'scale(0.88)' };
+      // Social Media: scales up from center with fade
+      return { ...base, opacity: 0, transform: 'scale(0.85) translateY(20px)' };
     } else {
-      // Particle Self: blur in
-      return { ...base, opacity: 0, filter: 'blur(12px)', transform: 'translateY(20px)' };
+      // Particle Self: drifts up through a blur — cinematic
+      return { ...base, opacity: 0, filter: 'blur(14px)', transform: 'translateY(30px)' };
     }
   };
 
@@ -2077,8 +2088,9 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 2: Process 1 - Large full-width image (16:10) */}
-              <div style={{
+              <div
                 data-scroll-id="s2"
+                style={{
                 width: '100%',
                 aspectRatio: '16/10',
                 background: `linear-gradient(45deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -2113,8 +2125,9 @@ export default function DesignerPortfolio() {
 
               {/* Discovery Section - Only for Synkro, after Process 1 */}
               {selectedProject.id === 2 && selectedProject.content?.discovery && (
-                <div style={{
+                <div
                   data-scroll-id="s3"
+                  style={{
                   marginBottom: '4rem',
 
                   ...scrollReveal('s3', selectedProject.id),
@@ -2143,8 +2156,9 @@ export default function DesignerPortfolio() {
 
               {/* Before Define Image - Only for Synkro (1920x1080) */}
               {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
-                <div style={{
+                <div
                   data-scroll-id="s4"
+                  style={{
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2167,8 +2181,9 @@ export default function DesignerPortfolio() {
               
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
-                <div style={{
+                <div
                   data-scroll-id="s5"
+                  style={{
                   marginBottom: '4rem',
 
                   ...scrollReveal('s5', selectedProject.id),
@@ -2236,8 +2251,9 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[2, 3, 4].map((num) => (
-                  <div key={num} style={{
+                  <div key={num}
                     data-scroll-id="s6"
+                    style={{
                     width: '100%',
                     aspectRatio: '4/3',
                     background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -2271,8 +2287,9 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 3b: Full width process image */}
-              <div style={{
+              <div
                 data-scroll-id="s7"
+                style={{
                 width: '100%',
                 aspectRatio: '21/9',
                 background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2313,8 +2330,9 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[1, 2].map((num) => (
-                  <div key={num} style={{
+                  <div key={num}
                     data-scroll-id="s8"
+                    style={{
                     width: '100%',
                     aspectRatio: '4/3',
                     background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -2348,8 +2366,9 @@ export default function DesignerPortfolio() {
 
               {/* Section 4a: Before Portrait Image - Only for Synkro (1366x812) */}
               {selectedProject.id === 2 && selectedProject.images?.beforePortrait && (
-                <div style={{
+                <div
                   data-scroll-id="s9"
+                  style={{
                   width: '100%',
                   maxWidth: '1200px',
                   margin: '0 auto 4rem',
@@ -2376,8 +2395,9 @@ export default function DesignerPortfolio() {
               )}
 
               {/* Section 4b: Single portrait image / video */}
-              <div style={{
+              <div
                 data-scroll-id="s10"
+                style={{
                 maxWidth: '600px',
                 margin: '0 auto 4rem',
 
@@ -2437,8 +2457,9 @@ export default function DesignerPortfolio() {
                   gap: '2rem',
                   marginBottom: '4rem'
                 }}>
-                  <div style={{
+                  <div
                     data-scroll-id="s11"
+                    style={{
                     width: '100%',
                     aspectRatio: '1366/812',
                     background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
@@ -2469,8 +2490,9 @@ export default function DesignerPortfolio() {
                     )}
                   </div> 
 
-                  <div style={{
+                  <div
                     data-scroll-id="s12"
+                    style={{
                     width: '100%',
                     aspectRatio: '1366/812',
                     background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
@@ -2505,8 +2527,9 @@ export default function DesignerPortfolio() {
 
               {/* Final Mockup - Only for Synkro (1366x2171) */}
               {selectedProject.id === 2 && (
-                <div style={{
+                <div
                   data-scroll-id="s13"
+                  style={{
                   maxWidth: '800px',
                   margin: '0 auto 4rem',
 
@@ -2546,8 +2569,9 @@ export default function DesignerPortfolio() {
 
               {/* Video Section - Only for Synkro (1366x768) */}
               {selectedProject.id === 2 && (
-                <div style={{
+                <div
                   data-scroll-id="s14"
+                  style={{
                   width: '100%',
                   maxWidth: '1200px',
                   margin: '0 auto 4rem',
@@ -2599,8 +2623,9 @@ export default function DesignerPortfolio() {
               )}
 
               {/* Section 5: Image + Text (reversed layout) */}
-              <div style={{
+              <div
                 data-scroll-id="s15"
+                style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 gap: '3rem',
@@ -2660,8 +2685,9 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 6: Quote/Highlight block */}
-              <div style={{
+              <div
                 data-scroll-id="s16"
+                style={{
                 background: `linear-gradient(135deg, ${selectedProject.color}15, ${selectedProject.color}05)`,
                 border: `2px solid ${selectedProject.color}40`,
                 borderRadius: '20px',
@@ -2703,8 +2729,9 @@ export default function DesignerPortfolio() {
                   { title: "Feature 2", description: "Description for feature 2" },
                   { title: "Feature 3", description: "Description for feature 3" }
                 ]).map((feature, index) => (
-                  <div key={index} style={{
+                  <div key={index}
                     data-scroll-id="s17"
+                    style={{
                     background: 'rgba(255,255,255,0.05)',
                     backdropFilter: 'blur(20px)',
                     border: '1px solid rgba(255,255,255,0.1)',
@@ -2759,8 +2786,9 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[1, 2, 3].map((num) => (
-                  <div key={num} style={{
+                  <div key={num}
                     data-scroll-id="s18"
+                    style={{
                     width: '100%',
                     aspectRatio: '1/1',
                     background: `linear-gradient(${num * 90}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -2795,8 +2823,9 @@ export default function DesignerPortfolio() {
               {/* Section 8b: Screen 4 - Portrait style
                   For non-Synkro projects: image, EXCEPT social media (id=3) which uses video */}
               {selectedProject.id !== 2 && (
-                <div style={{
+                <div
                   data-scroll-id="s19"
+                  style={{
                   maxWidth: '600px',
                   margin: '0 auto 4rem',
 
@@ -2849,8 +2878,9 @@ export default function DesignerPortfolio() {
 
               {/* Screen 4 Video - Only for Synkro (3:4 Portrait) */}
               {selectedProject.id === 2 && (
-                <div style={{
+                <div
                   data-scroll-id="s20"
+                  style={{
                   maxWidth: '600px',
                   margin: '0 auto 4rem',
 
@@ -2902,8 +2932,9 @@ export default function DesignerPortfolio() {
 
               {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
-                <div style={{
+                <div
                   data-scroll-id="s21"
+                  style={{
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2926,8 +2957,9 @@ export default function DesignerPortfolio() {
 
               {/* Before Final Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
-                <div style={{
+                <div
                   data-scroll-id="s22"
+                  style={{
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2949,8 +2981,9 @@ export default function DesignerPortfolio() {
               )}
 
               {/* Section 10: Results/Outcomes */}
-              <div style={{
+              <div
                 data-scroll-id="s23"
+                style={{
                 marginBottom: '4rem',
 
                 ...scrollReveal('s23', selectedProject.id),
@@ -3032,8 +3065,9 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Final Image - moved to bottom */}
-              <div style={{
+              <div
                 data-scroll-id="s24"
+                style={{
                 width: '100%',
                 aspectRatio: '21/9',
                 background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -3084,8 +3118,9 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Bottom navigation */}
-              <div style={{
+              <div
                 data-scroll-id="s25"
+                style={{
                 display: 'flex',
                 justifyContent: 'center',
                 paddingTop: '2rem',
@@ -3127,8 +3162,9 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{
+          <div
             data-scroll-id="s26"
+            style={{
             maxWidth: '700px',
             textAlign: 'center',
 
@@ -3186,8 +3222,9 @@ export default function DesignerPortfolio() {
               marginTop: '3rem'
             }}>
               {t.about.skills.map((skill, i) => (
-                <div key={skill} style={{
+                <div key={skill}
                   data-scroll-id="s27"
+                  style={{
 
                   ...scrollReveal('s27', selectedProject.id),
                 }}>
@@ -3204,8 +3241,9 @@ export default function DesignerPortfolio() {
             </div>
 
             {/* Software Tools Section */}
-            <div style={{
+            <div
               data-scroll-id="s28"
+              style={{
               marginTop: '4rem',
               paddingTop: '3rem',
               borderTop: '1px solid rgba(255,255,255,0.1)',
@@ -3268,8 +3306,9 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{
+          <div
             data-scroll-id="s30"
+            style={{
             textAlign: 'center',
             maxWidth: '600px',
 
@@ -3330,8 +3369,9 @@ export default function DesignerPortfolio() {
                 { label: t.contact.linkedin, value: 'linkedin.com/in/diana' },
                 { label: 'Location', value: 'Brandenburg, Germany' }
               ].map((item, i) => (
-                <div key={item.label} style={{
+                <div key={item.label}
                   data-scroll-id="s31"
+                  style={{
                   padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
                   background: 'rgba(255,255,255,0.08)',
                   backdropFilter: 'blur(20px)',
