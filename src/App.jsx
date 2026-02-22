@@ -180,7 +180,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero1.2.png",
+          hero: "/images/social-media/hero1.1.png",
           process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
@@ -188,45 +188,45 @@ const translations = {
           processWide: "/images/social-media/process-wide1.png",
           detail1: "/images/social-media/detail1.3.png",
           detail2: "/images/social-media/detail2.4.png",
-          portrait: "/images/social-media/portrait1.mp4",
+          portrait: "/images/social-media/portrait.mp4",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
           screen2: "/images/social-media/screen2.png",
           screen3: "/images/social-media/screen3.png",
-          screen4: "/images/social-media/screen41.mp4",
+          screen4: "/images/social-media/screen4.mp4",
           final: "/images/social-media/final.png"
         }
       },
       {
         id: 4,
-        title: "Magi",
-        category: "Mobile App",
-        year: "2023",
-        description: "Augmented Reality Greeting Cards",
+        title: "Particle Self",
+        category: "Creative Coding",
+        year: "2025",
+        description: "Interactive Particle Installation",
         color: "#10B981",
         content: {
-          challenge: "Traditional greeting cards lack the personal touch and interactive experience modern users expect.",
-          solution: "Magi brings greeting cards to life through AR technology, creating memorable and shareable moments.",
-          quote: "The future of connection is augmented reality.",
-          deviceObjective: "To modernize greeting cards: blend physical cards with digital AR experiences, enable personalization, and create shareable moments.",
-          purposeOfData: "User interaction data helps improve AR experiences, personalize content recommendations, and enhance card creation features.",
+          challenge: "Artificial Impression is a motion-based particle system that transforms human presence into dynamic visual behavior. Instead of reflecting the body as a static image, the system reconstructs it as movement. Using live camera input in TouchDesigner, shadow and gesture act as forces that disturb and reshape a particle field in real time. The body becomes wind. Presence becomes data. Movement becomes transformation.",
+          solution: "The project explores how identity shifts when translated into a computational system. Rather than representation, the work focuses on transformation. The viewer does not see themselves — they activate a responsive environment. The artwork behaves as a living system: it reacts, it evolves, it dissolves, it reforms. Presence becomes co-authorship.",
+          quote: "The body becomes wind. Presence becomes data. Movement becomes transformation.",
+          deviceObjective: "The system integrates real-time camera input, motion and silhouette detection, GPU-driven particle simulation, force modulation through gesture and distance, and feedback loops generating temporal memory. Through shadow-based interaction, the body becomes an interface. Subtle variations in speed and proximity produce turbulence, drift, or density shifts within the particle field.",
+          purposeOfData: "Originally developed as a wall projection, the work creates an immersive environment where physical movement directly shapes digital matter. The installation operates between two spaces: Physical (body, projection, shadow) and Digital (system, computation, particle logic).",
           metrics: [
-            { value: '500%', label: 'Engagement Time' },
-            { value: '88%', label: 'Share Rate' },
-            { value: '4x', label: 'Repeat Usage' }
+            { value: 'Real-time', label: 'Camera Input' },
+            { value: 'GPU', label: 'Particle Simulation' },
+            { value: 'Live', label: 'Force Modulation' }
           ],
           features: [
             {
-              title: "AR Card Scanning",
-              description: "Point your phone at any Magi card to unlock immersive 3D animations, videos, and interactive experiences."
+              title: "Motion & Silhouette Detection",
+              description: "Live camera input captures shadow and gesture, translating physical presence into computational forces that disturb and reshape the particle field in real time."
             },
             {
-              title: "Personalization Studio",
-              description: "Create custom AR experiences with photos, videos, messages, and animations tailored to your recipient."
+              title: "GPU-Driven Particle Simulation",
+              description: "Thousands of particles respond to body movement through force modulation — speed and proximity produce turbulence, drift, or density shifts across the field."
             },
             {
-              title: "Memory Preservation",
-              description: "AR experiences are saved in the cloud, allowing recipients to relive special moments anytime, anywhere."
+              title: "Temporal Memory Feedback",
+              description: "Feedback loops generate temporal memory within the system, allowing traces of past movement to linger and evolve long after the body has moved on."
             }
           ]
         },
@@ -424,7 +424,7 @@ const translations = {
           ]
         },
         images: {
-          hero: "/images/social-media/hero1.2.png",
+          hero: "/images/social-media/hero1.1.png",
           process1: "/images/social-media/process1.2.png",
           process2: "/images/social-media/process2.png",
           process3: "/images/social-media/process3.png",
@@ -432,45 +432,45 @@ const translations = {
           processWide: "/images/social-media/process-wide1.png",
           detail1: "/images/social-media/detail1.3.png",
           detail2: "/images/social-media/detail2.4.png",
-          portrait: "/images/social-media/portrait1.mp4",
+          portrait: "/images/social-media/portrait.mp4",
           solution: "/images/social-media/solution.png",
           screen1: "/images/social-media/screen1.png",
           screen2: "/images/social-media/screen2.png",
           screen3: "/images/social-media/screen3.png",
-          screen4: "/images/social-media/screen41.mp4",
+          screen4: "/images/social-media/screen4.mp4",
           final: "/images/social-media/final.png"
         }
       },
       {
         id: 4,
-        title: "Magi",
-        category: "Mobile Anwendung",
-        year: "2023",
-        description: "Grußkarten mit erweiterter Realität",
+        title: "Particle Self",
+        category: "Creative Coding",
+        year: "2025",
+        description: "Interaktive Partikelinstallation",
         color: "#10B981",
         content: {
-          challenge: "Traditionellen Grußkarten fehlt die persönliche Note und das interaktive Erlebnis, das moderne Nutzer erwarten.",
-          solution: "Magi erweckt Grußkarten durch AR-Technologie zum Leben und schafft unvergessliche und teilbare Momente.",
-          quote: "Die Zukunft der Verbindung ist erweiterte Realität.",
-          deviceObjective: "Um Grußkarten zu modernisieren: Physische Karten mit digitalen AR-Erlebnissen verbinden, Personalisierung ermöglichen und teilbare Momente schaffen.",
-          purposeOfData: "Benutzerinteraktionsdaten helfen, AR-Erlebnisse zu verbessern, Inhaltsempfehlungen zu personalisieren und Kartenerstellungsfunktionen zu optimieren.",
+          challenge: "Artificial Impression ist ein bewegungsbasiertes Partikelsystem, das menschliche Präsenz in dynamisches visuelles Verhalten verwandelt. Anstatt den Körper als statisches Bild zu spiegeln, rekonstruiert das System ihn als Bewegung. Mit Live-Kameraeingabe in TouchDesigner wirken Schatten und Gesten als Kräfte, die ein Partikelfeld in Echtzeit stören und umformen. Der Körper wird zum Wind. Präsenz wird zu Daten. Bewegung wird zur Transformation.",
+          solution: "Das Projekt untersucht, wie sich Identität verändert, wenn sie in ein computergestütztes System übersetzt wird. Statt Repräsentation steht Transformation im Mittelpunkt. Der Betrachter sieht sich nicht selbst — er aktiviert eine reaktive Umgebung. Das Kunstwerk verhält sich wie ein lebendiges System: Es reagiert, es entwickelt sich, es löst sich auf, es reformiert sich. Präsenz wird zur Mitautorschaft.",
+          quote: "Der Körper wird zum Wind. Präsenz wird zu Daten. Bewegung wird zur Transformation.",
+          deviceObjective: "Das System integriert Echtzeit-Kameraeingabe, Bewegungs- und Silhouettenerkennung, GPU-gesteuerte Partikelsimulation, Kraftmodulation durch Geste und Distanz sowie Rückkopplungsschleifen, die temporäres Gedächtnis erzeugen. Durch schattenbasierte Interaktion wird der Körper zur Schnittstelle. Feine Variationen in Geschwindigkeit und Nähe erzeugen Turbulenzen, Drift oder Dichteveränderungen im Partikelfeld.",
+          purposeOfData: "Ursprünglich als Wandprojektion entwickelt, schafft die Arbeit eine immersive Umgebung, in der physische Bewegung digitale Materie direkt formt. Die Installation operiert zwischen zwei Räumen: Physisch (Körper, Projektion, Schatten) und Digital (System, Berechnung, Partikellogik).",
           metrics: [
-            { value: '500%', label: 'Engagement-Zeit' },
-            { value: '88%', label: 'Teilungsrate' },
-            { value: '4x', label: 'Wiederholte Nutzung' }
+            { value: 'Echtzeit', label: 'Kameraeingabe' },
+            { value: 'GPU', label: 'Partikelsimulation' },
+            { value: 'Live', label: 'Kraftmodulation' }
           ],
           features: [
             {
-              title: "AR-Karten-Scannen",
-              description: "Richten Sie Ihr Telefon auf jede Magi-Karte, um immersive 3D-Animationen, Videos und interaktive Erlebnisse freizuschalten."
+              title: "Bewegungs- & Silhouettenerkennung",
+              description: "Live-Kameraeingabe erfasst Schatten und Gesten und übersetzt körperliche Präsenz in computergestützte Kräfte, die das Partikelfeld in Echtzeit stören und umformen."
             },
             {
-              title: "Personalisierungs-Studio",
-              description: "Erstellen Sie benutzerdefinierte AR-Erlebnisse mit Fotos, Videos, Nachrichten und Animationen, die auf Ihren Empfänger zugeschnitten sind."
+              title: "GPU-gesteuerte Partikelsimulation",
+              description: "Tausende von Partikeln reagieren auf Körperbewegungen durch Kraftmodulation — Geschwindigkeit und Nähe erzeugen Turbulenzen, Drift oder Dichteveränderungen im Feld."
             },
             {
-              title: "Erinnerungs-Bewahrung",
-              description: "AR-Erlebnisse werden in der Cloud gespeichert, sodass Empfänger besondere Momente jederzeit und überall wieder erleben können."
+              title: "Temporäres Gedächtnis",
+              description: "Rückkopplungsschleifen erzeugen temporäres Gedächtnis im System, sodass Spuren vergangener Bewegungen noch lange nach dem Weiterziehen des Körpers nachklingen und sich weiterentwickeln."
             }
           ]
         },
@@ -499,6 +499,7 @@ const translations = {
 export default function DesignerPortfolio() {
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
+  const finalVideoRef = useRef(null);
   const timeRef = useRef(0);
   const animationFrameRef = useRef(null);
   const contentRef = useRef(null);
@@ -524,10 +525,71 @@ export default function DesignerPortfolio() {
   const [mouseTrail, setMouseTrail] = useState([]);
   const mouseTrailRef = useRef([]);
   const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
- 
+  const [visibleSections, setVisibleSections] = useState({});
 
   // Get current translations
   const t = translations[language];
+
+  // IntersectionObserver for scroll-triggered section animations
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-scroll-id');
+            if (id) {
+              setVisibleSections(prev => ({ ...prev, [id]: true }));
+            }
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    const timer = setTimeout(() => {
+      document.querySelectorAll('[data-scroll-id]').forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [selectedProject]);
+
+  // Reset visible sections when project changes
+  useEffect(() => {
+    setVisibleSections({});
+  }, [selectedProject]);
+
+  // Returns inline style for scroll-triggered entrance based on project id
+  const scrollReveal = (id, projectId, extraStyle = {}) => {
+    const visible = visibleSections[id];
+    const base = {
+      transition: 'opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease',
+      ...extraStyle
+    };
+
+    if (visible) {
+      return { ...base, opacity: 1, transform: 'none', filter: 'none' };
+    }
+
+    // Unique hidden state per project
+    if (projectId === 1) {
+      // Palmi: slide up
+      return { ...base, opacity: 0, transform: 'translateY(50px)' };
+    } else if (projectId === 2) {
+      // Synkro: slide from right
+      return { ...base, opacity: 0, transform: 'translateX(60px)' };
+    } else if (projectId === 3) {
+      // Social Media: scale up from center
+      return { ...base, opacity: 0, transform: 'scale(0.88)' };
+    } else {
+      // Particle Self: blur in
+      return { ...base, opacity: 0, filter: 'blur(12px)', transform: 'translateY(20px)' };
+    }
+  };
 
   // Nebula galaxy background
   useEffect(() => {
@@ -1807,7 +1869,14 @@ export default function DesignerPortfolio() {
                     flexDirection: 'column',
                     gap: '0.6rem'
                   }}>
-                    {t.work.skills.map((skill) => (
+                    {(selectedProject.id === 1
+                      ? ['Figma', 'Prototyping', 'User Research', 'Artificial Intelligence']
+                      : selectedProject.id === 2
+                        ? ['Figma', 'Prototyping', 'User Research', 'Adobe']
+                        : selectedProject.id === 3
+                          ? ['Figma', 'Prototyping', 'User Research', 'Adobe', 'Canva']
+                          : ['Coding', 'Research', 'TouchDesigner', 'Artificial Intelligence']
+                    ).map((skill) => (
                       <div key={skill} style={{
                         fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
                         color: '#ffffff',
@@ -1909,11 +1978,10 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 1: Full-width text */}
-              <div style={{
-                marginBottom: '4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards'
-              }}>
+              <div
+                data-scroll-id="s1"
+                style={{ marginBottom: '4rem', ...scrollReveal('s1', selectedProject.id) }}
+              >
                 <h2 style={{
                   fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
                   color: '#ffffff',
@@ -1922,17 +1990,39 @@ export default function DesignerPortfolio() {
                   marginBottom: '1.5rem',
                   lineHeight: 1.2
                 }}>
-                  The Challenge
+                  {selectedProject.id === 4 ? 'Concept' : 'The Challenge'}
                 </h2>
-                <p style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                  color: 'rgba(255,255,255,0.75)',
-                  lineHeight: 1.8,
-                  fontFamily: '"Inter", sans-serif',
-                  maxWidth: '900px'
-                }}>
-                  {selectedProject.content?.challenge || "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap."}
-                </p>
+                {selectedProject.id === 4 ? (
+                  <div style={{ maxWidth: '900px' }}>
+                    <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, fontFamily: '"Inter", sans-serif', marginBottom: '1.2rem' }}>
+                      The project explores how identity shifts when translated into a computational system. Rather than representation, the work focuses on transformation. The viewer does not see themselves — they activate a responsive environment.
+                    </p>
+                    <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, fontFamily: '"Inter", sans-serif', marginBottom: '0.8rem' }}>
+                      The artwork behaves as a living system:
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.2rem', paddingLeft: '0.5rem' }}>
+                      {['It reacts', 'It evolves', 'It dissolves', 'It reforms'].map(item => (
+                        <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', fontFamily: '"Inter", sans-serif' }}>
+                          <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: selectedProject.color, flexShrink: 0 }} />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                    <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, fontFamily: '"Inter", sans-serif', fontStyle: 'italic' }}>
+                      Presence becomes co-authorship.
+                    </p>
+                  </div>
+                ) : (
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.8,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px'
+                  }}>
+                    {selectedProject.content?.challenge || "Many children experience emotions they cannot yet put into words, while parents often rely on behavior alone to understand how their child feels. Research from the World Health Organization and the Centers for Disease Control and Prevention shows that 70% of children under 10 struggle to name complex emotions, creating a widespread emotional gap."}
+                  </p>
+                )}
                 
                 {/* Loading bar statistic - Only for Palmi */}
                 {selectedProject.id === 1 && (
@@ -1988,6 +2078,7 @@ export default function DesignerPortfolio() {
 
               {/* Section 2: Process 1 - Large full-width image (16:10) */}
               <div style={{
+                data-scroll-id="s2"
                 width: '100%',
                 aspectRatio: '16/10',
                 background: `linear-gradient(45deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -1998,8 +2089,8 @@ export default function DesignerPortfolio() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards',
+
+                ...scrollReveal('s2', selectedProject.id),
                 backgroundImage: selectedProject.images?.process1 ? `url(${selectedProject.images.process1})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -2023,9 +2114,10 @@ export default function DesignerPortfolio() {
               {/* Discovery Section - Only for Synkro, after Process 1 */}
               {selectedProject.id === 2 && selectedProject.content?.discovery && (
                 <div style={{
+                  data-scroll-id="s3"
                   marginBottom: '4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.82s forwards'
+
+                  ...scrollReveal('s3', selectedProject.id),
                 }}>
                   <h2 style={{
                     fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
@@ -2052,6 +2144,7 @@ export default function DesignerPortfolio() {
               {/* Before Define Image - Only for Synkro (1920x1080) */}
               {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
                 <div style={{
+                  data-scroll-id="s4"
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2062,8 +2155,8 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.84s forwards',
+
+                  ...scrollReveal('s4', selectedProject.id),
                   backgroundImage: `url(${selectedProject.images.beforeDefine})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -2075,9 +2168,10 @@ export default function DesignerPortfolio() {
               {/* Section 3: Device Objective / Design Approach / Define Text */}
               {(selectedProject.content?.designApproach || selectedProject.content?.deviceObjective) && (
                 <div style={{
+                  data-scroll-id="s5"
                   marginBottom: '4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards'
+
+                  ...scrollReveal('s5', selectedProject.id),
                 }}>
                   <h2 style={{
                     fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
@@ -2087,23 +2181,50 @@ export default function DesignerPortfolio() {
                     marginBottom: '1.2rem',
                     lineHeight: 1.2
                   }}>
-                   {selectedProject.content?.designApproach 
-  ? 'Design Approach' 
-  : selectedProject.id === 2 
-    ? 'Define' 
-    : selectedProject.id === 3
-      ? 'Design Objective'
-      : 'Device Objective'}
+                    {selectedProject.content?.designApproach
+                      ? 'Design Approach'
+                      : selectedProject.id === 2
+                        ? 'Define'
+                        : selectedProject.id === 3
+                          ? 'Design Objective'
+                          : selectedProject.id === 4
+                            ? 'Process'
+                            : 'Device Objective'}
                   </h2>
-                  <p style={{
-                    fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-                    color: 'rgba(255,255,255,0.75)',
-                    lineHeight: 1.7,
-                    fontFamily: '"Inter", sans-serif',
-                    maxWidth: '900px'
-                  }}>
-                    {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
-                  </p>
+                  {selectedProject.id === 4 ? (
+                    <div style={{ maxWidth: '900px' }}>
+                      <p style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, fontFamily: '"Inter", sans-serif', marginBottom: '0.8rem' }}>
+                        The system integrates:
+                      </p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.2rem', paddingLeft: '0.5rem' }}>
+                        {[
+                          'Real-time camera input',
+                          'Motion and silhouette detection',
+                          'GPU-driven particle simulation',
+                          'Force modulation through gesture and distance',
+                          'Feedback loops generating temporal memory'
+                        ].map(item => (
+                          <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', color: 'rgba(255,255,255,0.75)', fontFamily: '"Inter", sans-serif' }}>
+                            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: selectedProject.color, flexShrink: 0 }} />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                      <p style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, fontFamily: '"Inter", sans-serif' }}>
+                        Through shadow-based interaction, the body becomes an interface. Subtle variations in speed and proximity produce turbulence, drift, or density shifts within the particle field.
+                      </p>
+                    </div>
+                  ) : (
+                    <p style={{
+                      fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                      color: 'rgba(255,255,255,0.75)',
+                      lineHeight: 1.7,
+                      fontFamily: '"Inter", sans-serif',
+                      maxWidth: '900px'
+                    }}>
+                      {selectedProject.content?.designApproach || selectedProject.content?.deviceObjective || "To bridge this emotional gap: any solution must allow children to express feelings, offer guidance in the moment, and track emotion patterns."}
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -2116,6 +2237,7 @@ export default function DesignerPortfolio() {
               }}>
                 {[2, 3, 4].map((num) => (
                   <div key={num} style={{
+                    data-scroll-id="s6"
                     width: '100%',
                     aspectRatio: '4/3',
                     background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -2124,8 +2246,8 @@ export default function DesignerPortfolio() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.85 + num * 0.1}s forwards`,
+
+                    ...scrollReveal('s6', selectedProject.id),
                     backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -2150,6 +2272,7 @@ export default function DesignerPortfolio() {
 
               {/* Section 3b: Full width process image */}
               <div style={{
+                data-scroll-id="s7"
                 width: '100%',
                 aspectRatio: '21/9',
                 background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2160,8 +2283,8 @@ export default function DesignerPortfolio() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.25s forwards',
+
+                ...scrollReveal('s7', selectedProject.id),
                 backgroundImage: selectedProject.images?.processWide ? `url(${selectedProject.images.processWide})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -2191,6 +2314,7 @@ export default function DesignerPortfolio() {
               }}>
                 {[1, 2].map((num) => (
                   <div key={num} style={{
+                    data-scroll-id="s8"
                     width: '100%',
                     aspectRatio: '4/3',
                     background: `linear-gradient(${num === 1 ? '45deg' : '225deg'}, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -2199,8 +2323,8 @@ export default function DesignerPortfolio() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.35 + num * 0.1}s forwards`,
+
+                    ...scrollReveal('s8', selectedProject.id),
                     backgroundImage: selectedProject.images?.[`detail${num}`] ? `url(${selectedProject.images[`detail${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -2225,11 +2349,12 @@ export default function DesignerPortfolio() {
               {/* Section 4a: Before Portrait Image - Only for Synkro (1366x812) */}
               {selectedProject.id === 2 && selectedProject.images?.beforePortrait && (
                 <div style={{
+                  data-scroll-id="s9"
                   width: '100%',
                   maxWidth: '1200px',
                   margin: '0 auto 4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards'
+
+                  ...scrollReveal('s9', selectedProject.id),
                 }}>
                   <div style={{
                     width: '100%',
@@ -2252,10 +2377,11 @@ export default function DesignerPortfolio() {
 
               {/* Section 4b: Single portrait image / video */}
               <div style={{
+                data-scroll-id="s10"
                 maxWidth: '600px',
                 margin: '0 auto 4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.55s forwards'
+
+                ...scrollReveal('s10', selectedProject.id),
               }}>
                 <div style={{
                   width: '100%',
@@ -2267,15 +2393,15 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  // ─── CHANGE 1: For social media project (id=3), don't use backgroundImage ───
-                  backgroundImage: selectedProject.id !== 3 && selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
+                  // ─── For social media (id=3) and Particle Self (id=4), use video not backgroundImage ───
+                  backgroundImage: (selectedProject.id !== 3 && selectedProject.id !== 4) && selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
                   position: 'relative'
                 }}>
-                  {/* Social media project uses <video> for portrait */}
-                  {selectedProject.id === 3 && selectedProject.images?.portrait ? (
+                  {/* Social media (id=3) and Particle Self (id=4) use <video> for portrait */}
+                  {(selectedProject.id === 3 || selectedProject.id === 4) && selectedProject.images?.portrait ? (
                     <video
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       autoPlay
@@ -2312,6 +2438,7 @@ export default function DesignerPortfolio() {
                   marginBottom: '4rem'
                 }}>
                   <div style={{
+                    data-scroll-id="s11"
                     width: '100%',
                     aspectRatio: '1366/812',
                     background: `linear-gradient(90deg, ${selectedProject.color}25, ${selectedProject.color}10)`,
@@ -2321,8 +2448,8 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    opacity: 0,
-                    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards',
+
+                    ...scrollReveal('s11', selectedProject.id),
                     backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -2343,6 +2470,7 @@ export default function DesignerPortfolio() {
                   </div> 
 
                   <div style={{
+                    data-scroll-id="s12"
                     width: '100%',
                     aspectRatio: '1366/812',
                     background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}15)`,
@@ -2352,8 +2480,8 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    opacity: 0,
-                    animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.65s forwards',
+
+                    ...scrollReveal('s12', selectedProject.id),
                     backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -2378,10 +2506,11 @@ export default function DesignerPortfolio() {
               {/* Final Mockup - Only for Synkro (1366x2171) */}
               {selectedProject.id === 2 && (
                 <div style={{
+                  data-scroll-id="s13"
                   maxWidth: '800px',
                   margin: '0 auto 4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards'
+
+                  ...scrollReveal('s13', selectedProject.id),
                 }}>
                   <div style={{
                     width: '100%',
@@ -2418,11 +2547,12 @@ export default function DesignerPortfolio() {
               {/* Video Section - Only for Synkro (1366x768) */}
               {selectedProject.id === 2 && (
                 <div style={{
+                  data-scroll-id="s14"
                   width: '100%',
                   maxWidth: '1200px',
                   margin: '0 auto 4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.75s forwards'
+
+                  ...scrollReveal('s14', selectedProject.id),
                 }}>
                   <div style={{
                     width: '100%',
@@ -2470,13 +2600,14 @@ export default function DesignerPortfolio() {
 
               {/* Section 5: Image + Text (reversed layout) */}
               <div style={{
+                data-scroll-id="s15"
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 gap: '3rem',
                 alignItems: 'center',
                 marginBottom: '4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards'
+
+                ...scrollReveal('s15', selectedProject.id),
               }}>
                 <div style={{
                   width: '100%',
@@ -2515,7 +2646,7 @@ export default function DesignerPortfolio() {
                     marginBottom: '1.2rem',
                     lineHeight: 1.2
                   }}>
-                    {selectedProject.id === 2 ? 'Design' : 'The Solution'}
+                    {selectedProject.id === 2 ? 'Design' : selectedProject.id === 4 ? 'The System' : 'The Solution'}
                   </h2>
                   <p style={{
                     fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
@@ -2530,14 +2661,15 @@ export default function DesignerPortfolio() {
 
               {/* Section 6: Quote/Highlight block */}
               <div style={{
+                data-scroll-id="s16"
                 background: `linear-gradient(135deg, ${selectedProject.color}15, ${selectedProject.color}05)`,
                 border: `2px solid ${selectedProject.color}40`,
                 borderRadius: '20px',
                 padding: 'clamp(2.5rem, 5vw, 4rem)',
                 marginBottom: '4rem',
                 textAlign: 'center',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards'
+
+                ...scrollReveal('s16', selectedProject.id),
               }}>
                 <div style={{
                   fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
@@ -2572,13 +2704,14 @@ export default function DesignerPortfolio() {
                   { title: "Feature 3", description: "Description for feature 3" }
                 ]).map((feature, index) => (
                   <div key={index} style={{
+                    data-scroll-id="s17"
                     background: 'rgba(255,255,255,0.05)',
                     backdropFilter: 'blur(20px)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: '16px',
                     padding: '2rem',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.5 + index * 0.1}s forwards`
+
+                    ...scrollReveal('s17', selectedProject.id),
                   }}>
                     <div style={{
                       width: '50px',
@@ -2627,6 +2760,7 @@ export default function DesignerPortfolio() {
               }}>
                 {[1, 2, 3].map((num) => (
                   <div key={num} style={{
+                    data-scroll-id="s18"
                     width: '100%',
                     aspectRatio: '1/1',
                     background: `linear-gradient(${num * 90}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -2635,8 +2769,8 @@ export default function DesignerPortfolio() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    opacity: 0,
-                    animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.7 + num * 0.08}s forwards`,
+
+                    ...scrollReveal('s18', selectedProject.id),
                     backgroundImage: selectedProject.images?.[`screen${num}`] ? `url(${selectedProject.images[`screen${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -2662,10 +2796,11 @@ export default function DesignerPortfolio() {
                   For non-Synkro projects: image, EXCEPT social media (id=3) which uses video */}
               {selectedProject.id !== 2 && (
                 <div style={{
+                  data-scroll-id="s19"
                   maxWidth: '600px',
                   margin: '0 auto 4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
+
+                  ...scrollReveal('s19', selectedProject.id),
                 }}>
                   <div style={{
                     width: '100%',
@@ -2715,10 +2850,11 @@ export default function DesignerPortfolio() {
               {/* Screen 4 Video - Only for Synkro (3:4 Portrait) */}
               {selectedProject.id === 2 && (
                 <div style={{
+                  data-scroll-id="s20"
                   maxWidth: '600px',
                   margin: '0 auto 4rem',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.94s forwards'
+
+                  ...scrollReveal('s20', selectedProject.id),
                 }}>
                   <div style={{
                     width: '100%',
@@ -2767,6 +2903,7 @@ export default function DesignerPortfolio() {
               {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
                 <div style={{
+                  data-scroll-id="s21"
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2777,8 +2914,8 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.0s forwards',
+
+                  ...scrollReveal('s21', selectedProject.id),
                   backgroundImage: `url(${selectedProject.images.beforePurpose})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -2790,6 +2927,7 @@ export default function DesignerPortfolio() {
               {/* Before Final Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
                 <div style={{
+                  data-scroll-id="s22"
                   width: '100%',
                   aspectRatio: '16/9',
                   background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2800,8 +2938,8 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  opacity: 0,
-                  animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.15s forwards',
+
+                  ...scrollReveal('s22', selectedProject.id),
                   backgroundImage: `url(${selectedProject.images.beforeFinal})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -2812,9 +2950,10 @@ export default function DesignerPortfolio() {
 
               {/* Section 10: Results/Outcomes */}
               <div style={{
+                data-scroll-id="s23"
                 marginBottom: '4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.1s forwards'
+
+                ...scrollReveal('s23', selectedProject.id),
               }}>
                 <h2 style={{
                   fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
@@ -2824,18 +2963,37 @@ export default function DesignerPortfolio() {
                   marginBottom: '1.5rem',
                   lineHeight: 1.2
                 }}>
-                  {selectedProject.id === 1 ? 'Brand Packaging' : 'Purpose of the Data'}
+                  {selectedProject.id === 1 ? 'Brand Packaging' : selectedProject.id === 4 ? 'Installation' : 'Purpose of the Data'}
                 </h2>
-                <p style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                  color: 'rgba(255,255,255,0.75)',
-                  lineHeight: 1.8,
-                  fontFamily: '"Inter", sans-serif',
-                  maxWidth: '900px',
-                  marginBottom: '2rem'
-                }}>
-                  {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
-                </p>
+                {selectedProject.id === 4 ? (
+                  <div style={{ maxWidth: '900px', marginBottom: '2rem' }}>
+                    <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, fontFamily: '"Inter", sans-serif', marginBottom: '1.2rem' }}>
+                      Originally developed as a wall projection, the work creates an immersive environment where physical movement directly shapes digital matter.
+                    </p>
+                    <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, fontFamily: '"Inter", sans-serif', marginBottom: '0.8rem' }}>
+                      The installation operates between two spaces:
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', paddingLeft: '0.5rem' }}>
+                      {['Physical (body, projection, shadow)', 'Digital (system, computation, particle logic)'].map(item => (
+                        <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'rgba(255,255,255,0.75)', fontFamily: '"Inter", sans-serif' }}>
+                          <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: selectedProject.color, flexShrink: 0 }} />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                    color: 'rgba(255,255,255,0.75)',
+                    lineHeight: 1.8,
+                    fontFamily: '"Inter", sans-serif',
+                    maxWidth: '900px',
+                    marginBottom: '2rem'
+                  }}>
+                    {selectedProject.content?.purposeOfData || "The purpose of this data is to support awareness and conversation. It is not meant to diagnose or assess, but to help parents better understand their child and seek professional support when needed."}
+                  </p>
+                )}
                 
                 {/* Metrics grid */}
                 <div style={{
@@ -2875,6 +3033,7 @@ export default function DesignerPortfolio() {
 
               {/* Final Image - moved to bottom */}
               <div style={{
+                data-scroll-id="s24"
                 width: '100%',
                 aspectRatio: '21/9',
                 background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -2885,14 +3044,31 @@ export default function DesignerPortfolio() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards',
-                backgroundImage: selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
+
+                ...scrollReveal('s24', selectedProject.id),
+                backgroundImage: selectedProject.id !== 4 && selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
+                backgroundRepeat: 'no-repeat',
+                position: 'relative'
               }}>
-                {!selectedProject.images?.final && (
+                {selectedProject.id === 4 && selectedProject.images?.final ? (
+                  <video
+                    ref={finalVideoRef}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    autoPlay
+                    loop
+                    playsInline
+                    onPlay={() => {
+                      if (audioRef.current && !audioRef.current.paused) {
+                        audioRef.current.pause();
+                        setIsPlaying(false);
+                      }
+                    }}
+                  >
+                    <source src={selectedProject.images.final} type="video/mp4" />
+                  </video>
+                ) : !selectedProject.images?.final && (
                   <div style={{
                     fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                     color: 'rgba(255,255,255,0.15)',
@@ -2909,12 +3085,13 @@ export default function DesignerPortfolio() {
 
               {/* Bottom navigation */}
               <div style={{
+                data-scroll-id="s25"
                 display: 'flex',
                 justifyContent: 'center',
                 paddingTop: '2rem',
                 paddingBottom: '4rem',
-                opacity: 0,
-                animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards'
+
+                ...scrollReveal('s25', selectedProject.id),
               }}>
                 <button
                   onClick={() => setSelectedProject(null)}
@@ -2951,10 +3128,11 @@ export default function DesignerPortfolio() {
 
         {activeSection === 'about' && (
           <div style={{
+            data-scroll-id="s26"
             maxWidth: '700px',
             textAlign: 'center',
-            opacity: 0,
-            animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+
+            ...scrollReveal('s26', selectedProject.id),
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
@@ -3009,8 +3187,9 @@ export default function DesignerPortfolio() {
             }}>
               {t.about.skills.map((skill, i) => (
                 <div key={skill} style={{
-                  opacity: 0,
-                  animation: `fadeIn 0.5s ease ${0.3 + i * 0.1}s forwards`
+                  data-scroll-id="s27"
+
+                  ...scrollReveal('s27', selectedProject.id),
                 }}>
                   <div style={{
                     fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
@@ -3026,11 +3205,12 @@ export default function DesignerPortfolio() {
 
             {/* Software Tools Section */}
             <div style={{
+              data-scroll-id="s28"
               marginTop: '4rem',
               paddingTop: '3rem',
               borderTop: '1px solid rgba(255,255,255,0.1)',
-              opacity: 0,
-              animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards'
+
+              ...scrollReveal('s28', selectedProject.id),
             }}>
               <h3 style={{
                 fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
@@ -3051,6 +3231,7 @@ export default function DesignerPortfolio() {
               }}>
                 {t.about.tools.map((tool, i) => (
                   <div
+                    data-scroll-id="s29"
                     key={tool}
                     style={{
                       padding: '0.8rem 1.5rem',
@@ -3064,8 +3245,8 @@ export default function DesignerPortfolio() {
                       fontWeight: 500,
                       transition: 'all 0.3s ease',
                       cursor: 'default',
-                      opacity: 0,
-                      animation: `fadeIn 0.5s ease ${0.8 + i * 0.1}s forwards`
+
+                      ...scrollReveal('s29', selectedProject.id),
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
@@ -3088,10 +3269,11 @@ export default function DesignerPortfolio() {
 
         {activeSection === 'contact' && (
           <div style={{
+            data-scroll-id="s30"
             textAlign: 'center',
             maxWidth: '600px',
-            opacity: 0,
-            animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+
+            ...scrollReveal('s30', selectedProject.id),
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
@@ -3149,6 +3331,7 @@ export default function DesignerPortfolio() {
                 { label: 'Location', value: 'Brandenburg, Germany' }
               ].map((item, i) => (
                 <div key={item.label} style={{
+                  data-scroll-id="s31"
                   padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
                   background: 'rgba(255,255,255,0.08)',
                   backdropFilter: 'blur(20px)',
@@ -3157,8 +3340,8 @@ export default function DesignerPortfolio() {
                   width: '100%',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: 0,
-                  animation: `fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.1}s forwards`
+
+                  ...scrollReveal('s31', selectedProject.id),
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
