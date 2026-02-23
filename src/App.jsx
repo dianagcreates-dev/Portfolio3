@@ -233,8 +233,8 @@ const translations = {
         images: {
           hero: "/images/particle/hero.png",
           process1: "/images/particle/process1.png",
-          process2: "/images/particle/process2.mp4",
-          process3: "/images/particle/process3.mp4",
+          process2: "/images/particle/process2.png",
+          process3: "/images/particle/process3.png",
           process4: "/images/particle/process4.mp4",
           processWide: "/images/particle/process-wide.png",
           detail1: "/images/particle/detail1.png",
@@ -477,8 +477,8 @@ const translations = {
         images: {
           hero: "/images/particle/hero.png",
           process1: "/images/particle/process1.png",
-          process2: "/images/particle/process2.mp4",
-          process3: "/images/particle/process3.mp4",
+          process2: "/images/particle/process2.png",
+          process3: "/images/particle/process3.png",
           process4: "/images/particle/process4.mp4",
           processWide: "/images/particle/process-wide.png",
           detail1: "/images/particle/detail1.png",
