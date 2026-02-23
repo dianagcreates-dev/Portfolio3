@@ -235,7 +235,7 @@ const translations = {
           process1: "/images/particle/process1.png",
           process2: "/images/particle/process2.png",
           process3: "/images/particle/process3.png",
-          process4: "/images/particle/process4.mp4",
+          process4: "/images/particle/process4.png",
           processWide: "/images/particle/process-wide.png",
           detail1: "/images/particle/detail1.png",
           detail2: "/images/particle/detail2.png",
@@ -479,7 +479,7 @@ const translations = {
           process1: "/images/particle/process1.png",
           process2: "/images/particle/process2.png",
           process3: "/images/particle/process3.png",
-          process4: "/images/particle/process4.mp4",
+          process4: "/images/particle/process4.png",
           processWide: "/images/particle/process-wide.png",
           detail1: "/images/particle/detail1.png",
           detail2: "/images/particle/detail2.png",
@@ -2243,70 +2243,47 @@ export default function DesignerPortfolio() {
                 </div>
               )}
 
-              {/* Section 2b: Process 2, 3, 4 - Three images/videos in a row (4:3) */}
+              {/* Section 2b: Process 2, 3, 4 - Three images in a row (4:3) */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: '1.5rem',
                 marginBottom: '4rem'
               }}>
-                {[2, 3, 4].map((num) => {
-                  const src = selectedProject.images?.[`process${num}`];
-                  const isVideo = selectedProject.id === 4 && src && src.endsWith('.mp4');
-                  return (
-                    <div key={num}
-                      data-scroll-id="s6"
-                      style={{
-                      width: '100%',
-                      aspectRatio: '4/3',
-                      background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
-                      borderRadius: '16px',
-                      border: `1px solid ${selectedProject.color}40`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      ...scrollReveal('s6', selectedProject.id),
-                      ...(!isVideo && src ? {
-                        backgroundImage: `url(${src})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                      } : {}),
-                      overflow: 'hidden',
-                      position: 'relative'
-                    }}>
-                      {isVideo ? (
-                        <video
-                          src={src}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '16px'
-                          }}
-                        />
-                      ) : !src && (
-                        <div style={{
-                          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                          color: 'rgba(255,255,255,0.15)',
-                          fontWeight: 900,
-                          fontFamily: '"Archivo Black", sans-serif',
-                          textAlign: 'center'
-                        }}>
-                          Process {num}<br/>
-                          <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>800x600px (4:3)</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                {[2, 3, 4].map((num) => (
+                  <div key={num}
+                    data-scroll-id="s6"
+                    style={{
+                    width: '100%',
+                    aspectRatio: '4/3',
+                    background: `linear-gradient(${45 + num * 60}deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
+                    borderRadius: '16px',
+                    border: `1px solid ${selectedProject.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+
+                    ...scrollReveal('s6', selectedProject.id),
+                    backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    overflow: 'hidden'
+                  }}>
+                    {!selectedProject.images?.[`process${num}`] && (
+                      <div style={{
+                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                        color: 'rgba(255,255,255,0.15)',
+                        fontWeight: 900,
+                        fontFamily: '"Archivo Black", sans-serif',
+                        textAlign: 'center'
+                      }}>
+                        Process {num}<br/>
+                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>800x600px (4:3)</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* Section 3b: Full width process image */}
