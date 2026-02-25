@@ -1148,8 +1148,8 @@ export default function DesignerPortfolio() {
         left: 0,
         right: 0,
         zIndex: 100,
-        display: 'flex',
-        justifyContent: 'space-between',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
         padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem)',
         opacity: 0,
@@ -1206,7 +1206,8 @@ export default function DesignerPortfolio() {
         <div style={{
           display: 'flex',
           gap: '0.5rem',
-          alignItems: 'center'
+          alignItems: 'center',
+          justifyContent: 'flex-end'
         }}>
           {['EN', 'DE'].map((lang) => (
             <button
