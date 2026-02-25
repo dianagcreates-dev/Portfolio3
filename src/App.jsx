@@ -246,7 +246,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final.mp4"
+          final: "/images/particle/final1.mp4"
         }
       }
     ]
@@ -491,7 +491,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final.mp4"
+          final: "/images/particle/final1.mp4"
         }
       }
     ]
