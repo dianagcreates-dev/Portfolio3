@@ -246,7 +246,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final1.mp4"
+          final: "/images/particle/final.mp4"
         }
       }
     ]
@@ -491,7 +491,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final1.mp4"
+          final: "/images/particle/final.mp4"
         }
       }
     ]
@@ -509,6 +509,7 @@ export default function DesignerPortfolio() {
   const analyzerRef = useRef(null);
   const dataArrayRef = useRef(null);
   const animationIdRef = useRef(null);
+  const vizBarsRef = useRef(null);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -953,7 +954,7 @@ export default function DesignerPortfolio() {
     };
   }, [activeSection, isScrolling, selectedProject]);
 
-  // Audio visualization loop
+  // Audio visualization loop — direct DOM update, no React re-render
   useEffect(() => {
     if (!isPlaying || !analyzerRef.current || !dataArrayRef.current) {
       return;
@@ -961,19 +962,23 @@ export default function DesignerPortfolio() {
 
     let animationId;
     const visualize = () => {
-      if (analyzerRef.current && dataArrayRef.current) {
+      if (analyzerRef.current && dataArrayRef.current && vizBarsRef.current) {
         analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
-        setFrequencyData([...dataArrayRef.current]);
+        const bars = vizBarsRef.current.children;
+        for (let i = 0; i < bars.length; i++) {
+          const value = dataArrayRef.current[i] || 0;
+          const height = Math.max((value / 255) * 35, 3);
+          bars[i].style.height = `${height}px`;
+          bars[i].style.boxShadow = value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none';
+        }
       }
       animationId = requestAnimationFrame(visualize);
     };
-    
+
     visualize();
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
+      if (animationId) cancelAnimationFrame(animationId);
     };
   }, [isPlaying]);
 
@@ -985,7 +990,7 @@ export default function DesignerPortfolio() {
         audioContextRef.current = new AudioContext();
         analyzerRef.current = audioContextRef.current.createAnalyser();
         analyzerRef.current.fftSize = 256;
-        analyzerRef.current.smoothingTimeConstant = 0.7;
+        analyzerRef.current.smoothingTimeConstant = 0.2;
         analyzerRef.current.minDecibels = -90;
         analyzerRef.current.maxDecibels = -10;
         const bufferLength = analyzerRef.current.frequencyBinCount;
@@ -1288,35 +1293,31 @@ export default function DesignerPortfolio() {
           </button>
           
           {/* Frequency Visualizer */}
-          <div style={{
-            display: 'flex',
-            gap: '2px',
-            alignItems: 'center',
-            height: '40px',
-            marginLeft: '1rem',
-            padding: '0 0.5rem'
-          }}>
-            {frequencyData.slice(0, 20).map((value, i) => {
-              const normalizedHeight = (value / 255) * 100;
-              const height = isPlaying ? Math.max(normalizedHeight * 0.35, 3) : 3;
-              
-              return (
-                <div
-                  key={i}
-                  style={{
-                    width: '2.5px',
-                    height: `${height}px`,
-                    background: 'rgba(255,255,255,0.95)',
-                    borderRadius: '1.5px',
-                    transition: 'none',
-                    opacity: isPlaying ? 1 : 0.25,
-                    boxShadow: isPlaying && value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none',
-                    transform: 'scaleY(1)',
-                    transformOrigin: 'center'
-                  }}
-                />
-              );
-            })}
+          <div
+            ref={vizBarsRef}
+            style={{
+              display: 'flex',
+              gap: '2px',
+              alignItems: 'center',
+              height: '40px',
+              marginLeft: '1rem',
+              padding: '0 0.5rem'
+            }}
+          >
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: '2.5px',
+                  height: '3px',
+                  background: 'rgba(255,255,255,0.95)',
+                  borderRadius: '1.5px',
+                  opacity: isPlaying ? 1 : 0.25,
+                  transition: 'opacity 0.3s ease',
+                  transformOrigin: 'center'
+                }}
+              />
+            ))}
           </div>
         </div>
       </nav>
