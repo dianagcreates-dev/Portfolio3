@@ -534,7 +534,6 @@ export default function DesignerPortfolio() {
 
   // IntersectionObserver for scroll-triggered section animations
   useEffect(() => {
-    if (!selectedProject) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -547,7 +546,7 @@ export default function DesignerPortfolio() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.05 }
     );
 
     const timer = setTimeout(() => {
@@ -558,16 +557,26 @@ export default function DesignerPortfolio() {
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, [selectedProject]);
+  }, [selectedProject, activeSection]);
 
-  // Reset visible sections when project changes
+  // Reset visible sections when project or section changes
   useEffect(() => {
     setVisibleSections({});
-  }, [selectedProject]);
+  }, [selectedProject, activeSection]);
 
   // Returns inline style for scroll-triggered entrance based on project id
   const scrollReveal = (id, projectId, extraStyle = {}) => {
     const visible = visibleSections[id];
+
+    // No project context (about / contact pages) — just fade in
+    if (!projectId) {
+      return {
+        transition: `opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`,
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(30px)',
+        ...extraStyle
+      };
+    }
 
     // Stagger delay based on section number within the page
     const sNum = parseInt(id.replace('s', ''), 10) || 0;
@@ -3185,7 +3194,7 @@ export default function DesignerPortfolio() {
             maxWidth: '700px',
             textAlign: 'center',
 
-            ...scrollReveal('s26', selectedProject.id),
+            ...scrollReveal('s26', selectedProject?.id),
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
@@ -3243,7 +3252,7 @@ export default function DesignerPortfolio() {
                   data-scroll-id="s27"
                   style={{
 
-                  ...scrollReveal('s27', selectedProject.id),
+                  ...scrollReveal('s27', selectedProject?.id),
                 }}>
                   <div style={{
                     fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
@@ -3265,7 +3274,7 @@ export default function DesignerPortfolio() {
               paddingTop: '3rem',
               borderTop: '1px solid rgba(255,255,255,0.1)',
 
-              ...scrollReveal('s28', selectedProject.id),
+              ...scrollReveal('s28', selectedProject?.id),
             }}>
               <h3 style={{
                 fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
@@ -3301,7 +3310,7 @@ export default function DesignerPortfolio() {
                       transition: 'all 0.3s ease',
                       cursor: 'default',
 
-                      ...scrollReveal('s29', selectedProject.id),
+                      ...scrollReveal('s29', selectedProject?.id),
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
@@ -3329,7 +3338,7 @@ export default function DesignerPortfolio() {
             textAlign: 'center',
             maxWidth: '600px',
 
-            ...scrollReveal('s30', selectedProject.id),
+            ...scrollReveal('s30', selectedProject?.id),
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
@@ -3398,7 +3407,7 @@ export default function DesignerPortfolio() {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
 
-                  ...scrollReveal('s31', selectedProject.id),
+                  ...scrollReveal('s31', selectedProject?.id),
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
