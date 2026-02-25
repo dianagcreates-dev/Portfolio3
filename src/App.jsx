@@ -23,7 +23,7 @@ const translations = {
       description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use.",
       skills: ['Strategy', 'Interaction', 'Visual', 'Research'],
       skillLabel: 'Core Focus',
-      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'Cursor', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
       toolsLabel: 'Tools & Technologies'
     },
     contact: {
@@ -272,7 +272,7 @@ const translations = {
       description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen.',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
       skillLabel: 'Kernfokus',
-      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'Cursor', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
       toolsLabel: 'Tools & Technologien'
     },
     contact: {
@@ -524,6 +524,8 @@ export default function DesignerPortfolio() {
   const [showDragGuide, setShowDragGuide] = useState(true);
   const [activeToolCategory, setActiveToolCategory] = useState(0);
   const [toolsTransitioning, setToolsTransitioning] = useState(false);
+  const [toolPage, setToolPage] = useState(0);
+  const [toolPageVisible, setToolPageVisible] = useState(true);
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [mouseTrail, setMouseTrail] = useState([]);
@@ -565,6 +567,19 @@ export default function DesignerPortfolio() {
   useEffect(() => {
     setVisibleSections({});
   }, [selectedProject, activeSection]);
+
+  // Auto-rotate tools every 3 seconds on about page
+  useEffect(() => {
+    if (activeSection !== 'about') return;
+    const interval = setInterval(() => {
+      setToolPageVisible(false);
+      setTimeout(() => {
+        setToolPage(prev => prev + 1);
+        setToolPageVisible(true);
+      }, 420);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [activeSection]);
 
   // Returns inline style for scroll-triggered entrance based on project id
   const scrollReveal = (id, projectId, extraStyle = {}) => {
@@ -3195,7 +3210,7 @@ export default function DesignerPortfolio() {
             style={{
             maxWidth: '700px',
             textAlign: 'center',
-
+            paddingTop: '2rem',
             ...scrollReveal('s26', selectedProject?.id),
           }}>
             <h2 style={{
@@ -3268,7 +3283,7 @@ export default function DesignerPortfolio() {
               ))}
             </div>
 
-            {/* Software Tools Section */}
+            {/* Software Tools Section — single row, auto-rotates every 3s */}
             <div
               data-scroll-id="s28"
               style={{
@@ -3287,46 +3302,60 @@ export default function DesignerPortfolio() {
               }}>
                 {t.about.toolsLabel}
               </h3>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '1rem',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-                {t.about.tools.map((tool, i) => (
-                  <div
-                    data-scroll-id="s29"
-                    key={tool}
-                    style={{
-                      padding: '0.8rem 1.5rem',
-                      background: 'rgba(255,255,255,0.08)',
-                      backdropFilter: 'blur(20px)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      borderRadius: '50px',
-                      fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
-                      color: '#ffffff',
-                      fontFamily: '"Inter", sans-serif',
-                      fontWeight: 500,
-                      transition: 'all 0.3s ease',
-                      cursor: 'default',
-                      ...scrollReveal('s29', selectedProject?.id),
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                      e.currentTarget.style.transform = 'translateY(-3px)';
-                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    {tool}
+              {(() => {
+                const allTools = t.about.tools;
+                const pageSize = 5;
+                const totalPages = Math.ceil(allTools.length / pageSize);
+                const pageIdx = toolPage % totalPages;
+                const currentTools = allTools.slice(pageIdx * pageSize, pageIdx * pageSize + pageSize);
+                return (
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'nowrap',
+                    gap: '0.9rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minHeight: '50px',
+                    overflow: 'hidden',
+                    opacity: toolPageVisible ? 1 : 0,
+                    transform: toolPageVisible ? 'translateY(0)' : 'translateY(8px)',
+                    transition: 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+                  }}>
+                    {currentTools.map((tool, i) => (
+                      <div
+                        key={`${pageIdx}-${tool}`}
+                        style={{
+                          padding: '0.8rem 1.5rem',
+                          background: 'rgba(255,255,255,0.08)',
+                          backdropFilter: 'blur(20px)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '50px',
+                          fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
+                          color: '#ffffff',
+                          fontFamily: '"Inter", sans-serif',
+                          fontWeight: 500,
+                          cursor: 'default',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
+                          transition: 'background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                          e.currentTarget.style.transform = 'translateY(-3px)';
+                          e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        {tool}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                );
+              })()}
             </div>
           </div>
         )}
