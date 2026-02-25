@@ -23,7 +23,7 @@ const translations = {
       description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use.",
       skills: ['Strategy', 'Interaction', 'Visual', 'Research'],
       skillLabel: 'Core Focus',
-      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD'],
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'Cursor', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
       toolsLabel: 'Tools & Technologies'
     },
     contact: {
@@ -272,7 +272,7 @@ const translations = {
       description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen.',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
       skillLabel: 'Kernfokus',
-      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD'],
+      tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'Cursor', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
       toolsLabel: 'Tools & Technologien'
     },
     contact: {
@@ -522,6 +522,8 @@ export default function DesignerPortfolio() {
   const [dragStartX, setDragStartX] = useState(0);
   const [dragStartRotation, setDragStartRotation] = useState(0);
   const [showDragGuide, setShowDragGuide] = useState(true);
+  const [activeToolCategory, setActiveToolCategory] = useState(0);
+  const [toolsTransitioning, setToolsTransitioning] = useState(false);
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [mouseTrail, setMouseTrail] = useState([]);
@@ -3273,7 +3275,6 @@ export default function DesignerPortfolio() {
               marginTop: '4rem',
               paddingTop: '3rem',
               borderTop: '1px solid rgba(255,255,255,0.1)',
-
               ...scrollReveal('s28', selectedProject?.id),
             }}>
               <h3 style={{
@@ -3309,7 +3310,6 @@ export default function DesignerPortfolio() {
                       fontWeight: 500,
                       transition: 'all 0.3s ease',
                       cursor: 'default',
-
                       ...scrollReveal('s29', selectedProject?.id),
                     }}
                     onMouseEnter={(e) => {
