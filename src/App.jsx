@@ -500,6 +500,8 @@ const translations = {
 
 function IDCard({ emailLabel, linkedinLabel }) {
   const [flipped, setFlipped] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
   const W = 500, H = 300;
 
@@ -507,11 +509,11 @@ function IDCard({ emailLabel, linkedinLabel }) {
     backfaceVisibility: 'hidden',
     WebkitBackfaceVisibility: 'hidden',
     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-    background: 'rgba(255,255,255,0.05)',
-    backdropFilter: 'blur(30px)',
-    WebkitBackdropFilter: 'blur(30px)',
+    background: 'rgba(255,255,255,0)',
+    backdropFilter: 'none',
+    WebkitBackdropFilter: 'none',
     borderRadius: '20px',
-    boxShadow: '0 10px 50px rgba(0,0,0,0.2)',
+    boxShadow: 'none',
     overflow: 'hidden',
     display: 'flex',
     ...extra,
@@ -537,7 +539,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
 
           {/* Landscape photo top ~55% */}
-          <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
+          <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
               src="/images/profile.png"
               alt="Diana"
@@ -555,7 +557,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
           </div>
 
           {/* Info strip bottom */}
-          <div style={{ flex: 1, padding: '0.55rem 1.2rem 0.6rem', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ flex: 1, padding: '0.55rem 1.2rem 0.6rem', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
             {/* Name + occupation */}
             <div style={{ flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.35rem', color: '#ffffff', margin: '0 0 0.12rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1 }}>Diana</h3>
@@ -579,6 +581,9 @@ function IDCard({ emailLabel, linkedinLabel }) {
           flexDirection: 'column',
           padding: '1.2rem 1.6rem',
           justifyContent: 'space-between',
+          background: 'rgba(255,255,255,0.06)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
         })}>
           {/* Accent bar */}
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
@@ -594,7 +599,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
           {/* Resume-style rows: icon left, text right */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', flex: 1, justifyContent: 'center' }}>
             {[
-              { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com' },
+              { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com', copy: true },
               { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/diana',  href: 'https://linkedin.com/in/diana' },
               { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null },
             ].map((item) => (
@@ -611,8 +616,14 @@ function IDCard({ emailLabel, linkedinLabel }) {
                   <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>{item.label}</div>
                   <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500 }}>{item.value}</div>
                 </div>
-                {/* Arrow hint for clickable rows */}
-                {item.href && <div style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)', flexShrink: 0 }}>→</div>}
+                {/* Copy button for email, arrow for others */}
+                {item.copy
+                  ? <button onClick={copyEmail} style={{ marginLeft: 'auto', flexShrink: 0, background: copied ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', padding: '0.2rem 0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', transition: 'all 0.2s' }}>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <span style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.7)', fontFamily: '"Space Mono", monospace' }}>{copied ? 'Copied!' : 'Copy'}</span>
+                    </button>
+                  : item.href && <div style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)', flexShrink: 0 }}>→</div>
+                }
               </div>
             ))}
           </div>
