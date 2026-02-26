@@ -568,7 +568,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
             {/* 7 skill tags wrapping into 2 rows */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.22rem', flex: 1, alignContent: 'center' }}>
               {['Design', 'AI', 'Coding', 'Creative Tech', 'UX Research', 'Prototyping', 'Interaction'].map(h => (
-                <span key={h} style={{ padding: '0.16rem 0.42rem', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.13)', fontSize: '0.53rem', color: 'rgba(255,255,255,0.65)', fontFamily: '"Space Mono", monospace', whiteSpace: 'nowrap' }}>{h}</span>
+                <span key={h} style={{ padding: '0.25rem 0.6rem', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.13)', fontSize: '0.68rem', color: 'rgba(255,255,255,0.65)', fontFamily: '"Space Mono", monospace', whiteSpace: 'nowrap' }}>{h}</span>
               ))}
             </div>
           </div>
@@ -600,7 +600,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', flex: 1, justifyContent: 'center' }}>
             {[
               { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com', copy: true },
-              { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/diana',  href: 'https://linkedin.com/in/diana' },
+              { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/dianaxstudio',  href: 'https://linkedin.com/in/dianaxstudio' },
               { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null },
             ].map((item) => (
               <div key={item.label}
