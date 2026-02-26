@@ -246,7 +246,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final1.mp4"
+          final: "/images/particle/final.mp4"
         }
       }
     ]
@@ -491,7 +491,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final1.mp4"
+          final: "/images/particle/final.mp4"
         }
       }
     ]
@@ -1389,20 +1389,24 @@ export default function DesignerPortfolio() {
 
       <div
         ref={contentRef}
+        className="hide-scrollbar"
         style={{
           position: 'relative',
           zIndex: 1,
           width: '100%',
           height: '100%',
+          overflowY: 'auto',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           padding: 'clamp(2rem, 4vw, 3rem)',
           paddingTop: 'clamp(5rem, 10vh, 7rem)',
-          paddingBottom: 'clamp(5rem, 10vh, 7rem)',
+          paddingBottom: 'clamp(3rem, 6vh, 5rem)',
         }}
       >
         {activeSection === 'home' && (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <div style={{
             textAlign: 'center',
             maxWidth: '900px',
@@ -1496,6 +1500,7 @@ export default function DesignerPortfolio() {
             >
               {t.home.cta}
             </button>
+          </div>
           </div>
         )}
 
@@ -3233,10 +3238,12 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <div
             data-scroll-id="s26"
             style={{
             maxWidth: '700px',
+            width: '100%',
             textAlign: 'center',
             ...scrollReveal('s26', selectedProject?.id),
           }}>
@@ -3385,14 +3392,17 @@ export default function DesignerPortfolio() {
               })()}
             </div>
           </div>
+          </div>
         )}
 
         {activeSection === 'contact' && (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <div
             data-scroll-id="s30"
             style={{
             textAlign: 'center',
             maxWidth: '600px',
+            width: '100%',
 
             ...scrollReveal('s30', selectedProject?.id),
           }}>
@@ -3494,6 +3504,7 @@ export default function DesignerPortfolio() {
                 </div>
               ))}
             </div>
+          </div>
           </div>
         )}
       </div>
