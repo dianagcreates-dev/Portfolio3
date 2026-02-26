@@ -509,7 +509,7 @@ export default function DesignerPortfolio() {
   const analyzerRef = useRef(null);
   const dataArrayRef = useRef(null);
   const animationIdRef = useRef(null);
-  const vizBarsRef = useRef(null);
+  const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -529,6 +529,7 @@ export default function DesignerPortfolio() {
   const [toolPageVisible, setToolPageVisible] = useState(true);
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [hoveredProjectId, setHoveredProjectId] = useState(null);
   const [mouseTrail, setMouseTrail] = useState([]);
   const mouseTrailRef = useRef([]);
   const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
@@ -862,7 +863,7 @@ export default function DesignerPortfolio() {
 
   // Carousel auto-rotation (continuous, doesn't reset)
   useEffect(() => {
-    if (activeSection === 'work' && !selectedProject && !isDragging) {
+    if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering) {
       let animationId;
       const rotationSpeed = 360 / 30000;
       let lastTime = Date.now();
@@ -884,7 +885,7 @@ export default function DesignerPortfolio() {
         }
       };
     }
-  }, [activeSection, selectedProject, isDragging]);
+  }, [activeSection, selectedProject, isDragging, isHovering]);
 
   // Carousel drag control only (no auto-rotation)
   useEffect(() => {
@@ -892,6 +893,7 @@ export default function DesignerPortfolio() {
       const handleMouseMove = (e) => {
         if (isDragging) {
           const deltaX = e.clientX - dragStartX;
+          if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
           const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
           setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
@@ -954,7 +956,7 @@ export default function DesignerPortfolio() {
     };
   }, [activeSection, isScrolling, selectedProject]);
 
-  // Audio visualization loop — direct DOM update, no React re-render
+  // Audio visualization loop
   useEffect(() => {
     if (!isPlaying || !analyzerRef.current || !dataArrayRef.current) {
       return;
@@ -962,23 +964,19 @@ export default function DesignerPortfolio() {
 
     let animationId;
     const visualize = () => {
-      if (analyzerRef.current && dataArrayRef.current && vizBarsRef.current) {
+      if (analyzerRef.current && dataArrayRef.current) {
         analyzerRef.current.getByteFrequencyData(dataArrayRef.current);
-        const bars = vizBarsRef.current.children;
-        for (let i = 0; i < bars.length; i++) {
-          const value = dataArrayRef.current[i] || 0;
-          const height = Math.max((value / 255) * 35, 3);
-          bars[i].style.height = `${height}px`;
-          bars[i].style.boxShadow = value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none';
-        }
+        setFrequencyData([...dataArrayRef.current]);
       }
       animationId = requestAnimationFrame(visualize);
     };
-
+    
     visualize();
 
     return () => {
-      if (animationId) cancelAnimationFrame(animationId);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
   }, [isPlaying]);
 
@@ -990,7 +988,7 @@ export default function DesignerPortfolio() {
         audioContextRef.current = new AudioContext();
         analyzerRef.current = audioContextRef.current.createAnalyser();
         analyzerRef.current.fftSize = 256;
-        analyzerRef.current.smoothingTimeConstant = 0.2;
+        analyzerRef.current.smoothingTimeConstant = 0.7;
         analyzerRef.current.minDecibels = -90;
         analyzerRef.current.maxDecibels = -10;
         const bufferLength = analyzerRef.current.frequencyBinCount;
@@ -1153,8 +1151,8 @@ export default function DesignerPortfolio() {
         left: 0,
         right: 0,
         zIndex: 100,
-        display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem)',
         opacity: 0,
@@ -1211,8 +1209,7 @@ export default function DesignerPortfolio() {
         <div style={{
           display: 'flex',
           gap: '0.5rem',
-          alignItems: 'center',
-          justifyContent: 'flex-end'
+          alignItems: 'center'
         }}>
           {['EN', 'DE'].map((lang) => (
             <button
@@ -1293,31 +1290,35 @@ export default function DesignerPortfolio() {
           </button>
           
           {/* Frequency Visualizer */}
-          <div
-            ref={vizBarsRef}
-            style={{
-              display: 'flex',
-              gap: '2px',
-              alignItems: 'center',
-              height: '40px',
-              marginLeft: '1rem',
-              padding: '0 0.5rem'
-            }}
-          >
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  width: '2.5px',
-                  height: '3px',
-                  background: 'rgba(255,255,255,0.95)',
-                  borderRadius: '1.5px',
-                  opacity: isPlaying ? 1 : 0.25,
-                  transition: 'opacity 0.3s ease',
-                  transformOrigin: 'center'
-                }}
-              />
-            ))}
+          <div style={{
+            display: 'flex',
+            gap: '2px',
+            alignItems: 'center',
+            height: '40px',
+            marginLeft: '1rem',
+            padding: '0 0.5rem'
+          }}>
+            {frequencyData.slice(0, 20).map((value, i) => {
+              const normalizedHeight = (value / 255) * 100;
+              const height = isPlaying ? Math.max(normalizedHeight * 0.35, 3) : 3;
+              
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: '2.5px',
+                    height: `${height}px`,
+                    background: 'rgba(255,255,255,0.95)',
+                    borderRadius: '1.5px',
+                    transition: 'none',
+                    opacity: isPlaying ? 1 : 0.25,
+                    boxShadow: isPlaying && value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none',
+                    transform: 'scaleY(1)',
+                    transformOrigin: 'center'
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
       </nav>
@@ -1513,12 +1514,11 @@ export default function DesignerPortfolio() {
             paddingBottom: '3rem'
           }}
           onMouseDown={(e) => {
-            if (e.target === e.currentTarget || e.target.closest('[data-carousel-container]')) {
-              setIsDragging(true);
-              setDragStartX(e.clientX);
-              setDragStartRotation(carouselRotation);
-              setShowDragGuide(false);
-            }
+            dragMovedRef.current = false;
+            setIsDragging(true);
+            setDragStartX(e.clientX);
+            setDragStartRotation(carouselRotation);
+            setShowDragGuide(false);
           }}
           >
             <div 
@@ -1559,19 +1559,19 @@ export default function DesignerPortfolio() {
                   >
                     <div
                       onClick={(e) => {
-                        if (!isDragging) {
+                        if (!dragMovedRef.current) {
                           setSelectedProject(project);
                         }
                       }}
                       onMouseDown={(e) => {
-                        e.stopPropagation();
+                        dragMovedRef.current = false;
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = `rgba(0,0,0,0.8)`;
                         e.currentTarget.style.border = `2px solid ${project.color}`;
                         e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
                         e.currentTarget.style.transform = 'scale(1.05)';
                         setIsHovering(true);
+                        setHoveredProjectId(project.id);
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
@@ -1579,6 +1579,7 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.2)';
                         e.currentTarget.style.transform = 'scale(1)';
                         setIsHovering(false);
+                        setHoveredProjectId(null);
                       }}
                       style={{
                         background: 'rgba(255,255,255,0.05)',
@@ -1594,15 +1595,35 @@ export default function DesignerPortfolio() {
                         boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
                       }}
                     >
+                      {/* Hero image overlay — fades in on hover */}
+                      {project.images?.hero && (
+                        <div style={{
+                          position: 'absolute',
+                          top: 0, left: 0, right: 0, bottom: 0,
+                          backgroundImage: `url(${project.images.hero})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          borderRadius: '20px',
+                          opacity: hoveredProjectId === project.id ? 1 : 0,
+                          transition: 'opacity 0.4s ease',
+                          zIndex: 0,
+                        }} />
+                      )}
+                      {/* Dark gradient overlay so text stays readable */}
                       <div style={{
                         position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '5px',
-                        background: `linear-gradient(90deg, ${project.color}, transparent)`,
-                        borderRadius: '20px 20px 0 0'
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        background: hoveredProjectId === project.id
+                          ? 'linear-gradient(to top, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.3) 100%)'
+                          : 'none',
+                        borderRadius: '20px',
+                        opacity: hoveredProjectId === project.id ? 1 : 0,
+                        transition: 'opacity 0.4s ease',
+                        zIndex: 1,
+                        pointerEvents: 'none',
                       }} />
+                      {/* Card content — sits above hero image overlay */}
+                      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: `linear-gradient(90deg, ${project.color}, transparent)`, borderRadius: '20px 20px 0 0', zIndex: 2 }} />
 
                       <div style={{
                         position: 'absolute',
@@ -1619,11 +1640,13 @@ export default function DesignerPortfolio() {
                         fontSize: '1rem',
                         fontWeight: 900,
                         color: project.color,
-                        fontFamily: '"Archivo Black", sans-serif'
+                        fontFamily: '"Archivo Black", sans-serif',
+                        zIndex: 2
                       }}>
                         {index + 1}
                       </div>
 
+                      <div style={{ position: 'relative', zIndex: 2 }}>
                       <div style={{
                         fontSize: '0.75rem',
                         color: 'rgba(255,255,255,0.6)',
@@ -1631,7 +1654,7 @@ export default function DesignerPortfolio() {
                         textTransform: 'uppercase',
                         letterSpacing: '0.15em',
                         fontWeight: 600,
-                        fontFamily: '"Space Mono", monospace'
+                        fontFamily: '"Space Mono", monospace',
                       }}>
                         {project.category} · {project.year}
                       </div>
@@ -1656,6 +1679,7 @@ export default function DesignerPortfolio() {
                       }}>
                         {project.description}
                       </p>
+                      </div>
 
                       <div style={{
                         position: 'absolute',
@@ -1665,7 +1689,8 @@ export default function DesignerPortfolio() {
                         height: '100px',
                         background: `linear-gradient(to top, ${project.color}15, transparent)`,
                         pointerEvents: 'none',
-                        borderRadius: '0 0 20px 20px'
+                        borderRadius: '0 0 20px 20px',
+                        zIndex: 2,
                       }} />
                     </div>
                   </div>
