@@ -498,6 +498,132 @@ const translations = {
   }
 };
 
+function IDCard({ emailLabel, linkedinLabel }) {
+  const [flipped, setFlipped] = useState(false);
+
+  const W = 500, H = 300;
+
+  const face = (extra = {}) => ({
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+    background: 'rgba(255,255,255,0.05)',
+    backdropFilter: 'blur(30px)',
+    WebkitBackdropFilter: 'blur(30px)',
+    borderRadius: '20px',
+    boxShadow: '0 10px 50px rgba(0,0,0,0.2)',
+    overflow: 'hidden',
+    display: 'flex',
+    ...extra,
+  });
+
+  return (
+    <div
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      style={{ width: W, height: H, margin: '0 auto', perspective: '1200px', cursor: 'default' }}
+    >
+      <div style={{
+        position: 'relative', width: '100%', height: '100%',
+        transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d',
+        transition: 'transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1)',
+        transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      }}>
+
+        {/* FRONT */}
+        <div style={face({ border: '1px solid rgba(255,255,255,0.15)', flexDirection: 'column' })}>
+
+          {/* Accent bar at very top — z-index above photo */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
+
+          {/* Landscape photo top ~55% */}
+          <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
+            <img
+              src="/images/avatar.png"
+              alt="Diana"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement.style.cssText += ';background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center';
+                e.currentTarget.parentElement.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-size:3rem">&#128105;&#8205;&#128187;</div><div style="font-size:0.5rem;color:rgba(255,255,255,0.3);font-family:monospace;letter-spacing:0.1em">PHOTO</div></div>';
+              }}
+            />
+            {/* Fade bottom of photo into card */}
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '60px', background: 'linear-gradient(to top, rgba(10,10,20,0.9), transparent)', pointerEvents: 'none' }} />
+            {/* Portfolio label — pushed below 4px accent bar */}
+            <div style={{ position: 'absolute', top: '12px', left: '12px', fontSize: '0.5rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>Portfolio · ID</div>
+          </div>
+
+          {/* Info strip bottom */}
+          <div style={{ flex: 1, padding: '0.55rem 1.2rem 0.6rem', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+            {/* Name + occupation */}
+            <div style={{ flexShrink: 0 }}>
+              <h3 style={{ fontSize: '1.35rem', color: '#ffffff', margin: '0 0 0.12rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1 }}>Diana</h3>
+              <p style={{ fontSize: '0.67rem', color: 'rgba(255,255,255,0.6)', margin: 0, fontFamily: '"Inter", sans-serif' }}>UX/UI Designer & AI Specialist</p>
+            </div>
+            {/* Vertical divider */}
+            <div style={{ width: '1px', alignSelf: 'stretch', background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
+            {/* 7 skill tags wrapping into 2 rows */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.22rem', flex: 1, alignContent: 'center' }}>
+              {['Design', 'AI', 'Coding', 'Creative Tech', 'UX Research', 'Prototyping', 'Interaction'].map(h => (
+                <span key={h} style={{ padding: '0.16rem 0.42rem', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.13)', fontSize: '0.53rem', color: 'rgba(255,255,255,0.65)', fontFamily: '"Space Mono", monospace', whiteSpace: 'nowrap' }}>{h}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* BACK */}
+        <div style={face({
+          border: '1px solid rgba(255,255,255,0.15)',
+          transform: 'rotateY(180deg)',
+          flexDirection: 'column',
+          padding: '1.2rem 1.6rem',
+          justifyContent: 'space-between',
+        })}>
+          {/* Accent bar */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
+
+          {/* Header row */}
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>Contact Info</div>
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0.3rem 0' }} />
+
+          {/* Resume-style rows: icon left, text right */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', flex: 1, justifyContent: 'center' }}>
+            {[
+              { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com' },
+              { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/diana',  href: 'https://linkedin.com/in/diana' },
+              { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null },
+            ].map((item) => (
+              <div key={item.label}
+                onClick={(e) => { e.stopPropagation(); if (item.href) window.open(item.href, '_blank'); }}
+                style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', padding: '0.55rem 0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', cursor: item.href ? 'pointer' : 'default', transition: 'all 0.2s' }}
+                onMouseEnter={e => { if (item.href) { e.currentTarget.style.background = 'rgba(255,255,255,0.11)'; e.currentTarget.style.transform = 'translateX(4px)'; }}}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.transform = 'none'; }}
+              >
+                {/* Icon */}
+                <div style={{ width: '34px', height: '34px', borderRadius: '10px', flexShrink: 0, background: 'rgba(255,255,255,0.09)', border: '1px solid rgba(255,255,255,0.16)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontFamily: '"Space Mono", monospace', fontWeight: 700 }}>{item.icon}</div>
+                {/* Label + value */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem' }}>
+                  <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>{item.label}</div>
+                  <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500 }}>{item.value}</div>
+                </div>
+                {/* Arrow hint for clickable rows */}
+                {item.href && <div style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)', flexShrink: 0 }}>→</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+
 export default function DesignerPortfolio() {
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
@@ -3413,7 +3539,7 @@ export default function DesignerPortfolio() {
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
               color: '#ffffff',
-              margin: '0 0 1rem 0',
+              margin: '0 0 1.5rem 0',
               fontWeight: 900,
               fontFamily: '"Archivo Black", sans-serif'
             }}>
@@ -3445,71 +3571,9 @@ export default function DesignerPortfolio() {
                 );
               })}
             </h2>
-            <p style={{
-              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-              color: 'rgba(255,255,255,0.85)',
-              marginBottom: '1.5rem',
-              lineHeight: 1.7,
-              fontFamily: '"Inter", sans-serif'
-            }}>
-              {t.contact.subtitle}
-            </p>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.8rem',
-              alignItems: 'center',
-              marginTop: '1.2rem',
-              paddingTop: '1.5rem',
-              borderTop: '1px solid rgba(255,255,255,0.1)',
-            }}>
-              {[
-                { label: t.contact.email, value: 'dianaxstudio@gmail.com' },
-                { label: t.contact.linkedin, value: 'linkedin.com/in/diana' },
-                { label: 'Location', value: 'Brandenburg, Germany' }
-              ].map((item, i) => (
-                <div key={item.label}
-                  data-scroll-id="s31"
-                  style={{
-                  padding: 'clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem)',
-                  background: 'rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '12px',
-                  width: '100%',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  ...scrollReveal('s31', selectedProject?.id),
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                  e.currentTarget.style.transform = 'translateX(8px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                  e.currentTarget.style.transform = 'translateX(0)';
-                }}>
-                  <div style={{
-                    fontSize: 'clamp(0.7rem, 1.3vw, 0.78rem)',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginBottom: '0.3rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.12em',
-                    fontFamily: '"Space Mono", monospace'
-                  }}>
-                    {item.label}
-                  </div>
-                  <div style={{
-                    fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
-                    color: '#ffffff',
-                    fontWeight: 500,
-                    fontFamily: '"Inter", sans-serif'
-                  }}>
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </div>
+
+            {/* ID Card Flip */}
+            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} />
           </div>
           </div>
         )}
