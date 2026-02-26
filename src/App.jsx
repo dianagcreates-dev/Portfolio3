@@ -3395,14 +3395,13 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
           <div
             data-scroll-id="s30"
             style={{
             textAlign: 'center',
             maxWidth: '600px',
             width: '100%',
-
             ...scrollReveal('s30', selectedProject?.id),
           }}>
             <h2 style={{
@@ -3441,10 +3440,10 @@ export default function DesignerPortfolio() {
               })}
             </h2>
             <p style={{
-              fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
-              color: 'rgba(255,255,255,0.8)',
-              marginBottom: '3rem',
-              lineHeight: 1.6,
+              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+              color: 'rgba(255,255,255,0.85)',
+              marginBottom: '1.5rem',
+              lineHeight: 1.7,
               fontFamily: '"Inter", sans-serif'
             }}>
               {t.contact.subtitle}
@@ -3452,8 +3451,11 @@ export default function DesignerPortfolio() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.2rem',
-              alignItems: 'center'
+              gap: '0.8rem',
+              alignItems: 'center',
+              marginTop: '1.2rem',
+              paddingTop: '1.5rem',
+              borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[
                 { label: t.contact.email, value: 'dianaxstudio@gmail.com' },
@@ -3463,7 +3465,7 @@ export default function DesignerPortfolio() {
                 <div key={item.label}
                   data-scroll-id="s31"
                   style={{
-                  padding: 'clamp(1rem, 2vw, 1.3rem) clamp(2rem, 4vw, 3rem)',
+                  padding: 'clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem)',
                   background: 'rgba(255,255,255,0.08)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.2)',
@@ -3471,7 +3473,6 @@ export default function DesignerPortfolio() {
                   width: '100%',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-
                   ...scrollReveal('s31', selectedProject?.id),
                 }}
                 onMouseEnter={(e) => {
@@ -3483,17 +3484,17 @@ export default function DesignerPortfolio() {
                   e.currentTarget.style.transform = 'translateX(0)';
                 }}>
                   <div style={{
-                    fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)',
+                    fontSize: 'clamp(0.7rem, 1.3vw, 0.78rem)',
                     color: 'rgba(255,255,255,0.5)',
                     marginBottom: '0.3rem',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
+                    letterSpacing: '0.12em',
                     fontFamily: '"Space Mono", monospace'
                   }}>
                     {item.label}
                   </div>
                   <div style={{
-                    fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+                    fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
                     color: '#ffffff',
                     fontWeight: 500,
                     fontFamily: '"Inter", sans-serif'
