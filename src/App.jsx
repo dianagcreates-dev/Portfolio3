@@ -568,6 +568,10 @@ export default function DesignerPortfolio() {
   // Reset visible sections when project or section changes
   useEffect(() => {
     setVisibleSections({});
+    if (!selectedProject) {
+      setIsHovering(false);
+      setHoveredProjectId(null);
+    }
   }, [selectedProject, activeSection]);
 
   // Auto-rotate tools every 3 seconds on about page
