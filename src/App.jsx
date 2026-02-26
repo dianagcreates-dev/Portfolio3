@@ -1403,6 +1403,8 @@ export default function DesignerPortfolio() {
           padding: 'clamp(2rem, 4vw, 3rem)',
           paddingTop: 'clamp(5rem, 10vh, 7rem)',
           paddingBottom: 'clamp(3rem, 6vh, 5rem)',
+          paddingRight: 'clamp(5rem, 8vw, 7rem)',
+          paddingLeft: 'clamp(2rem, 4vw, 3rem)',
         }}
       >
         {activeSection === 'home' && (
