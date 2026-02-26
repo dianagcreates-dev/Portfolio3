@@ -498,9 +498,17 @@ const translations = {
   }
 };
 
-function IDCard({ emailLabel, linkedinLabel }) {
+function IDCard({ emailLabel, linkedinLabel, active }) {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Auto-flip to back then return to front when contact section opens
+  useEffect(() => {
+    if (!active) return;
+    const t1 = setTimeout(() => setFlipped(true), 800);
+    const t2 = setTimeout(() => setFlipped(false), 2400);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
   const W = 500, H = 300;
@@ -3584,7 +3592,7 @@ export default function DesignerPortfolio() {
             </h2>
 
             {/* ID Card Flip */}
-            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} />
+            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} active={activeSection === 'contact'} />
           </div>
           </div>
         )}
