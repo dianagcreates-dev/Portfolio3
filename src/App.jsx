@@ -1398,7 +1398,8 @@ export default function DesignerPortfolio() {
           alignItems: 'center',
           justifyContent: 'center',
           padding: 'clamp(2rem, 4vw, 3rem)',
-          paddingTop: 'clamp(5rem, 10vh, 7rem)'
+          paddingTop: 'clamp(5rem, 10vh, 7rem)',
+          paddingBottom: 'clamp(5rem, 10vh, 7rem)',
         }}
       >
         {activeSection === 'home' && (
@@ -3237,7 +3238,6 @@ export default function DesignerPortfolio() {
             style={{
             maxWidth: '700px',
             textAlign: 'center',
-            paddingTop: '2rem',
             ...scrollReveal('s26', selectedProject?.id),
           }}>
             <h2 style={{
