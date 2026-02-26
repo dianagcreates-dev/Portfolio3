@@ -539,7 +539,7 @@ function IDCard({ emailLabel, linkedinLabel }) {
           {/* Landscape photo top ~55% */}
           <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
             <img
-              src="/images/avatar.png"
+              src="/images/profile.png"
               alt="Diana"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
               onError={(e) => {
