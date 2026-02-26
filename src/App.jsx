@@ -246,7 +246,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final.mp4"
+          final: "/images/particle/final1.mp4"
         }
       }
     ]
@@ -491,7 +491,7 @@ const translations = {
           screen2: "/images/particle/screen2.png",
           screen3: "/images/particle/screen3.png",
           screen4: "/images/particle/screen4.png",
-          final: "/images/particle/final.mp4"
+          final: "/images/particle/final1.mp4"
         }
       }
     ]
@@ -1406,7 +1406,7 @@ export default function DesignerPortfolio() {
         }}
       >
         {activeSection === 'home' && (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <div style={{
             textAlign: 'center',
             maxWidth: '900px',
@@ -3238,7 +3238,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
           <div
             data-scroll-id="s26"
             style={{
@@ -3250,7 +3250,7 @@ export default function DesignerPortfolio() {
             <h2 style={{
               fontSize: 'clamp(2.5rem, 7vw, 4rem)',
               color: '#ffffff',
-              margin: '0 0 1.5rem 0',
+              margin: '0 0 1rem 0',
               fontWeight: 900,
               fontFamily: '"Archivo Black", sans-serif',
               lineHeight: 1.2
@@ -3284,29 +3284,28 @@ export default function DesignerPortfolio() {
               })}
             </h2>
             <p style={{
-              fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
+              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
               color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1.8,
-              marginBottom: '2rem',
+              lineHeight: 1.7,
+              marginBottom: '1.5rem',
               fontFamily: '"Inter", sans-serif'
             }}>
               {t.about.description}
             </p>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-              gap: '1.5rem',
-              marginTop: '3rem'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+              gap: '0.8rem',
+              marginTop: '1.2rem'
             }}>
               {t.about.skills.map((skill, i) => (
                 <div key={skill}
                   data-scroll-id="s27"
                   style={{
-
                   ...scrollReveal('s27', selectedProject?.id),
                 }}>
                   <div style={{
-                    fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
+                    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
                     fontWeight: 900,
                     color: '#ffffff',
                     fontFamily: '"Archivo Black", sans-serif'
@@ -3321,17 +3320,17 @@ export default function DesignerPortfolio() {
             <div
               data-scroll-id="s28"
               style={{
-              marginTop: '4rem',
-              paddingTop: '3rem',
+              marginTop: '1.5rem',
+              paddingTop: '1.5rem',
               borderTop: '1px solid rgba(255,255,255,0.1)',
               ...scrollReveal('s28', selectedProject?.id),
             }}>
               <h3 style={{
-                fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
+                fontSize: 'clamp(0.75rem, 1.3vw, 0.85rem)',
                 color: 'rgba(255,255,255,0.6)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
-                marginBottom: '2rem',
+                marginBottom: '1rem',
                 fontFamily: '"Space Mono", monospace'
               }}>
                 {t.about.toolsLabel}
@@ -3396,7 +3395,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <div
             data-scroll-id="s30"
             style={{
