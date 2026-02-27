@@ -609,7 +609,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
             {[
               { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com', copy: true },
               { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/dianaxstudio',  href: 'https://linkedin.com/in/dianaxstudio' },
-              { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null },
+              { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null, indent: true },
             ].map((item) => (
               <div key={item.label}
                 onClick={(e) => { e.stopPropagation(); if (item.href) window.open(item.href, '_blank'); }}
@@ -620,9 +620,9 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
                 {/* Icon */}
                 <div style={{ width: '34px', height: '34px', borderRadius: '10px', flexShrink: 0, background: 'rgba(255,255,255,0.09)', border: '1px solid rgba(255,255,255,0.16)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontFamily: '"Space Mono", monospace', fontWeight: 700 }}>{item.icon}</div>
                 {/* Label + value */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem', paddingLeft: item.indent ? '0.85rem' : '0' }}>
                   <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>{item.label}</div>
-                  <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500 }}>{item.value}</div>
+                  <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500, marginLeft: item.indent ? '-0.45rem' : '0' }}>{item.value}</div>
                 </div>
                 {/* Copy button for email, arrow for others */}
                 {item.copy
