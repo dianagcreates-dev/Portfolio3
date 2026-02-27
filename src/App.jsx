@@ -1220,7 +1220,7 @@ export default function DesignerPortfolio() {
       
       <audio
         ref={audioRef}
-        src="/background1.mp3"
+        src="/background2.mp3"
         loop
       />
 
