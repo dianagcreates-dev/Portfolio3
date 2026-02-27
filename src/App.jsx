@@ -11,7 +11,7 @@ const translations = {
     },
     home: {
       headline: 'Where Design Thinks',
-      subheadline: 'UX/UI Designer & AI Specialist building beautiful, functional digital experiences',
+      subheadline: "I'm a Visual Designer & GenAI Specialist. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visual outputs that don't just look beautiful they have a purpose.",
       cta: 'View Projects'
     },
     work: {
@@ -260,7 +260,7 @@ const translations = {
     },
     home: {
       headline: 'Wo Design denkt',
-      subheadline: 'UX/UI Designer & KI-Spezialist für schöne, funktionale digitale Erlebnisse',
+      subheadline: 'Ich bin Visual Designerin & GenAI-Spezialistin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
       cta: 'Projekte Ansehen'
     },
     work: {
