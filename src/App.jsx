@@ -609,7 +609,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
             {[
               { icon: '✉', label: emailLabel,    value: 'dianaxstudio@gmail.com', href: 'mailto:dianaxstudio@gmail.com', copy: true },
               { icon: 'in', label: linkedinLabel, value: 'linkedin.com/in/dianaxstudio',  href: 'https://linkedin.com/in/dianaxstudio' },
-              { icon: '◎', label: 'Location',    value: 'Brandenburg, Germany',   href: null, indent: true },
+              { icon: 'pin', label: 'Location', value: 'Brandenburg, Germany', href: null, labelOffset: '1.7rem' },
             ].map((item) => (
               <div key={item.label}
                 onClick={(e) => { e.stopPropagation(); if (item.href) window.open(item.href, '_blank'); }}
@@ -618,11 +618,15 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.transform = 'none'; }}
               >
                 {/* Icon */}
-                <div style={{ width: '34px', height: '34px', borderRadius: '10px', flexShrink: 0, background: 'rgba(255,255,255,0.09)', border: '1px solid rgba(255,255,255,0.16)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontFamily: '"Space Mono", monospace', fontWeight: 700 }}>{item.icon}</div>
+                <div style={{ width: '34px', height: '34px', borderRadius: '10px', flexShrink: 0, background: 'rgba(255,255,255,0.09)', border: '1px solid rgba(255,255,255,0.16)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontFamily: '"Space Mono", monospace', fontWeight: 700 }}>
+                  {item.icon === 'pin'
+                    ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21C12 21 5 13.5 5 8.5a7 7 0 0 1 14 0c0 5-7 12.5-7 12.5z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+                    : item.icon}
+                </div>
                 {/* Label + value */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem', paddingLeft: item.indent ? '0.85rem' : '0' }}>
-                  <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace' }}>{item.label}</div>
-                  <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500, marginLeft: item.indent ? '-0.45rem' : '0' }}>{item.value}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem' }}>
+                  <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginLeft: item.labelOffset || '0' }}>{item.label}</div>
+                  <div style={{ fontSize: '0.78rem', color: '#ffffff', fontFamily: '"Inter", sans-serif', fontWeight: 500 }}>{item.value}</div>
                 </div>
                 {/* Copy button for email, arrow for others */}
                 {item.copy
