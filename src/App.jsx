@@ -1616,7 +1616,7 @@ export default function DesignerPortfolio() {
               marginBottom: '2.5rem',
               lineHeight: 1.6,
               fontWeight: 400,
-              maxWidth: '600px',
+              maxWidth: '780px',
               margin: '0 auto 2.5rem',
               fontFamily: '"Inter", sans-serif'
             }}>
