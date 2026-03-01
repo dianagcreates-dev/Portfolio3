@@ -499,7 +499,8 @@ const translations = {
 };
 
 // ─── Portfolio Chatbot Widget ────────────────────────────────────────────────
-function PortfolioChatbot({ language, showPopup }) {
+function PortfolioChatbot({ language, showPopup, activeSection }) {
+  const visible = ['work', 'about', 'contact'].includes(activeSection);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -510,6 +511,18 @@ function PortfolioChatbot({ language, showPopup }) {
 
   // Sync with portfolio language when it changes
   useEffect(() => { setLang(language); }, [language]);
+
+  // Show popup whenever user enters work, about or contact
+  const [internalPopup, setInternalPopup] = useState(false);
+  useEffect(() => {
+    if (visible && !open) {
+      setInternalPopup(true);
+      const t = setTimeout(() => setInternalPopup(false), 4000);
+      return () => clearTimeout(t);
+    } else {
+      setInternalPopup(false);
+    }
+  }, [activeSection]);
 
   const suggestions = lang === 'de'
     ? ['Was designt sie?', 'Ihr Prozess?', 'Ihre Tools & Skills?', 'Ist sie verfügbar?']
@@ -633,8 +646,11 @@ function PortfolioChatbot({ language, showPopup }) {
 
   return (
     <>
-      {/* Orion popup greeting */}
-      {!open && (
+      {/* Only show Orion on work, about, contact sections */}
+      {visible && (
+        <>
+          {/* Orion popup greeting */}
+          {!open && (
         <div style={{
           position: 'fixed', bottom: '94px', right: '28px', zIndex: 99998,
           background: 'rgba(10,10,20,0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
@@ -642,8 +658,8 @@ function PortfolioChatbot({ language, showPopup }) {
           fontFamily: '"Space Mono", monospace', fontSize: '0.72rem', color: 'rgba(255,255,255,0.88)',
           whiteSpace: 'nowrap', pointerEvents: 'none',
           boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          transform: showPopup ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.95)',
-          opacity: showPopup ? 1 : 0,
+          transform: internalPopup ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.95)',
+          opacity: internalPopup ? 1 : 0,
           transition: 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease',
         }}>
           {lang === 'de' ? 'Hallo, ich bin Orion ✦ Frag mich etwas' : "Hi, I'm Orion ✦ Ask me anything"}
@@ -704,7 +720,7 @@ function PortfolioChatbot({ language, showPopup }) {
           {/* Language toggle */}
           <div style={{ display: 'flex', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', overflow: 'hidden', flexShrink: 0 }}>
             {['en', 'de'].map(l => (
-              <button key={l} onClick={() => { setLang(l); setMessages([]); setSuggestionsVisible(true); }}
+              <button key={l} onClick={() => { setLang(l); setMessages([{ role: 'bot', text: l === 'de' ? 'Hallo! Ich bin Orion, Dianas KI-Assistent. Ich bin hier, um dir zu helfen, sie besser kennenzulernen.' : "Hi, I'm Orion, Diana's AI assistant. I'm here to help you know her better." }]); setSuggestionsVisible(true); }}
                 style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.28rem 0.55rem', border: 'none', cursor: 'pointer', transition: 'all 0.15s', background: lang === l ? 'rgba(255,255,255,0.15)' : 'transparent', color: lang === l ? '#ffffff' : 'rgba(255,255,255,0.35)', outline: 'none' }}>
                 {l}
               </button>
@@ -766,6 +782,8 @@ function PortfolioChatbot({ language, showPopup }) {
           </button>
         </div>
       </div>
+        </>
+      )}
     </>
   );
 }
@@ -3878,7 +3896,7 @@ export default function DesignerPortfolio() {
       </div>
 
       {/* ── Chatbot Widget ── */}
-      <PortfolioChatbot language={language} showPopup={showOrionPopup} />
+      <PortfolioChatbot language={language} showPopup={showOrionPopup} activeSection={activeSection} />
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
