@@ -663,22 +663,20 @@ function PortfolioChatbot({ language, showPopup }) {
         style={{
           position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
           width: '54px', height: '54px', borderRadius: '50%',
-          background: open
-            ? 'radial-gradient(circle at 40% 35%, hsla(210,95%,85%,0.9), hsla(230,95%,60%,0.7))'
-            : 'radial-gradient(circle at 40% 35%, hsla(210,95%,90%,1), hsla(225,95%,65%,0.95))',
-          border: '1px solid hsla(210,100%,80%,0.4)',
+          background: 'none',
+          border: 'none',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: open
-            ? '0 0 6px 2px hsla(215,100%,65%,0.25), 0 0 16px 4px hsla(220,100%,55%,0.12)'
-            : '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)',
+          outline: 'none',
           transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
           animation: 'orionPulse 3s ease-in-out infinite',
         }}
         aria-label="Toggle chat"
       >
         {open
-          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          ? <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(10,10,40,0.8)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+          : <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)' }} />
         }
       </button>
 
