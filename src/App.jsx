@@ -663,8 +663,8 @@ function PortfolioChatbot({ language, showPopup }) {
         style={{
           position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
           width: '54px', height: '54px', borderRadius: '50%',
-          background: 'rgba(10,10,30,0.85)',
-          border: '1px solid hsla(215,100%,70%,0.2)',
+          background: 'radial-gradient(circle at 38% 35%, #e8f4ff 0%, #7ab8f5 25%, #3a7bd5 55%, #1a3a6e 100%)',
+          border: 'none',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           outline: 'none',
           boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)',
@@ -673,10 +673,7 @@ function PortfolioChatbot({ language, showPopup }) {
         }}
         aria-label="Toggle chat"
       >
-        {open
-          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          : <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,98%,1) 0%, hsla(215,95%,80%,1) 30%, hsla(225,90%,62%,0.85) 60%, hsla(230,85%,45%,0.3) 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,75%,0.6), 0 0 18px 5px hsla(220,100%,60%,0.3)' }} />
-        }
+        {open && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>}
       </button>
 
       {/* Panel */}
@@ -695,7 +692,7 @@ function PortfolioChatbot({ language, showPopup }) {
       }}>
         {/* Header */}
         <div style={{ padding: '1rem 1.1rem 0.75rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0, position: 'relative', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 6px 2px hsla(215,100%,70%,0.35), 0 0 14px 4px hsla(220,100%,55%,0.15)' }} />
+          <div style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0, background: 'radial-gradient(circle at 38% 35%, #e8f4ff 0%, #7ab8f5 25%, #3a7bd5 55%, #1a3a6e 100%)', boxShadow: '0 0 6px 2px hsla(215,100%,70%,0.35), 0 0 14px 4px hsla(220,100%,55%,0.15)' }} />
           <div>
             <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff', fontFamily: '"Archivo Black", sans-serif', letterSpacing: '0.01em' }}>Orion</div>
             <div style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '2px' }}>● Diana's AI Assistant</div>
