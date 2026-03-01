@@ -663,20 +663,19 @@ function PortfolioChatbot({ language, showPopup }) {
         style={{
           position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
           width: '54px', height: '54px', borderRadius: '50%',
-          background: 'none',
-          border: 'none',
+          background: 'rgba(10,10,30,0.85)',
+          border: '1px solid hsla(215,100%,70%,0.2)',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           outline: 'none',
+          boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)',
           transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
           animation: 'orionPulse 3s ease-in-out infinite',
         }}
         aria-label="Toggle chat"
       >
         {open
-          ? <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(10,10,40,0.8)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </div>
-          : <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)' }} />
+          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          : <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,98%,1) 0%, hsla(215,95%,80%,1) 30%, hsla(225,90%,62%,0.85) 60%, hsla(230,85%,45%,0.3) 100%)', boxShadow: '0 0 8px 3px hsla(215,100%,75%,0.6), 0 0 18px 5px hsla(220,100%,60%,0.3)' }} />
         }
       </button>
 
