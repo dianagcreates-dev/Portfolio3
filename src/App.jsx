@@ -499,7 +499,7 @@ const translations = {
 };
 
 // ─── Portfolio Chatbot Widget ────────────────────────────────────────────────
-function PortfolioChatbot({ language }) {
+function PortfolioChatbot({ language, showPopup }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -629,6 +629,34 @@ function PortfolioChatbot({ language }) {
 
   return (
     <>
+      {/* Orion popup greeting */}
+      {!open && (
+        <div style={{
+          position: 'fixed', bottom: '94px', right: '28px', zIndex: 99998,
+          background: 'rgba(10,10,20,0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 1rem',
+          fontFamily: '"Space Mono", monospace', fontSize: '0.72rem', color: 'rgba(255,255,255,0.88)',
+          whiteSpace: 'nowrap', pointerEvents: 'none',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          transform: showPopup ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.95)',
+          opacity: showPopup ? 1 : 0,
+          transition: 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease',
+        }}>
+          Hi, I'm Orion ✦ Ask me anything
+          {/* little triangle pointing down toward button */}
+          <div style={{
+            position: 'absolute', bottom: '-6px', right: '22px',
+            width: '10px', height: '6px', overflow: 'hidden',
+          }}>
+            <div style={{
+              width: '8px', height: '8px', background: 'rgba(10,10,20,0.92)',
+              border: '1px solid rgba(255,255,255,0.12)', transform: 'rotate(45deg)',
+              transformOrigin: 'top left', marginTop: '-4px', marginLeft: '1px',
+            }} />
+          </div>
+        </div>
+      )}
+
       {/* Floating toggle — styled as a blue glowing particle */}
       <button
         onClick={() => setOpen(o => !o)}
@@ -641,8 +669,8 @@ function PortfolioChatbot({ language }) {
           border: '1px solid hsla(210,100%,80%,0.4)',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: open
-            ? '0 0 12px 4px hsla(215,100%,65%,0.4), 0 0 32px 8px hsla(220,100%,55%,0.25)'
-            : '0 0 18px 6px hsla(215,100%,70%,0.55), 0 0 48px 14px hsla(220,100%,55%,0.3), 0 0 80px 20px hsla(225,100%,50%,0.15)',
+            ? '0 0 6px 2px hsla(215,100%,65%,0.25), 0 0 16px 4px hsla(220,100%,55%,0.12)'
+            : '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)',
           transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
           animation: 'orionPulse 3s ease-in-out infinite',
         }}
@@ -670,7 +698,7 @@ function PortfolioChatbot({ language }) {
       }}>
         {/* Header */}
         <div style={{ padding: '1rem 1.1rem 0.75rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.85rem', color: '#fff', fontFamily: '"Archivo Black", sans-serif' }}>O</div>
+          <div style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0, position: 'relative', background: 'radial-gradient(circle at 38% 35%, hsla(200,100%,95%,1) 0%, hsla(215,95%,72%,0.9) 35%, hsla(225,90%,55%,0.5) 65%, transparent 100%)', boxShadow: '0 0 6px 2px hsla(215,100%,70%,0.35), 0 0 14px 4px hsla(220,100%,55%,0.15)' }} />
           <div>
             <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff', fontFamily: '"Archivo Black", sans-serif', letterSpacing: '0.01em' }}>Orion</div>
             <div style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '2px' }}>● Diana's AI Assistant</div>
@@ -902,6 +930,7 @@ export default function DesignerPortfolio() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
+  const [showOrionPopup, setShowOrionPopup] = useState(false);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -1486,6 +1515,8 @@ export default function DesignerPortfolio() {
               });
             }
             setShowStartPrompt(false);
+            setShowOrionPopup(true);
+            setTimeout(() => setShowOrionPopup(false), 4000);
           }}
           style={{
             position: 'fixed',
@@ -3840,7 +3871,7 @@ export default function DesignerPortfolio() {
       </div>
 
       {/* ── Chatbot Widget ── */}
-      <PortfolioChatbot language={language} />
+      <PortfolioChatbot language={language} showPopup={showOrionPopup} />
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -3862,10 +3893,10 @@ export default function DesignerPortfolio() {
 
         @keyframes orionPulse {
           0%, 100% {
-            box-shadow: 0 0 18px 6px hsla(215,100%,70%,0.55), 0 0 48px 14px hsla(220,100%,55%,0.3), 0 0 80px 20px hsla(225,100%,50%,0.15);
+            box-shadow: 0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15);
           }
           50% {
-            box-shadow: 0 0 28px 10px hsla(215,100%,75%,0.7), 0 0 64px 20px hsla(220,100%,60%,0.4), 0 0 100px 30px hsla(225,100%,55%,0.2);
+            box-shadow: 0 0 12px 5px hsla(215,100%,75%,0.4), 0 0 30px 10px hsla(220,100%,60%,0.2);
           }
         }
 
