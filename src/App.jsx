@@ -510,22 +510,43 @@ function PortfolioChatbot({ language }) {
 
   const suggestions = language === 'de'
     ? ['Was designt sie?', 'Ihr Prozess?', 'Ihre Tools & Skills?', 'Ist sie verfügbar?']
-    : ['What does she design?', 'What's her process?', 'What tools does she use?', 'Is she available for hire?'];
+    : ["What does she design?", "What's her process?", "What tools does she use?", "Is she available for hire?"];
 
   const bio = `
-    I am Diana, a Visual Designer and Generative AI Specialist based in Brandenburg, Germany.
-    My work sits at the intersection of fashion, UX, and AI-driven design.
-    I use generative tools to create high-impact, high-fidelity visual outputs that look beautiful and have purpose.
-    My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition.
-    Core skills: Strategy, Interaction Design, Visual Design, UX Research.
-    Tools: Figma, HTML, CSS, JavaScript, React, Adobe XD, Claude, GitHub, Canva, Webflow, Midjourney.
-    Projects:
+    Full name: Diana Melody Garcia
+    Title: UX/UI Designer
+    Location: 14467, Potsdam, Germany
+    Website: www.dianaxstudio.de
+    Email: dianaxstudio@gmail.com
+    LinkedIn: linkedin.dianaxstudio
+
+    PROFILE:
+    Diana is a UX/UI Designer with a fashion and marketing background, blending creativity with user focus.
+    She is exploring Creative Coding, Generative AI, Algorithmic Art, AR, and Speculative Design to create immersive, tech-driven experiences.
+
+    EDUCATION:
+    - MA in Generative Design & AI — University of Europe for Applied Sciences (Sept 2025 – Aug 2027). Subjects: Creative Coding, Generative AI, Algorithmic Art, AR Development, Speculative Design. She is building interactive apps, AI-generated content, and immersive AR with a focus on computational creativity and emerging tech.
+    - BA in User Experience & User Interface Design — University of Europe for Applied Sciences (March 2022 – April 2025). Subjects: UX/UI Design, Human-Computer Interaction, Usability. She designed and improved digital products for seamless, user-centered experiences and integrated psychology, design, and tech.
+    - International Foundation Diploma in Fashion Design and Marketing — Management Development Institute of Singapore (Jan 2018 – Jan 2019). Subjects: Fashion Design, Fashion Marketing, Branding, Communication, Management.
+
+    WORK EXPERIENCE:
+    - UX/UI Designer at DNA. Art Club (June 2024 – Aug 2024): Designed visually engaging assets including event cover graphics, researched user behavior across social media platforms, updated and maintained website content using Webflow, collaborated with cross-functional teams to enhance user flows and improve digital touchpoints.
+    - UX/UI Designer at Conzia GmbH (Feb 2024 – April 2024): Developed visually captivating graphics design for social media, planned and managed paid campaigns using Meta Ads Manager and Google Ads, created platform-specific content, applied data-driven strategies, tracked KPIs using Google Analytics and Meta Insights.
+
+    SKILLS & EXPERTISE:
+    Visual Design, User Research, Wireframing, Prototyping, Accessibility, Responsive Design.
+
+    TOOLS:
+    Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude, GitHub.
+
+    LANGUAGES:
+    English (fluent), German (intermediate).
+
+    PORTFOLIO PROJECTS:
     - Palmi (2026): AI product design — an emotional companion device that helps parents understand their child's emotions. 70mm compact form, facial expression tracking, voice pattern analysis.
     - Synkro (2025): Digital business card experience — instant QR/NFC sharing, real-time updates, wallet integration.
-    - Social Media (2024): Graphic design — scroll-stopping product post designs that drove 300% engagement boost.
+    - Social Media (2024): Graphic design — scroll-stopping product post designs.
     - Particle Self (2025): Creative coding / interactive installation — GPU particle system that transforms human presence into dynamic visuals via TouchDesigner.
-    Contact: dianaxstudio@gmail.com | LinkedIn: linkedin.com/in/dianaxstudio
-    Open to freelance projects and collaborations.
   `;
 
   useEffect(() => {
@@ -574,24 +595,28 @@ function PortfolioChatbot({ language }) {
 
   return (
     <>
-      {/* Floating toggle */}
+      {/* Floating toggle — styled as a blue glowing particle */}
       <button
         onClick={() => setOpen(o => !o)}
         style={{
           position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
           width: '54px', height: '54px', borderRadius: '50%',
-          background: open ? 'rgba(255,255,255,0.15)' : '#ffffff',
-          border: open ? '1px solid rgba(255,255,255,0.25)' : 'none',
-          backdropFilter: open ? 'blur(20px)' : 'none',
+          background: open
+            ? 'radial-gradient(circle at 40% 35%, hsla(210,95%,85%,0.9), hsla(230,95%,60%,0.7))'
+            : 'radial-gradient(circle at 40% 35%, hsla(210,95%,90%,1), hsla(225,95%,65%,0.95))',
+          border: '1px solid hsla(210,100%,80%,0.4)',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+          boxShadow: open
+            ? '0 0 12px 4px hsla(215,100%,65%,0.4), 0 0 32px 8px hsla(220,100%,55%,0.25)'
+            : '0 0 18px 6px hsla(215,100%,70%,0.55), 0 0 48px 14px hsla(220,100%,55%,0.3), 0 0 80px 20px hsla(225,100%,50%,0.15)',
           transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
+          animation: 'orionPulse 3s ease-in-out infinite',
         }}
         aria-label="Toggle chat"
       >
         {open
-          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a14" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         }
       </button>
 
@@ -3799,6 +3824,15 @@ export default function DesignerPortfolio() {
           position: fixed;
           margin: 0;
           padding: 0;
+        }
+
+        @keyframes orionPulse {
+          0%, 100% {
+            box-shadow: 0 0 18px 6px hsla(215,100%,70%,0.55), 0 0 48px 14px hsla(220,100%,55%,0.3), 0 0 80px 20px hsla(225,100%,50%,0.15);
+          }
+          50% {
+            box-shadow: 0 0 28px 10px hsla(215,100%,75%,0.7), 0 0 64px 20px hsla(220,100%,60%,0.4), 0 0 100px 30px hsla(225,100%,55%,0.2);
+          }
         }
 
         @keyframes fadeIn {
