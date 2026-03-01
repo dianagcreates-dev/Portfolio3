@@ -504,50 +504,12 @@ function PortfolioChatbot({ language }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [history, setHistory] = useState([]);
   const [suggestionsVisible, setSuggestionsVisible] = useState(true);
   const messagesEndRef = useRef(null);
 
   const suggestions = language === 'de'
     ? ['Was designt sie?', 'Ihr Prozess?', 'Ihre Tools & Skills?', 'Ist sie verfügbar?']
     : ["What does she design?", "What's her process?", "What tools does she use?", "Is she available for hire?"];
-
-  const bio = `
-    Full name: Diana Melody Garcia
-    Title: UX/UI Designer
-    Location: 14467, Potsdam, Germany
-    Website: www.dianaxstudio.de
-    Email: dianaxstudio@gmail.com
-    LinkedIn: linkedin.dianaxstudio
-
-    PROFILE:
-    Diana is a UX/UI Designer with a fashion and marketing background, blending creativity with user focus.
-    She is exploring Creative Coding, Generative AI, Algorithmic Art, AR, and Speculative Design to create immersive, tech-driven experiences.
-
-    EDUCATION:
-    - MA in Generative Design & AI — University of Europe for Applied Sciences (Sept 2025 – Aug 2027). Subjects: Creative Coding, Generative AI, Algorithmic Art, AR Development, Speculative Design. She is building interactive apps, AI-generated content, and immersive AR with a focus on computational creativity and emerging tech.
-    - BA in User Experience & User Interface Design — University of Europe for Applied Sciences (March 2022 – April 2025). Subjects: UX/UI Design, Human-Computer Interaction, Usability. She designed and improved digital products for seamless, user-centered experiences and integrated psychology, design, and tech.
-    - International Foundation Diploma in Fashion Design and Marketing — Management Development Institute of Singapore (Jan 2018 – Jan 2019). Subjects: Fashion Design, Fashion Marketing, Branding, Communication, Management.
-
-    WORK EXPERIENCE:
-    - UX/UI Designer at DNA. Art Club (June 2024 – Aug 2024): Designed visually engaging assets including event cover graphics, researched user behavior across social media platforms, updated and maintained website content using Webflow, collaborated with cross-functional teams to enhance user flows and improve digital touchpoints.
-    - UX/UI Designer at Conzia GmbH (Feb 2024 – April 2024): Developed visually captivating graphics design for social media, planned and managed paid campaigns using Meta Ads Manager and Google Ads, created platform-specific content, applied data-driven strategies, tracked KPIs using Google Analytics and Meta Insights.
-
-    SKILLS & EXPERTISE:
-    Visual Design, User Research, Wireframing, Prototyping, Accessibility, Responsive Design.
-
-    TOOLS:
-    Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude, GitHub.
-
-    LANGUAGES:
-    English (fluent), German (intermediate).
-
-    PORTFOLIO PROJECTS:
-    - Palmi (2026): AI product design — an emotional companion device that helps parents understand their child's emotions. 70mm compact form, facial expression tracking, voice pattern analysis.
-    - Synkro (2025): Digital business card experience — instant QR/NFC sharing, real-time updates, wallet integration.
-    - Social Media (2024): Graphic design — scroll-stopping product post designs.
-    - Particle Self (2025): Creative coding / interactive installation — GPU particle system that transforms human presence into dynamic visuals via TouchDesigner.
-  `;
 
   useEffect(() => {
     if (open && messages.length === 0) {
@@ -559,37 +521,109 @@ function PortfolioChatbot({ language }) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
+  const getReply = (text) => {
+    const q = text.toLowerCase();
+
+    // Education
+    if (q.match(/study|studied|degree|education|university|school|qualification|bachelor|master|ba|ma|htw/)) {
+      return language === 'de'
+        ? "Diana hat ihren Bachelor in UX/UI Design an der University of Europe for Applied Sciences (März 2022 – April 2025) abgeschlossen. Derzeit studiert sie im Master Generative Design & AI an derselben Universität (Sept 2025 – Aug 2027). Zuvor erwarb sie ein International Foundation Diploma in Fashion Design and Marketing am Management Development Institute of Singapore."
+        : "Diana completed her BA in User Experience & UI Design at the University of Europe for Applied Sciences (2022–2025). She's currently pursuing her MA in Generative Design & AI at the same university (2025–2027). She also holds a Foundation Diploma in Fashion Design & Marketing from the Management Development Institute of Singapore.";
+    }
+
+    // Work experience
+    if (q.match(/work|job|experience|employ|company|conzia|dna|art club|career/)) {
+      return language === 'de'
+        ? "Diana war als UX/UI Designerin bei DNA. Art Club (Juni–Aug 2024) tätig, wo sie visuelle Assets gestaltete und Webflow-Inhalte pflegte. Zuvor arbeitete sie bei Conzia GmbH (Feb–April 2024), wo sie Social-Media-Grafiken erstellte und Kampagnen über Meta Ads und Google Ads managte."
+        : "Diana has worked as a UX/UI Designer at DNA. Art Club (June–Aug 2024), creating visual assets and maintaining their Webflow site. Before that she was at Conzia GmbH (Feb–April 2024), designing social media graphics and managing paid campaigns on Meta Ads and Google Ads.";
+    }
+
+    // Projects
+    if (q.match(/project|work|portfolio|palmi|synkro|social media|particle|design/)) {
+      return language === 'de'
+        ? "Dianas Portfolio umfasst: Palmi (2026) – ein KI-Emotionsbegleiter für Kinder; Synkro (2025) – eine digitale Visitenkarte mit QR/NFC-Sharing; Social Media (2024) – scroll-stoppende Grafikdesigns; und Particle Self (2025) – eine interaktive Partikelinstallation in TouchDesigner."
+        : "Diana's portfolio includes: Palmi (2026) — an AI emotional companion for children; Synkro (2025) — a digital business card with QR/NFC sharing; Social Media (2024) — scroll-stopping graphic design posts; and Particle Self (2025) — an interactive particle installation built in TouchDesigner.";
+    }
+
+    // Skills & tools
+    if (q.match(/skill|tool|software|use|figma|webflow|canva|photoshop|illustrator|github|claude|tech/)) {
+      return language === 'de'
+        ? "Dianas Kernkompetenzen umfassen: Visual Design, User Research, Wireframing, Prototyping, Barrierefreiheit und Responsive Design. Ihre Tools: Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude und GitHub."
+        : "Diana's core skills include Visual Design, User Research, Wireframing, Prototyping, Accessibility, and Responsive Design. Her tools are Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude, and GitHub.";
+    }
+
+    // Process
+    if (q.match(/process|approach|method|how|workflow|research/)) {
+      return language === 'de'
+        ? "Diana verbindet nutzerorientiertes Denken mit kreativem Ausdruck. Ihr Prozess beginnt mit User Research und Analyse, gefolgt von Wireframing und Prototyping in Figma, bis hin zu visuell ausgefeilten Endergebnissen – immer mit Fokus auf Barrierefreiheit und Responsive Design."
+        : "Diana blends user-centred thinking with creative expression. Her process starts with research and analysis, moves into wireframing and prototyping in Figma, and ends with polished, accessible, and responsive visual outputs — always purposeful, never just pretty.";
+    }
+
+    // Available / hire
+    if (q.match(/available|hire|freelance|collaborat|open|opportunit|project/)) {
+      return language === 'de'
+        ? "Ja! Diana ist offen für neue Projekte und Kooperationen. Du kannst sie unter dianaxstudio@gmail.com erreichen oder über LinkedIn: linkedin.dianaxstudio."
+        : "Yes! Diana is open to new projects and collaborations. You can reach her at dianaxstudio@gmail.com or on LinkedIn at linkedin.dianaxstudio.";
+    }
+
+    // Location
+    if (q.match(/where|location|based|live|city|country|germany|potsdam/)) {
+      return language === 'de'
+        ? "Diana lebt in Potsdam, Deutschland (14467)."
+        : "Diana is based in Potsdam, Germany.";
+    }
+
+    // Languages
+    if (q.match(/language|speak|english|german|deutsch/)) {
+      return language === 'de'
+        ? "Diana spricht Englisch (fließend) und Deutsch (fortgeschritten)."
+        : "Diana speaks English fluently and German at an intermediate level.";
+    }
+
+    // Contact
+    if (q.match(/contact|email|reach|linkedin|website|social/)) {
+      return language === 'de'
+        ? "Du erreichst Diana unter: dianaxstudio@gmail.com | Website: www.dianaxstudio.de | LinkedIn: linkedin.dianaxstudio"
+        : "You can reach Diana at: dianaxstudio@gmail.com | Website: www.dianaxstudio.de | LinkedIn: linkedin.dianaxstudio";
+    }
+
+    // Who is she / about
+    if (q.match(/who|about|herself|tell me|background|profile|diana/)) {
+      return language === 'de'
+        ? "Diana Melody Garcia ist UX/UI Designerin mit einem Hintergrund in Mode und Marketing. Sie kombiniert Kreativität mit Nutzerfokus und erkundet Creative Coding, Generative AI, Algorithmic Art, AR und Speculative Design, um immersive, technologiegetriebene Erlebnisse zu schaffen."
+        : "Diana Melody Garcia is a UX/UI Designer with a fashion and marketing background, blending creativity with user focus. She explores Creative Coding, Generative AI, Algorithmic Art, AR, and Speculative Design to create immersive, tech-driven experiences.";
+    }
+
+    // AI / GenAI
+    if (q.match(/ai|artificial intelligence|generative|genai|machine learning/)) {
+      return language === 'de'
+        ? "Diana spezialisiert sich auf Generative AI und absolviert derzeit einen Master in Generative Design & AI. Sie nutzt KI-Tools wie Claude und Midjourney in ihrer Designarbeit und baut interaktive Apps und AI-generierte Inhalte."
+        : "Diana specialises in Generative AI and is currently doing her MA in Generative Design & AI. She uses AI tools like Claude in her design work and builds interactive apps and AI-generated content as part of her creative practice.";
+    }
+
+    // Fashion
+    if (q.match(/fashion|style|marketing|brand/)) {
+      return language === 'de'
+        ? "Dianas Designreise begann mit einem Foundation Diploma in Fashion Design & Marketing am Management Development Institute of Singapore. Dieser Hintergrund prägt noch heute ihre ästhetischen Entscheidungen und ihr Markenbewusstsein."
+        : "Diana's design journey started with a Foundation Diploma in Fashion Design & Marketing in Singapore. That background still informs her aesthetic sensibility and brand awareness today.";
+    }
+
+    // Default fallback
+    return language === 'de'
+      ? "Das weiß ich leider nicht genau! Schreib Diana direkt an: dianaxstudio@gmail.com – sie antwortet gerne."
+      : "I'm not sure about that one! Feel free to reach out to Diana directly at dianaxstudio@gmail.com — she'd love to hear from you.";
+  };
+
   const send = async (text) => {
     const userText = text || input.trim();
     if (!userText || loading) return;
     setInput('');
     setSuggestionsVisible(false);
-    const newHistory = [...history, { role: 'user', content: userText }];
     setMessages(prev => [...prev, { role: 'user', text: userText }]);
-    setHistory(newHistory);
     setLoading(true);
-    try {
-      const systemPrompt = language === 'de'
-        ? `Du bist Orion, ein KI-Assistent der über Diana spricht. Beantworte alle Fragen in der dritten Person über Diana (z.B. "Diana ist...", "Sie hat..." — NICHT "Ich bin..." oder "Ich habe..."). Halte Antworten kurz und freundlich (max 2-3 Sätze).\n\n${bio}`
-        : `You are Orion, an AI assistant who talks ABOUT Diana — not as Diana. Always refer to her in the third person (e.g. "Diana is...", "She specialises in...", "Her work..."). NEVER say "I am" or speak as if you are Diana. Keep responses concise and warm (max 2-3 sentences).\n\n${bio}`;
-
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: systemPrompt,
-          messages: newHistory,
-        }),
-      });
-      const data = await res.json();
-      const reply = data.content?.[0]?.text || "Something went wrong — try emailing dianaxstudio@gmail.com!";
-      setMessages(prev => [...prev, { role: 'bot', text: reply }]);
-      setHistory(prev => [...prev, { role: 'assistant', content: reply }]);
-    } catch {
-      setMessages(prev => [...prev, { role: 'bot', text: "Couldn't reach the server. Feel free to email dianaxstudio@gmail.com!" }]);
-    }
+    await new Promise(r => setTimeout(r, 600)); // natural typing delay
+    const reply = getReply(userText);
+    setMessages(prev => [...prev, { role: 'bot', text: reply }]);
     setLoading(false);
   };
 
