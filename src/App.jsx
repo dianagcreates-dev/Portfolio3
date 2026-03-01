@@ -498,296 +498,6 @@ const translations = {
   }
 };
 
-// ─── Portfolio Chatbot Widget ────────────────────────────────────────────────
-function PortfolioChatbot({ language, showPopup, activeSection }) {
-  const visible = ['work', 'about', 'contact'].includes(activeSection);
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [suggestionsVisible, setSuggestionsVisible] = useState(true);
-  const [lang, setLang] = useState(language);
-  const messagesEndRef = useRef(null);
-
-  // Sync with portfolio language when it changes
-  useEffect(() => { setLang(language); }, [language]);
-
-  // Show popup whenever user enters work, about or contact
-  const [internalPopup, setInternalPopup] = useState(false);
-  useEffect(() => {
-    if (visible && !open) {
-      setInternalPopup(true);
-      const t = setTimeout(() => setInternalPopup(false), 4000);
-      return () => clearTimeout(t);
-    } else {
-      setInternalPopup(false);
-    }
-  }, [activeSection]);
-
-  const suggestions = lang === 'de'
-    ? ['Was designt sie?', 'Ihr Prozess?', 'Ihre Tools & Skills?', 'Ist sie verfügbar?']
-    : ["What does she design?", "What's her process?", "What tools does she use?", "Is she available for hire?"];
-
-  useEffect(() => {
-    if (open && messages.length === 0) {
-      setMessages([{ role: 'bot', text: lang === 'de' ? 'Hallo! Ich bin Orion, Dianas KI-Assistent. Ich bin hier, um dir zu helfen, sie besser kennenzulernen.' : "Hi, I'm Orion, Diana's AI assistant. I'm here to help you know her better." }]);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, loading]);
-
-  const getReply = (text) => {
-    const q = text.toLowerCase();
-
-    // Education
-    if (q.match(/study|studied|degree|education|university|school|qualification|bachelor|master|ba|ma|htw|studium|studiert|abschluss|ausbildung|universität|hochschule|studiengang|bachelor|master/)) {
-      return lang === 'de'
-        ? "Diana hat ihren Bachelor in UX/UI Design an der University of Europe for Applied Sciences (März 2022 – April 2025) abgeschlossen. Derzeit studiert sie im Master Generative Design & AI an derselben Universität (Sept 2025 – Aug 2027). Zuvor erwarb sie ein International Foundation Diploma in Fashion Design and Marketing am Management Development Institute of Singapore."
-        : "Diana completed her BA in User Experience & UI Design at the University of Europe for Applied Sciences (2022–2025). She's currently pursuing her MA in Generative Design & AI at the same university (2025–2027). She also holds a Foundation Diploma in Fashion Design & Marketing from the Management Development Institute of Singapore.";
-    }
-
-    // Work experience
-    if (q.match(/work|job|experience|employ|company|conzia|dna|art club|career|arbeit|erfahrung|stelle|beruf|firma|unternehmen|karriere|werdegang/)) {
-      return lang === 'de'
-        ? "Diana war als UX/UI Designerin bei DNA. Art Club (Juni–Aug 2024) tätig, wo sie visuelle Assets gestaltete und Webflow-Inhalte pflegte. Zuvor arbeitete sie bei Conzia GmbH (Feb–April 2024), wo sie Social-Media-Grafiken erstellte und Kampagnen über Meta Ads und Google Ads managte."
-        : "Diana has worked as a UX/UI Designer at DNA. Art Club (June–Aug 2024), creating visual assets and maintaining their Webflow site. Before that she was at Conzia GmbH (Feb–April 2024), designing social media graphics and managing paid campaigns on Meta Ads and Google Ads.";
-    }
-
-    // Projects
-    if (q.match(/project|portfolio|palmi|synkro|social media|particle|design|projekt|projekte|arbeiten|gestaltung/)) {
-      return lang === 'de'
-        ? "Dianas Portfolio umfasst: Palmi (2026) – ein KI-Emotionsbegleiter für Kinder; Synkro (2025) – eine digitale Visitenkarte mit QR/NFC-Sharing; Social Media (2024) – scroll-stoppende Grafikdesigns; und Particle Self (2025) – eine interaktive Partikelinstallation in TouchDesigner."
-        : "Diana's portfolio includes: Palmi (2026) — an AI emotional companion for children; Synkro (2025) — a digital business card with QR/NFC sharing; Social Media (2024) — scroll-stopping graphic design posts; and Particle Self (2025) — an interactive particle installation built in TouchDesigner.";
-    }
-
-    // Skills & tools
-    if (q.match(/skill|tool|software|use|figma|webflow|canva|photoshop|illustrator|github|claude|tech|fähigkeit|kenntnisse|werkzeug|programme|können|nutzt|benutzt/)) {
-      return lang === 'de'
-        ? "Dianas Kernkompetenzen umfassen: Visual Design, User Research, Wireframing, Prototyping, Barrierefreiheit und Responsive Design. Ihre Tools: Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude und GitHub."
-        : "Diana's core skills include Visual Design, User Research, Wireframing, Prototyping, Accessibility, and Responsive Design. Her tools are Figma, Adobe Photoshop, Adobe Illustrator, Webflow, Canva, Claude, and GitHub.";
-    }
-
-    // Process
-    if (q.match(/process|approach|method|how|workflow|research|prozess|vorgehen|methode|wie|arbeitsweise|forschung/)) {
-      return lang === 'de'
-        ? "Diana verbindet nutzerorientiertes Denken mit kreativem Ausdruck. Ihr Prozess beginnt mit User Research und Analyse, gefolgt von Wireframing und Prototyping in Figma, bis hin zu visuell ausgefeilten Endergebnissen – immer mit Fokus auf Barrierefreiheit und Responsive Design."
-        : "Diana blends user-centred thinking with creative expression. Her process starts with research and analysis, moves into wireframing and prototyping in Figma, and ends with polished, accessible, and responsive visual outputs — always purposeful, never just pretty.";
-    }
-
-    // Available / hire
-    if (q.match(/available|hire|freelance|collaborat|open|opportunit|verfügbar|einstellen|zusammenarbeit|offen|anfrage|freiberuflich|auftrag/)) {
-      return lang === 'de'
-        ? "Ja! Diana ist offen für neue Projekte und Kooperationen. Du kannst sie unter dianaxstudio@gmail.com erreichen oder über LinkedIn: linkedin.dianaxstudio."
-        : "Yes! Diana is open to new projects and collaborations. You can reach her at dianaxstudio@gmail.com or on LinkedIn at linkedin.dianaxstudio.";
-    }
-
-    // Location
-    if (q.match(/where|location|based|live|city|country|germany|potsdam|wo|wohnort|wohnt|lebt|stadt|land|deutschland/)) {
-      return lang === 'de'
-        ? "Diana lebt in Potsdam, Deutschland (14467)."
-        : "Diana is based in Potsdam, Germany.";
-    }
-
-    // Languages
-    if (q.match(/language|speak|english|german|deutsch|sprache|spricht|englisch|sprachkenntnisse/)) {
-      return lang === 'de'
-        ? "Diana spricht Englisch (fließend) und Deutsch (fortgeschritten)."
-        : "Diana speaks English fluently and German at an intermediate level.";
-    }
-
-    // Contact
-    if (q.match(/contact|email|reach|linkedin|website|social|kontakt|erreichen|mail|webseite/)) {
-      return lang === 'de'
-        ? "Du erreichst Diana unter: dianaxstudio@gmail.com | Website: www.dianaxstudio.de | LinkedIn: linkedin.dianaxstudio"
-        : "You can reach Diana at: dianaxstudio@gmail.com | Website: www.dianaxstudio.de | LinkedIn: linkedin.dianaxstudio";
-    }
-
-    // Who is she / about
-    if (q.match(/who|about|herself|tell me|background|profile|diana|wer|über|erzähl|hintergrund|profil|stell vor/)) {
-      return lang === 'de'
-        ? "Diana Melody Garcia ist UX/UI Designerin mit einem Hintergrund in Mode und Marketing. Sie kombiniert Kreativität mit Nutzerfokus und erkundet Creative Coding, Generative AI, Algorithmic Art, AR und Speculative Design, um immersive, technologiegetriebene Erlebnisse zu schaffen."
-        : "Diana Melody Garcia is a UX/UI Designer with a fashion and marketing background, blending creativity with user focus. She explores Creative Coding, Generative AI, Algorithmic Art, AR, and Speculative Design to create immersive, tech-driven experiences.";
-    }
-
-    // AI / GenAI
-    if (q.match(/ai|artificial intelligence|generative|genai|machine learning|künstliche intelligenz|ki\b|generativ|maschinelles lernen/)) {
-      return lang === 'de'
-        ? "Diana spezialisiert sich auf Generative AI und absolviert derzeit einen Master in Generative Design & AI. Sie nutzt KI-Tools wie Claude in ihrer Designarbeit und baut interaktive Apps und AI-generierte Inhalte."
-        : "Diana specialises in Generative AI and is currently doing her MA in Generative Design & AI. She uses AI tools like Claude in her design work and builds interactive apps and AI-generated content as part of her creative practice.";
-    }
-
-    // Fashion
-    if (q.match(/fashion|style|marketing|brand|mode|stil|marke|markenbild/)) {
-      return lang === 'de'
-        ? "Dianas Designreise begann mit einem Foundation Diploma in Fashion Design & Marketing am Management Development Institute of Singapore. Dieser Hintergrund prägt noch heute ihre ästhetischen Entscheidungen und ihr Markenbewusstsein."
-        : "Diana's design journey started with a Foundation Diploma in Fashion Design & Marketing in Singapore. That background still informs her aesthetic sensibility and brand awareness today.";
-    }
-
-    // Default fallback
-    return lang === 'de'
-      ? "Das weiß ich leider nicht genau! Schreib Diana direkt an: dianaxstudio@gmail.com – sie antwortet gerne."
-      : "I'm not sure about that one! Feel free to reach out to Diana directly at dianaxstudio@gmail.com — she'd love to hear from you.";
-  };
-
-  const send = async (text) => {
-    const userText = text || input.trim();
-    if (!userText || loading) return;
-    setInput('');
-    setSuggestionsVisible(false);
-    setMessages(prev => [...prev, { role: 'user', text: userText }]);
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 600)); // natural typing delay
-    const reply = getReply(userText);
-    setMessages(prev => [...prev, { role: 'bot', text: reply }]);
-    setLoading(false);
-  };
-
-  return (
-    <>
-      {/* Only show Orion on work, about, contact sections */}
-      {visible && (
-        <>
-          {/* Orion popup greeting */}
-          {!open && (
-        <div style={{
-          position: 'fixed', bottom: '94px', right: '28px', zIndex: 99998,
-          background: 'rgba(10,10,20,0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 1rem',
-          fontFamily: '"Space Mono", monospace', fontSize: '0.72rem', color: 'rgba(255,255,255,0.88)',
-          whiteSpace: 'nowrap', pointerEvents: 'none',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          transform: internalPopup ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.95)',
-          opacity: internalPopup ? 1 : 0,
-          transition: 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease',
-        }}>
-          {lang === 'de' ? 'Hallo, ich bin Orion ✦ Frag mich etwas' : "Hi, I'm Orion ✦ Ask me anything"}
-          {/* little triangle pointing down toward button */}
-          <div style={{
-            position: 'absolute', bottom: '-6px', right: '22px',
-            width: '10px', height: '6px', overflow: 'hidden',
-          }}>
-            <div style={{
-              width: '8px', height: '8px', background: 'rgba(10,10,20,0.92)',
-              border: '1px solid rgba(255,255,255,0.12)', transform: 'rotate(45deg)',
-              transformOrigin: 'top left', marginTop: '-4px', marginLeft: '1px',
-            }} />
-          </div>
-        </div>
-      )}
-
-      {/* Floating toggle — styled as a blue glowing particle */}
-      <button
-        onClick={() => setOpen(o => !o)}
-        style={{
-          position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
-          width: '54px', height: '54px', borderRadius: '50%',
-          background: 'radial-gradient(circle at 38% 35%, #e8f4ff 0%, #7ab8f5 25%, #3a7bd5 55%, #1a3a6e 100%)',
-          border: 'none',
-          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          outline: 'none',
-          boxShadow: '0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15)',
-          transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
-          animation: 'orionPulse 3s ease-in-out infinite',
-        }}
-        aria-label="Toggle chat"
-      >
-        {open && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>}
-      </button>
-
-      {/* Panel */}
-      <div style={{
-        position: 'fixed', bottom: '94px', right: '28px', zIndex: 99998,
-        width: '340px', maxHeight: '480px',
-        background: 'rgba(10,10,20,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
-        border: '1px solid rgba(255,255,255,0.12)',
-        borderRadius: '16px', display: 'flex', flexDirection: 'column',
-        boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
-        transform: open ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.96)',
-        opacity: open ? 1 : 0,
-        pointerEvents: open ? 'all' : 'none',
-        transition: 'transform 0.3s cubic-bezier(0.34,1.2,0.64,1), opacity 0.25s ease',
-        fontFamily: '"Space Mono", monospace',
-      }}>
-        {/* Header */}
-        <div style={{ padding: '1rem 1.1rem 0.75rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0, background: 'radial-gradient(circle at 38% 35%, #e8f4ff 0%, #7ab8f5 25%, #3a7bd5 55%, #1a3a6e 100%)', boxShadow: '0 0 6px 2px hsla(215,100%,70%,0.35), 0 0 14px 4px hsla(220,100%,55%,0.15)' }} />
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff', fontFamily: '"Archivo Black", sans-serif', letterSpacing: '0.01em' }}>Orion</div>
-            <div style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '2px' }}>● {lang === 'de' ? 'Dianas KI-Assistent' : "Diana's AI Assistant"}</div>
-          </div>
-          {/* Language toggle */}
-          <div style={{ display: 'flex', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', overflow: 'hidden', flexShrink: 0 }}>
-            {['en', 'de'].map(l => (
-              <button key={l} onClick={() => { setLang(l); setMessages([{ role: 'bot', text: l === 'de' ? 'Hallo! Ich bin Orion, Dianas KI-Assistent. Ich bin hier, um dir zu helfen, sie besser kennenzulernen.' : "Hi, I'm Orion, Diana's AI assistant. I'm here to help you know her better." }]); setSuggestionsVisible(true); }}
-                style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.28rem 0.55rem', border: 'none', cursor: 'pointer', transition: 'all 0.15s', background: lang === l ? 'rgba(255,255,255,0.15)' : 'transparent', color: lang === l ? '#ffffff' : 'rgba(255,255,255,0.35)', outline: 'none' }}>
-                {l}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Messages */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', scrollbarWidth: 'none' }}>
-          {messages.map((m, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start', animation: 'fadeInUp 0.3s ease both' }}>
-              <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '4px', paddingLeft: m.role === 'bot' ? '2px' : 0, paddingRight: m.role === 'user' ? '2px' : 0 }}>{m.role === 'bot' ? 'Orion' : (lang === 'de' ? 'Du' : 'You')}</div>
-              <div style={{
-                maxWidth: '82%', padding: '0.6rem 0.85rem', borderRadius: '10px',
-                fontSize: '0.72rem', lineHeight: 1.65, letterSpacing: '0.01em',
-                background: m.role === 'bot' ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.9)',
-                color: m.role === 'bot' ? 'rgba(255,255,255,0.88)' : '#0a0a14',
-                border: m.role === 'bot' ? '1px solid rgba(255,255,255,0.1)' : 'none',
-                borderBottomLeftRadius: m.role === 'bot' ? '2px' : '10px',
-                borderBottomRightRadius: m.role === 'user' ? '2px' : '10px',
-              }}>{m.text}</div>
-            </div>
-          ))}
-          {loading && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-              <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', paddingLeft: '2px' }}>Diana</div>
-              <div style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', borderBottomLeftRadius: '2px', padding: '0.65rem 1rem', display: 'flex', gap: '5px', alignItems: 'center' }}>
-                {[0, 0.15, 0.3].map((d, i) => <div key={i} style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,255,255,0.4)', animation: `pulse 1.2s ease-in-out ${d}s infinite` }} />)}
-              </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Suggestions */}
-        {suggestionsVisible && (
-          <div style={{ padding: '0 0.85rem 0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-            {suggestions.map(s => (
-              <button key={s} onClick={() => send(s)} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', padding: '0.28rem 0.55rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
-              >{s}</button>
-            ))}
-          </div>
-        )}
-
-        {/* Input */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '0.7rem 0.85rem', display: 'flex', gap: '0.5rem', alignItems: 'flex-end', background: 'rgba(255,255,255,0.03)', borderRadius: '0 0 16px 16px' }}>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder={lang === 'de' ? 'Frag etwas…' : 'Ask something…'}
-            rows={1}
-            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: '"Space Mono", monospace', fontSize: '0.72rem', color: '#ffffff', resize: 'none', maxHeight: '72px', lineHeight: 1.5 }}
-          />
-          <button onClick={() => send()} disabled={loading || !input.trim()} style={{ width: '28px', height: '28px', borderRadius: '50%', background: input.trim() && !loading ? '#ffffff' : 'rgba(255,255,255,0.15)', border: 'none', cursor: input.trim() && !loading ? 'pointer' : 'default', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.2s' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={input.trim() && !loading ? '#0a0a14' : 'rgba(255,255,255,0.4)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </div>
-      </div>
-        </>
-      )}
-    </>
-  );
-}
-
 function IDCard({ emailLabel, linkedinLabel, active }) {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -955,7 +665,6 @@ export default function DesignerPortfolio() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
-  const [showOrionPopup, setShowOrionPopup] = useState(false);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -1540,8 +1249,6 @@ export default function DesignerPortfolio() {
               });
             }
             setShowStartPrompt(false);
-            setShowOrionPopup(true);
-            setTimeout(() => setShowOrionPopup(false), 4000);
           }}
           style={{
             position: 'fixed',
@@ -3895,9 +3602,6 @@ export default function DesignerPortfolio() {
         )}
       </div>
 
-      {/* ── Chatbot Widget ── */}
-      <PortfolioChatbot language={language} showPopup={showOrionPopup} activeSection={activeSection} />
-
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -3914,15 +3618,6 @@ export default function DesignerPortfolio() {
           position: fixed;
           margin: 0;
           padding: 0;
-        }
-
-        @keyframes orionPulse {
-          0%, 100% {
-            box-shadow: 0 0 8px 3px hsla(215,100%,70%,0.3), 0 0 22px 6px hsla(220,100%,55%,0.15);
-          }
-          50% {
-            box-shadow: 0 0 12px 5px hsla(215,100%,75%,0.4), 0 0 30px 10px hsla(220,100%,60%,0.2);
-          }
         }
 
         @keyframes fadeIn {
