@@ -498,6 +498,184 @@ const translations = {
   }
 };
 
+// ─── Portfolio Chatbot Widget ────────────────────────────────────────────────
+function PortfolioChatbot({ language }) {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [suggestionsVisible, setSuggestionsVisible] = useState(true);
+  const messagesEndRef = useRef(null);
+
+  const suggestions = language === 'de'
+    ? ['Was designt sie?', 'Ihr Prozess?', 'Ihre Tools & Skills?', 'Ist sie verfügbar?']
+    : ['What does she design?', 'What's her process?', 'What tools does she use?', 'Is she available for hire?'];
+
+  const bio = `
+    I am Diana, a Visual Designer and Generative AI Specialist based in Brandenburg, Germany.
+    My work sits at the intersection of fashion, UX, and AI-driven design.
+    I use generative tools to create high-impact, high-fidelity visual outputs that look beautiful and have purpose.
+    My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition.
+    Core skills: Strategy, Interaction Design, Visual Design, UX Research.
+    Tools: Figma, HTML, CSS, JavaScript, React, Adobe XD, Claude, GitHub, Canva, Webflow, Midjourney.
+    Projects:
+    - Palmi (2026): AI product design — an emotional companion device that helps parents understand their child's emotions. 70mm compact form, facial expression tracking, voice pattern analysis.
+    - Synkro (2025): Digital business card experience — instant QR/NFC sharing, real-time updates, wallet integration.
+    - Social Media (2024): Graphic design — scroll-stopping product post designs that drove 300% engagement boost.
+    - Particle Self (2025): Creative coding / interactive installation — GPU particle system that transforms human presence into dynamic visuals via TouchDesigner.
+    Contact: dianaxstudio@gmail.com | LinkedIn: linkedin.com/in/dianaxstudio
+    Open to freelance projects and collaborations.
+  `;
+
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      setMessages([{ role: 'bot', text: language === 'de' ? 'Hallo! Ich bin Orion, Dianas KI-Assistent. Ich bin hier, um dir zu helfen, sie besser kennenzulernen.' : "Hi, I'm Orion, Diana's AI assistant. I'm here to help you know her better." }]);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
+
+  const send = async (text) => {
+    const userText = text || input.trim();
+    if (!userText || loading) return;
+    setInput('');
+    setSuggestionsVisible(false);
+    const newHistory = [...history, { role: 'user', content: userText }];
+    setMessages(prev => [...prev, { role: 'user', text: userText }]);
+    setHistory(newHistory);
+    setLoading(true);
+    try {
+      const systemPrompt = language === 'de'
+        ? `Du bist Orion, ein KI-Assistent der über Diana spricht. Beantworte alle Fragen in der dritten Person über Diana (z.B. "Diana ist...", "Sie hat..." — NICHT "Ich bin..." oder "Ich habe..."). Halte Antworten kurz und freundlich (max 2-3 Sätze).\n\n${bio}`
+        : `You are Orion, an AI assistant who talks ABOUT Diana — not as Diana. Always refer to her in the third person (e.g. "Diana is...", "She specialises in...", "Her work..."). NEVER say "I am" or speak as if you are Diana. Keep responses concise and warm (max 2-3 sentences).\n\n${bio}`;
+
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: systemPrompt,
+          messages: newHistory,
+        }),
+      });
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || "Something went wrong — try emailing dianaxstudio@gmail.com!";
+      setMessages(prev => [...prev, { role: 'bot', text: reply }]);
+      setHistory(prev => [...prev, { role: 'assistant', content: reply }]);
+    } catch {
+      setMessages(prev => [...prev, { role: 'bot', text: "Couldn't reach the server. Feel free to email dianaxstudio@gmail.com!" }]);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <>
+      {/* Floating toggle */}
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          position: 'fixed', bottom: '28px', right: '28px', zIndex: 99999,
+          width: '54px', height: '54px', borderRadius: '50%',
+          background: open ? 'rgba(255,255,255,0.15)' : '#ffffff',
+          border: open ? '1px solid rgba(255,255,255,0.25)' : 'none',
+          backdropFilter: open ? 'blur(20px)' : 'none',
+          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+          transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
+        }}
+        aria-label="Toggle chat"
+      >
+        {open
+          ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a14" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        }
+      </button>
+
+      {/* Panel */}
+      <div style={{
+        position: 'fixed', bottom: '94px', right: '28px', zIndex: 99998,
+        width: '340px', maxHeight: '480px',
+        background: 'rgba(10,10,20,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid rgba(255,255,255,0.12)',
+        borderRadius: '16px', display: 'flex', flexDirection: 'column',
+        boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
+        transform: open ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.96)',
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? 'all' : 'none',
+        transition: 'transform 0.3s cubic-bezier(0.34,1.2,0.64,1), opacity 0.25s ease',
+        fontFamily: '"Space Mono", monospace',
+      }}>
+        {/* Header */}
+        <div style={{ padding: '1rem 1.1rem 0.75rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.85rem', color: '#fff', fontFamily: '"Archivo Black", sans-serif' }}>O</div>
+          <div>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff', fontFamily: '"Archivo Black", sans-serif', letterSpacing: '0.01em' }}>Orion</div>
+            <div style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '2px' }}>● Diana's AI Assistant</div>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', scrollbarWidth: 'none' }}>
+          {messages.map((m, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start', animation: 'fadeInUp 0.3s ease both' }}>
+              <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '4px', paddingLeft: m.role === 'bot' ? '2px' : 0, paddingRight: m.role === 'user' ? '2px' : 0 }}>{m.role === 'bot' ? 'Orion' : 'You'}</div>
+              <div style={{
+                maxWidth: '82%', padding: '0.6rem 0.85rem', borderRadius: '10px',
+                fontSize: '0.72rem', lineHeight: 1.65, letterSpacing: '0.01em',
+                background: m.role === 'bot' ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.9)',
+                color: m.role === 'bot' ? 'rgba(255,255,255,0.88)' : '#0a0a14',
+                border: m.role === 'bot' ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                borderBottomLeftRadius: m.role === 'bot' ? '2px' : '10px',
+                borderBottomRightRadius: m.role === 'user' ? '2px' : '10px',
+              }}>{m.text}</div>
+            </div>
+          ))}
+          {loading && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
+              <div style={{ fontSize: '0.52rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', paddingLeft: '2px' }}>Diana</div>
+              <div style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', borderBottomLeftRadius: '2px', padding: '0.65rem 1rem', display: 'flex', gap: '5px', alignItems: 'center' }}>
+                {[0, 0.15, 0.3].map((d, i) => <div key={i} style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,255,255,0.4)', animation: `pulse 1.2s ease-in-out ${d}s infinite` }} />)}
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Suggestions */}
+        {suggestionsVisible && (
+          <div style={{ padding: '0 0.85rem 0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+            {suggestions.map(s => (
+              <button key={s} onClick={() => send(s)} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', padding: '0.28rem 0.55rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+              >{s}</button>
+            ))}
+          </div>
+        )}
+
+        {/* Input */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '0.7rem 0.85rem', display: 'flex', gap: '0.5rem', alignItems: 'flex-end', background: 'rgba(255,255,255,0.03)', borderRadius: '0 0 16px 16px' }}>
+          <textarea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
+            placeholder={language === 'de' ? 'Frag etwas…' : 'Ask something…'}
+            rows={1}
+            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: '"Space Mono", monospace', fontSize: '0.72rem', color: '#ffffff', resize: 'none', maxHeight: '72px', lineHeight: 1.5 }}
+          />
+          <button onClick={() => send()} disabled={loading || !input.trim()} style={{ width: '28px', height: '28px', borderRadius: '50%', background: input.trim() && !loading ? '#ffffff' : 'rgba(255,255,255,0.15)', border: 'none', cursor: input.trim() && !loading ? 'pointer' : 'default', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.2s' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={input.trim() && !loading ? '#0a0a14' : 'rgba(255,255,255,0.4)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function IDCard({ emailLabel, linkedinLabel, active }) {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -3601,6 +3779,9 @@ export default function DesignerPortfolio() {
           </div>
         )}
       </div>
+
+      {/* ── Chatbot Widget ── */}
+      <PortfolioChatbot language={language} />
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
