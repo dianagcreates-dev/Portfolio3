@@ -124,7 +124,7 @@ const translations = {
         },
         images: {
             hero: "/images/synkro/hero2.png",
-          process1: "/images/synkro/process1.2.png",
+          process1: "/images/synkro/process1.3.png",
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.2.png",
@@ -371,7 +371,7 @@ const translations = {
         },
         images: {
           hero: "/images/synkro/hero2.png",
-          process1: "/images/synkro/process1.2.png",
+          process1: "/images/synkro/process1.3.png",
           process2: "/images/synkro/process2.png",
           process3: "/images/synkro/process3.png",
           process4: "/images/synkro/process4.2.png",
