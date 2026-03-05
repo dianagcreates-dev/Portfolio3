@@ -853,6 +853,9 @@ export default function DesignerPortfolio() {
   // Get current translations
   const t = translations[language];
 
+  // Stable gallery images — same paths in both languages, defined once to avoid remounting
+  const galleryImages = useRef(translations.en.gallery.images).current;
+
   // IntersectionObserver for scroll-triggered section animations
   useEffect(() => {
 
@@ -3778,7 +3781,7 @@ export default function DesignerPortfolio() {
 
               {/* Flip Row */}
               <div data-scroll-id="s41" style={{ ...scrollReveal('s41', null) }}>
-                <GalleryFlipRow images={t.gallery.images} />
+                <GalleryFlipRow images={galleryImages} />
               </div>
             </div>
           </div>
