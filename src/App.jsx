@@ -15,12 +15,12 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
-        { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
-        { src: '/images/gallery/image3.jpg', label: 'Image 03' },
-        { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
-        { src: '/images/gallery/image1.6.jpg', label: 'Image 05' },
-        { src: '/images/gallery/image5.1.jpg', label: 'Image 06' },
+        { src: '/images/gallery/image1.png', label: 'Image 01' },
+        { src: '/images/gallery/image2.png', label: 'Image 02' },
+        { src: '/images/gallery/image3.png', label: 'Image 03' },
+        { src: '/images/gallery/image4.png', label: 'Image 04' },
+        { src: '/images/gallery/image5.png', label: 'Image 05' },
+        { src: '/images/gallery/image6.png', label: 'Image 06' },
       ]
     },
     home: {
@@ -278,12 +278,12 @@ const translations = {
       subtitle: 'KI-gestützte Bildexperimente',
       description: 'Ein Raum, in dem KI zum kreativen Werkzeug wird, nicht zur Abkürzung. Jedes Visual ist bewusst geprompted, kuratiert und gestaltet, um die Grenzen des Designs zu erweitern. Hier treffen Mode, Technologie und Vorstellungskraft aufeinander.',
       images: [
-        { src: '/images/gallery/image1.png', label: 'Bild 01' },
-        { src: '/images/gallery/image2.png', label: 'Bild 02' },
-        { src: '/images/gallery/image3.png', label: 'Bild 03' },
-        { src: '/images/gallery/image4.png', label: 'Bild 04' },
-        { src: '/images/gallery/image5.png', label: 'Bild 05' },
-        { src: '/images/gallery/image6.png', label: 'Bild 06' },
+         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
+        { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
+        { src: '/images/gallery/image3.jpg', label: 'Image 03' },
+        { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
+        { src: '/images/gallery/image1.6.jpg', label: 'Image 05' },
+        { src: '/images/gallery/image5.1.jpg', label: 'Image 06' },
       ]
     },
     home: {
@@ -3777,22 +3777,20 @@ export default function DesignerPortfolio() {
                 </p>
               </div>
 
-              {/* Subtitle above images */}
-              <p style={{
-                fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
-                color: 'rgba(255,255,255,0.45)',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                fontFamily: '"Space Mono", monospace',
-                textAlign: 'center',
-                marginBottom: '1.2rem',
-                marginTop: '0',
-              }}>
-                {t.gallery.subtitle}
-              </p>
-
-              {/* Flip Row */}
+              {/* Flip Row + Subtitle */}
               <div data-scroll-id="s41" style={{ ...scrollReveal('s41', null) }}>
+                <p style={{
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
+                  color: 'rgba(255,255,255,0.45)',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: '"Space Mono", monospace',
+                  textAlign: 'center',
+                  marginBottom: '1.2rem',
+                  marginTop: '0',
+                }}>
+                  {t.gallery.subtitle}
+                </p>
                 <GalleryFlipRow images={galleryImages} />
               </div>
             </div>
