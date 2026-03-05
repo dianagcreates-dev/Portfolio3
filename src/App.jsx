@@ -15,7 +15,7 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-        { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
+         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
         { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
         { src: '/images/gallery/image3.jpg', label: 'Image 03' },
         { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
@@ -3800,7 +3800,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', paddingRight: '1rem' }}>
           <div
             data-scroll-id="s30"
             style={{
