@@ -594,6 +594,9 @@ function FlipCard({ front, back, flipped }) {
   const [frontError, setFrontError] = useState(false);
   const [backError, setBackError] = useState(false);
 
+  useEffect(() => { setFrontLoaded(false); setFrontError(false); }, [front.src]);
+  useEffect(() => { setBackLoaded(false); setBackError(false); }, [back.src]);
+
   const cardStyle = {
     width: "340px",
     height: "220px",
@@ -715,7 +718,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
           {/* Landscape photo top ~55% */}
           <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
-              src="/images/profile.jpg"
+              src="/images/profile.png"
               alt="Diana"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
               onError={(e) => {
@@ -3778,7 +3781,7 @@ export default function DesignerPortfolio() {
 
               {/* Flip Row */}
               <div data-scroll-id="s41" style={{ ...scrollReveal('s41', null) }}>
-                <GalleryFlipRow images={t.gallery.images} />
+                <GalleryFlipRow key={language} images={t.gallery.images} />
               </div>
             </div>
           </div>
