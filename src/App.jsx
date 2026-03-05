@@ -6,8 +6,21 @@ const translations = {
     nav: {
       home: 'Home',
       work: 'Work',
+      gallery: 'Gallery',
       about: 'About',
       contact: 'Contact'
+    },
+    gallery: {
+      title: 'Generative Visuals',
+      subtitle: 'AI-Prompted Image Explorations',
+      images: [
+        { src: '/images/gallery/image1.mp4', label: 'Image 01', video: true },
+        { src: '/images/gallery/image2.png', label: 'Image 02' },
+        { src: '/images/gallery/image3.png', label: 'Image 03' },
+        { src: '/images/gallery/image4.mp4', label: 'Image 04', video: true },
+        { src: '/images/gallery/image5.png', label: 'Image 05' },
+        { src: '/images/gallery/image6.png', label: 'Image 06' },
+      ]
     },
     home: {
       headline: 'Where Design Thinks',
@@ -255,8 +268,21 @@ const translations = {
     nav: {
       home: 'Start',
       work: 'Arbeit',
+      gallery: 'Galerie',
       about: 'Über',
       contact: 'Kontakt'
+    },
+    gallery: {
+      title: 'Generative Visuals',
+      subtitle: 'KI-gestützte Bildexperimente',
+      images: [
+        { src: '/images/gallery/image1.mp4', label: 'Bild 01', video: true },
+        { src: '/images/gallery/image2.png', label: 'Bild 02' },
+        { src: '/images/gallery/image3.png', label: 'Bild 03' },
+        { src: '/images/gallery/image4.mp4', label: 'Bild 04', video: true },
+        { src: '/images/gallery/image5.png', label: 'Bild 05' },
+        { src: '/images/gallery/image6.png', label: 'Bild 06' },
+      ]
     },
     home: {
       headline: 'Wo Design denkt',
@@ -497,6 +523,122 @@ const translations = {
     ]
   }
 };
+
+function GalleryStackedCards({ images }) {
+  const [cards, setCards] = useState(images.map((img, i) => ({ ...img, id: i })));
+  const [flinging, setFlinging] = useState(false);
+  const [flingDir, setFlingDir] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const pausedRef = useRef(false);
+  const flingRef = useRef(false);
+
+  const flingTop = () => {
+    if (flingRef.current) return;
+    flingRef.current = true;
+    const dir = Math.random() > 0.5 ? 1 : -1;
+    setFlinging(true);
+    setFlingDir(dir);
+    setTimeout(() => {
+      setCards(prev => {
+        const next = [...prev];
+        const top = next.shift();
+        next.push(top);
+        return next;
+      });
+      setFlinging(false);
+      setFlingDir(0);
+      flingRef.current = false;
+    }, 380);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!pausedRef.current) flingTop();
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', userSelect: 'none' }}>
+      <p style={{ fontSize: '0.65rem', color: paused ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.3)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.15em', textTransform: 'uppercase', margin: 0, transition: 'color 0.3s' }}>
+        {paused ? '· paused ·' : '· auto playing ·'}
+      </p>
+      <div
+        onMouseEnter={() => { pausedRef.current = true; setPaused(true); }}
+        onMouseLeave={() => { pausedRef.current = false; setPaused(false); }}
+        style={{ position: 'relative', width: '380px', height: '250px', cursor: 'default' }}
+      >
+        {[...cards].reverse().map((card, revIdx) => {
+          const stackIdx = cards.length - 1 - revIdx;
+          const isTop = stackIdx === 0;
+          const offsetX = stackIdx * 6;
+          const offsetY = stackIdx * -6;
+          const rot = stackIdx % 2 === 0 ? stackIdx * -1.5 : stackIdx * 1.5;
+          let transform, transition, zIndex, shadow;
+          if (isTop && flinging) {
+            transform = `translate(${flingDir * 500}px, -80px) rotate(${flingDir * 25}deg)`;
+            transition = 'transform 0.35s cubic-bezier(0.4, 0, 1, 1)';
+            zIndex = 100;
+            shadow = '0 30px 60px -8px rgba(0,0,0,0.9)';
+          } else {
+            transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rot}deg)`;
+            transition = flinging ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)' : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            zIndex = cards.length - stackIdx;
+            shadow = isTop ? '0 20px 50px -8px rgba(0,0,0,0.85)' : '0 8px 20px -6px rgba(0,0,0,0.6)';
+          }
+          return (
+            <StackCard key={card.id} img={card} style={{ transform, transition, zIndex, boxShadow: shadow }} isTop={isTop} />
+          );
+        })}
+      </div>
+      <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.25)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.15em', margin: 0 }}>
+        {cards[0].label} · {images.length} images
+      </p>
+    </div>
+  );
+}
+
+function StackCard({ img, style, isTop }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+  return (
+    <div style={{
+      position: 'absolute', top: 0, left: 0, width: '380px', height: '250px',
+      borderRadius: '18px', overflow: 'hidden', background: 'rgba(255,255,255,0.04)',
+      border: `1px solid ${isTop ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.08)'}`,
+      willChange: 'transform', ...style,
+    }}>
+      {!error ? (
+        img.video ? (
+          <video
+            src={img.src}
+            autoPlay muted loop playsInline
+            onCanPlay={() => setLoaded(true)}
+            onError={() => setError(true)}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: 'none' }}
+          />
+        ) : (
+        <img src={img.src} alt={img.label} onLoad={() => setLoaded(true)} onError={() => setError(true)} draggable={false}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: 'none' }} />
+        )
+      ) : (
+        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.8rem' }}>
+          <div style={{ width: '52px', height: '52px', borderRadius: '13px', border: '1.5px dashed rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.18)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{img.label}</span>
+        </div>
+      )}
+      {isTop && (
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1rem 0.9rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)', pointerEvents: 'none' }}>
+          <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.7)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{img.label}</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function IDCard({ emailLabel, linkedinLabel, active }) {
   const [flipped, setFlipped] = useState(false);
@@ -1076,12 +1218,12 @@ export default function DesignerPortfolio() {
   useEffect(() => {
     const handleWheel = (e) => {
       if (selectedProject) return;
-      
+
       if (isScrolling) return;
       
       e.preventDefault();
       
-      const sections = ['home', 'work', 'about', 'contact'];
+      const sections = ['home', 'work', 'gallery', 'about', 'contact'];
       const currentIndex = sections.indexOf(activeSection);
       
       if (e.deltaY > 0 && currentIndex < sections.length - 1) {
@@ -1177,6 +1319,7 @@ export default function DesignerPortfolio() {
   const navItems = [
     { id: 'home', label: t.nav.home },
     { id: 'work', label: t.nav.work },
+    { id: 'gallery', label: t.nav.gallery },
     { id: 'about', label: t.nav.about },
     { id: 'contact', label: t.nav.contact }
   ];
@@ -3393,7 +3536,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', marginTop: '-2rem' }}>
           <div
             data-scroll-id="s26"
             style={{
@@ -3546,6 +3689,59 @@ export default function DesignerPortfolio() {
               })()}
             </div>
           </div>
+          </div>
+        )}
+
+        {activeSection === 'gallery' && (
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5.5rem', paddingBottom: '2rem' }}>
+            <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
+              {/* Header */}
+              <div
+                data-scroll-id="s40"
+                style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '1.5rem', ...scrollReveal('s40', null) }}
+              >
+                <h2 style={{
+                  fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+                  color: '#ffffff',
+                  margin: '0 0 0.5rem 0',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  lineHeight: 1.1
+                }}>
+                  {t.gallery.title.split('').map((char, index) => (
+                    char === ' ' ? <span key={index}> </span> : (
+                      <span
+                        key={index}
+                        style={{ display: 'inline-block', transition: 'text-shadow 0.2s ease', cursor: 'pointer' }}
+                        onMouseMove={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const x = e.clientX - rect.left - rect.width / 2;
+                          const y = e.clientY - rect.top - rect.height / 2;
+                          e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8)`;
+                        }}
+                        onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; }}
+                      >
+                        {char}
+                      </span>
+                    )
+                  ))}
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
+                  color: 'rgba(255,255,255,0.45)',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: '"Space Mono", monospace'
+                }}>
+                  {t.gallery.subtitle}
+                </p>
+              </div>
+
+              {/* Stacked Cards */}
+              <div data-scroll-id="s41" style={{ ...scrollReveal('s41', null) }}>
+                <GalleryStackedCards images={t.gallery.images} />
+              </div>
+            </div>
           </div>
         )}
 
