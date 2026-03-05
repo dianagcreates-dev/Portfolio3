@@ -18,9 +18,9 @@ const translations = {
         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
         { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
         { src: '/images/gallery/image3.jpg', label: 'Image 03' },
-        { src: '/images/gallery/image4.jpg', label: 'Image 04' },
-        { src: '/images/gallery/image5.jpg', label: 'Image 05' },
-        { src: '/images/gallery/image6.jpg', label: 'Image 06' },
+        { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
+        { src: '/images/gallery/image1.6.jpg', label: 'Image 05' },
+        { src: '/images/gallery/image5.1.jpg', label: 'Image 06' },
       ]
     },
     home: {
