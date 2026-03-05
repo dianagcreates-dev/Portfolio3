@@ -33,7 +33,7 @@ const translations = {
     },
     about: {
       title: 'Design Philosophy',
-      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use.",
+      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use. Every pixel I place is intentional, because the future of design belongs to those who dare to think beyond the screen.",
       skills: ['Strategy', 'Interaction', 'Visual', 'Research'],
       skillLabel: 'Core Focus',
       tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
@@ -295,7 +295,7 @@ const translations = {
     },
     about: {
       title: 'Design-Philosophie',
-      description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen.',
+      description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen. Jedes Pixel, das ich setze, ist bewusst gewählt, denn die Zukunft des Designs gehört denen, die den Mut haben, über den Bildschirm hinaus zu denken.',
       skills: ['Strategie', 'Interaktion', 'Visuell', 'Forschung'],
       skillLabel: 'Kernfokus',
       tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
@@ -3536,7 +3536,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', marginTop: '-2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', marginTop: '0rem' }}>
           <div
             data-scroll-id="s26"
             style={{
