@@ -13,9 +13,10 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'AI-Prompted Image Explorations',
+      description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-        { src: '/images/gallery/image1.jpg', label: 'Image 01' },
-        { src: '/images/gallery/image2.jpg', label: 'Image 02' },
+        { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
+        { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
         { src: '/images/gallery/image3.jpg', label: 'Image 03' },
         { src: '/images/gallery/image4.jpg', label: 'Image 04' },
         { src: '/images/gallery/image5.jpg', label: 'Image 05' },
@@ -275,6 +276,7 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'KI-gestützte Bildexperimente',
+      description: 'Ein Raum, in dem KI zum kreativen Werkzeug wird, nicht zur Abkürzung. Jedes Visual ist bewusst geprompted, kuratiert und gestaltet, um die Grenzen des Designs zu erweitern. Hier treffen Mode, Technologie und Vorstellungskraft aufeinander.',
       images: [
         { src: '/images/gallery/image1.png', label: 'Bild 01' },
         { src: '/images/gallery/image2.png', label: 'Bild 02' },
@@ -524,108 +526,140 @@ const translations = {
   }
 };
 
-function GalleryStackedCards({ images }) {
-  const [cards, setCards] = useState(images.map((img, i) => ({ ...img, id: i })));
-  const [flinging, setFlinging] = useState(false);
-  const [flingDir, setFlingDir] = useState(0);
+function GalleryFlipRow({ images }) {
+  // images[0..2] = front, images[3..5] = back
+  const [flipped, setFlipped] = useState([false, false, false]);
   const [paused, setPaused] = useState(false);
   const pausedRef = useRef(false);
-  const flingRef = useRef(false);
+  const cycleRef = useRef(null);
 
-  const flingTop = () => {
-    if (flingRef.current) return;
-    flingRef.current = true;
-    const dir = Math.random() > 0.5 ? 1 : -1;
-    setFlinging(true);
-    setFlingDir(dir);
-    setTimeout(() => {
-      setCards(prev => {
-        const next = [...prev];
-        const top = next.shift();
-        next.push(top);
-        return next;
-      });
-      setFlinging(false);
-      setFlingDir(0);
-      flingRef.current = false;
-    }, 380);
+  const runCycle = () => {
+    // Flip cards 0,1,2 one by one left to right, then unflip one by one
+    const delays = [0, 600, 1200];
+    const unflipDelays = [2800, 3400, 4000];
+
+    delays.forEach((d, i) => {
+      cycleRef.current = setTimeout(() => {
+        if (!pausedRef.current) setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
+      }, d);
+    });
+
+    unflipDelays.forEach((d, i) => {
+      cycleRef.current = setTimeout(() => {
+        if (!pausedRef.current) setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
+      }, d);
+    });
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!pausedRef.current) flingTop();
-    }, 2000);
-    return () => clearInterval(interval);
+      if (!pausedRef.current) runCycle();
+    }, 5500);
+    runCycle();
+    return () => { clearInterval(interval); };
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', userSelect: 'none' }}>
-      <p style={{ fontSize: '0.65rem', color: paused ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.3)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.15em', textTransform: 'uppercase', margin: 0, transition: 'color 0.3s' }}>
-        {paused ? '· paused ·' : '· auto playing ·'}
-      </p>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
       <div
         onMouseEnter={() => { pausedRef.current = true; setPaused(true); }}
         onMouseLeave={() => { pausedRef.current = false; setPaused(false); }}
-        style={{ position: 'relative', width: '380px', height: '250px', cursor: 'default' }}
+        style={{ display: "flex", gap: "1rem", alignItems: "center" }}
       >
-        {[...cards].reverse().map((card, revIdx) => {
-          const stackIdx = cards.length - 1 - revIdx;
-          const isTop = stackIdx === 0;
-          const offsetX = stackIdx * 6;
-          const offsetY = stackIdx * -6;
-          const rot = stackIdx % 2 === 0 ? stackIdx * -1.5 : stackIdx * 1.5;
-          let transform, transition, zIndex, shadow;
-          if (isTop && flinging) {
-            transform = `translate(${flingDir * 500}px, -80px) rotate(${flingDir * 25}deg)`;
-            transition = 'transform 0.35s cubic-bezier(0.4, 0, 1, 1)';
-            zIndex = 100;
-            shadow = '0 30px 60px -8px rgba(0,0,0,0.9)';
-          } else {
-            transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rot}deg)`;
-            transition = flinging ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)' : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-            zIndex = cards.length - stackIdx;
-            shadow = isTop ? '0 20px 50px -8px rgba(0,0,0,0.85)' : '0 8px 20px -6px rgba(0,0,0,0.6)';
-          }
-          return (
-            <StackCard key={card.id} img={card} style={{ transform, transition, zIndex, boxShadow: shadow }} isTop={isTop} />
-          );
-        })}
+        {[0, 1, 2].map(i => (
+          <FlipCard
+            key={i}
+            front={images[i]}
+            back={images[i + 3]}
+            flipped={flipped[i]}
+          />
+        ))}
       </div>
-      <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.25)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.15em', margin: 0 }}>
-        {cards[0].label} · {images.length} images
+
+      <p style={{
+        fontSize: "0.65rem",
+        color: paused ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.3)",
+        fontFamily: '"Space Mono", monospace',
+        letterSpacing: "0.15em", textTransform: "uppercase", margin: 0, transition: "color 0.3s"
+      }}>
+        {paused ? "· paused ·" : "· auto playing ·"}
       </p>
     </div>
   );
 }
 
-function StackCard({ img, style, isTop }) {
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
+function FlipCard({ front, back, flipped }) {
+  const [frontLoaded, setFrontLoaded] = useState(false);
+  const [backLoaded, setBackLoaded] = useState(false);
+  const [frontError, setFrontError] = useState(false);
+  const [backError, setBackError] = useState(false);
+
+  const cardStyle = {
+    width: "240px",
+    height: "160px",
+    borderRadius: "16px",
+    overflow: "hidden",
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+    position: "absolute",
+    top: 0, left: 0,
+    width: "100%", height: "100%",
+    background: "rgba(255,255,255,0.04)",
+  };
+
+  const placeholder = (img) => (
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+      <div style={{ width: "40px", height: "40px", borderRadius: "10px", border: "1.5px dashed rgba(255,255,255,0.18)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+        </svg>
+      </div>
+      <span style={{ fontSize: "0.55rem", color: "rgba(255,255,255,0.18)", fontFamily: '"Space Mono", monospace', letterSpacing: "0.1em", textTransform: "uppercase" }}>{img.label}</span>
+    </div>
+  );
+
   return (
     <div style={{
-      position: 'absolute', top: 0, left: 0, width: '380px', height: '250px',
-      borderRadius: '18px', overflow: 'hidden', background: 'rgba(255,255,255,0.04)',
-      border: `1px solid ${isTop ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.08)'}`,
-      willChange: 'transform', ...style,
+      width: "240px", height: "160px",
+      perspective: "1000px",
+      flexShrink: 0,
     }}>
-      {!error ? (
-        <img src={img.src} alt={img.label} onLoad={() => setLoaded(true)} onError={() => setError(true)} draggable={false}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: 'none' }} />
-      ) : (
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.8rem' }}>
-          <div style={{ width: '52px', height: '52px', borderRadius: '13px', border: '1.5px dashed rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
-            </svg>
-          </div>
-          <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.18)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{img.label}</span>
+      <div style={{
+        position: "relative",
+        width: "100%", height: "100%",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1)",
+        transform: flipped ? "rotateX(180deg)" : "rotateX(0deg)",
+      }}>
+        {/* Front */}
+        <div style={{
+          ...cardStyle,
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
+        }}>
+          {!frontError ? (
+            <img src={front.src} alt={front.label}
+              onLoad={() => setFrontLoaded(true)} onError={() => setFrontError(true)}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
+            />
+          ) : placeholder(front)}
         </div>
-      )}
-      {isTop && (
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1rem 0.9rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)', pointerEvents: 'none' }}>
-          <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.7)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{img.label}</span>
+
+        {/* Back */}
+        <div style={{
+          ...cardStyle,
+          transform: "rotateX(180deg)",
+          border: "1px solid rgba(255,255,255,0.2)",
+          boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
+        }}>
+          {!backError ? (
+            <img src={back.src} alt={back.label}
+              onLoad={() => setBackLoaded(true)} onError={() => setBackError(true)}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
+            />
+          ) : placeholder(back)}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -681,7 +715,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
           {/* Landscape photo top ~55% */}
           <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
-              src="/images/profile.png"
+              src="/images/profile.jpg"
               alt="Diana"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
               onError={(e) => {
@@ -3683,12 +3717,12 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'gallery' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5.5rem', paddingBottom: '2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '3rem', paddingBottom: '2rem' }}>
             <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
               {/* Header */}
               <div
                 data-scroll-id="s40"
-                style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '1.5rem', ...scrollReveal('s40', null) }}
+                style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0', ...scrollReveal('s40', null) }}
               >
                 <h2 style={{
                   fontSize: 'clamp(2.5rem, 7vw, 4rem)',
@@ -3717,19 +3751,34 @@ export default function DesignerPortfolio() {
                   ))}
                 </h2>
                 <p style={{
-                  fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
-                  color: 'rgba(255,255,255,0.45)',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  fontFamily: '"Space Mono", monospace'
+                  fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
+                  color: 'rgba(255,255,255,0.65)',
+                  lineHeight: 1.7,
+                  maxWidth: '600px',
+                  margin: '0 auto',
+                  fontFamily: '"Inter", sans-serif',
                 }}>
-                  {t.gallery.subtitle}
+                  {t.gallery.description}
                 </p>
               </div>
 
-              {/* Stacked Cards */}
+              {/* Subtitle above images */}
+              <p style={{
+                fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
+                color: 'rgba(255,255,255,0.45)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                fontFamily: '"Space Mono", monospace',
+                textAlign: 'center',
+                marginBottom: '1.2rem',
+                marginTop: '0',
+              }}>
+                {t.gallery.subtitle}
+              </p>
+
+              {/* Flip Row */}
               <div data-scroll-id="s41" style={{ ...scrollReveal('s41', null) }}>
-                <GalleryStackedCards images={t.gallery.images} />
+                <GalleryFlipRow images={t.gallery.images} />
               </div>
             </div>
           </div>
