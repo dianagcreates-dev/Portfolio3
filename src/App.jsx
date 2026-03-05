@@ -14,12 +14,12 @@ const translations = {
       title: 'Generative Visuals',
       subtitle: 'AI-Prompted Image Explorations',
       images: [
-        { src: '/images/gallery/image1.mp4', label: 'Image 01', video: true },
-        { src: '/images/gallery/image2.png', label: 'Image 02' },
-        { src: '/images/gallery/image3.png', label: 'Image 03' },
-        { src: '/images/gallery/image4.mp4', label: 'Image 04', video: true },
-        { src: '/images/gallery/image5.png', label: 'Image 05' },
-        { src: '/images/gallery/image6.png', label: 'Image 06' },
+        { src: '/images/gallery/image1.jpg', label: 'Image 01' },
+        { src: '/images/gallery/image2.jpg', label: 'Image 02' },
+        { src: '/images/gallery/image3.jpg', label: 'Image 03' },
+        { src: '/images/gallery/image4.jpg', label: 'Image 04' },
+        { src: '/images/gallery/image5.jpg', label: 'Image 05' },
+        { src: '/images/gallery/image6.jpg', label: 'Image 06' },
       ]
     },
     home: {
@@ -276,10 +276,10 @@ const translations = {
       title: 'Generative Visuals',
       subtitle: 'KI-gestützte Bildexperimente',
       images: [
-        { src: '/images/gallery/image1.mp4', label: 'Bild 01', video: true },
+        { src: '/images/gallery/image1.png', label: 'Bild 01' },
         { src: '/images/gallery/image2.png', label: 'Bild 02' },
         { src: '/images/gallery/image3.png', label: 'Bild 03' },
-        { src: '/images/gallery/image4.mp4', label: 'Bild 04', video: true },
+        { src: '/images/gallery/image4.png', label: 'Bild 04' },
         { src: '/images/gallery/image5.png', label: 'Bild 05' },
         { src: '/images/gallery/image6.png', label: 'Bild 06' },
       ]
@@ -609,18 +609,8 @@ function StackCard({ img, style, isTop }) {
       willChange: 'transform', ...style,
     }}>
       {!error ? (
-        img.video ? (
-          <video
-            src={img.src}
-            autoPlay muted loop playsInline
-            onCanPlay={() => setLoaded(true)}
-            onError={() => setError(true)}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: 'none' }}
-          />
-        ) : (
         <img src={img.src} alt={img.label} onLoad={() => setLoaded(true)} onError={() => setError(true)} draggable={false}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: 'none' }} />
-        )
       ) : (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.8rem' }}>
           <div style={{ width: '52px', height: '52px', borderRadius: '13px', border: '1.5px dashed rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
