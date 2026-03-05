@@ -15,7 +15,7 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
+        { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
         { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
         { src: '/images/gallery/image3.jpg', label: 'Image 03' },
         { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
@@ -1437,30 +1437,42 @@ export default function DesignerPortfolio() {
           }}
         >
           <div style={{
+            position: 'relative',
             textAlign: 'center',
             padding: '3rem',
             background: 'rgba(255,255,255,0.1)',
             borderRadius: '20px',
             border: '2px solid rgba(255,255,255,0.3)',
-            maxWidth: '500px'
+            width: '420px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
+            {/* Music icon — top left corner */}
             <div style={{
-              fontSize: '3rem',
-              marginBottom: '1rem',
-              animation: 'pulse 2s ease-in-out infinite'
+              position: 'absolute',
+              top: '1.6rem',
+              left: '1.8rem',
+              fontSize: '2.5rem',
+              animation: 'pulse 2s ease-in-out infinite',
+              opacity: 0.7,
             }}>🎵</div>
+
             <h2 style={{
               fontSize: 'clamp(1.5rem, 4vw, 2rem)',
               color: '#ffffff',
-              marginBottom: '1rem',
-              fontFamily: '"Archivo Black", sans-serif'
+              marginBottom: '0.8rem',
+              fontFamily: '"Archivo Black", sans-serif',
+              margin: '0 0 0.8rem 0',
             }}>
               Click to Start
             </h2>
             <p style={{
-              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-              color: 'rgba(255,255,255,0.8)',
-              fontFamily: '"Inter", sans-serif'
+              fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+              color: 'rgba(255,255,255,0.6)',
+              fontFamily: '"Inter", sans-serif',
+              margin: 0,
             }}>
               Enable background music for the full experience
             </p>
