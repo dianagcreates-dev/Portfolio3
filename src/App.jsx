@@ -595,8 +595,8 @@ function FlipCard({ front, back, flipped }) {
   const [backError, setBackError] = useState(false);
 
   const cardStyle = {
-    width: "240px",
-    height: "160px",
+    width: "340px",
+    height: "220px",
     borderRadius: "16px",
     overflow: "hidden",
     backfaceVisibility: "hidden",
@@ -620,7 +620,7 @@ function FlipCard({ front, back, flipped }) {
 
   return (
     <div style={{
-      width: "240px", height: "160px",
+      width: "340px", height: "220px",
       perspective: "1000px",
       flexShrink: 0,
     }}>
