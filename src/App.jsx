@@ -25,7 +25,7 @@ const translations = {
     },
     home: {
       headline: 'Where Design Thinks',
-      subheadline: "I'm a Visual Designer & GenAI Specialist. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visual outputs that don't just look beautiful they have a purpose.",
+      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visual outputs that don't just look beautiful they have a purpose.",
       cta: 'View Projects'
     },
     work: {
@@ -288,7 +288,7 @@ const translations = {
     },
     home: {
       headline: 'Wo Design denkt',
-      subheadline: 'Ich bin Visual Designerin & GenAI-Spezialistin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
+      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
       cta: 'Projekte Ansehen'
     },
     work: {
@@ -529,8 +529,6 @@ const translations = {
 function GalleryFlipRow({ images }) {
   // images[0..2] = front, images[3..5] = back
   const [flipped, setFlipped] = useState([false, false, false]);
-  const [paused, setPaused] = useState(false);
-  const pausedRef = useRef(false);
   const cycleRef = useRef(null);
 
   const runCycle = () => {
@@ -540,20 +538,20 @@ function GalleryFlipRow({ images }) {
 
     delays.forEach((d, i) => {
       cycleRef.current = setTimeout(() => {
-        if (!pausedRef.current) setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
+        setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
       }, d);
     });
 
     unflipDelays.forEach((d, i) => {
       cycleRef.current = setTimeout(() => {
-        if (!pausedRef.current) setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
+        setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
       }, d);
     });
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!pausedRef.current) runCycle();
+      runCycle();
     }, 5500);
     runCycle();
     return () => { clearInterval(interval); };
@@ -561,11 +559,7 @@ function GalleryFlipRow({ images }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-      <div
-        onMouseEnter={() => { pausedRef.current = true; setPaused(true); }}
-        onMouseLeave={() => { pausedRef.current = false; setPaused(false); }}
-        style={{ display: "flex", gap: "1rem", alignItems: "center" }}
-      >
+      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
         {[0, 1, 2].map(i => (
           <FlipCard
             key={i}
@@ -575,15 +569,6 @@ function GalleryFlipRow({ images }) {
           />
         ))}
       </div>
-
-      <p style={{
-        fontSize: "0.65rem",
-        color: paused ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.3)",
-        fontFamily: '"Space Mono", monospace',
-        letterSpacing: "0.15em", textTransform: "uppercase", margin: 0, transition: "color 0.3s"
-      }}>
-        {paused ? "· paused ·" : "· auto playing ·"}
-      </p>
     </div>
   );
 }
@@ -735,7 +720,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
             {/* Name + occupation */}
             <div style={{ flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.35rem', color: '#ffffff', margin: '0 0 0.12rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1 }}>Diana</h3>
-              <p style={{ fontSize: '0.67rem', color: 'rgba(255,255,255,0.6)', margin: 0, fontFamily: '"Inter", sans-serif' }}>UX/UI Designer & AI Specialist</p>
+              <p style={{ fontSize: '0.67rem', color: 'rgba(255,255,255,0.6)', margin: 0, fontFamily: '"Inter", sans-serif' }}>UX/UI & Generative AI Designer</p>
             </div>
             {/* Vertical divider */}
             <div style={{ width: '1px', alignSelf: 'stretch', background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
