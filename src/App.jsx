@@ -3994,7 +3994,7 @@ export default function DesignerPortfolio() {
           position: 'fixed', bottom: '5.5rem', right: '2rem',
           zIndex: 9998,
           width: '340px',
-          height: '540px',
+          height: 'min(540px, calc(100vh - 8rem))',
           borderRadius: '20px',
           background: 'rgba(0,0,0,0.45)',
           backdropFilter: 'blur(12px)',
@@ -4036,6 +4036,7 @@ export default function DesignerPortfolio() {
             flex: 1, overflowY: 'auto', padding: '1rem',
             display: 'flex', flexDirection: 'column', gap: '0.75rem',
             scrollbarWidth: 'none',
+            minHeight: 0,
           }}>
             {orionMessages.map((msg, i) => (
               <div key={i} style={{
