@@ -3994,7 +3994,7 @@ export default function DesignerPortfolio() {
           position: 'fixed', bottom: '5.5rem', right: '2rem',
           zIndex: 9998,
           width: '340px',
-          maxHeight: '540px',
+          height: '540px',
           borderRadius: '20px',
           background: 'rgba(0,0,0,0.45)',
           backdropFilter: 'blur(12px)',
