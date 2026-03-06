@@ -4112,6 +4112,8 @@ export default function DesignerPortfolio() {
             display: 'flex', gap: '0.5rem', alignItems: 'center',
             flexShrink: 0,
             minHeight: '60px',
+            boxSizing: 'border-box',
+            width: '100%',
           }}>
             <input
               value={orionInput}
@@ -4120,6 +4122,7 @@ export default function DesignerPortfolio() {
               placeholder={language === 'de' ? "Frag über Diana…" : "Ask about Diana…"}
               style={{
                 flex: 1,
+                minWidth: 0,
                 background: 'rgba(255,255,255,0.06)',
                 border: '1px solid rgba(255,255,255,0.15)',
                 borderRadius: '50px',
@@ -4128,6 +4131,7 @@ export default function DesignerPortfolio() {
                 fontFamily: '"Inter", sans-serif',
                 outline: 'none',
                 transition: 'border-color 0.2s',
+                boxSizing: 'border-box',
               }}
               onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)'; }}
               onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
@@ -4136,20 +4140,21 @@ export default function DesignerPortfolio() {
               onClick={sendOrionMessage}
               disabled={orionLoading || !orionInput.trim()}
               style={{
-                width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
-                background: orionInput.trim() ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
+                width: '34px',
+                height: '34px',
+                minWidth: '34px',
+                borderRadius: '50%',
+                flexShrink: 0,
+                background: orionInput.trim() ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.08)',
                 border: '1px solid rgba(255,255,255,0.3)',
                 cursor: orionInput.trim() ? 'pointer' : 'default',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'all 0.25s ease', outline: 'none',
+                outline: 'none',
+                fontSize: '1rem',
+                color: 'rgba(255,255,255,0.8)',
+                fontFamily: 'sans-serif',
               }}
-              onMouseEnter={e => { if (orionInput.trim()) { e.currentTarget.style.background = 'rgba(255,255,255,0.35)'; e.currentTarget.style.transform = 'scale(1.08)'; } }}
-              onMouseLeave={e => { e.currentTarget.style.background = orionInput.trim() ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)'; e.currentTarget.style.transform = 'scale(1)'; }}
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
+            >↑</button>
           </div>
         </div>
       )}
