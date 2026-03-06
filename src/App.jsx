@@ -639,7 +639,7 @@ function FlipCard({ front, back, flipped }) {
   );
 }
 
-function IDCard({ emailLabel, linkedinLabel, active }) {
+function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -648,7 +648,8 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
     if (!active) return;
     const t1 = setTimeout(() => setFlipped(true), 800);
     const t2 = setTimeout(() => setFlipped(false), 2400);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t3 = setTimeout(() => { if (onFlipDone) onFlipDone(); }, 3200);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
@@ -824,9 +825,117 @@ export default function DesignerPortfolio() {
   const mouseTrailRef = useRef([]);
   const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
   const [visibleSections, setVisibleSections] = useState({});
+  const [orionOpen, setOrionOpen] = useState(false);
+  const [orionBubble, setOrionBubble] = useState(false);
+  const orionGreeting = {
+    en: "Hi! I'm Orion, Diana's assistant. How can I help you today?",
+    de: "Hallo! Ich bin Orion, Dianas Assistent. Wie kann ich dir heute helfen?"
+  };
+  const [orionMessages, setOrionMessages] = useState([
+    { role: 'assistant', text: orionGreeting['en'] }
+  ]);
+  const [orionInput, setOrionInput] = useState('');
+  const [orionLoading, setOrionLoading] = useState(false);
+  const orionBottomRef = useRef(null);
 
   // Get current translations
   const t = translations[language];
+
+  // Orion: scroll to bottom on new messages
+  useEffect(() => {
+    if (orionBottomRef.current) orionBottomRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [orionMessages, orionLoading]);
+
+  // Orion: reset chat when language changes
+  useEffect(() => {
+    setOrionMessages([{ role: 'assistant', text: orionGreeting[language] }]);
+    setOrionInput('');
+  }, [language]);
+
+  // Orion: close panel when leaving contact section
+  useEffect(() => {
+    if (activeSection !== 'contact') { setOrionOpen(false); setOrionBubble(false); }
+  }, [activeSection]);
+
+  // Orion: pre-written responses (no API/hosting needed)
+  const orionResponses = {
+    en: [
+      {
+        keys: ['collaborat', 'project', 'work together', 'partner', 'team up', 'freelance'],
+        reply: "Diana is always open to meaningful collaborations! Whether it's a brand, startup, or creative project, she brings her full energy and expertise to the table.\n\nThe best way to start is by reaching out at dianaxstudio@gmail.com — share a bit about your project and she'll get back to you."
+      },
+      {
+        keys: ['contact', 'details', 'email', 'reach', 'get in touch', 'linkedin', 'how to contact'],
+        reply: "Here's how to reach Diana:\n\n📧 dianaxstudio@gmail.com\n🔗 linkedin.com/in/dianaxstudio\n\nShe typically responds within 1–2 business days. Don't hesitate to reach out!"
+      },
+      {
+        keys: ['work', 'process', 'design', 'question', 'how does she', 'approach', 'method'],
+        reply: "Diana's process blends research, intuition, and generative AI tools to create purposeful design. She typically starts with understanding the brief deeply, then moves into exploration, prototyping, and refinement.\n\nIf you have a specific question about her work or process, feel free to email her at dianaxstudio@gmail.com!"
+      },
+      {
+        keys: ['job', 'opportunit', 'hire', 'recruit', 'position', 'role', 'full-time', 'part-time'],
+        reply: "Diana is open to exciting job opportunities — especially roles at the intersection of UX/UI design and Generative AI.\n\nFeel free to reach out with details about the role at dianaxstudio@gmail.com or connect on LinkedIn at linkedin.com/in/dianaxstudio."
+      },
+      {
+        keys: ['hello', 'hi ', 'hey', 'hola', 'good morning', 'good evening'],
+        reply: "Hey there! Great to connect. Is there something specific I can help you with today?"
+      },
+      {
+        keys: ['thank', 'thanks', 'great', 'awesome', 'perfect', 'cool'],
+        reply: "You're welcome! Feel free to reach out to Diana directly at dianaxstudio@gmail.com — she'd love to hear from you. 😊"
+      },
+    ],
+    de: [
+      {
+        keys: ['zusammenarbeit', 'projekt', 'zusammenarbeiten', 'partner', 'freelance'],
+        reply: "Diana ist immer offen für bedeutungsvolle Kooperationen! Egal ob Marke, Startup oder Kreativprojekt — sie bringt ihre volle Energie und Expertise ein.\n\nAm besten meldest du dich unter dianaxstudio@gmail.com — erzähl ihr etwas über dein Projekt und sie meldet sich bei dir."
+      },
+      {
+        keys: ['kontakt', 'details', 'email', 'erreichen', 'linkedin', 'wie kontaktiere'],
+        reply: "So erreichst du Diana:\n\n📧 dianaxstudio@gmail.com\n🔗 linkedin.com/in/dianaxstudio\n\nSie antwortet in der Regel innerhalb von 1–2 Werktagen. Zögere nicht, dich zu melden!"
+      },
+      {
+        keys: ['arbeit', 'prozess', 'design', 'frage', 'wie macht sie', 'ansatz', 'methode'],
+        reply: "Dianas Prozess verbindet Recherche, Intuition und generative KI-Tools, um zweckmäßiges Design zu schaffen. Sie beginnt damit, den Auftrag tiefgehend zu verstehen, und geht dann in Exploration, Prototyping und Verfeinerung über.\n\nBei spezifischen Fragen zu ihrer Arbeit schreib ihr gerne unter dianaxstudio@gmail.com!"
+      },
+      {
+        keys: ['job', 'stelle', 'einstellen', 'rekrutieren', 'position', 'vollzeit', 'teilzeit'],
+        reply: "Diana ist offen für spannende Jobangebote — besonders für Rollen an der Schnittstelle von UX/UI-Design und Generativer KI.\n\nMelde dich gerne mit Details zur Stelle unter dianaxstudio@gmail.com oder vernetze dich auf LinkedIn: linkedin.com/in/dianaxstudio."
+      },
+      {
+        keys: ['hallo', 'hi ', 'hey', 'guten morgen', 'guten abend', 'servus'],
+        reply: "Hallo! Schön, dass du hier bist. Womit kann ich dir heute helfen?"
+      },
+      {
+        keys: ['danke', 'super', 'toll', 'perfekt', 'cool', 'klasse'],
+        reply: "Gern geschehen! Du kannst Diana direkt unter dianaxstudio@gmail.com erreichen — sie freut sich auf deine Nachricht. 😊"
+      },
+    ]
+  };
+
+  const getOrionReply = (input, lang) => {
+    const lower = input.toLowerCase();
+    const responses = orionResponses[lang] || orionResponses['en'];
+    for (const item of responses) {
+      if (item.keys.some(k => lower.includes(k))) return item.reply;
+    }
+    return lang === 'de'
+      ? "Ich bin mir nicht sicher, ob ich das beantworten kann — aber du kannst Diana direkt unter dianaxstudio@gmail.com kontaktieren. Sie hilft dir gerne weiter!"
+      : "I'm not sure about that, but you can reach Diana directly at dianaxstudio@gmail.com — she'll be happy to help!";
+  };
+
+  const sendOrionMessage = () => {
+    const text = orionInput.trim();
+    if (!text || orionLoading) return;
+    setOrionInput('');
+    setOrionMessages(prev => [...prev, { role: 'user', text }]);
+    setOrionLoading(true);
+    setTimeout(() => {
+      const reply = getOrionReply(text, language);
+      setOrionMessages(prev => [...prev, { role: 'assistant', text: reply }]);
+      setOrionLoading(false);
+    }, 600 + Math.random() * 400);
+  };
 
   // Stable gallery images — same paths in both languages, defined once to avoid remounting
   const galleryImages = useRef(translations.en.gallery.images).current;
@@ -3820,11 +3929,228 @@ export default function DesignerPortfolio() {
             </h2>
 
             {/* ID Card Flip */}
-            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} active={activeSection === 'contact'} />
+            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} active={activeSection === 'contact'} onFlipDone={() => { setOrionBubble(true); setTimeout(() => setOrionBubble(false), 5000); }} />
           </div>
           </div>
         )}
       </div>
+
+      {/* ── ORION AI ASSISTANT (contact section only) ── */}
+      {activeSection === 'contact' && (
+        <>
+        {/* Orion speech bubble */}
+        {orionBubble && !orionOpen && (
+          <div onClick={() => { setOrionBubble(false); setOrionOpen(true); }} style={{
+            position: 'fixed', bottom: '2.25rem', right: '5.5rem',
+            zIndex: 9999,
+            background: 'rgba(0,0,0,0.55)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '14px 14px 4px 14px',
+            padding: '0.75rem 1rem',
+            maxWidth: '220px',
+            cursor: 'pointer',
+            animation: 'fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+          }}>
+            <p style={{ margin: 0, fontSize: '0.78rem', color: 'rgba(255,255,255,0.9)', fontFamily: '"Inter", sans-serif', lineHeight: 1.5 }}>
+              {language === 'de'
+                ? "Interesse an einer Zusammenarbeit mit Diana? Ich bin hier, um zu helfen 😊"
+                : "Interested in collaborating with Diana? I'm here to help 😊"}
+            </p>
+          </div>
+        )}
+
+        <button
+        onClick={() => setOrionOpen(o => !o)}
+        style={{
+          position: 'fixed', bottom: '2rem', right: '2rem',
+          zIndex: 9999,
+          width: '48px', height: '48px', borderRadius: '50%',
+          background: orionOpen ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.1)',
+          border: `1px solid ${orionOpen ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.25)'}`,
+          backdropFilter: 'blur(20px)',
+          cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: orionOpen ? 'none' : '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.05)',
+          transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)',
+          outline: 'none',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.2)'; e.currentTarget.style.transform = 'scale(1.1)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = orionOpen ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.1)'; e.currentTarget.style.transform = 'scale(1)'; }}
+        title="Ask Orion"
+      >
+        {orionOpen
+          ? <span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)', fontFamily: '"Space Mono",monospace' }}>✕</span>
+          : <span style={{ fontSize: '1.1rem', color: '#ffffff' }}>✦</span>}
+      </button>
+
+      {/* Chat panel */}
+      {orionOpen && (
+        <div style={{
+          position: 'fixed', bottom: '5.5rem', right: '2rem',
+          zIndex: 9998,
+          width: '340px',
+          maxHeight: '500px',
+          borderRadius: '20px',
+          background: 'rgba(0,0,0,0.45)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
+          display: 'flex', flexDirection: 'column',
+          overflow: 'hidden',
+          animation: 'fadeInUp 0.3s cubic-bezier(0.16,1,0.3,1)',
+        }}>
+          {/* Header */}
+          <div style={{
+            padding: '1rem 1.2rem',
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex', alignItems: 'center', gap: '0.75rem',
+            flexShrink: 0,
+          }}>
+            {/* Orion avatar */}
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '50%',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '1rem', flexShrink: 0,
+              backdropFilter: 'blur(20px)',
+            }}>✦</div>
+            <div>
+              <div style={{ fontSize: '0.95rem', fontWeight: 900, color: '#ffffff', fontFamily: '"Archivo Black", sans-serif', lineHeight: 1 }}>ORION</div>
+              <div style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.45)', fontFamily: '"Space Mono", monospace', letterSpacing: '0.15em', textTransform: 'uppercase', marginTop: '0.15rem' }}>{language === 'de' ? "Dianas KI-Assistent" : "Diana's AI Assistant"}</div>
+            </div>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,255,255,0.7)', boxShadow: '0 0 6px rgba(255,255,255,0.4)' }} />
+              <span style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.35)', fontFamily: '"Space Mono",monospace', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{language === 'de' ? 'aktiv' : 'online'}</span>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div style={{
+            flex: 1, overflowY: 'auto', padding: '1rem',
+            display: 'flex', flexDirection: 'column', gap: '0.75rem',
+            scrollbarWidth: 'none',
+          }}>
+            {orionMessages.map((msg, i) => (
+              <div key={i} style={{
+                display: 'flex',
+                flexDirection: msg.role === 'user' ? 'row-reverse' : 'row',
+                alignItems: 'flex-end', gap: '0.5rem',
+              }}>
+                {msg.role === 'assistant' && (
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', flexShrink: 0, color: '#fff' }}>✦</div>
+                )}
+                <div style={{
+                  maxWidth: '78%',
+                  padding: '0.6rem 0.85rem',
+                  borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                  background: msg.role === 'user'
+                    ? 'rgba(255,255,255,0.15)'
+                    : 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  fontSize: '0.78rem',
+                  color: msg.role === 'user' ? '#ffffff' : 'rgba(255,255,255,0.82)',
+                  fontFamily: '"Inter", sans-serif',
+                  lineHeight: 1.55,
+                  backdropFilter: 'blur(10px)',
+                }}>
+                  {msg.text.split('\n\n').map((para, pi) => (
+                    <p key={pi} style={{ margin: pi > 0 ? '0.6rem 0 0' : 0 }}>{para}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {orionLoading && (
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.5rem' }}>
+                <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', flexShrink: 0, color: '#fff' }}>✦</div>
+                <div style={{ padding: '0.6rem 0.85rem', borderRadius: '14px 14px 14px 4px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  {[0,1,2].map(d => (
+                    <div key={d} style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,255,255,0.6)', animation: `orionDot 1.2s ease-in-out ${d * 0.2}s infinite` }} />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div ref={orionBottomRef} />
+          </div>
+
+          {/* Suggested questions */}
+          {orionMessages.length > 0 && orionMessages[orionMessages.length - 1].role === 'assistant' && !orionLoading && (
+            <div style={{ padding: '0 1rem 0.75rem', display: 'flex', flexWrap: 'wrap', gap: '0.4rem', flexShrink: 0 }}>
+              {(language === 'de'
+                ? ["Interesse an einer Zusammenarbeit?", "Kontaktdaten von Diana?", "Frage zu ihrer Arbeit?", "Jobangebot?"]
+                : ["Interested in collaborating?", "Would you like Diana's contact details?", "Question about her work or process?", "Reaching out about a job opportunity?"]
+              ).map(q => (
+                <button key={q} onClick={() => { setOrionInput(q); setTimeout(() => { const text = q.trim(); if (!text) return; setOrionInput(''); setOrionMessages(prev => [...prev, { role: 'user', text }]); setOrionLoading(true); setTimeout(() => { const reply = getOrionReply(text, language); setOrionMessages(prev => [...prev, { role: 'assistant', text: reply }]); setOrionLoading(false); }, 600 + Math.random() * 400); }, 0); }} style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: '50px',
+                  padding: '0.3rem 0.75rem',
+                  fontSize: '0.6rem', color: 'rgba(255,255,255,0.6)',
+                  fontFamily: '"Space Mono", monospace',
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer', outline: 'none',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.14)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                >{q}</button>
+              ))}
+            </div>
+          )}
+
+          {/* Input area */}
+          <div style={{
+            padding: '0.75rem 1rem',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex', gap: '0.5rem', alignItems: 'center',
+            flexShrink: 0,
+          }}>
+            <input
+              value={orionInput}
+              onChange={e => setOrionInput(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') sendOrionMessage(); }}
+              placeholder={language === 'de' ? "Frag über Diana…" : "Ask about Diana…"}
+              style={{
+                flex: 1,
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: '50px',
+                padding: '0.55rem 1rem',
+                fontSize: '0.78rem', color: '#ffffff',
+                fontFamily: '"Inter", sans-serif',
+                outline: 'none',
+                transition: 'border-color 0.2s',
+              }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+            />
+            <button
+              onClick={sendOrionMessage}
+              disabled={orionLoading || !orionInput.trim()}
+              style={{
+                width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
+                background: orionInput.trim() ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.06)',
+                border: `1px solid ${orionInput.trim() ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.12)'}`,
+                cursor: orionInput.trim() ? 'pointer' : 'default',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 0.25s ease', outline: 'none',
+              }}
+              onMouseEnter={e => { if (orionInput.trim()) { e.currentTarget.style.background = 'rgba(255,255,255,0.3)'; e.currentTarget.style.transform = 'scale(1.08)'; } }}
+              onMouseLeave={e => { e.currentTarget.style.background = orionInput.trim() ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'scale(1)'; }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={orionInput.trim() ? '#ffffff' : 'rgba(255,255,255,0.3)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+      </>
+      )}
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -3958,6 +4284,11 @@ export default function DesignerPortfolio() {
             opacity: 0;
             transform: translateX(10px);
           }
+        }
+
+        @keyframes orionDot {
+          0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+          40% { transform: scale(1.2); opacity: 1; }
         }
 
         body {
