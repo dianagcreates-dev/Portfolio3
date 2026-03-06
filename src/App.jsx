@@ -835,6 +835,7 @@ export default function DesignerPortfolio() {
     { role: 'assistant', text: orionGreeting['en'] }
   ]);
   const [orionInput, setOrionInput] = useState('');
+  const [orionUsedQuestions, setOrionUsedQuestions] = useState([]);
   const [orionLoading, setOrionLoading] = useState(false);
   const orionBottomRef = useRef(null);
 
@@ -850,6 +851,7 @@ export default function DesignerPortfolio() {
   useEffect(() => {
     setOrionMessages([{ role: 'assistant', text: orionGreeting[language] }]);
     setOrionInput('');
+    setOrionUsedQuestions([]);
   }, [language]);
 
   // Orion: close panel when leaving contact section
@@ -4081,10 +4083,10 @@ export default function DesignerPortfolio() {
           {orionMessages.length > 0 && orionMessages[orionMessages.length - 1].role === 'assistant' && !orionLoading && (
             <div style={{ padding: '0 1rem 0.75rem', display: 'flex', flexWrap: 'wrap', gap: '0.4rem', flexShrink: 0 }}>
               {(language === 'de'
-                ? ["Interesse an einer Zusammenarbeit?", "Kontaktdaten von Diana?", "Frage zu ihrer Arbeit?", "Jobangebot?"]
-                : ["Interested in collaborating?", "Would you like Diana's contact details?", "Question about her work or process?", "Reaching out about a job opportunity?"]
-              ).map(q => (
-                <button key={q} onClick={() => { setOrionInput(q); setTimeout(() => { const text = q.trim(); if (!text) return; setOrionInput(''); setOrionMessages(prev => [...prev, { role: 'user', text }]); setOrionLoading(true); setTimeout(() => { const reply = getOrionReply(text, language); setOrionMessages(prev => [...prev, { role: 'assistant', text: reply }]); setOrionLoading(false); }, 600 + Math.random() * 400); }, 0); }} style={{
+                ? ["Ich möchte mit Diana zusammenarbeiten.", "Ich hätte gerne ihre Kontaktdaten.", "Ich habe eine Frage zu ihrer Arbeit.", "Ich melde mich wegen einer Stelle."]
+                : ["I'm interested in collaborating with Diana.", "I'd like her contact details.", "I have a question about her work or process.", "I'm reaching out about a job opportunity."]
+              ).filter(q => !orionUsedQuestions.includes(q)).map(q => (
+                <button key={q} onClick={() => { setOrionUsedQuestions(prev => [...prev, q]); setOrionInput(q); setTimeout(() => { const text = q.trim(); if (!text) return; setOrionInput(''); setOrionMessages(prev => [...prev, { role: 'user', text }]); setOrionLoading(true); setTimeout(() => { const reply = getOrionReply(text, language); setOrionMessages(prev => [...prev, { role: 'assistant', text: reply }]); setOrionLoading(false); }, 600 + Math.random() * 400); }, 0); }} style={{
                   background: 'rgba(255,255,255,0.06)',
                   border: '1px solid rgba(255,255,255,0.15)',
                   borderRadius: '50px',
