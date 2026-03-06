@@ -532,16 +532,13 @@ function GalleryFlipRow({ images }) {
   const cycleRef = useRef(null);
 
   const runCycle = () => {
-    // Flip cards 0,1,2 one by one left to right, then unflip one by one
     const delays = [0, 600, 1200];
     const unflipDelays = [2800, 3400, 4000];
-
     delays.forEach((d, i) => {
       cycleRef.current = setTimeout(() => {
         setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
       }, d);
     });
-
     unflipDelays.forEach((d, i) => {
       cycleRef.current = setTimeout(() => {
         setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
@@ -550,9 +547,7 @@ function GalleryFlipRow({ images }) {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      runCycle();
-    }, 5500);
+    const interval = setInterval(() => { runCycle(); }, 5500);
     runCycle();
     return () => { clearInterval(interval); };
   }, []);
@@ -561,12 +556,7 @@ function GalleryFlipRow({ images }) {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
         {[0, 1, 2].map(i => (
-          <FlipCard
-            key={i}
-            front={images[i]}
-            back={images[i + 3]}
-            flipped={flipped[i]}
-          />
+          <FlipCard key={i} front={images[i]} back={images[i + 3]} flipped={flipped[i]} />
         ))}
       </div>
     </div>
@@ -726,7 +716,7 @@ function IDCard({ emailLabel, linkedinLabel, active }) {
             <div style={{ width: '1px', alignSelf: 'stretch', background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
             {/* 7 skill tags wrapping into 2 rows */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.22rem', flex: 1, alignContent: 'center' }}>
-              {['Design', 'AI', 'Coding', 'Creative Tech', 'UX Research', 'Prototyping', 'Interaction'].map(h => (
+              {['Design', 'AI', 'Coding', 'Interaction', 'Creative Tech', 'UX Research', 'Prototyping', 'Prompt Engineering'].map(h => (
                 <span key={h} style={{ padding: '0.25rem 0.6rem', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.13)', fontSize: '0.68rem', color: 'rgba(255,255,255,0.65)', fontFamily: '"Space Mono", monospace', whiteSpace: 'nowrap' }}>{h}</span>
               ))}
             </div>
