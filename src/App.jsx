@@ -3994,7 +3994,7 @@ export default function DesignerPortfolio() {
           position: 'fixed', bottom: '5.5rem', right: '2rem',
           zIndex: 9998,
           width: '340px',
-          maxHeight: '500px',
+          maxHeight: '540px',
           borderRadius: '20px',
           background: 'rgba(0,0,0,0.45)',
           backdropFilter: 'blur(12px)',
@@ -4110,6 +4110,7 @@ export default function DesignerPortfolio() {
             borderTop: '1px solid rgba(255,255,255,0.08)',
             display: 'flex', gap: '0.5rem', alignItems: 'center',
             flexShrink: 0,
+            minHeight: '60px',
           }}>
             <input
               value={orionInput}
