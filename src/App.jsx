@@ -1479,6 +1479,39 @@ export default function DesignerPortfolio() {
     }
   };
 
+
+  // Orion bubble chime — soft minimal two-tone using Web Audio API
+  const playOrionChime = () => {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const ctx = audioContextRef.current || new AudioContext();
+
+      const now = ctx.currentTime;
+
+      // Two soft sine tones: a gentle rising interval (C5 → E5)
+      const notes = [523.25, 659.25];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.12);
+
+        // Soft attack, quick fade — barely noticeable
+        gain.gain.setValueAtTime(0, now + i * 0.12);
+        gain.gain.linearRampToValueAtTime(0.08, now + i * 0.12 + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.5);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.12);
+        osc.stop(now + i * 0.12 + 0.55);
+      });
+    } catch (e) {
+      // Fail silently — audio is non-essential
+    }
+  };
+
   // Toggle audio play/pause
   const toggleAudio = () => {
     if (audioRef.current) {
@@ -4007,7 +4040,7 @@ export default function DesignerPortfolio() {
             </h2>
 
             {/* ID Card Flip */}
-            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} active={activeSection === 'contact'} onFlipDone={() => { setOrionBubble(true); setTimeout(() => setOrionBubble(false), 5000); }} />
+            <IDCard emailLabel={t.contact.email} linkedinLabel={t.contact.linkedin} active={activeSection === 'contact'} onFlipDone={() => { setOrionBubble(true); playOrionChime(); setTimeout(() => setOrionBubble(false), 5000); }} />
           </div>
           </div>
         )}
