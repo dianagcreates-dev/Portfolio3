@@ -1366,9 +1366,7 @@ export default function DesignerPortfolio() {
         if (isDragging) {
           const deltaX = e.clientX - dragStartX;
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
-          // Compensate for carousel scale so drag speed feels consistent on all screen sizes
-          const carouselScale = Math.min(1, window.innerWidth / 1440);
-          const rotationDelta = (deltaX / carouselScale) * 0.5;
+          const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
           setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
         }
@@ -1395,40 +1393,26 @@ export default function DesignerPortfolio() {
 
   // Handle wheel scroll for section navigation
   useEffect(() => {
-    let accumulated = 0;
-    let resetTimer = null;
-    const THRESHOLD = 80; // require intentional scroll force — prevents MacBook trackpad inertia from auto-scrolling
-
     const handleWheel = (e) => {
       if (selectedProject) return;
-      e.preventDefault();
+
       if (isScrolling) return;
-
-      // Accumulate delta — MacBook trackpad sends many tiny values
-      accumulated += e.deltaY;
-
-      // Reset accumulator if user pauses
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => { accumulated = 0; }, 200);
-
-      if (Math.abs(accumulated) < THRESHOLD) return;
-
-      const direction = accumulated > 0 ? 1 : -1;
-      accumulated = 0; // reset after triggering
-
+      
+      e.preventDefault();
+      
       const sections = ['home', 'work', 'gallery', 'about', 'contact'];
       const currentIndex = sections.indexOf(activeSection);
-
-      if (direction > 0 && currentIndex < sections.length - 1) {
+      
+      if (e.deltaY > 0 && currentIndex < sections.length - 1) {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex + 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 900);
-      } else if (direction < 0 && currentIndex > 0) {
+        setTimeout(() => setIsScrolling(false), 800);
+      } else if (e.deltaY < 0 && currentIndex > 0) {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex - 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 900);
+        setTimeout(() => setIsScrolling(false), 800);
       }
     };
 
@@ -1438,7 +1422,6 @@ export default function DesignerPortfolio() {
     }
 
     return () => {
-      clearTimeout(resetTimer);
       if (contentEl) {
         contentEl.removeEventListener('wheel', handleWheel);
       }
@@ -2008,12 +1991,7 @@ export default function DesignerPortfolio() {
           </div>
         )}
 
-        {activeSection === 'work' && !selectedProject && (() => {
-          // Design reference: 1440px wide. Scale the entire carousel as one unit.
-          const DESIGN_W = 1440;
-          const carouselScale = Math.min(1, window.innerWidth / DESIGN_W);
-
-          return (
+        {activeSection === 'work' && !selectedProject && (
           <div style={{
             width: '100%',
             height: '80vh',
@@ -2024,7 +2002,7 @@ export default function DesignerPortfolio() {
             justifyContent: 'center',
             opacity: 0,
             animation: 'fadeIn 0.6s ease 0.1s forwards',
-            perspective: `${2000 * carouselScale}px`,
+            perspective: '2000px',
             cursor: isDragging ? 'grabbing' : 'grab',
             paddingBottom: '3rem'
           }}
@@ -2036,14 +2014,6 @@ export default function DesignerPortfolio() {
             setShowDragGuide(false);
           }}
           >
-            {/* Uniform scale wrapper — keeps all card sizes/radius identical, just shrinks as a unit */}
-            <div style={{
-              transform: `scale(${carouselScale})`,
-              transformOrigin: 'center center',
-              width: '100%',
-              height: '500px',
-              position: 'relative',
-            }}>
             <div 
               ref={carouselAnimationRef}
               data-carousel-container="true"
@@ -2061,7 +2031,6 @@ export default function DesignerPortfolio() {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
                 const radius = 450;
-                const cardWidth = 320;
                 
                 return (
                   <div
@@ -2070,7 +2039,7 @@ export default function DesignerPortfolio() {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
-                      width: `${cardWidth}px`,
+                      width: '320px',
                       transform: `
                         translate(-50%, -50%)
                         rotateY(${angle}deg)
@@ -2295,10 +2264,8 @@ export default function DesignerPortfolio() {
                 </div>
               )}
             </div>
-            </div>{/* end scale wrapper */}
           </div>
-          );
-        })()}
+        )}
 
         {activeSection === 'work' && selectedProject && (
           <div style={{
