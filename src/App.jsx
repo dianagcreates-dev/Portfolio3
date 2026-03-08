@@ -15,12 +15,12 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-        { src: '/images/gallery/image1.1.jpg', label: 'Image 01', prompt: 'A serene portrait of a young woman lying in a field of wildflowers, wearing a white lace dress. Soft sunlight illuminates her face, highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus.', tools: ['Midjourney v6', 'Adobe Lightroom'] },
-        { src: '/images/gallery/image2.1.jpg', label: 'Image 02', prompt: 'Fashion photo of a female model against a solid matte red backdrop. Wearing a long, black leather coat. She has a sharp black bob haircut with bangs and a neutral expression. Studio lighting is soft and even, with slight shadows for depth. Realistic skin textures, high-fashion. Cinematic composition, ghostly presence, faded film effect, with her hair and figure in strong motion blur.', tools: ['Midjourney v6', 'Canva'] },
-        { src: '/images/gallery/image3.jpg',   label: 'Image 03', prompt: 'Two creative professionals at a lively networking event exchange digital business cards via NFC, wearing expressive, artistic outfits with layered textures, bold silhouettes, and contemporary street-style inspired by design culture. One person holds a smartphone close to the other’s to tap for sharing, while both phones display completely blank white screens—no interface, icons, or reflections—inside a bright, airy space with natural daylight, large windows, plants, art installations, and a warm creative-industry atmosphere with shallow depth of field focusing on the hands and phones.', tools: ['Midjourney v6', 'Figma'] },
-        { src: '/images/gallery/image4.1.jpg', label: 'Image 04', prompt: 'A male model in a white suit stands out from the blurry people wearing turtlenecks and trousers, posing for the cover. the minimalist style captures his elegance with soft lighting, highlighting every detail of his face. he is surrounded by blurred figures dressed in suits, creating an atmosphere reminiscent of vogue magazine covers. her confident gaze adds to the overall visual appeal, making it stand out among models on social media', tools: ['Midjourney v6', 'Adobe Photoshop'] },
-        { src: '/images/gallery/image1.6.jpg', label: 'Image 05', prompt: 'Realistic close-up portrait of a young person with dewy glowing skin, natural flushed pink cheeks and glossy pink lips, intense direct gaze, one single thin wet black hair strand falling across the center of the face, no extra messy hair, smooth forehead, clean modern makeup, high detail skin texture, soft dramatic beauty lighting, plain white background, minimalistic editorial beauty photo, sharp focus, high-resolution, style photographic', tools: ['Midjourney v6', 'Canva'] },
-        { src: '/images/gallery/image5.1.jpg', label: 'Image 06', prompt: 'Next generation wearable technology device, transparent glass interface, glowing UI elements, sleek industrial design, soft volumetric lighting, minimal futuristic environment, premium technology product photography, hyper realistic materials, high contrast shadows', tools: ['Midjourney v6', 'Adobe Lightroom'] },
+        { src: '/images/gallery/image1.1.jpg', label: 'Image 01', prompt: 'A serene portrait of a young woman lying in a field of wildflowers, wearing a white lace dress. Soft sunlight illuminates her face, highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus.'', tools: ['Midjourney v6', 'Adobe Lightroom'] },
+        { src: '/images/gallery/image2.1.jpg', label: 'Image 02', prompt: 'Futuristic female silhouette wrapped in luminous holographic fabric, iridescent light refractions, chrome and glass environment, editorial fashion photography, ultra high detail, editorial lighting', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image3.jpg',   label: 'Image 03', prompt: 'Abstract generative art portrait, fragmented geometric face, digital glitch aesthetics, monochromatic with electric blue accents, data visualization overlay, tech meets haute couture', tools: ['Midjourney v6', 'Figma'] },
+        { src: '/images/gallery/image4.1.jpg', label: 'Image 04', prompt: 'Surrealist fashion campaign, model emerging from a blooming dark floral landscape, oversized sculptural garment, conceptual editorial, dreamlike atmosphere, film grain, soft warm tones', tools: ['Midjourney v6', 'Adobe Photoshop'] },
+        { src: '/images/gallery/image1.6.jpg', label: 'Image 05', prompt: 'Cyberpunk fashion portrait, neon-lit Tokyo alleyway, model in architectural black outfit with LED accents, rain-soaked reflective ground, cinematic wide shot, hyper-real detail', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image5.1.jpg', label: 'Image 06', prompt: 'Minimalist luxury brand visual, white sculptural garment on pale skin, negative space composition, high-key lighting, delicate shadow play, editorial perfume campaign aesthetic', tools: ['Midjourney v6', 'Adobe Lightroom'] },
       ]
     },
     home: {
@@ -553,21 +553,20 @@ function FlipCard({ front, back, language, initialDelay }) {
   const timerRef = useRef(null);
 
   useEffect(() => {
-    const FLIP_DURATION = 2200; // how long the back stays visible
-    const CYCLE = 5500;         // total cycle length
+    const FLIP_DURATION = 2200;
+    const CYCLE = 5500;
 
     const runCycle = (delay) => {
       timerRef.current = setTimeout(() => {
         if (hoveredRef.current) {
-          // Card is hovered — wait and retry without flipping
           runCycle(300);
           return;
         }
-        // Flip to back
         setFlipped(true);
         timerRef.current = setTimeout(() => {
-          setFlipped(false);
-          // Schedule next cycle after returning to front
+          if (!hoveredRef.current) {
+            setFlipped(false);
+          }
           runCycle(CYCLE - FLIP_DURATION);
         }, FLIP_DURATION);
       }, delay);
@@ -580,7 +579,6 @@ function FlipCard({ front, back, language, initialDelay }) {
   const handleMouseEnter = () => {
     hoveredRef.current = true;
     setHovered(true);
-    setFlipped(false); // snap to front so overlay shows on the image
   };
 
   const handleMouseLeave = () => {
@@ -682,12 +680,12 @@ function FlipCard({ front, back, language, initialDelay }) {
               WebkitLineClamp: 3,
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
-            }}>"{front.prompt}"</p>
+            }}>"{flipped ? back.prompt : front.prompt}"</p>
           </div>
 
           {/* Tools */}
           <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap" }}>
-            {(front.tools || []).map(tool => (
+            {(flipped ? back.tools : front.tools || []).map(tool => (
               <span key={tool} style={{
                 padding: "0.18rem 0.5rem",
                 borderRadius: "999px",
