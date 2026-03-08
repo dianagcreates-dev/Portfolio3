@@ -570,8 +570,6 @@ function FlipCard({ front, back, flipped }) {
   const [backError, setBackError] = useState(false);
 
   const cardStyle = {
-    width: "340px",
-    height: "220px",
     borderRadius: "16px",
     overflow: "hidden",
     backfaceVisibility: "hidden",
@@ -595,7 +593,7 @@ function FlipCard({ front, back, flipped }) {
 
   return (
     <div style={{
-      width: "340px", height: "220px",
+      width: "clamp(200px, 28vw, 340px)", height: "clamp(130px, 18vw, 220px)",
       perspective: "1000px",
       flexShrink: 0,
     }}>
@@ -653,7 +651,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
-  const W = 500, H = 300;
+  const W = 'min(500px, 90vw)', H = 'min(300px, 54vw)';
 
   const face = (extra = {}) => ({
     backfaceVisibility: 'hidden',
@@ -689,7 +687,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
 
           {/* Landscape photo top ~55% */}
-          <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
+          <div style={{ height: '55%', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
               src="/images/profile.jpg"
               alt="Diana"
@@ -790,6 +788,26 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
 
 
 export default function DesignerPortfolio() {
+  // ── Viewport & font normalization (cross-device consistency) ──────────────
+  useEffect(() => {
+    // 1. Ensure correct viewport meta tag
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      document.head.appendChild(meta);
+    }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0';
+
+    // 2. Lock root font-size so all rem values are anchored to 16px
+    document.documentElement.style.fontSize = '16px';
+
+    // 3. Prevent mobile/some-desktop browsers from auto-scaling text
+    document.documentElement.style.webkitTextSizeAdjust = '100%';
+    document.documentElement.style.textSizeAdjust = '100%';
+  }, []);
+  // ─────────────────────────────────────────────────────────────────────────
+
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
   const finalVideoRef = useRef(null);
@@ -838,18 +856,6 @@ export default function DesignerPortfolio() {
   const [orionUsedQuestions, setOrionUsedQuestions] = useState([]);
   const [orionLoading, setOrionLoading] = useState(false);
   const orionBottomRef = useRef(null);
-
-  // Lock layout to reference width (1440px) so it looks identical on all screens
-  useEffect(() => {
-    const REFERENCE_WIDTH = 1440;
-    const applyScale = () => {
-      const scale = window.innerWidth / REFERENCE_WIDTH;
-      document.documentElement.style.fontSize = `${16 * scale}px`;
-    };
-    applyScale();
-    window.addEventListener('resize', applyScale);
-    return () => window.removeEventListener('resize', applyScale);
-  }, []);
 
   // Get current translations
   const t = translations[language];
@@ -1541,7 +1547,7 @@ export default function DesignerPortfolio() {
             background: 'rgba(255,255,255,0.1)',
             borderRadius: '20px',
             border: '2px solid rgba(255,255,255,0.3)',
-            width: '420px',
+            width: 'clamp(280px, 90vw, 420px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -1968,7 +1974,7 @@ export default function DesignerPortfolio() {
               style={{
                 position: 'relative',
                 width: '100%',
-                height: '500px',
+                height: 'clamp(300px, 50vh, 500px)',
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${carouselRotation}deg)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
@@ -1978,7 +1984,8 @@ export default function DesignerPortfolio() {
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
-                const radius = 450;
+                const radius = Math.min(450, window.innerWidth * 0.35);
+                const cardW = Math.min(320, Math.max(220, window.innerWidth * 0.22));
                 
                 return (
                   <div
@@ -1987,7 +1994,7 @@ export default function DesignerPortfolio() {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
-                      width: '320px',
+                      width: `${cardW}px`,
                       transform: `
                         translate(-50%, -50%)
                         rotateY(${angle}deg)
@@ -2089,7 +2096,7 @@ export default function DesignerPortfolio() {
 
                       <div style={{ position: 'relative', zIndex: 2 }}>
                       <div style={{
-                        fontSize: '0.75rem',
+                        fontSize: 'clamp(0.65rem, 1vw, 0.75rem)',
                         color: 'rgba(255,255,255,0.6)',
                         marginBottom: '0.8rem',
                         textTransform: 'uppercase',
@@ -2101,7 +2108,7 @@ export default function DesignerPortfolio() {
                       </div>
                       
                       <h3 style={{
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.3rem, 2.2vw, 1.8rem)',
                         color: '#ffffff',
                         margin: '0 0 1rem 0',
                         fontWeight: 900,
@@ -2112,7 +2119,7 @@ export default function DesignerPortfolio() {
                       </h3>
                       
                       <p style={{
-                        fontSize: '0.95rem',
+                        fontSize: 'clamp(0.8rem, 1.2vw, 0.95rem)',
                         color: 'rgba(255,255,255,0.75)',
                         lineHeight: 1.6,
                         margin: 0,
@@ -4184,24 +4191,25 @@ export default function DesignerPortfolio() {
 
         html {
           font-size: 16px;
-          width: 100%;
-          height: 100%;
-          overflow: hidden !important;
-          position: fixed;
-          margin: 0;
-          padding: 0;
           -webkit-text-size-adjust: 100%;
-          -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
         }
 
-        body, #root {
+        html, body, #root {
           width: 100%;
           height: 100%;
           overflow: hidden !important;
-          position: fixed;
           margin: 0;
           padding: 0;
+        }
+
+        body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          font-size: 1rem;
+          overflow: hidden !important;
+          width: 100%;
+          height: 100%;
         }
 
         @keyframes fadeIn {
@@ -4323,13 +4331,6 @@ export default function DesignerPortfolio() {
         @keyframes orionDot {
           0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
           40% { transform: scale(1.2); opacity: 1; }
-        }
-
-        body {
-          overflow: hidden !important;
-          position: fixed;
-          width: 100%;
-          height: 100%;
         }
 
         button {
