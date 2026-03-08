@@ -15,12 +15,12 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
-        { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
-        { src: '/images/gallery/image3.jpg', label: 'Image 03' },
-        { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
-        { src: '/images/gallery/image1.6.jpg', label: 'Image 05' },
-        { src: '/images/gallery/image5.1.jpg', label: 'Image 06' },
+        { src: '/images/gallery/image1.1.jpg', label: 'Image 01', prompt: 'A serene portrait of a young woman lying in a field of wildflowers, wearing a white lace dress. Soft sunlight illuminates her face, highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus.', tools: ['Midjourney v6', 'Adobe Lightroom'] },
+        { src: '/images/gallery/image2.1.jpg', label: 'Image 02', prompt: 'Fashion photo of a female model against a solid matte red background. Wearing a long black leather coat. She has a sharp black bob haircut and neutral expression', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image3.jpg',   label: 'Image 03', prompt: 'Two creative professional at a lively networking event exchanging information wearing expressive,artistic outfits with layered textured', tools: ['Midjourney v6', 'Figma'] },
+        { src: '/images/gallery/image4.1.jpg', label: 'Image 04', prompt: 'A male model in a white suit stands out from the blurry people wearing turtlenecks and trousers, posing for the cover. the minimalist style captures his elegance with soft lighting, highlighting every detail of his face. he is surrounded by blurred figures dressed in suits, creating an atmosphere reminiscent of vogue magazine covers.', tools: ['Midjourney v6', 'Adobe Photoshop'] },
+        { src: '/images/gallery/image1.6.jpg', label: 'Image 05', prompt: 'Realistic close-up portrait of a young person with dewy glowing skin, natural flushed pink cheeks and glossy pink lips, intense direct gaze, one single thin wet black hair strand falling across the center of the face, no extra messy hair, smooth forehead, clean modern makeup, high detail skin texture, soft dramatic beauty lighting', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image5.1.jpg', label: 'Image 06', prompt: 'Next generation wearable technology device, transparent glass interface, glowing UI elements, sleek industrial design, soft volumetric lighting, minimal futuristic environment, premium technology product photography, hyper realistic materials, high contrast shadows', tools: ['Midjourney v6', 'Adobe Lightroom'] },
       ]
     },
     home: {
@@ -278,12 +278,12 @@ const translations = {
       subtitle: 'KI-gestützte Bildexperimente',
       description: 'Ein Raum, in dem KI zum kreativen Werkzeug wird, nicht zur Abkürzung. Jedes Visual ist bewusst geprompted, kuratiert und gestaltet, um die Grenzen des Designs zu erweitern. Hier treffen Mode, Technologie und Vorstellungskraft aufeinander.',
       images: [
-        { src: '/images/gallery/image1.png', label: 'Bild 01' },
-        { src: '/images/gallery/image2.png', label: 'Bild 02' },
-        { src: '/images/gallery/image3.png', label: 'Bild 03' },
-        { src: '/images/gallery/image4.png', label: 'Bild 04' },
-        { src: '/images/gallery/image5.png', label: 'Bild 05' },
-        { src: '/images/gallery/image6.png', label: 'Bild 06' },
+        { src: '/images/gallery/image1.png', label: 'Bild 01', prompt: 'A high-fashion editorial portrait of a woman in a structured avant-garde outfit, dramatic studio lighting, deep shadows, hyper-detailed fabric texture, Vogue aesthetic, dark background, cinematic mood', tools: ['Midjourney v6', 'Adobe Lightroom'] },
+        { src: '/images/gallery/image2.png', label: 'Bild 02', prompt: 'Futuristic female silhouette wrapped in luminous holographic fabric, iridescent light refractions, chrome and glass environment, editorial fashion photography, ultra high detail, editorial lighting', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image3.png', label: 'Bild 03', prompt: 'Abstract generative art portrait, fragmented geometric face, digital glitch aesthetics, monochromatic with electric blue accents, data visualization overlay, tech meets haute couture', tools: ['Midjourney v6', 'Figma'] },
+        { src: '/images/gallery/image4.png', label: 'Bild 04', prompt: 'Surrealist fashion campaign, model emerging from a blooming dark floral landscape, oversized sculptural garment, conceptual editorial, dreamlike atmosphere, film grain, soft warm tones', tools: ['Midjourney v6', 'Adobe Photoshop'] },
+        { src: '/images/gallery/image5.png', label: 'Bild 05', prompt: 'Cyberpunk fashion portrait, neon-lit Tokyo alleyway, model in architectural black outfit with LED accents, rain-soaked reflective ground, cinematic wide shot, hyper-real detail', tools: ['Midjourney v6', 'Canva'] },
+        { src: '/images/gallery/image6.png', label: 'Bild 06', prompt: 'Minimalist luxury brand visual, white sculptural garment on pale skin, negative space composition, high-key lighting, delicate shadow play, editorial perfume campaign aesthetic', tools: ['Midjourney v6', 'Adobe Lightroom'] },
       ]
     },
     home: {
@@ -526,50 +526,67 @@ const translations = {
   }
 };
 
-function GalleryFlipRow({ images }) {
-  // images[0..2] = front, images[3..5] = back
-  const [flipped, setFlipped] = useState([false, false, false]);
-  const cycleRef = useRef(null);
-
-  const runCycle = () => {
-    const delays = [0, 600, 1200];
-    const unflipDelays = [2800, 3400, 4000];
-    delays.forEach((d, i) => {
-      cycleRef.current = setTimeout(() => {
-        setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
-      }, d);
-    });
-    unflipDelays.forEach((d, i) => {
-      cycleRef.current = setTimeout(() => {
-        setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
-      }, d);
-    });
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => { runCycle(); }, 5500);
-    runCycle();
-    return () => { clearInterval(interval); };
-  }, []);
-
+function GalleryFlipRow({ images, language }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-      <div className="gallery-flip-row" style={{ display: "flex", gap: "clamp(0.4rem, 1.5vw, 1rem)", alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
-        {[0, 1, 2].map(i => (
-          <FlipCard key={i} front={images[i]} back={images[i + 3]} flipped={flipped[i]} />
-        ))}
-      </div>
+    <div style={{ display: "flex", justifyContent: "center", gap: "1rem", alignItems: "center" }}>
+      {[0, 1, 2].map(i => (
+        <FlipCard
+          key={i}
+          front={images[i]}
+          back={images[i + 3]}
+          language={language}
+          initialDelay={i * 600}
+        />
+      ))}
     </div>
   );
 }
 
-function FlipCard({ front, back, flipped }) {
+function FlipCard({ front, back, language, initialDelay }) {
   const [frontLoaded, setFrontLoaded] = useState(false);
   const [backLoaded, setBackLoaded] = useState(false);
   const [frontError, setFrontError] = useState(false);
   const [backError, setBackError] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const hoveredRef = useRef(false);
+  const timerRef = useRef(null);
 
-  const cardStyle = {
+  useEffect(() => {
+    const FLIP_DURATION = 2200;
+    const CYCLE = 5500;
+
+    const runCycle = (delay) => {
+      timerRef.current = setTimeout(() => {
+        if (hoveredRef.current) {
+          runCycle(300);
+          return;
+        }
+        setFlipped(true);
+        timerRef.current = setTimeout(() => {
+          if (!hoveredRef.current) {
+            setFlipped(false);
+          }
+          runCycle(CYCLE - FLIP_DURATION);
+        }, FLIP_DURATION);
+      }, delay);
+    };
+
+    runCycle(initialDelay);
+    return () => clearTimeout(timerRef.current);
+  }, [initialDelay]);
+
+  const handleMouseEnter = () => {
+    hoveredRef.current = true;
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoveredRef.current = false;
+    setHovered(false);
+  };
+
+  const cardFace = {
     borderRadius: "16px",
     overflow: "hidden",
     backfaceVisibility: "hidden",
@@ -592,11 +609,12 @@ function FlipCard({ front, back, flipped }) {
   );
 
   return (
-    <div style={{
-      width: "clamp(200px, 28vw, 340px)", height: "clamp(130px, 18vw, 220px)",
-      perspective: "1000px",
-      flexShrink: 0,
-    }}>
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{ position: "relative", width: "340px", height: "220px", flexShrink: 0, perspective: "1000px" }}
+    >
+      {/* Flip inner */}
       <div style={{
         position: "relative",
         width: "100%", height: "100%",
@@ -605,32 +623,80 @@ function FlipCard({ front, back, flipped }) {
         transform: flipped ? "rotateX(180deg)" : "rotateX(0deg)",
       }}>
         {/* Front */}
-        <div style={{
-          ...cardStyle,
-          border: "1px solid rgba(255,255,255,0.12)",
-          boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
-        }}>
-          {!frontError ? (
-            <img src={front.src} alt={front.label}
-              onLoad={() => setFrontLoaded(true)} onError={() => setFrontError(true)}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
-            />
-          ) : placeholder(front)}
+        <div style={{ ...cardFace, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)" }}>
+          {!frontError
+            ? <img src={front.src} alt={front.label} onLoad={() => setFrontLoaded(true)} onError={() => setFrontError(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }} />
+            : placeholder(front)}
         </div>
-
         {/* Back */}
+        <div style={{ ...cardFace, transform: "rotateX(180deg)", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)" }}>
+          {!backError
+            ? <img src={back.src} alt={back.label} onLoad={() => setBackLoaded(true)} onError={() => setBackError(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }} />
+            : placeholder(back)}
+        </div>
+      </div>
+
+      {/* Hover overlay — sits above both faces, outside 3D context */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        borderRadius: "16px",
+        overflow: "hidden",
+        pointerEvents: "none",
+        opacity: hovered ? 1 : 0,
+        transition: "opacity 0.3s ease",
+        zIndex: 10,
+      }}>
+        {/* Dark gradient */}
         <div style={{
-          ...cardStyle,
-          transform: "rotateX(180deg)",
-          border: "1px solid rgba(255,255,255,0.2)",
-          boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 100%)",
+        }} />
+
+        {/* Content */}
+        <div style={{
+          position: "absolute", inset: 0,
+          padding: "0.85rem 0.9rem",
+          display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: "0.55rem",
         }}>
-          {!backError ? (
-            <img src={back.src} alt={back.label}
-              onLoad={() => setBackLoaded(true)} onError={() => setBackError(true)}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
-            />
-          ) : placeholder(back)}
+          {/* Prompt */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.3rem" }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+              </svg>
+              <span style={{ fontSize: "0.45rem", color: "rgba(255,255,255,0.45)", fontFamily: '"Space Mono", monospace', letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                {language === 'de' ? 'KI-Prompt' : 'AI Prompt'}
+              </span>
+            </div>
+            <p style={{
+              margin: 0,
+              fontSize: "0.65rem",
+              color: "rgba(255,255,255,0.85)",
+              fontFamily: '"Inter", sans-serif',
+              lineHeight: 1.55,
+              fontStyle: "italic",
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}>"{flipped ? back.prompt : front.prompt}"</p>
+          </div>
+
+          {/* Tools */}
+          <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap" }}>
+            {(flipped ? back.tools : front.tools || []).map(tool => (
+              <span key={tool} style={{
+                padding: "0.18rem 0.5rem",
+                borderRadius: "999px",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                fontSize: "0.55rem",
+                color: "rgba(255,255,255,0.8)",
+                fontFamily: '"Space Mono", monospace',
+              }}>{tool}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -651,7 +717,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
-  const W = 'min(500px, 90vw)', H = 'clamp(220px, 25vw, 300px)';
+  const W = 500, H = 300;
 
   const face = (extra = {}) => ({
     backfaceVisibility: 'hidden',
@@ -687,7 +753,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
 
           {/* Landscape photo top ~55% */}
-          <div style={{ height: 'clamp(110px, 55%, 165px)', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
+          <div style={{ height: '165px', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
               src="/images/profile.jpg"
               alt="Diana"
@@ -806,6 +872,9 @@ export default function DesignerPortfolio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
   const [carouselRotation, setCarouselRotation] = useState(0);
+  const carouselRotationRef = useRef(0);  // tracks rotation without triggering re-renders
+  const isDraggingRef = useRef(false);    // mirror of isDragging for use inside rAF
+  const isHoveringRef = useRef(false);    // mirror of isHovering for use inside rAF
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -837,19 +906,37 @@ export default function DesignerPortfolio() {
   const [orionLoading, setOrionLoading] = useState(false);
   const orionBottomRef = useRef(null);
 
+  // ── VIEWPORT SCALE ──────────────────────────────────────────────────────────
+  // Everything is designed at 1440×900. We scale the entire app as one unit
+  // so it looks identical on every device — no layout shifts, no font size changes.
+  const DESIGN_W = 1440;
+  const DESIGN_H = 900;
+  const [vpScale, setVpScale] = useState(() => {
+    const sw = Math.min(1, window.innerWidth  / DESIGN_W);
+    const sh = Math.min(1, window.innerHeight / DESIGN_H);
+    return Math.min(sw, sh);
+  });
+
+  useEffect(() => {
+    // Ensure browser doesn't do its own scaling
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'viewport'; document.head.appendChild(meta); }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    // Lock root font size so rem units don't vary across browsers/OS settings
+    document.documentElement.style.fontSize = '16px';
+
+    const update = () => {
+      const sw = Math.min(1, window.innerWidth  / DESIGN_W);
+      const sh = Math.min(1, window.innerHeight / DESIGN_H);
+      setVpScale(Math.min(sw, sh));
+    };
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  // ─────────────────────────────────────────────────────────────────────────────
+
   // Get current translations
   const t = translations[language];
-
-  // Ensure correct viewport meta for consistent rendering across devices
-  useEffect(() => {
-    let meta = document.querySelector('meta[name="viewport"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'viewport';
-      document.head.appendChild(meta);
-    }
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-  }, []);
 
   // Orion: scroll to bottom on new messages
   useEffect(() => {
@@ -1055,12 +1142,13 @@ export default function DesignerPortfolio() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let width = 1440;
+    let height = 900;
 
     const resizeCanvas = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      // Canvas always renders at design dimensions — CSS scaling handles display
+      width = 1440;
+      height = 900;
       canvas.width = width;
       canvas.height = height;
     };
@@ -1250,8 +1338,8 @@ export default function DesignerPortfolio() {
     const currentPos = { x: 0, y: 0 };
     
     const handleMouseMove = (e) => {
-      targetPos.x = e.clientX;
-      targetPos.y = e.clientY;
+      targetPos.x = e.clientX / vpScale;
+      targetPos.y = e.clientY / vpScale;
     };
 
     const smoothUpdate = () => {
@@ -1278,49 +1366,50 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Carousel auto-rotation (continuous, doesn't reset)
+  // Carousel auto-rotation — directly mutates DOM to avoid React re-renders causing flicker
   useEffect(() => {
-    if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering) {
-      let animationId;
-      const rotationSpeed = 360 / 30000;
-      let lastTime = Date.now();
-      
-      const animate = () => {
-        const currentTime = Date.now();
-        const deltaTime = currentTime - lastTime;
-        lastTime = currentTime;
-        
-        setCarouselRotation(prev => prev + (deltaTime * rotationSpeed));
-        animationId = requestAnimationFrame(animate);
-      };
-      
+    if (activeSection !== 'work' || selectedProject) return;
+
+    const rotationSpeed = 360 / 30000;
+    let lastTime = performance.now();
+    let animationId;
+
+    const animate = (now) => {
+      const deltaTime = now - lastTime;
+      lastTime = now;
+
+      if (!isDraggingRef.current && !isHoveringRef.current) {
+        carouselRotationRef.current = (carouselRotationRef.current + deltaTime * rotationSpeed) % 360;
+        setCarouselRotation(carouselRotationRef.current);
+      }
+
       animationId = requestAnimationFrame(animate);
-      
-      return () => {
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      };
-    }
-  }, [activeSection, selectedProject, isDragging, isHovering]);
+    };
+
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
+  }, [activeSection, selectedProject]);
 
   // Carousel drag control only (no auto-rotation)
   useEffect(() => {
     if (activeSection === 'work' && !selectedProject) {
       const handleMouseMove = (e) => {
         if (isDragging) {
-          const deltaX = e.clientX - dragStartX;
+          const deltaX = (e.clientX / vpScale) - dragStartX;
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
           const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
-          setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
+          const finalRotation = newRotation < 0 ? newRotation + 360 : newRotation;
+          carouselRotationRef.current = finalRotation;
+          setCarouselRotation(finalRotation);
         }
       };
 
       const handleMouseUp = () => {
         if (isDragging) {
           setIsDragging(false);
-          setDragStartRotation(carouselRotation);
+          isDraggingRef.current = false;
+          setDragStartRotation(carouselRotationRef.current);
         }
       };
 
@@ -1446,13 +1535,34 @@ export default function DesignerPortfolio() {
     { id: 'contact', label: t.nav.contact }
   ];
 
+  // Mouse coords need to be adjusted for scale so interactions stay accurate
+  const scaleMouseCoords = (clientX, clientY) => ({
+    x: clientX / vpScale,
+    y: clientY / vpScale,
+  });
+
   return (
+    // Outer shell — always fills the real viewport, centers the scaled app
     <div style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
+      top: 0, left: 0,
       width: '100vw',
       height: '100vh',
+      overflow: 'hidden',
+      background: '#000',
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+    }}>
+    {/* Inner shell — always DESIGN_W × DESIGN_H, scaled to fit */}
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: `${DESIGN_W}px`,
+      height: `${DESIGN_H}px`,
+      transform: `scale(${vpScale})`,
+      transformOrigin: 'top left',
       overflow: 'hidden',
       margin: 0,
       padding: 0,
@@ -1726,9 +1836,7 @@ export default function DesignerPortfolio() {
             alignItems: 'center',
             height: '40px',
             marginLeft: '1rem',
-            padding: '0 0.5rem',
-            overflow: 'hidden',
-            maxWidth: 'clamp(0px, 8vw, 80px)',
+            padding: '0 0.5rem'
           }}>
             {frequencyData.slice(0, 20).map((value, i) => {
               const normalizedHeight = (value / 255) * 100;
@@ -1956,8 +2064,9 @@ export default function DesignerPortfolio() {
           onMouseDown={(e) => {
             dragMovedRef.current = false;
             setIsDragging(true);
-            setDragStartX(e.clientX);
-            setDragStartRotation(carouselRotation);
+            isDraggingRef.current = true;
+            setDragStartX(e.clientX / vpScale);
+            setDragStartRotation(carouselRotationRef.current);
             setShowDragGuide(false);
           }}
           >
@@ -1967,17 +2076,18 @@ export default function DesignerPortfolio() {
               style={{
                 position: 'relative',
                 width: '100%',
-                height: 'clamp(300px, 50vh, 500px)',
+                height: '500px',
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${carouselRotation}deg)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                willChange: 'transform',
                 userSelect: 'none'
               }}
             >
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
-                const radius = Math.min(450, window.innerWidth * 0.35);
+                const radius = 450;
                 
                 return (
                   <div
@@ -1986,7 +2096,7 @@ export default function DesignerPortfolio() {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
-                      width: 'clamp(220px, 25vw, 320px)',
+                      width: '320px',
                       transform: `
                         translate(-50%, -50%)
                         rotateY(${angle}deg)
@@ -2011,6 +2121,7 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
                         e.currentTarget.style.transform = 'scale(1.05)';
                         setIsHovering(true);
+                        isHoveringRef.current = true;
                         setHoveredProjectId(project.id);
                       }}
                       onMouseLeave={(e) => {
@@ -2019,11 +2130,11 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.2)';
                         e.currentTarget.style.transform = 'scale(1)';
                         setIsHovering(false);
+                        isHoveringRef.current = false;
                         setHoveredProjectId(null);
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        backdropFilter: 'blur(30px)',
+                        background: 'rgba(20,20,30,0.75)',
                         border: '1px solid rgba(255,255,255,0.15)',
                         borderRadius: '20px',
                         padding: '2rem',
@@ -2032,6 +2143,7 @@ export default function DesignerPortfolio() {
                         position: 'relative',
                         overflow: 'hidden',
                         transformStyle: 'preserve-3d',
+                        willChange: 'transform',
                         boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
                       }}
                     >
@@ -3889,7 +4001,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} />
+                <GalleryFlipRow images={galleryImages} language={language} />
               </div>
             </div>
           </div>
@@ -4331,35 +4443,8 @@ export default function DesignerPortfolio() {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-
-        /* ── Cross-device consistency ── */
-
-        /* Ensure touch devices use mobile-sized hit targets */
-        button, [role="button"] {
-          touch-action: manipulation;
-        }
-
-        /* Prevent text size adjustment on mobile after orientation change */
-        html {
-          -webkit-text-size-adjust: 100%;
-          text-size-adjust: 100%;
-        }
-
-        /* Responsive nav: collapse nav labels on very small screens */
-        @media (max-width: 640px) {
-          nav {
-            flex-wrap: wrap;
-            gap: 0.5rem;
-          }
-        }
-
-        /* On small screens reduce gallery flip cards gap */
-        @media (max-width: 900px) {
-          .gallery-flip-row {
-            gap: 0.5rem !important;
-          }
-        }
       `}</style>
-    </div>
+    </div>{/* end inner design shell */}
+    </div>{/* end outer viewport shell */}
   );
 }
