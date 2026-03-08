@@ -906,6 +906,35 @@ export default function DesignerPortfolio() {
   const [orionLoading, setOrionLoading] = useState(false);
   const orionBottomRef = useRef(null);
 
+  // ── VIEWPORT SCALE ──────────────────────────────────────────────────────────
+  // Everything is designed at 1440×900. We scale the entire app as one unit
+  // so it looks identical on every device — no layout shifts, no font size changes.
+  const DESIGN_W = 1440;
+  const DESIGN_H = 900;
+  const [vpScale, setVpScale] = useState(() => {
+    const sw = Math.min(1, window.innerWidth  / DESIGN_W);
+    const sh = Math.min(1, window.innerHeight / DESIGN_H);
+    return Math.min(sw, sh);
+  });
+
+  useEffect(() => {
+    // Ensure browser doesn't do its own scaling
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'viewport'; document.head.appendChild(meta); }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    // Lock root font size so rem units don't vary across browsers/OS settings
+    document.documentElement.style.fontSize = '16px';
+
+    const update = () => {
+      const sw = Math.min(1, window.innerWidth  / DESIGN_W);
+      const sh = Math.min(1, window.innerHeight / DESIGN_H);
+      setVpScale(Math.min(sw, sh));
+    };
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  // ─────────────────────────────────────────────────────────────────────────────
+
   // Get current translations
   const t = translations[language];
 
@@ -1113,12 +1142,13 @@ export default function DesignerPortfolio() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let width = 1440;
+    let height = 900;
 
     const resizeCanvas = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      // Canvas always renders at design dimensions — CSS scaling handles display
+      width = 1440;
+      height = 900;
       canvas.width = width;
       canvas.height = height;
     };
@@ -1308,8 +1338,8 @@ export default function DesignerPortfolio() {
     const currentPos = { x: 0, y: 0 };
     
     const handleMouseMove = (e) => {
-      targetPos.x = e.clientX;
-      targetPos.y = e.clientY;
+      targetPos.x = e.clientX / vpScale;
+      targetPos.y = e.clientY / vpScale;
     };
 
     const smoothUpdate = () => {
@@ -1365,7 +1395,7 @@ export default function DesignerPortfolio() {
     if (activeSection === 'work' && !selectedProject) {
       const handleMouseMove = (e) => {
         if (isDragging) {
-          const deltaX = e.clientX - dragStartX;
+          const deltaX = (e.clientX / vpScale) - dragStartX;
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
           const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
@@ -1505,13 +1535,34 @@ export default function DesignerPortfolio() {
     { id: 'contact', label: t.nav.contact }
   ];
 
+  // Mouse coords need to be adjusted for scale so interactions stay accurate
+  const scaleMouseCoords = (clientX, clientY) => ({
+    x: clientX / vpScale,
+    y: clientY / vpScale,
+  });
+
   return (
+    // Outer shell — always fills the real viewport, centers the scaled app
     <div style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
+      top: 0, left: 0,
       width: '100vw',
       height: '100vh',
+      overflow: 'hidden',
+      background: '#000',
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+    }}>
+    {/* Inner shell — always DESIGN_W × DESIGN_H, scaled to fit */}
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: `${DESIGN_W}px`,
+      height: `${DESIGN_H}px`,
+      transform: `scale(${vpScale})`,
+      transformOrigin: 'top left',
       overflow: 'hidden',
       margin: 0,
       padding: 0,
@@ -2014,7 +2065,7 @@ export default function DesignerPortfolio() {
             dragMovedRef.current = false;
             setIsDragging(true);
             isDraggingRef.current = true;
-            setDragStartX(e.clientX);
+            setDragStartX(e.clientX / vpScale);
             setDragStartRotation(carouselRotationRef.current);
             setShowDragGuide(false);
           }}
@@ -4393,6 +4444,7 @@ export default function DesignerPortfolio() {
           scrollbar-width: none;
         }
       `}</style>
-    </div>
+    </div>{/* end inner design shell */}
+    </div>{/* end outer viewport shell */}
   );
 }
