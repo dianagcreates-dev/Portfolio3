@@ -660,6 +660,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   const face = (extra = {}) => ({
     backfaceVisibility: 'hidden',
     WebkitBackfaceVisibility: 'hidden',
+    MozBackfaceVisibility: 'hidden',
     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
     background: 'rgba(255,255,255,0)',
     backdropFilter: 'none',
@@ -668,6 +669,10 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
     boxShadow: 'none',
     overflow: 'hidden',
     display: 'flex',
+    // Promote each face to its own GPU layer so Safari hides the back correctly
+    willChange: 'transform',
+    WebkitTransform: 'translateZ(0)',
+    transform: 'translateZ(0)',
     ...extra,
   });
 
@@ -675,13 +680,21 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
     <div
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
-      style={{ width: W, height: H, margin: '0 auto', perspective: '1200px', cursor: 'default' }}
+      style={{
+        width: W, height: H, margin: '0 auto',
+        perspective: '1200px',
+        WebkitPerspective: '1200px',
+        cursor: 'default',
+      }}
     >
       <div style={{
         position: 'relative', width: '100%', height: '100%',
-        transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d',
+        transformStyle: 'preserve-3d',
+        WebkitTransformStyle: 'preserve-3d',
         transition: 'transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1)',
+        WebkitTransition: '-webkit-transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1)',
         transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+        WebkitTransform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
       }}>
 
         {/* FRONT */}
@@ -729,7 +742,8 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
         {/* BACK */}
         <div style={face({
           border: '1px solid rgba(255,255,255,0.15)',
-          transform: 'rotateY(180deg)',
+          transform: 'rotateY(180deg) translateZ(0)',
+          WebkitTransform: 'rotateY(180deg) translateZ(0)',
           flexDirection: 'column',
           padding: '1.2rem 1.6rem',
           justifyContent: 'space-between',
