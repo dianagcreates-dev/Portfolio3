@@ -597,6 +597,8 @@ function FlipCard({ front, back, flipped }) {
     <div style={{
       width: "340px", height: "220px",
       perspective: "1000px",
+      WebkitPerspective: "1000px",
+      isolation: "isolate",
       flexShrink: 0,
     }}>
       <div style={{
@@ -1273,17 +1275,24 @@ export default function DesignerPortfolio() {
       targetPos.y = e.clientY / (window.innerWidth / DESIGN_WIDTH);
     };
 
+    const prevPos = { x: 0, y: 0 };
     const smoothUpdate = () => {
       const smoothing = 0.1;
       
       currentPos.x += (targetPos.x - currentPos.x) * smoothing;
       currentPos.y += (targetPos.y - currentPos.y) * smoothing;
-      
-      setMousePosition({ x: currentPos.x, y: currentPos.y });
-      
-      const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
-      mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
-      setMouseTrail(mouseTrailRef.current);
+
+      const dx = Math.abs(currentPos.x - prevPos.x);
+      const dy = Math.abs(currentPos.y - prevPos.y);
+
+      if (dx > 0.5 || dy > 0.5) {
+        prevPos.x = currentPos.x;
+        prevPos.y = currentPos.y;
+        setMousePosition({ x: currentPos.x, y: currentPos.y });
+        const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
+        mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
+        setMouseTrail(mouseTrailRef.current);
+      }
       
       animationFrameId = requestAnimationFrame(smoothUpdate);
     };
@@ -1359,9 +1368,11 @@ export default function DesignerPortfolio() {
   useEffect(() => {
     const handleWheel = (e) => {
       if (selectedProject) return;
-
       if (isScrolling) return;
-      
+
+      // Ignore tiny inertia/momentum scroll events from Safari macOS trackpad
+      if (Math.abs(e.deltaY) < 10) return;
+
       e.preventDefault();
       
       const sections = ['home', 'work', 'gallery', 'about', 'contact'];
@@ -1371,12 +1382,12 @@ export default function DesignerPortfolio() {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex + 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 800);
+        setTimeout(() => setIsScrolling(false), 1200);
       } else if (e.deltaY < 0 && currentIndex > 0) {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex - 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 800);
+        setTimeout(() => setIsScrolling(false), 1200);
       }
     };
 
@@ -1971,6 +1982,8 @@ export default function DesignerPortfolio() {
             opacity: 0,
             animation: 'fadeIn 0.6s ease 0.1s forwards',
             perspective: '2000px',
+            WebkitPerspective: '2000px',
+            isolation: 'isolate',
             cursor: isDragging ? 'grabbing' : 'grab',
             paddingBottom: '3rem'
           }}
@@ -1990,8 +2003,10 @@ export default function DesignerPortfolio() {
                 width: '100%',
                 height: '500px',
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${carouselRotation}deg)`,
+                transform: `rotateY(${carouselRotation}deg) translateZ(0)`,
+                WebkitTransform: `rotateY(${carouselRotation}deg) translateZ(0)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                willChange: 'transform',
                 userSelect: 'none'
               }}
             >
