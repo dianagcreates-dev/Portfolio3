@@ -1306,53 +1306,69 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Carousel auto-rotation (continuous, doesn't reset)
+  // Carousel rotation stored in a ref — avoids React re-renders on every frame
+  const carouselRotationRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartRotationRef = useRef(0);
+
+  useEffect(() => { isDraggingRef.current = isDragging; }, [isDragging]);
+
+  // Apply rotation directly to DOM — no setState, no re-render, no flicker
+  const applyCarouselRotation = (deg) => {
+    carouselRotationRef.current = deg;
+    if (carouselAnimationRef.current) {
+      const t = `rotateY(${deg}deg) translateZ(0)`;
+      carouselAnimationRef.current.style.transform = t;
+      carouselAnimationRef.current.style.webkitTransform = t;
+    }
+  };
+
+  // Carousel auto-rotation — bypasses React state entirely
   useEffect(() => {
     if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering) {
       let animationId;
       const rotationSpeed = 360 / 30000;
       let lastTime = Date.now();
-      
+
       const animate = () => {
         const currentTime = Date.now();
         const deltaTime = currentTime - lastTime;
         lastTime = currentTime;
-        
-        setCarouselRotation(prev => prev + (deltaTime * rotationSpeed));
+        const next = (carouselRotationRef.current + deltaTime * rotationSpeed) % 360;
+        applyCarouselRotation(next);
         animationId = requestAnimationFrame(animate);
       };
-      
+
       animationId = requestAnimationFrame(animate);
-      
-      return () => {
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      };
+      return () => { if (animationId) cancelAnimationFrame(animationId); };
     }
   }, [activeSection, selectedProject, isDragging, isHovering]);
 
-  // Carousel drag control only (no auto-rotation)
+  // Carousel drag — also bypasses React state for smooth dragging
   useEffect(() => {
     if (activeSection === 'work' && !selectedProject) {
       const handleMouseMove = (e) => {
-        if (isDragging) {
-          const deltaX = e.clientX - dragStartX;
+        if (isDraggingRef.current) {
+          const deltaX = e.clientX - dragStartXRef.current;
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
-          const rotationDelta = deltaX * 0.5;
-          const newRotation = (dragStartRotation + rotationDelta) % 360;
-          setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
+          let newRotation = (dragStartRotationRef.current + deltaX * 0.5) % 360;
+          if (newRotation < 0) newRotation += 360;
+          applyCarouselRotation(newRotation);
         }
       };
 
       const handleMouseUp = () => {
-        if (isDragging) {
+        if (isDraggingRef.current) {
           setIsDragging(false);
-          setDragStartRotation(carouselRotation);
+          setDragStartRotation(carouselRotationRef.current);
+          dragStartRotationRef.current = carouselRotationRef.current;
         }
       };
 
       if (isDragging) {
+        dragStartXRef.current = dragStartX;
+        dragStartRotationRef.current = dragStartRotation;
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
       }
@@ -1362,7 +1378,7 @@ export default function DesignerPortfolio() {
         window.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, dragStartX, dragStartRotation, carouselRotation, activeSection, selectedProject]);
+  }, [isDragging, dragStartX, dragStartRotation, activeSection, selectedProject]);
 
   // Handle wheel scroll for section navigation
   useEffect(() => {
@@ -2003,9 +2019,10 @@ export default function DesignerPortfolio() {
                 width: '100%',
                 height: '500px',
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${carouselRotation}deg) translateZ(0)`,
-                WebkitTransform: `rotateY(${carouselRotation}deg) translateZ(0)`,
-                transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                WebkitTransformStyle: 'preserve-3d',
+                transform: `rotateY(0deg) translateZ(0)`,
+                WebkitTransform: `rotateY(0deg) translateZ(0)`,
+                transition: isDragging ? 'none' : 'none',
                 willChange: 'transform',
                 userSelect: 'none'
               }}
