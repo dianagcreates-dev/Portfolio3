@@ -1366,7 +1366,9 @@ export default function DesignerPortfolio() {
         if (isDragging) {
           const deltaX = e.clientX - dragStartX;
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
-          const rotationDelta = deltaX * 0.5;
+          // Compensate for carousel scale so drag speed feels consistent on all screen sizes
+          const carouselScale = Math.min(1, window.innerWidth / 1440);
+          const rotationDelta = (deltaX / carouselScale) * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
           setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
         }
@@ -2006,7 +2008,12 @@ export default function DesignerPortfolio() {
           </div>
         )}
 
-        {activeSection === 'work' && !selectedProject && (
+        {activeSection === 'work' && !selectedProject && (() => {
+          // Design reference: 1440px wide. Scale the entire carousel as one unit.
+          const DESIGN_W = 1440;
+          const carouselScale = Math.min(1, window.innerWidth / DESIGN_W);
+
+          return (
           <div style={{
             width: '100%',
             height: '80vh',
@@ -2017,7 +2024,7 @@ export default function DesignerPortfolio() {
             justifyContent: 'center',
             opacity: 0,
             animation: 'fadeIn 0.6s ease 0.1s forwards',
-            perspective: '2000px',
+            perspective: `${2000 * carouselScale}px`,
             cursor: isDragging ? 'grabbing' : 'grab',
             paddingBottom: '3rem'
           }}
@@ -2029,13 +2036,21 @@ export default function DesignerPortfolio() {
             setShowDragGuide(false);
           }}
           >
+            {/* Uniform scale wrapper — keeps all card sizes/radius identical, just shrinks as a unit */}
+            <div style={{
+              transform: `scale(${carouselScale})`,
+              transformOrigin: 'center center',
+              width: '100%',
+              height: '500px',
+              position: 'relative',
+            }}>
             <div 
               ref={carouselAnimationRef}
               data-carousel-container="true"
               style={{
                 position: 'relative',
                 width: '100%',
-                height: `${Math.min(500, window.innerHeight * 0.55)}px`,
+                height: '500px',
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${carouselRotation}deg)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
@@ -2045,8 +2060,8 @@ export default function DesignerPortfolio() {
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
-                const radius = Math.min(450, window.innerWidth * 0.28);
-                const cardWidth = Math.min(320, window.innerWidth * 0.22);
+                const radius = 450;
+                const cardWidth = 320;
                 
                 return (
                   <div
@@ -2280,8 +2295,10 @@ export default function DesignerPortfolio() {
                 </div>
               )}
             </div>
+            </div>{/* end scale wrapper */}
           </div>
-        )}
+          );
+        })()}
 
         {activeSection === 'work' && selectedProject && (
           <div style={{
