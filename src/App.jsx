@@ -839,6 +839,33 @@ export default function DesignerPortfolio() {
   const [orionLoading, setOrionLoading] = useState(false);
   const orionBottomRef = useRef(null);
 
+  // ─── Viewport scale normalisation ───────────────────────────────────────────
+  // Your design reference width (the laptop you designed on).
+  // Change this number to match YOUR laptop's screen width in pixels.
+  const DESIGN_WIDTH = 1440;
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    // Ensure correct viewport meta
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'viewport'; document.head.appendChild(meta); }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+
+    // Lock root font-size so rem units are always 16px
+    document.documentElement.style.fontSize = '16px';
+    document.documentElement.style.webkitTextSizeAdjust = '100%';
+    document.documentElement.style.textSizeAdjust = '100%';
+
+    const updateScale = () => {
+      const s = window.innerWidth / DESIGN_WIDTH;
+      setScale(s);
+    };
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+  // ────────────────────────────────────────────────────────────────────────────
+
   // Get current translations
   const t = translations[language];
 
@@ -1046,12 +1073,12 @@ export default function DesignerPortfolio() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let width = DESIGN_WIDTH;
+    let height = Math.round(DESIGN_WIDTH / (window.innerWidth / window.innerHeight));
 
     const resizeCanvas = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      width = DESIGN_WIDTH;
+      height = Math.round(DESIGN_WIDTH / (window.innerWidth / window.innerHeight));
       canvas.width = width;
       canvas.height = height;
     };
@@ -1241,8 +1268,9 @@ export default function DesignerPortfolio() {
     const currentPos = { x: 0, y: 0 };
     
     const handleMouseMove = (e) => {
-      targetPos.x = e.clientX;
-      targetPos.y = e.clientY;
+      // Divide by scale so coordinates map into the scaled design space
+      targetPos.x = e.clientX / (window.innerWidth / DESIGN_WIDTH);
+      targetPos.y = e.clientY / (window.innerWidth / DESIGN_WIDTH);
     };
 
     const smoothUpdate = () => {
@@ -1442,8 +1470,12 @@ export default function DesignerPortfolio() {
       position: 'fixed',
       top: 0,
       left: 0,
-      width: '100vw',
-      height: '100vh',
+      // Scale the entire app from the top-left corner so it always looks
+      // identical to your reference laptop regardless of screen size.
+      width: `${DESIGN_WIDTH}px`,
+      height: `${DESIGN_WIDTH / (window.innerWidth / window.innerHeight)}px`,
+      transform: `scale(${scale})`,
+      transformOrigin: 'top left',
       overflow: 'hidden',
       margin: 0,
       padding: 0,
@@ -4164,10 +4196,16 @@ export default function DesignerPortfolio() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
-        * {
+        *, *::before, *::after {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
+        }
+
+        html {
+          font-size: 16px !important;
+          -webkit-text-size-adjust: 100% !important;
+          text-size-adjust: 100% !important;
         }
 
         html, body, #root {
@@ -4305,6 +4343,8 @@ export default function DesignerPortfolio() {
           position: fixed;
           width: 100%;
           height: 100%;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         button {
