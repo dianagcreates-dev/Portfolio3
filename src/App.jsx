@@ -872,6 +872,9 @@ export default function DesignerPortfolio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showStartPrompt, setShowStartPrompt] = useState(true);
   const [carouselRotation, setCarouselRotation] = useState(0);
+  const carouselRotationRef = useRef(0);  // tracks rotation without triggering re-renders
+  const isDraggingRef = useRef(false);    // mirror of isDragging for use inside rAF
+  const isHoveringRef = useRef(false);    // mirror of isHovering for use inside rAF
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -1333,31 +1336,29 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Carousel auto-rotation (continuous, doesn't reset)
+  // Carousel auto-rotation — directly mutates DOM to avoid React re-renders causing flicker
   useEffect(() => {
-    if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering) {
-      let animationId;
-      const rotationSpeed = 360 / 30000;
-      let lastTime = Date.now();
-      
-      const animate = () => {
-        const currentTime = Date.now();
-        const deltaTime = currentTime - lastTime;
-        lastTime = currentTime;
-        
-        setCarouselRotation(prev => prev + (deltaTime * rotationSpeed));
-        animationId = requestAnimationFrame(animate);
-      };
-      
+    if (activeSection !== 'work' || selectedProject) return;
+
+    const rotationSpeed = 360 / 30000;
+    let lastTime = performance.now();
+    let animationId;
+
+    const animate = (now) => {
+      const deltaTime = now - lastTime;
+      lastTime = now;
+
+      if (!isDraggingRef.current && !isHoveringRef.current) {
+        carouselRotationRef.current = (carouselRotationRef.current + deltaTime * rotationSpeed) % 360;
+        setCarouselRotation(carouselRotationRef.current);
+      }
+
       animationId = requestAnimationFrame(animate);
-      
-      return () => {
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      };
-    }
-  }, [activeSection, selectedProject, isDragging, isHovering]);
+    };
+
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
+  }, [activeSection, selectedProject]);
 
   // Carousel drag control only (no auto-rotation)
   useEffect(() => {
@@ -1368,14 +1369,17 @@ export default function DesignerPortfolio() {
           if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
           const rotationDelta = deltaX * 0.5;
           const newRotation = (dragStartRotation + rotationDelta) % 360;
-          setCarouselRotation(newRotation < 0 ? newRotation + 360 : newRotation);
+          const finalRotation = newRotation < 0 ? newRotation + 360 : newRotation;
+          carouselRotationRef.current = finalRotation;
+          setCarouselRotation(finalRotation);
         }
       };
 
       const handleMouseUp = () => {
         if (isDragging) {
           setIsDragging(false);
-          setDragStartRotation(carouselRotation);
+          isDraggingRef.current = false;
+          setDragStartRotation(carouselRotationRef.current);
         }
       };
 
@@ -2009,8 +2013,9 @@ export default function DesignerPortfolio() {
           onMouseDown={(e) => {
             dragMovedRef.current = false;
             setIsDragging(true);
+            isDraggingRef.current = true;
             setDragStartX(e.clientX);
-            setDragStartRotation(carouselRotation);
+            setDragStartRotation(carouselRotationRef.current);
             setShowDragGuide(false);
           }}
           >
@@ -2024,6 +2029,7 @@ export default function DesignerPortfolio() {
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${carouselRotation}deg)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                willChange: 'transform',
                 userSelect: 'none'
               }}
             >
@@ -2064,6 +2070,7 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.boxShadow = `0 20px 80px rgba(0,0,0,0.5), 0 0 60px ${project.color}80, 0 0 100px ${project.color}40`;
                         e.currentTarget.style.transform = 'scale(1.05)';
                         setIsHovering(true);
+                        isHoveringRef.current = true;
                         setHoveredProjectId(project.id);
                       }}
                       onMouseLeave={(e) => {
@@ -2072,11 +2079,11 @@ export default function DesignerPortfolio() {
                         e.currentTarget.style.boxShadow = '0 10px 50px rgba(0,0,0,0.2)';
                         e.currentTarget.style.transform = 'scale(1)';
                         setIsHovering(false);
+                        isHoveringRef.current = false;
                         setHoveredProjectId(null);
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        backdropFilter: 'blur(30px)',
+                        background: 'rgba(20,20,30,0.75)',
                         border: '1px solid rgba(255,255,255,0.15)',
                         borderRadius: '20px',
                         padding: '2rem',
@@ -2085,6 +2092,7 @@ export default function DesignerPortfolio() {
                         position: 'relative',
                         overflow: 'hidden',
                         transformStyle: 'preserve-3d',
+                        willChange: 'transform',
                         boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
                       }}
                     >
