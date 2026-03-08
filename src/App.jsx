@@ -1393,26 +1393,40 @@ export default function DesignerPortfolio() {
 
   // Handle wheel scroll for section navigation
   useEffect(() => {
+    let accumulated = 0;
+    let resetTimer = null;
+    const THRESHOLD = 80; // require intentional scroll force — prevents MacBook trackpad inertia from auto-scrolling
+
     const handleWheel = (e) => {
       if (selectedProject) return;
-
-      if (isScrolling) return;
-      
       e.preventDefault();
-      
+      if (isScrolling) return;
+
+      // Accumulate delta — MacBook trackpad sends many tiny values
+      accumulated += e.deltaY;
+
+      // Reset accumulator if user pauses
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { accumulated = 0; }, 200);
+
+      if (Math.abs(accumulated) < THRESHOLD) return;
+
+      const direction = accumulated > 0 ? 1 : -1;
+      accumulated = 0; // reset after triggering
+
       const sections = ['home', 'work', 'gallery', 'about', 'contact'];
       const currentIndex = sections.indexOf(activeSection);
-      
-      if (e.deltaY > 0 && currentIndex < sections.length - 1) {
+
+      if (direction > 0 && currentIndex < sections.length - 1) {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex + 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 800);
-      } else if (e.deltaY < 0 && currentIndex > 0) {
+        setTimeout(() => setIsScrolling(false), 900);
+      } else if (direction < 0 && currentIndex > 0) {
         setIsScrolling(true);
         setActiveSection(sections[currentIndex - 1]);
         setSelectedProject(null);
-        setTimeout(() => setIsScrolling(false), 800);
+        setTimeout(() => setIsScrolling(false), 900);
       }
     };
 
@@ -1422,6 +1436,7 @@ export default function DesignerPortfolio() {
     }
 
     return () => {
+      clearTimeout(resetTimer);
       if (contentEl) {
         contentEl.removeEventListener('wheel', handleWheel);
       }
@@ -2020,7 +2035,7 @@ export default function DesignerPortfolio() {
               style={{
                 position: 'relative',
                 width: '100%',
-                height: '500px',
+                height: `${Math.min(500, window.innerHeight * 0.55)}px`,
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${carouselRotation}deg)`,
                 transition: isDragging ? 'none' : 'transform 0.1s ease-out',
@@ -2030,7 +2045,8 @@ export default function DesignerPortfolio() {
               {t.projects.map((project, index) => {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
-                const radius = 450;
+                const radius = Math.min(450, window.innerWidth * 0.28);
+                const cardWidth = Math.min(320, window.innerWidth * 0.22);
                 
                 return (
                   <div
@@ -2039,7 +2055,7 @@ export default function DesignerPortfolio() {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
-                      width: '320px',
+                      width: `${cardWidth}px`,
                       transform: `
                         translate(-50%, -50%)
                         rotateY(${angle}deg)
