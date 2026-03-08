@@ -554,7 +554,7 @@ function GalleryFlipRow({ images }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+      <div className="gallery-flip-row" style={{ display: "flex", gap: "clamp(0.4rem, 1.5vw, 1rem)", alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
         {[0, 1, 2].map(i => (
           <FlipCard key={i} front={images[i]} back={images[i + 3]} flipped={flipped[i]} />
         ))}
@@ -651,7 +651,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
-  const W = 'min(500px, 90vw)', H = 'min(300px, 54vw)';
+  const W = 'min(500px, 90vw)', H = 'clamp(220px, 25vw, 300px)';
 
   const face = (extra = {}) => ({
     backfaceVisibility: 'hidden',
@@ -687,7 +687,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
 
           {/* Landscape photo top ~55% */}
-          <div style={{ height: '55%', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
+          <div style={{ height: 'clamp(110px, 55%, 165px)', flexShrink: 0, position: 'relative', overflow: 'hidden', background: '#0a0a14' }}>
             <img
               src="/images/profile.jpg"
               alt="Diana"
@@ -788,26 +788,6 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
 
 
 export default function DesignerPortfolio() {
-  // ── Viewport & font normalization (cross-device consistency) ──────────────
-  useEffect(() => {
-    // 1. Ensure correct viewport meta tag
-    let meta = document.querySelector('meta[name="viewport"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'viewport';
-      document.head.appendChild(meta);
-    }
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0';
-
-    // 2. Lock root font-size so all rem values are anchored to 16px
-    document.documentElement.style.fontSize = '16px';
-
-    // 3. Prevent mobile/some-desktop browsers from auto-scaling text
-    document.documentElement.style.webkitTextSizeAdjust = '100%';
-    document.documentElement.style.textSizeAdjust = '100%';
-  }, []);
-  // ─────────────────────────────────────────────────────────────────────────
-
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
   const finalVideoRef = useRef(null);
@@ -859,6 +839,17 @@ export default function DesignerPortfolio() {
 
   // Get current translations
   const t = translations[language];
+
+  // Ensure correct viewport meta for consistent rendering across devices
+  useEffect(() => {
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      document.head.appendChild(meta);
+    }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+  }, []);
 
   // Orion: scroll to bottom on new messages
   useEffect(() => {
@@ -1547,7 +1538,7 @@ export default function DesignerPortfolio() {
             background: 'rgba(255,255,255,0.1)',
             borderRadius: '20px',
             border: '2px solid rgba(255,255,255,0.3)',
-            width: 'clamp(280px, 90vw, 420px)',
+            width: '420px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -1735,7 +1726,9 @@ export default function DesignerPortfolio() {
             alignItems: 'center',
             height: '40px',
             marginLeft: '1rem',
-            padding: '0 0.5rem'
+            padding: '0 0.5rem',
+            overflow: 'hidden',
+            maxWidth: 'clamp(0px, 8vw, 80px)',
           }}>
             {frequencyData.slice(0, 20).map((value, i) => {
               const normalizedHeight = (value / 255) * 100;
@@ -1985,7 +1978,6 @@ export default function DesignerPortfolio() {
                 const totalProjects = t.projects.length;
                 const angle = (360 / totalProjects) * index;
                 const radius = Math.min(450, window.innerWidth * 0.35);
-                const cardW = Math.min(320, Math.max(220, window.innerWidth * 0.22));
                 
                 return (
                   <div
@@ -1994,7 +1986,7 @@ export default function DesignerPortfolio() {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
-                      width: `${cardW}px`,
+                      width: 'clamp(220px, 25vw, 320px)',
                       transform: `
                         translate(-50%, -50%)
                         rotateY(${angle}deg)
@@ -2096,7 +2088,7 @@ export default function DesignerPortfolio() {
 
                       <div style={{ position: 'relative', zIndex: 2 }}>
                       <div style={{
-                        fontSize: 'clamp(0.65rem, 1vw, 0.75rem)',
+                        fontSize: '0.75rem',
                         color: 'rgba(255,255,255,0.6)',
                         marginBottom: '0.8rem',
                         textTransform: 'uppercase',
@@ -2108,7 +2100,7 @@ export default function DesignerPortfolio() {
                       </div>
                       
                       <h3 style={{
-                        fontSize: 'clamp(1.3rem, 2.2vw, 1.8rem)',
+                        fontSize: '1.8rem',
                         color: '#ffffff',
                         margin: '0 0 1rem 0',
                         fontWeight: 900,
@@ -2119,7 +2111,7 @@ export default function DesignerPortfolio() {
                       </h3>
                       
                       <p style={{
-                        fontSize: 'clamp(0.8rem, 1.2vw, 0.95rem)',
+                        fontSize: '0.95rem',
                         color: 'rgba(255,255,255,0.75)',
                         lineHeight: 1.6,
                         margin: 0,
@@ -4189,27 +4181,13 @@ export default function DesignerPortfolio() {
           box-sizing: border-box;
         }
 
-        html {
-          font-size: 16px;
-          -webkit-text-size-adjust: 100%;
-          text-size-adjust: 100%;
-        }
-
         html, body, #root {
           width: 100%;
           height: 100%;
           overflow: hidden !important;
+          position: fixed;
           margin: 0;
           padding: 0;
-        }
-
-        body {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          font-size: 1rem;
-          overflow: hidden !important;
-          width: 100%;
-          height: 100%;
         }
 
         @keyframes fadeIn {
@@ -4333,6 +4311,13 @@ export default function DesignerPortfolio() {
           40% { transform: scale(1.2); opacity: 1; }
         }
 
+        body {
+          overflow: hidden !important;
+          position: fixed;
+          width: 100%;
+          height: 100%;
+        }
+
         button {
           font-family: inherit;
         }
@@ -4345,6 +4330,34 @@ export default function DesignerPortfolio() {
         .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+
+        /* ── Cross-device consistency ── */
+
+        /* Ensure touch devices use mobile-sized hit targets */
+        button, [role="button"] {
+          touch-action: manipulation;
+        }
+
+        /* Prevent text size adjustment on mobile after orientation change */
+        html {
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+        }
+
+        /* Responsive nav: collapse nav labels on very small screens */
+        @media (max-width: 640px) {
+          nav {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+          }
+        }
+
+        /* On small screens reduce gallery flip cards gap */
+        @media (max-width: 900px) {
+          .gallery-flip-row {
+            gap: 0.5rem !important;
+          }
         }
       `}</style>
     </div>
