@@ -663,17 +663,18 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
     MozBackfaceVisibility: 'hidden',
     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
     background: 'rgba(255,255,255,0)',
-    backdropFilter: 'none',
-    WebkitBackdropFilter: 'none',
     borderRadius: '20px',
     boxShadow: 'none',
     overflow: 'hidden',
     display: 'flex',
-    // Promote each face to its own GPU layer so Safari hides the back correctly
     willChange: 'transform',
     WebkitTransform: 'translateZ(0)',
     transform: 'translateZ(0)',
     ...extra,
+    // Always override any blur passed via extra — backdropFilter inside
+    // preserve-3d breaks on Safari iOS, use solid backgrounds instead
+    backdropFilter: 'none',
+    WebkitBackdropFilter: 'none',
   });
 
   return (
@@ -722,7 +723,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
           </div>
 
           {/* Info strip bottom */}
-          <div style={{ flex: 1, padding: '0.55rem 1.2rem 0.6rem', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
+          <div style={{ flex: 1, padding: '0.55rem 1.2rem 0.6rem', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', background: 'rgba(15,15,28,0.82)' }}>
             {/* Name + occupation */}
             <div style={{ flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.35rem', color: '#ffffff', margin: '0 0 0.12rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1 }}>Diana</h3>
@@ -747,9 +748,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
           flexDirection: 'column',
           padding: '1.2rem 1.6rem',
           justifyContent: 'space-between',
-          background: 'rgba(255,255,255,0.06)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+          background: 'rgba(15,15,28,0.82)',
         })}>
           {/* Accent bar */}
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, rgba(255,255,255,0.65), transparent)', zIndex: 10 }} />
@@ -2089,8 +2088,7 @@ export default function DesignerPortfolio() {
                         setHoveredProjectId(null);
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        backdropFilter: 'blur(30px)',
+                        background: 'rgba(15,15,28,0.78)',
                         border: '1px solid rgba(255,255,255,0.15)',
                         borderRadius: '20px',
                         padding: '2rem',
