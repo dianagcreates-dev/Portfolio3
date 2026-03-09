@@ -1556,8 +1556,8 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
-      {/* Particle Cursor */}
-      {mouseTrail.map((pos, index) => {
+      {/* Particle Cursor — hidden on home */}
+      {activeSection !== 'home' && mouseTrail.map((pos, index) => {
         const opacity = (index / mouseTrail.length) * 0.6;
         const size = ((index / mouseTrail.length) * 10) + 4;
         return (
@@ -1611,11 +1611,10 @@ export default function DesignerPortfolio() {
           pointerEvents: 'none'
         }}>
           <Plasma
-            color="#ffffff"
             speed={0.5}
             direction="forward"
             scale={1.2}
-            opacity={0.35}
+            opacity={1}
             mouseInteractive={false}
           />
         </div>
