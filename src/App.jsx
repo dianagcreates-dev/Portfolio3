@@ -4275,49 +4275,44 @@ export default function DesignerPortfolio() {
       {!legalPage && (
         <div style={{
           position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
+          bottom: '1.2rem',
+          left: '1.5rem',
           zIndex: 100,
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          gap: '2rem',
-          padding: '0.75rem 2rem',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+          gap: '1rem',
+          opacity: 0.2,
+          transition: 'opacity 0.3s ease',
           pointerEvents: 'none',
-        }}>
+        }}
+        onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+        onMouseLeave={e => e.currentTarget.style.opacity = '0.2'}
+        >
           <button
             onClick={() => setLegalPage('impressum')}
             style={{
               background: 'none', border: 'none',
-              color: 'rgba(255,255,255,0.35)',
-              fontSize: '0.65rem', fontFamily: '"Space Mono", monospace',
-              letterSpacing: '0.12em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.9)',
+              fontSize: '0.55rem', fontFamily: '"Inter", sans-serif',
+              letterSpacing: '0.06em',
               cursor: 'pointer', pointerEvents: 'all',
               transition: 'color 0.2s',
+              padding: 0,
             }}
-            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
           >Impressum</button>
-          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.5rem' }}>·</span>
           <button
             onClick={() => setLegalPage('datenschutz')}
             style={{
               background: 'none', border: 'none',
-              color: 'rgba(255,255,255,0.35)',
-              fontSize: '0.65rem', fontFamily: '"Space Mono", monospace',
-              letterSpacing: '0.12em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.9)',
+              fontSize: '0.55rem', fontFamily: '"Inter", sans-serif',
+              letterSpacing: '0.06em',
               cursor: 'pointer', pointerEvents: 'all',
               transition: 'color 0.2s',
+              padding: 0,
             }}
-            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
           >Datenschutz</button>
-          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
-          <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', fontFamily: '"Space Mono", monospace', letterSpacing: '0.1em' }}>
-            © {new Date().getFullYear()} Diana Melody Garcia
-          </span>
         </div>
       )}
 
