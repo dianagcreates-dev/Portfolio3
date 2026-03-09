@@ -541,8 +541,8 @@ function SplashCursor({
     }
 
     function resizeCanvas() {
-      let width = Math.floor(canvas.clientWidth * (window.devicePixelRatio || 1));
-      let height = Math.floor(canvas.clientHeight * (window.devicePixelRatio || 1));
+      let width = scaleByPixelRatio(canvas.clientWidth);
+      let height = scaleByPixelRatio(canvas.clientHeight);
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width; canvas.height = height; return true;
       }
@@ -749,8 +749,8 @@ function SplashCursor({
 
     function handleMouseDown(e) {
       let pointer = pointers[0];
-      let posX = e.clientX * (window.devicePixelRatio || 1);
-      let posY = e.clientY * (window.devicePixelRatio || 1);
+      let posX = scaleByPixelRatio(e.clientX);
+      let posY = scaleByPixelRatio(e.clientY);
       updatePointerDownData(pointer, -1, posX, posY);
       clickSplat(pointer);
     }
@@ -758,8 +758,8 @@ function SplashCursor({
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
       let pointer = pointers[0];
-      let posX = e.clientX * (window.devicePixelRatio || 1);
-      let posY = e.clientY * (window.devicePixelRatio || 1);
+      let posX = scaleByPixelRatio(e.clientX);
+      let posY = scaleByPixelRatio(e.clientY);
       if (!firstMouseMoveHandled) {
         updatePointerMoveData(pointer, posX, posY, generateColor());
         firstMouseMoveHandled = true;
@@ -772,8 +772,8 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = touches[i].clientX * (window.devicePixelRatio || 1);
-        let posY = touches[i].clientY * (window.devicePixelRatio || 1);
+        let posX = scaleByPixelRatio(touches[i].clientX);
+        let posY = scaleByPixelRatio(touches[i].clientY);
         updatePointerDownData(pointer, touches[i].identifier, posX, posY);
       }
     }
@@ -782,8 +782,8 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = touches[i].clientX * (window.devicePixelRatio || 1);
-        let posY = touches[i].clientY * (window.devicePixelRatio || 1);
+        let posX = scaleByPixelRatio(touches[i].clientX);
+        let posY = scaleByPixelRatio(touches[i].clientY);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
       }
     }
