@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Plasma from './Plasma';
 
 // Translation content
 const translations = {
@@ -1598,6 +1599,28 @@ export default function DesignerPortfolio() {
         }}
       />
 
+      {/* Plasma background — Home section only */}
+      {activeSection === 'home' && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <Plasma
+            color="#ffffff"
+            speed={0.5}
+            direction="forward"
+            scale={1.2}
+            opacity={0.35}
+            mouseInteractive={false}
+          />
+        </div>
+      )}
+
       {showStartPrompt && (
         <div
           onClick={() => {
@@ -1919,7 +1942,7 @@ export default function DesignerPortfolio() {
         className="hide-scrollbar"
         style={{
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
           width: '100%',
           height: '100%',
           overflowY: 'auto',
