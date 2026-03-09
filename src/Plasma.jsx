@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './Plasma.css';
@@ -201,7 +200,6 @@ export const Plasma = ({
   return <div ref={containerRef} className="plasma-container" />;
 };
 
-=======
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './Plasma.css';
