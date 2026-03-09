@@ -1278,7 +1278,48 @@ export default function DesignerPortfolio() {
     };
   }, []);
 
-  // Cursor replaced by SplashCursor component
+  // Custom cursor tracking with smooth interpolation for easier control
+  useEffect(() => {
+    let animationFrameId;
+    const targetPos = { x: 0, y: 0 };
+    const currentPos = { x: 0, y: 0 };
+    
+    const handleMouseMove = (e) => {
+      // Divide by scale so coordinates map into the scaled design space
+      targetPos.x = e.clientX / (window.innerWidth / DESIGN_WIDTH);
+      targetPos.y = e.clientY / (window.innerWidth / DESIGN_WIDTH);
+    };
+
+    const prevPos = { x: 0, y: 0 };
+    const smoothUpdate = () => {
+      const smoothing = 0.1;
+      
+      currentPos.x += (targetPos.x - currentPos.x) * smoothing;
+      currentPos.y += (targetPos.y - currentPos.y) * smoothing;
+
+      const dx = Math.abs(currentPos.x - prevPos.x);
+      const dy = Math.abs(currentPos.y - prevPos.y);
+
+      if (dx > 0.5 || dy > 0.5) {
+        prevPos.x = currentPos.x;
+        prevPos.y = currentPos.y;
+        setMousePosition({ x: currentPos.x, y: currentPos.y });
+        const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
+        mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
+        setMouseTrail(mouseTrailRef.current);
+      }
+      
+      animationFrameId = requestAnimationFrame(smoothUpdate);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    animationFrameId = requestAnimationFrame(smoothUpdate);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   // Carousel rotation stored in a ref — avoids React re-renders on every frame
   const carouselRotationRef = useRef(0);
@@ -2068,7 +2109,8 @@ export default function DesignerPortfolio() {
                         position: 'relative',
                         overflow: 'hidden',
                         transformStyle: 'preserve-3d',
-                        boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
+                        boxShadow: '0 10px 50px rgba(0,0,0,0.2)',
+                        height: '260px'
                       }}
                     >
                       {/* Hero image overlay — fades in on hover */}
