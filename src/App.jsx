@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import SplashCursor from './SplashCursor';
 
 // Translation content
 const translations = {
@@ -839,6 +837,8 @@ export default function DesignerPortfolio() {
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
+  const [mouseTrail, setMouseTrail] = useState([]);
+  const mouseTrailRef = useRef([]);
   const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
   const [visibleSections, setVisibleSections] = useState({});
   const [orionOpen, setOrionOpen] = useState(false);
@@ -1278,6 +1278,48 @@ export default function DesignerPortfolio() {
   }, []);
 
   // Custom cursor tracking with smooth interpolation for easier control
+  useEffect(() => {
+    let animationFrameId;
+    const targetPos = { x: 0, y: 0 };
+    const currentPos = { x: 0, y: 0 };
+    
+    const handleMouseMove = (e) => {
+      // Divide by scale so coordinates map into the scaled design space
+      targetPos.x = e.clientX / (window.innerWidth / DESIGN_WIDTH);
+      targetPos.y = e.clientY / (window.innerWidth / DESIGN_WIDTH);
+    };
+
+    const prevPos = { x: 0, y: 0 };
+    const smoothUpdate = () => {
+      const smoothing = 0.1;
+      
+      currentPos.x += (targetPos.x - currentPos.x) * smoothing;
+      currentPos.y += (targetPos.y - currentPos.y) * smoothing;
+
+      const dx = Math.abs(currentPos.x - prevPos.x);
+      const dy = Math.abs(currentPos.y - prevPos.y);
+
+      if (dx > 0.5 || dy > 0.5) {
+        prevPos.x = currentPos.x;
+        prevPos.y = currentPos.y;
+        setMousePosition({ x: currentPos.x, y: currentPos.y });
+        const newPos = { x: currentPos.x, y: currentPos.y, id: Date.now() };
+        mouseTrailRef.current = [...mouseTrailRef.current, newPos].slice(-15);
+        setMouseTrail(mouseTrailRef.current);
+      }
+      
+      animationFrameId = requestAnimationFrame(smoothUpdate);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    animationFrameId = requestAnimationFrame(smoothUpdate);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   // Carousel rotation stored in a ref — avoids React re-renders on every frame
   const carouselRotationRef = useRef(0);
   const isDraggingRef = useRef(false);
@@ -1513,6 +1555,31 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
+      {/* Particle Cursor */}
+      {mouseTrail.map((pos, index) => {
+        const opacity = (index / mouseTrail.length) * 0.6;
+        const size = ((index / mouseTrail.length) * 10) + 4;
+        return (
+          <div
+            key={pos.id}
+            style={{
+              position: 'fixed',
+              left: pos.x,
+              top: pos.y,
+              width: `${size}px`,
+              height: `${size}px`,
+              background: `radial-gradient(circle, rgba(147, 197, 253, ${opacity}), rgba(59, 130, 246, ${opacity * 0.7}), transparent)`,
+              borderRadius: '50%',
+              pointerEvents: 'none',
+              zIndex: 9998,
+              transform: 'translate(-50%, -50%)',
+              boxShadow: `0 0 ${size * 3}px rgba(59, 130, 246, ${opacity * 0.8})`,
+              filter: 'blur(0.5px)'
+            }}
+          />
+        );
+      })}
+      
       <audio
         ref={audioRef}
         src="/background2.mp3"
@@ -2147,11 +2214,7 @@ export default function DesignerPortfolio() {
                         color: 'rgba(255,255,255,0.75)',
                         lineHeight: 1.6,
                         margin: 0,
-                        fontFamily: '"Inter", sans-serif',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
+                        fontFamily: '"Inter", sans-serif'
                       }}>
                         {project.description}
                       </p>
@@ -4534,6 +4597,5 @@ export default function DesignerPortfolio() {
         }
       `}</style>
     </div>
-    {createPortal(<SplashCursor />, document.body)}
   );
 }
