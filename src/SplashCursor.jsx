@@ -541,8 +541,8 @@ function SplashCursor({
     }
 
     function resizeCanvas() {
-      let width = scaleByPixelRatio(canvas.clientWidth);
-      let height = scaleByPixelRatio(canvas.clientHeight);
+      let width = canvas.clientWidth;
+      let height = canvas.clientHeight;
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width; canvas.height = height; return true;
       }
@@ -749,22 +749,18 @@ function SplashCursor({
 
     function handleMouseDown(e) {
       let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
-      updatePointerDownData(pointer, -1, posX, posY);
+      updatePointerDownData(pointer, -1, e.clientX, e.clientY);
       clickSplat(pointer);
     }
 
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
       let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
       if (!firstMouseMoveHandled) {
-        updatePointerMoveData(pointer, posX, posY, generateColor());
+        updatePointerMoveData(pointer, e.clientX, e.clientY, generateColor());
         firstMouseMoveHandled = true;
       } else {
-        updatePointerMoveData(pointer, posX, posY, pointer.color);
+        updatePointerMoveData(pointer, e.clientX, e.clientY, pointer.color);
       }
     }
 
@@ -772,9 +768,7 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
-        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+        updatePointerDownData(pointer, touches[i].identifier, touches[i].clientX, touches[i].clientY);
       }
     }
 
@@ -782,9 +776,7 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
-        updatePointerMoveData(pointer, posX, posY, pointer.color);
+        updatePointerMoveData(pointer, touches[i].clientX, touches[i].clientY, pointer.color);
       }
     }
 
