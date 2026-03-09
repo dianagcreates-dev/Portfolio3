@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Plasma from './Plasma';
 
 // Translation content
 const translations = {
@@ -818,7 +817,6 @@ export default function DesignerPortfolio() {
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [plasmaVisible, setPlasmaVisible] = useState(true);
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -1157,18 +1155,6 @@ export default function DesignerPortfolio() {
 
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
-
-      // On home section, just draw stars — plasma handles the main visuals
-      if (canvasRef.current?.dataset.section === 'home') {
-        stars.forEach((star) => {
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * 0.5})`;
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-        animationFrameRef.current = requestAnimationFrame(render);
-        return;
-      }
 
       stars.forEach((star) => {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
@@ -1569,8 +1555,8 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
-      {/* Particle Cursor — hidden on home */}
-      {activeSection !== 'home' && mouseTrail.map((pos, index) => {
+      {/* Particle Cursor */}
+      {mouseTrail.map((pos, index) => {
         const opacity = (index / mouseTrail.length) * 0.6;
         const size = ((index / mouseTrail.length) * 10) + 4;
         return (
@@ -1602,7 +1588,6 @@ export default function DesignerPortfolio() {
 
       <canvas
         ref={canvasRef}
-        data-section={activeSection}
         style={{
           position: 'absolute',
           top: 0,
@@ -1612,28 +1597,6 @@ export default function DesignerPortfolio() {
           zIndex: 0
         }}
       />
-
-      {/* Plasma background — Home section only */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        pointerEvents: 'none',
-        opacity: activeSection === 'home' ? 1 : 0,
-        transition: 'opacity 1.2s ease',
-      }}>
-        <Plasma
-          color="#3b82f6"
-          speed={0.6}
-          direction="forward"
-          scale={1.1}
-          opacity={0.8}
-          mouseInteractive={true}
-        />
-      </div>
 
       {showStartPrompt && (
         <div
@@ -1956,7 +1919,7 @@ export default function DesignerPortfolio() {
         className="hide-scrollbar"
         style={{
           position: 'relative',
-          zIndex: 2,
+          zIndex: 1,
           width: '100%',
           height: '100%',
           overflowY: 'auto',
@@ -4636,3 +4599,4 @@ export default function DesignerPortfolio() {
     </div>
   );
 }
+
