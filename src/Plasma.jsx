@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './Plasma.css';
@@ -404,5 +404,5 @@ export const Plasma = ({
   return <div ref={containerRef} className="plasma-container" />;
 };
 
->>>>>>> 028ff5b7e1de65c51de18c2dadf0e59fb24b8641
+
 export default Plasma;
