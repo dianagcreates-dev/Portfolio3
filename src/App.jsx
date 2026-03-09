@@ -1556,7 +1556,33 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
+      {/* Splash Fluid Cursor */}
       <SplashCursor />
+
+      {/* Particle Cursor */}
+      {mouseTrail.map((pos, index) => {
+        const opacity = (index / mouseTrail.length) * 0.6;
+        const size = ((index / mouseTrail.length) * 10) + 4;
+        return (
+          <div
+            key={pos.id}
+            style={{
+              position: 'fixed',
+              left: pos.x,
+              top: pos.y,
+              width: `${size}px`,
+              height: `${size}px`,
+              background: `radial-gradient(circle, rgba(147, 197, 253, ${opacity}), rgba(59, 130, 246, ${opacity * 0.7}), transparent)`,
+              borderRadius: '50%',
+              pointerEvents: 'none',
+              zIndex: 9998,
+              transform: 'translate(-50%, -50%)',
+              boxShadow: `0 0 ${size * 3}px rgba(59, 130, 246, ${opacity * 0.8})`,
+              filter: 'blur(0.5px)'
+            }}
+          />
+        );
+      })}
       
       <audio
         ref={audioRef}
@@ -2109,8 +2135,7 @@ export default function DesignerPortfolio() {
                         position: 'relative',
                         overflow: 'hidden',
                         transformStyle: 'preserve-3d',
-                        boxShadow: '0 10px 50px rgba(0,0,0,0.2)',
-                        height: '260px'
+                        boxShadow: '0 10px 50px rgba(0,0,0,0.2)'
                       }}
                     >
                       {/* Hero image overlay — fades in on hover */}
