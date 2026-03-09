@@ -817,6 +817,7 @@ export default function DesignerPortfolio() {
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
@@ -4268,6 +4269,168 @@ export default function DesignerPortfolio() {
         </div>
       )}
       </>
+      )}
+
+      {/* ── Footer ── */}
+      {!legalPage && (
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '2rem',
+          padding: '0.75rem 2rem',
+          background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+          pointerEvents: 'none',
+        }}>
+          <button
+            onClick={() => setLegalPage('impressum')}
+            style={{
+              background: 'none', border: 'none',
+              color: 'rgba(255,255,255,0.35)',
+              fontSize: '0.65rem', fontFamily: '"Space Mono", monospace',
+              letterSpacing: '0.12em', textTransform: 'uppercase',
+              cursor: 'pointer', pointerEvents: 'all',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+          >Impressum</button>
+          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+          <button
+            onClick={() => setLegalPage('datenschutz')}
+            style={{
+              background: 'none', border: 'none',
+              color: 'rgba(255,255,255,0.35)',
+              fontSize: '0.65rem', fontFamily: '"Space Mono", monospace',
+              letterSpacing: '0.12em', textTransform: 'uppercase',
+              cursor: 'pointer', pointerEvents: 'all',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+          >Datenschutz</button>
+          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+          <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', fontFamily: '"Space Mono", monospace', letterSpacing: '0.1em' }}>
+            © {new Date().getFullYear()} Diana Melody Garcia
+          </span>
+        </div>
+      )}
+
+      {/* ── Legal Pages Overlay ── */}
+      {legalPage && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 300,
+          background: 'rgba(5,5,15,0.97)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          overflowY: 'auto',
+          animation: 'fadeIn 0.3s ease',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '4rem 2rem 6rem',
+        }}>
+          {/* Back button */}
+          <button
+            onClick={() => setLegalPage(null)}
+            style={{
+              alignSelf: 'flex-start',
+              maxWidth: '680px',
+              width: '100%',
+              margin: '0 auto 2rem',
+              background: 'none', border: 'none',
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: '0.75rem', fontFamily: '"Space Mono", monospace',
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+          >← Zurück</button>
+
+          <div style={{
+            maxWidth: '680px', width: '100%',
+            color: 'rgba(255,255,255,0.8)',
+            fontFamily: '"Inter", sans-serif',
+            lineHeight: 1.8,
+          }}>
+            {legalPage === 'impressum' && (
+              <>
+                <h1 style={{ fontSize: '2rem', fontFamily: '"Archivo Black", sans-serif', color: '#fff', marginBottom: '2rem' }}>Impressum</h1>
+                <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '2rem' }}>Angaben gemäß § 5 TMG</p>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <p>Diana Melody Garcia<br />
+                  Französische Straße 20<br />
+                  14467 Potsdam<br />
+                  Deutschland</p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Kontakt</h2>
+                  <p>E-Mail: <a href="mailto:dianaxstudio@gmail.com" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>dianaxstudio@gmail.com</a></p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+                  <p>Diana Melody Garcia<br />
+                  Französische Straße 20<br />
+                  14467 Potsdam</p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Haftung für Inhalte</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird keine Gewähr übernommen.</p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Urheberrecht</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+                </section>
+              </>
+            )}
+
+            {legalPage === 'datenschutz' && (
+              <>
+                <h1 style={{ fontSize: '2rem', fontFamily: '"Archivo Black", sans-serif', color: '#fff', marginBottom: '2rem' }}>Datenschutzerklärung</h1>
+                <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '2rem' }}>Datenschutz auf einen Blick</p>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Verantwortlicher</h2>
+                  <p>Diana Melody Garcia<br />
+                  Französische Straße 20<br />
+                  14467 Potsdam<br />
+                  E-Mail: <a href="mailto:dianaxstudio@gmail.com" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>dianaxstudio@gmail.com</a></p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Erhebung und Verarbeitung personenbezogener Daten</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Diese Website erhebt und verarbeitet personenbezogene Daten nur im technisch notwendigen Umfang.</p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Kontaktaufnahme per E-Mail</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Wenn Sie uns per E-Mail kontaktieren, werden Ihre Angaben zur Bearbeitung der Anfrage gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Google Fonts</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Diese Seite nutzt Google Fonts. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Beim Aufruf dieser Seite lädt Ihr Browser Schriftarten direkt von Google-Servern. Dabei wird Ihre IP-Adresse übermittelt. Grundlage ist Art. 6 Abs. 1 lit. f DSGVO. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.7)' }}>policies.google.com/privacy</a></p>
+                </section>
+
+                <section style={{ marginBottom: '2rem' }}>
+                  <h2 style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: '"Space Mono", monospace', marginBottom: '0.75rem' }}>Ihre Rechte</h2>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer gespeicherten Daten sowie das Recht auf Datenübertragbarkeit. Anfragen richten Sie bitte an: <a href="mailto:dianaxstudio@gmail.com" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>dianaxstudio@gmail.com</a></p>
+                </section>
+              </>
+            )}
+          </div>
+        </div>
       )}
 
       <style>{`
