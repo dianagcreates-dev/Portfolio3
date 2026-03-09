@@ -199,4 +199,5 @@ export const Plasma = ({
 
   return <div ref={containerRef} className="plasma-container" />;
 };
+export default Plasma;
 
