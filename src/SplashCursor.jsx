@@ -541,8 +541,8 @@ function SplashCursor({
     }
 
     function resizeCanvas() {
-      let width = scaleByPixelRatio(canvas.clientWidth);
-      let height = scaleByPixelRatio(canvas.clientHeight);
+      let width = Math.floor(canvas.clientWidth * (window.devicePixelRatio || 1));
+      let height = Math.floor(canvas.clientHeight * (window.devicePixelRatio || 1));
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width; canvas.height = height; return true;
       }
@@ -748,18 +748,18 @@ function SplashCursor({
     }
 
     function handleMouseDown(e) {
-      // Only update pointer position, do NOT call clickSplat — avoids conflicting with carousel drag
       let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
+      let posX = e.clientX * (window.devicePixelRatio || 1);
+      let posY = e.clientY * (window.devicePixelRatio || 1);
       updatePointerDownData(pointer, -1, posX, posY);
+      clickSplat(pointer);
     }
 
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
       let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
+      let posX = e.clientX * (window.devicePixelRatio || 1);
+      let posY = e.clientY * (window.devicePixelRatio || 1);
       if (!firstMouseMoveHandled) {
         updatePointerMoveData(pointer, posX, posY, generateColor());
         firstMouseMoveHandled = true;
@@ -772,8 +772,8 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
+        let posX = touches[i].clientX * (window.devicePixelRatio || 1);
+        let posY = touches[i].clientY * (window.devicePixelRatio || 1);
         updatePointerDownData(pointer, touches[i].identifier, posX, posY);
       }
     }
@@ -782,8 +782,8 @@ function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
+        let posX = touches[i].clientX * (window.devicePixelRatio || 1);
+        let posY = touches[i].clientY * (window.devicePixelRatio || 1);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
       }
     }
