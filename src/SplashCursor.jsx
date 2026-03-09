@@ -748,11 +748,11 @@ function SplashCursor({
     }
 
     function handleMouseDown(e) {
+      // Only update pointer position, do NOT call clickSplat — avoids conflicting with carousel drag
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
       updatePointerDownData(pointer, -1, posX, posY);
-      clickSplat(pointer);
     }
 
     let firstMouseMoveHandled = false;
@@ -761,8 +761,7 @@ function SplashCursor({
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
       if (!firstMouseMoveHandled) {
-        let color = generateColor();
-        updatePointerMoveData(pointer, posX, posY, color);
+        updatePointerMoveData(pointer, posX, posY, generateColor());
         firstMouseMoveHandled = true;
       } else {
         updatePointerMoveData(pointer, posX, posY, pointer.color);
