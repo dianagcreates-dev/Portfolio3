@@ -1618,7 +1618,7 @@ export default function DesignerPortfolio() {
           pointerEvents: 'none'
         }}>
           <Plasma
-            color=""
+            color="#9b8ec4"
             speed={0.5}
             direction="forward"
             scale={1.2}
