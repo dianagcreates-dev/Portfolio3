@@ -1157,6 +1157,12 @@ export default function DesignerPortfolio() {
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
 
+      // On home section, just draw a plain dark background — plasma handles the visuals
+      if (canvasRef.current?.dataset.section === 'home') {
+        animationFrameRef.current = requestAnimationFrame(render);
+        return;
+      }
+
       stars.forEach((star) => {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.beginPath();
@@ -1589,6 +1595,7 @@ export default function DesignerPortfolio() {
 
       <canvas
         ref={canvasRef}
+        data-section={activeSection}
         style={{
           position: 'absolute',
           top: 0,
