@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import SplashCursor from './SplashCursor';
 
 // Translation content
@@ -1512,9 +1513,6 @@ export default function DesignerPortfolio() {
       padding: 0,
       fontFamily: '"Space Mono", "Courier New", monospace'
     }}>
-      {/* Splash Fluid Cursor */}
-      <SplashCursor />
-      
       <audio
         ref={audioRef}
         src="/background2.mp3"
@@ -4532,5 +4530,6 @@ export default function DesignerPortfolio() {
         }
       `}</style>
     </div>
+    {createPortal(<SplashCursor />, document.body)}
   );
 }
