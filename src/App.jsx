@@ -2147,7 +2147,11 @@ export default function DesignerPortfolio() {
                         color: 'rgba(255,255,255,0.75)',
                         lineHeight: 1.6,
                         margin: 0,
-                        fontFamily: '"Inter", sans-serif'
+                        fontFamily: '"Inter", sans-serif',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
                       }}>
                         {project.description}
                       </p>
