@@ -28,7 +28,7 @@ function SplashCursor() {
     let halfFloat, supportLinearFiltering;
     if (isWebGL2) { gl.getExtension('EXT_color_buffer_float'); supportLinearFiltering=gl.getExtension('OES_texture_float_linear'); }
     else { halfFloat=gl.getExtension('OES_texture_half_float'); supportLinearFiltering=gl.getExtension('OES_texture_half_float_linear'); }
-    gl.clearColor(0,0,0,1);
+    gl.clearColor(0,0,0,0);
     const hfType = isWebGL2 ? gl.HALF_FLOAT : halfFloat&&halfFloat.HALF_FLOAT_OES;
     if (!supportLinearFiltering) { cfg.DYE_RESOLUTION=256; cfg.SHADING=false; }
 
@@ -68,7 +68,7 @@ function SplashCursor() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array([0,1,2,0,2,3]),gl.STATIC_DRAW);
     gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(0);
 
-    function blit(t,clr=false){if(!t){gl.viewport(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight);gl.bindFramebuffer(gl.FRAMEBUFFER,null);}else{gl.viewport(0,0,t.width,t.height);gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);}if(clr){gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);}gl.drawElements(gl.TRIANGLES,6,gl.UNSIGNED_SHORT,0);}
+    function blit(t,clr=false){if(!t){gl.viewport(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight);gl.bindFramebuffer(gl.FRAMEBUFFER,null);}else{gl.viewport(0,0,t.width,t.height);gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);}if(clr){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);}gl.drawElements(gl.TRIANGLES,6,gl.UNSIGNED_SHORT,0);}
     function mkFBO(w,h,iF,f,t,p){gl.activeTexture(gl.TEXTURE0);const tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,p);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,p);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,iF,w,h,0,f,t,null);const fb=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tx,0);gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT);return{texture:tx,fbo:fb,width:w,height:h,texelSizeX:1/w,texelSizeY:1/h,attach(id){gl.activeTexture(gl.TEXTURE0+id);gl.bindTexture(gl.TEXTURE_2D,tx);return id;}};}
     function mkDFBO(w,h,iF,f,t,p){let a=mkFBO(w,h,iF,f,t,p),b=mkFBO(w,h,iF,f,t,p);return{width:w,height:h,texelSizeX:a.texelSizeX,texelSizeY:a.texelSizeY,get read(){return a;},set read(v){a=v;},get write(){return b;},set write(v){b=v;},swap(){let tmp=a;a=b;b=tmp;}};}
     function resFBO(t,w,h,iF,f,tp,p){const n=mkFBO(w,h,iF,f,tp,p);cpP.bind();gl.uniform1i(cpP.uniforms.uTexture,t.attach(0));blit(n);return n;}
@@ -118,6 +118,7 @@ function SplashCursor() {
       pointers.forEach(p=>{if(p.moved){p.moved=false;splatPtr(p);}});
       step(dt);
       gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.enable(gl.BLEND);
+      gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
       dsM.bind();if(cfg.SHADING)gl.uniform2f(dsM.uniforms.texelSize,1/gl.drawingBufferWidth,1/gl.drawingBufferHeight);gl.uniform1i(dsM.uniforms.uTexture,dye.read.attach(0));blit(null);
       rafRef.current=requestAnimationFrame(frame);
     }
