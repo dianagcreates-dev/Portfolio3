@@ -819,8 +819,6 @@ export default function DesignerPortfolio() {
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
   const [plasmaVisible, setPlasmaVisible] = useState(true);
-  const [plasmaColorIndex, setPlasmaColorIndex] = useState(0);
-  const plasmaColors = ['#6366F1', '#EC4899', '#F59E0B', '#10B981'];
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -1037,14 +1035,6 @@ export default function DesignerPortfolio() {
     }, 3000);
     return () => clearInterval(interval);
   }, [activeSection]);
-
-  // Cycle plasma through the 4 project colors every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPlasmaColorIndex(prev => (prev + 1) % plasmaColors.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Returns inline style for scroll-triggered entrance based on project id
   const scrollReveal = (id, projectId, extraStyle = {}) => {
@@ -1623,7 +1613,7 @@ export default function DesignerPortfolio() {
         }}
       />
 
-      {/* Plasma background — cycles through project colors */}
+      {/* Plasma background — Home section only */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -1636,12 +1626,12 @@ export default function DesignerPortfolio() {
         transition: 'opacity 1.2s ease',
       }}>
         <Plasma
-          color={plasmaColors[plasmaColorIndex]}
-          speed={0.5}
+          color="#ff6b35"
+          speed={0.6}
           direction="forward"
-          scale={1.2}
-          opacity={1}
-          mouseInteractive={false}
+          scale={1.1}
+          opacity={0.8}
+          mouseInteractive={true}
         />
       </div>
 
