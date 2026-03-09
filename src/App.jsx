@@ -818,7 +818,6 @@ export default function DesignerPortfolio() {
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [plasmaVisible, setPlasmaVisible] = useState(true);
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -1157,18 +1156,6 @@ export default function DesignerPortfolio() {
 
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
-
-      // On home section, just draw stars — plasma handles the main visuals
-      if (canvasRef.current?.dataset.section === 'home') {
-        stars.forEach((star) => {
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * 0.5})`;
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-        animationFrameRef.current = requestAnimationFrame(render);
-        return;
-      }
 
       stars.forEach((star) => {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
@@ -1602,7 +1589,6 @@ export default function DesignerPortfolio() {
 
       <canvas
         ref={canvasRef}
-        data-section={activeSection}
         style={{
           position: 'absolute',
           top: 0,
@@ -1614,26 +1600,25 @@ export default function DesignerPortfolio() {
       />
 
       {/* Plasma background — Home section only */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        pointerEvents: 'none',
-        opacity: activeSection === 'home' ? 1 : 0,
-        transition: 'opacity 1.2s ease',
-      }}>
-        <Plasma
-          color="#ff6b35"
-          speed={0.6}
-          direction="forward"
-          scale={1.1}
-          opacity={0.8}
-          mouseInteractive={true}
-        />
-      </div>
+      {activeSection === 'home' && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <Plasma
+            speed={0.5}
+            direction="forward"
+            scale={1.2}
+            opacity={1}
+            mouseInteractive={false}
+          />
+        </div>
+      )}
 
       {showStartPrompt && (
         <div
