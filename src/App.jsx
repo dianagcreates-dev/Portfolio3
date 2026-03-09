@@ -818,6 +818,9 @@ export default function DesignerPortfolio() {
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [plasmaVisible, setPlasmaVisible] = useState(true);
+  const [plasmaColorIndex, setPlasmaColorIndex] = useState(0);
+  const plasmaColors = ['#6366F1', '#EC4899', '#F59E0B', '#10B981'];
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -1035,6 +1038,14 @@ export default function DesignerPortfolio() {
     return () => clearInterval(interval);
   }, [activeSection]);
 
+  // Cycle plasma through the 4 project colors every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlasmaColorIndex(prev => (prev + 1) % plasmaColors.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Returns inline style for scroll-triggered entrance based on project id
   const scrollReveal = (id, projectId, extraStyle = {}) => {
     const visible = visibleSections[id];
@@ -1157,8 +1168,14 @@ export default function DesignerPortfolio() {
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
 
-      // On home section, just draw a plain dark background — plasma handles the visuals
+      // On home section, just draw stars — plasma handles the main visuals
       if (canvasRef.current?.dataset.section === 'home') {
+        stars.forEach((star) => {
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * 0.5})`;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
         animationFrameRef.current = requestAnimationFrame(render);
         return;
       }
@@ -1606,27 +1623,27 @@ export default function DesignerPortfolio() {
         }}
       />
 
-      {/* Plasma background — Home section only */}
-      {activeSection === 'home' && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 1,
-          pointerEvents: 'none'
-        }}>
-          <Plasma
-            color="#9b8ec4"
-            speed={0.5}
-            direction="forward"
-            scale={1.2}
-            opacity={1}
-            mouseInteractive={false}
-          />
-        </div>
-      )}
+      {/* Plasma background — cycles through project colors */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        pointerEvents: 'none',
+        opacity: activeSection === 'home' ? 1 : 0,
+        transition: 'opacity 1.2s ease',
+      }}>
+        <Plasma
+          color={plasmaColors[plasmaColorIndex]}
+          speed={0.5}
+          direction="forward"
+          scale={1.2}
+          opacity={1}
+          mouseInteractive={false}
+        />
+      </div>
 
       {showStartPrompt && (
         <div
