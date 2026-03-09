@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 .plasma-container {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+=======
+.plasma-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+>>>>>>> 028ff5b7e1de65c51de18c2dadf0e59fb24b8641
 }
