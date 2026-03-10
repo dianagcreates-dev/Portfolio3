@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: "AI Is Only As Good As Who's Behind It",
-      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. A strong design direction is what separates AI-generated from AI-elevated & that's exactly what I do.",
+      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. Strong design direction is what separates AI-generated from AI-elevated. That's what I do.",
       cta: 'View Projects'
     },
     work: {
@@ -395,8 +395,8 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Mit Absicht gestaltet',
-      subheadline: 'Ich bin UX/UI- und Generative-AI-Designerin mit Wurzeln in Fashion und UX. Klare Designrichtung macht den Unterschied zwischen einfach KI-generiert und durch Design aufgewertet — genau daran arbeite ich.', 
+      headline: 'Wo Design denkt',
+      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
       cta: 'Projekte Ansehen'
     },
     work: {
@@ -1984,7 +1984,7 @@ export default function DesignerPortfolio() {
             animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
           }}>
             <h1 style={{
-              fontSize: 'clamp(2.5rem, 10vw, 6rem)',
+              fontSize: 'clamp(1.8rem, 5.5vw, 4.2rem)',
               fontWeight: 900,
               margin: 0,
               marginBottom: '1rem',
@@ -1995,7 +1995,7 @@ export default function DesignerPortfolio() {
               textShadow: '0 4px 20px rgba(0,0,0,0.4)'
             }}>
               {t.home.headline.split('').map((char, index) => {
-                if (char === ' ' && index === t.home.headline.indexOf('Design') - 1) {
+                if (char === ' ' && index === t.home.headline.indexOf("Who") - 1) {
                   return <br key={index} />;
                 }
                 if (char === ' ') {
