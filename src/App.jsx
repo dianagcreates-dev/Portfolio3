@@ -132,8 +132,8 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Where Design Thinks',
-      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visual outputs that don't just look beautiful they have a purpose.",
+      headline: 'Human Vision, AI Execution',
+      subheadline: "I’m a UX/UI & Generative AI Designer with roots in fashion and UX. My work explores how strong design direction can elevate AI,transforming generative outputs into intentional, high-impact visuals.",
       cta: 'View Projects'
     },
     work: {
@@ -395,8 +395,8 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Wo Design denkt',
-      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
+      headline: 'Menschliche Vision, KI-Umsetzung',
+      subheadline: 'Ich bin UX/UI- und Generative-AI-Designerin mit Wurzeln in Fashion und UX. In meiner Arbeit erforsche ich, wie klare Designrichtung das Potenzial von KI steigern kann und generative Ergebnisse in bewusste, wirkungsstarke Visuals verwandelt.', 
       cta: 'Projekte Ansehen'
     },
     work: {
