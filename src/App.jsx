@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: "AI Is Only As Good As Who's Behind It",
-      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. Strong design direction is what separates AI-generated from AI-elevated. That's what I do.",
+      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. Strong design direction is what separates AI-generated from AI-elevated. I live in that gap.",
       cta: 'View Projects'
     },
     work: {
@@ -395,8 +395,8 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Wo Design denkt',
-      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
+      headline: "KI ist nur so gut wie die Person dahinter",
+      subheadline: "Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX. Starke Designdirektion ist das, was KI-generiert von KI-eleviert trennt. Genau in dieser Lücke arbeite ich.",
       cta: 'Projekte Ansehen'
     },
     work: {
