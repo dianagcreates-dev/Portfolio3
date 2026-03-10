@@ -132,7 +132,7 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Human Vision, AI Execution',
+      headline: 'Designed by Intent',
       subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. A strong design direction is what separates AI-generated from AI-elevated & that's exactly what I do.",
       cta: 'View Projects'
     },
@@ -395,7 +395,7 @@ const translations = {
       ]
     },
     home: {
-      headline: 'Menschliche Vision, KI-Umsetzung',
+      headline: 'Mit Intention gestaltet',
       subheadline: 'Ich bin UX/UI- und Generative-AI-Designerin mit Wurzeln in Fashion und UX. Klare Designrichtung macht den Unterschied zwischen einfach KI-generiert und durch Design aufgewertet — genau daran arbeite ich.', 
       cta: 'Projekte Ansehen'
     },
