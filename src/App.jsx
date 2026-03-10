@@ -132,8 +132,8 @@ const translations = {
       ]
     },
     home: {
-      headline: "AI Is Only As Good As Who's Behind It",
-      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX.\nI believe the tool is only as powerful as the vision behind it.\nStrong design direction is what separates AI-generated from AI-elevated.\nI live in that gap — and I make it visible.",
+      headline: 'Where Design Thinks',
+      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visual outputs that don't just look beautiful they have a purpose.",
       cta: 'View Projects'
     },
     work: {
@@ -395,8 +395,8 @@ const translations = {
       ]
     },
     home: {
-      headline: "KI ist nur so gut wie die Person dahinter",
-      subheadline: "Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX.\nIch glaube, ein Tool ist nur so stark wie die Vision dahinter.\nStarke Designdirektion ist das, was KI-generiert von KI-eleviert trennt.\nIch lebe in dieser Lücke — und ich mache sie sichtbar.",
+      headline: 'Wo Design denkt',
+      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools, um wirkungsstarke, hochwertige visuelle Ergebnisse zu schaffen – die nicht nur schön aussehen, sondern auch einen Zweck haben.',
       cta: 'Projekte Ansehen'
     },
     work: {
@@ -1984,7 +1984,7 @@ export default function DesignerPortfolio() {
             animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
           }}>
             <h1 style={{
-              fontSize: 'clamp(1.8rem, 5.5vw, 4.2rem)',
+              fontSize: 'clamp(2.5rem, 10vw, 6rem)',
               fontWeight: 900,
               margin: 0,
               marginBottom: '1rem',
@@ -1995,7 +1995,7 @@ export default function DesignerPortfolio() {
               textShadow: '0 4px 20px rgba(0,0,0,0.4)'
             }}>
               {t.home.headline.split('').map((char, index) => {
-                if (char === ' ' && index === t.home.headline.indexOf("Who") - 1) {
+                if (char === ' ' && index === t.home.headline.indexOf('Design') - 1) {
                   return <br key={index} />;
                 }
                 if (char === ' ') {
@@ -2035,15 +2035,7 @@ export default function DesignerPortfolio() {
               margin: '0 auto 2.5rem',
               fontFamily: '"Inter", sans-serif'
             }}>
-              {t.language === 'de' ? <>
-                Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX.<br/>
-                Ich glaube, ein Tool ist nur so stark wie die Vision dahinter. Starke Designdirektion trennt KI-generiert von KI-eleviert.<br/>
-                Ich lebe in dieser Lücke — und ich mache sie sichtbar.
-              </> : <>
-                I'm a UX/UI & Generative AI Designer rooted in fashion and UX.<br/>
-                I believe the tool is only as powerful as the vision behind it. Strong design direction is what separates AI-generated from AI-elevated.<br/>
-                I live in that gap — and I make it visible.
-              </>}
+              {t.home.subheadline}
             </p>
             <button
               onClick={() => setActiveSection('work')}
