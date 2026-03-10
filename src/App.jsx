@@ -161,7 +161,7 @@ const translations = {
         title: "Palmi",
         category: "AI Product Design",
         year: "2026",
-        description: "Helping parents read child emotions",
+        description: "Understanding your child’s emotions",
         color: "#6366F1",
         content: {
           challenge: "There is a critical gap in early emotional communication. Children frequently experience feelings they cannot yet articulate, leaving parents to interpret meaning through behavior rather than dialogue. This dynamic limits emotional clarity at a formative developmental stage.",
