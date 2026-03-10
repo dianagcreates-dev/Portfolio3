@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: "AI Is Only As Good As Who's Behind It",
-      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. Strong design direction is what separates AI-generated from AI-elevated. I live in that gap.",
+      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX.\nI believe the tool is only as powerful as the vision behind it.\nStrong design direction is what separates AI-generated from AI-elevated.\nI live in that gap — and I make it visible.",
       cta: 'View Projects'
     },
     work: {
@@ -396,7 +396,7 @@ const translations = {
     },
     home: {
       headline: "KI ist nur so gut wie die Person dahinter",
-      subheadline: "Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX. Starke Designdirektion ist das, was KI-generiert von KI-eleviert trennt. Genau in dieser Lücke arbeite ich.",
+      subheadline: "Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX.\nIch glaube, ein Tool ist nur so stark wie die Vision dahinter.\nStarke Designdirektion ist das, was KI-generiert von KI-eleviert trennt.\nIch lebe in dieser Lücke — und ich mache sie sichtbar.",
       cta: 'Projekte Ansehen'
     },
     work: {
@@ -2035,7 +2035,15 @@ export default function DesignerPortfolio() {
               margin: '0 auto 2.5rem',
               fontFamily: '"Inter", sans-serif'
             }}>
-              {t.home.subheadline}
+              {t.language === 'de' ? <>
+                Ich bin UX/UI & Generative-AI-Designerin mit Wurzeln in Mode und UX.<br/>
+                Ich glaube, ein Tool ist nur so stark wie die Vision dahinter. Starke Designdirektion trennt KI-generiert von KI-eleviert.<br/>
+                Ich lebe in dieser Lücke — und ich mache sie sichtbar.
+              </> : <>
+                I'm a UX/UI & Generative AI Designer rooted in fashion and UX.<br/>
+                I believe the tool is only as powerful as the vision behind it. Strong design direction is what separates AI-generated from AI-elevated.<br/>
+                I live in that gap — and I make it visible.
+              </>}
             </p>
             <button
               onClick={() => setActiveSection('work')}
