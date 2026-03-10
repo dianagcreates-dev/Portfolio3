@@ -76,7 +76,7 @@ function SplashCursor(){
       const now=Date.now(),dt=Math.min((now-lastT)/1000,.016666);lastT=now;
       if(canvas.width!==window.innerWidth||canvas.height!==window.innerHeight){canvas.width=window.innerWidth;canvas.height=window.innerHeight;initFBOs();}
       colTimer+=dt*cfg.COLOR_UPDATE_SPEED;if(colTimer>=1){colTimer=0;ptr.color=genCol();}
-      if(ptr.moved){ptr.moved=false;splat(ptr.texcoordX,ptr.texcoordY,ptr.deltaX*cfg.SPLAT_FORCE,ptr.deltaY*cfg.SPLAT_FORCE,ptr.color);}
+
       gl.disable(gl.BLEND);
       cuP.bind();gl.uniform2f(cuP.u.texelSize,vel.texelSizeX,vel.texelSizeY);gl.uniform1i(cuP.u.uVelocity,vel.read.attach(0));blit(cur);
       voP.bind();gl.uniform2f(voP.u.texelSize,vel.texelSizeX,vel.texelSizeY);gl.uniform1i(voP.u.uVelocity,vel.read.attach(0));gl.uniform1i(voP.u.uCurl,cur.attach(1));gl.uniform1f(voP.u.curl,cfg.CURL);gl.uniform1f(voP.u.dt,dt);blit(vel.write);vel.swap();
@@ -91,9 +91,9 @@ function SplashCursor(){
       rafId=requestAnimationFrame(frame);
     }
 
-    function onMove(e){const ox=ptr.texcoordX,oy=ptr.texcoordY;ptr.texcoordX=e.clientX/window.innerWidth;ptr.texcoordY=1-e.clientY/window.innerHeight;ptr.deltaX=cDX(ptr.texcoordX-ox);ptr.deltaY=cDY(ptr.texcoordY-oy);ptr.moved=true;if(!ptr.color||!ptr.color.r)ptr.color=genCol();}
+    function onMove(e){const ox=ptr.texcoordX,oy=ptr.texcoordY;ptr.texcoordX=e.clientX/window.innerWidth;ptr.texcoordY=1-e.clientY/window.innerHeight;ptr.deltaX=cDX(ptr.texcoordX-ox);ptr.deltaY=cDY(ptr.texcoordY-oy);if(!ptr.color||!ptr.color.r)ptr.color=genCol();splat(ptr.texcoordX,ptr.texcoordY,ptr.deltaX*cfg.SPLAT_FORCE,ptr.deltaY*cfg.SPLAT_FORCE,ptr.color);}
     function onDown(e){ptr.texcoordX=e.clientX/window.innerWidth;ptr.texcoordY=1-e.clientY/window.innerHeight;ptr.color=genCol();const c=genCol();c.r*=10;c.g*=10;c.b*=10;splat(ptr.texcoordX,ptr.texcoordY,10*(Math.random()-.5),30*(Math.random()-.5),c);}
-    function onTMove(e){e.preventDefault();const t=e.targetTouches[0];const ox=ptr.texcoordX,oy=ptr.texcoordY;ptr.texcoordX=t.clientX/window.innerWidth;ptr.texcoordY=1-t.clientY/window.innerHeight;ptr.deltaX=cDX(ptr.texcoordX-ox);ptr.deltaY=cDY(ptr.texcoordY-oy);ptr.moved=true;}
+    function onTMove(e){e.preventDefault();const t=e.targetTouches[0];const ox=ptr.texcoordX,oy=ptr.texcoordY;ptr.texcoordX=t.clientX/window.innerWidth;ptr.texcoordY=1-t.clientY/window.innerHeight;ptr.deltaX=cDX(ptr.texcoordX-ox);ptr.deltaY=cDY(ptr.texcoordY-oy);if(!ptr.color||!ptr.color.r)ptr.color=genCol();splat(ptr.texcoordX,ptr.texcoordY,ptr.deltaX*cfg.SPLAT_FORCE,ptr.deltaY*cfg.SPLAT_FORCE,ptr.color);}
 
     window.addEventListener('mousemove',onMove);
     window.addEventListener('mousedown',onDown);
