@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: 'Human Vision, AI Execution',
-      subheadline: "I’m a UX/UI & Generative AI Designer with roots in fashion and UX. My work explores how strong design direction can elevate AI,transforming generative outputs into intentional, high-impact visuals.",
+      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX.Strong design direction is what separates AI-generated from AI-elevated & that's exactly what I do.",
       cta: 'View Projects'
     },
     work: {
@@ -396,7 +396,7 @@ const translations = {
     },
     home: {
       headline: 'Menschliche Vision, KI-Umsetzung',
-      subheadline: 'Ich bin UX/UI- und Generative-AI-Designerin mit Wurzeln in Fashion und UX. In meiner Arbeit erforsche ich, wie klare Designrichtung das Potenzial von KI steigern kann und generative Ergebnisse in bewusste, wirkungsstarke Visuals verwandelt.', 
+      subheadline: 'Ich bin UX/UI- und Generative-AI-Designerin mit Wurzeln in Fashion und UX. Klare Designrichtung macht den Unterschied zwischen einfach KI-generiert und durch Design aufgewertet — genau daran arbeite ich.', 
       cta: 'Projekte Ansehen'
     },
     work: {
