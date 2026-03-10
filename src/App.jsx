@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: 'Human Vision, AI Execution',
-      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX.Strong design direction is what separates AI-generated from AI-elevated & that's exactly what I do.",
+      subheadline: "I'm a UX/UI & Generative AI Designer rooted in fashion and UX. A strong design direction is what separates AI-generated from AI-elevated & that's exactly what I do.",
       cta: 'View Projects'
     },
     work: {
