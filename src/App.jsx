@@ -133,7 +133,7 @@ const translations = {
     },
     home: {
       headline: 'Where Design Thinks',
-      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visuals that explore the future of design through a thoughtful approach to design.",
+      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visuals that explore the future of design through a thoughtful creative approach.",
       cta: 'View Projects'
     },
     work: {
