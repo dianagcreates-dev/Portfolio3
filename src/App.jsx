@@ -1421,7 +1421,7 @@ export default function DesignerPortfolio() {
   const applyCarouselRotation = (deg) => {
     carouselRotationRef.current = deg;
     if (carouselAnimationRef.current) {
-      const t = `rotateY(${deg}deg) translateZ(0)`;
+      const t = `rotateY(${deg}deg)`;
       carouselAnimationRef.current.style.transform = t;
       carouselAnimationRef.current.style.webkitTransform = t;
     }
@@ -2151,9 +2151,9 @@ export default function DesignerPortfolio() {
                 height: '500px',
                 transformStyle: 'preserve-3d',
                 WebkitTransformStyle: 'preserve-3d',
-                transform: `rotateY(0deg) translateZ(0)`,
-                WebkitTransform: `rotateY(0deg) translateZ(0)`,
-                transition: isDragging ? 'none' : 'none',
+                transform: `rotateY(0deg)`,
+                WebkitTransform: `rotateY(0deg)`,
+                transition: 'none',
                 willChange: 'transform',
                 userSelect: 'none'
               }}
@@ -2166,38 +2166,45 @@ export default function DesignerPortfolio() {
                 const isDeck = carouselEntryPhase === 'deck';
                 const isDealing = carouselEntryPhase === 'dealing';
 
-                // Deck state: all cards stacked at center, tiny, invisible
-                // Dealing: each card transitions to its carousel position with a stagger
-                // Rotating: normal static position (carousel container rotates)
+                // Use static margins for centering — keeps percentage values OUT of the
+                // animated transform string, which prevents Safari compositor jank.
+                const centeringStyle = {
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  marginLeft: '-160px',  // half of 320px card width
+                  marginTop: '-200px',   // half of ~400px card height
+                  width: '320px',
+                };
+
                 const cardPositionStyle = isDeck
                   ? {
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      width: '320px',
-                      transform: `translate(-50%, -50%) rotateY(0deg) translateZ(0px) scale(0.7)`,
+                      ...centeringStyle,
+                      transform: `rotateY(0deg) translateZ(0px)`,
+                      WebkitTransform: `rotateY(0deg) translateZ(0px)`,
                       transformStyle: 'preserve-3d',
+                      WebkitTransformStyle: 'preserve-3d',
                       opacity: 0,
                       transition: 'none',
+                      WebkitTransition: 'none',
                     }
                   : isDealing
                   ? {
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      width: '320px',
-                      transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px) scale(1)`,
+                      ...centeringStyle,
+                      transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                      WebkitTransform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
+                      WebkitTransformStyle: 'preserve-3d',
                       opacity: 1,
-                      transition: `transform 1.0s cubic-bezier(0.34, 1.1, 0.64, 1) ${index * 110}ms, opacity 0.6s ease ${index * 110}ms`,
+                      transition: `transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, -webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.7s ease ${index * 110}ms`,
+                      WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.7s ease ${index * 110}ms`,
                     }
                   : {
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      width: '320px',
-                      transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`,
+                      ...centeringStyle,
+                      transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                      WebkitTransform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
+                      WebkitTransformStyle: 'preserve-3d',
                       opacity: 1,
                     };
 
