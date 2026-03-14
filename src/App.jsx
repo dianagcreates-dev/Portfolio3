@@ -123,12 +123,12 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-         { src: '/images/gallery/image1.1.jpg', label: 'Image 01' },
-        { src: '/images/gallery/image2.1.jpg', label: 'Image 02' },
-        { src: '/images/gallery/image3.jpg', label: 'Image 03' },
-        { src: '/images/gallery/image4.1.jpg', label: 'Image 04' },
-        { src: '/images/gallery/image1.6.jpg', label: 'Image 05' },
-        { src: '/images/gallery/image5.1.jpg', label: 'Image 06' },
+        { src: '/images/gallery/image1.1.jpg', label: 'Image 01', prompt: 'A high-fashion editorial portrait, futuristic couture gown made of liquid mercury and geometric light shards, surrounded by deep space nebula, cinematic lighting, ultra-detailed', tools: ['Midjourney'] },
+        { src: '/images/gallery/image2.1.jpg', label: 'Image 02', prompt: 'Abstract fashion silhouette dissolved into flowing data streams and neon particles, dark background, editorial mood, hyper-realistic textures blending with digital noise', tools: ['Midjourney'] },
+        { src: '/images/gallery/image3.jpg',   label: 'Image 03', prompt: 'Surreal architectural landscape fused with haute couture, sculptural fabric structures rising from a chrome desert, golden hour light, photorealistic render', tools: ['Midjourney'] },
+        { src: '/images/gallery/image4.1.jpg', label: 'Image 04', prompt: 'Close-up of an AI-designed textile, iridescent nano-mesh fabric with embedded circuitry patterns, macro photography, studio lighting, hyper-detailed surface', tools: ['Midjourney'] },
+        { src: '/images/gallery/image1.6.jpg', label: 'Image 05', prompt: 'Fashion model in a void, wearing a deconstructed couture silhouette that fragments into geometric shards and light trails, monochrome palette with electric blue accents', tools: ['Midjourney'] },
+        { src: '/images/gallery/image5.1.jpg', label: 'Image 06', prompt: 'Generative organic structure inspired by biological growth and fashion draping, translucent membrane layers in soft rose and ivory tones, floating in dark studio space', tools: ['Midjourney'] },
       ]
     },
     home: {
@@ -386,12 +386,12 @@ const translations = {
       subtitle: 'KI-gestützte Bildexperimente',
       description: 'Ein Raum, in dem KI zum kreativen Werkzeug wird, nicht zur Abkürzung. Jedes Visual ist bewusst geprompted, kuratiert und gestaltet, um die Grenzen des Designs zu erweitern. Hier treffen Mode, Technologie und Vorstellungskraft aufeinander.',
       images: [
-        { src: '/images/gallery/image1.png', label: 'Bild 01' },
-        { src: '/images/gallery/image2.png', label: 'Bild 02' },
-        { src: '/images/gallery/image3.png', label: 'Bild 03' },
-        { src: '/images/gallery/image4.png', label: 'Bild 04' },
-        { src: '/images/gallery/image5.png', label: 'Bild 05' },
-        { src: '/images/gallery/image6.png', label: 'Bild 06' },
+        { src: '/images/gallery/image1.png', label: 'Bild 01', prompt: 'Ein High-Fashion-Editorial-Portrait, futuristisches Couture-Kleid aus flüssigem Quecksilber und geometrischen Lichtscherben, umgeben von tiefer Weltraumnebel, kinematische Beleuchtung', tools: ['Midjourney'] },
+        { src: '/images/gallery/image2.png', label: 'Bild 02', prompt: 'Abstrakte Modesilhouette, die sich in fließende Datenströme und Neon-Partikel auflöst, dunkler Hintergrund, Editorial-Stimmung, hyperrealistische Texturen', tools: ['Midjourney'] },
+        { src: '/images/gallery/image3.png', label: 'Bild 03', prompt: 'Surreale Architekturlandschaft verschmolzen mit Haute Couture, skulpturale Stoffstrukturen, die aus einer Chromwüste aufsteigen, goldenes Stundenlicht', tools: ['Midjourney'] },
+        { src: '/images/gallery/image4.png', label: 'Bild 04', prompt: 'Nahaufnahme eines KI-designten Textils, schillerndes Nano-Mesh-Gewebe mit eingebetteten Schaltkreismustern, Makrofotografie, Studioleuchten', tools: ['Midjourney'] },
+        { src: '/images/gallery/image5.png', label: 'Bild 05', prompt: 'Fotomodell in einem Void, trägt eine dekonstruierte Couture-Silhouette, die in geometrische Scherben und Lichtspuren zerfällt, monochromes Farbschema', tools: ['Midjourney'] },
+        { src: '/images/gallery/image6.png', label: 'Bild 06', prompt: 'Generative organische Struktur inspiriert von biologischem Wachstum und Mode-Drapierung, transparente Membranschichten in zartem Rosé und Elfenbein', tools: ['Midjourney'] },
       ]
     },
     home: {
@@ -635,46 +635,85 @@ const translations = {
 };
 
 function GalleryFlipRow({ images }) {
-  // images[0..2] = front, images[3..5] = back
   const [flipped, setFlipped] = useState([false, false, false]);
-  // entry: null = stacked/hidden, 'spreading' = layout transition, 'done' = ready to flip
   const [entryPhase, setEntryPhase] = useState('stacked');
-  const cycleRef = useRef(null);
+  const [expandedCard, setExpandedCard] = useState(null);
+  // Per-card pause state — hovering card i sets pausedCards[i] = true
+  const [pausedCards, setPausedCards] = useState([false, false, false]);
+  // Per-card flip timers stored in refs so they're independent
+  const cardTimers = useRef([null, null, null]);
+  const pausedRef = useRef([false, false, false]);
 
-  const runCycle = () => {
-    const delays = [0, 600, 1200];
-    const unflipDelays = [2800, 3400, 4000];
-    delays.forEach((d, i) => {
-      cycleRef.current = setTimeout(() => {
-        setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
-      }, d);
-    });
-    unflipDelays.forEach((d, i) => {
-      cycleRef.current = setTimeout(() => {
+  // Schedule one full flip-and-return cycle for a single card
+  const scheduleCard = (i) => {
+    if (pausedRef.current[i]) return;
+    // Stagger the initial start slightly per card so they don't all flip at once
+    const startDelay = i * 600;
+    const flipDelay = 2800;    // how long it stays flipped
+    const cycleDelay = 5500;   // total cycle length
+
+    const doFlip = () => {
+      if (pausedRef.current[i]) return;
+      setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
+      cardTimers.current[i] = setTimeout(() => {
+        if (pausedRef.current[i]) return;
         setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
-      }, d);
-    });
+        // Schedule next cycle
+        cardTimers.current[i] = setTimeout(() => scheduleCard(i), cycleDelay - flipDelay);
+      }, flipDelay);
+    };
+
+    cardTimers.current[i] = setTimeout(doFlip, startDelay);
   };
 
   useEffect(() => {
-    // Phase 1: stacked (brief pause so browser paints initial state)
     const t1 = setTimeout(() => setEntryPhase('spreading'), 80);
-    // Phase 2: layout transition completes (~900ms), then start flipping
     const t2 = setTimeout(() => {
       setEntryPhase('done');
-      runCycle();
+      [0, 1, 2].forEach(i => scheduleCard(i));
     }, 1600);
-    const interval = setInterval(() => { runCycle(); }, 5500 + 1600);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-      clearInterval(interval);
+      cardTimers.current.forEach(t => clearTimeout(t));
     };
   }, []);
 
+  const handleHover = (i, entering) => {
+    pausedRef.current[i] = entering;
+    setPausedCards(prev => { const n = [...prev]; n[i] = entering; return n; });
+
+    if (!entering) {
+      // Resume this card's cycle from a clean state (unflip if mid-flip, then restart)
+      clearTimeout(cardTimers.current[i]);
+      setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
+      cardTimers.current[i] = setTimeout(() => scheduleCard(i), 800);
+    } else {
+      // Pause — clear any pending timers for this card only
+      clearTimeout(cardTimers.current[i]);
+    }
+  };
+
+  const handleCardClick = (i) => {
+    const isFlipped = flipped[i];
+    const img = isFlipped ? images[i + 3] : images[i];
+    setExpandedCard({ index: i, src: img.src, label: img.label, prompt: img.prompt, tools: img.tools });
+    // Pause this card while expanded
+    clearTimeout(cardTimers.current[i]);
+    pausedRef.current[i] = true;
+  };
+
+  const handleCollapse = () => {
+    const i = expandedCard.index;
+    setExpandedCard(null);
+    pausedRef.current[i] = false;
+    setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
+    cardTimers.current[i] = setTimeout(() => scheduleCard(i), 800);
+  };
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
+    <div style={{ position: 'relative', display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
         {[0, 1, 2].map(i => (
           <FlipCard
@@ -684,14 +723,127 @@ function GalleryFlipRow({ images }) {
             flipped={entryPhase === 'done' ? flipped[i] : false}
             entryIndex={i}
             entryPhase={entryPhase}
+            isExpanded={expandedCard?.index === i}
+            onCardClick={() => handleCardClick(i)}
+            onMouseEnter={() => handleHover(i, true)}
+            onMouseLeave={() => handleHover(i, false)}
           />
         ))}
       </div>
+
+      {/* Expanded overlay */}
+      {expandedCard && (
+        <div
+          onClick={handleCollapse}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
+            animation: 'fadeIn 0.3s ease forwards',
+            cursor: 'zoom-out',
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: 'min(80vw, 720px)',
+              animation: 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards',
+              cursor: 'default',
+            }}
+          >
+            {/* Image */}
+            <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
+              <img
+                src={expandedCard.src}
+                alt={expandedCard.label}
+                style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }}
+              />
+              {/* Close button */}
+              <div
+                onClick={handleCollapse}
+                style={{
+                  position: 'absolute', top: '1rem', right: '1rem',
+                  background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  borderRadius: '50%', width: '36px', height: '36px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+
+              {/* Prompt + tools overlay — bottom of image */}
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                padding: '3rem 1.5rem 1.4rem',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
+              }}>
+                {/* Label + tools row */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                  <span style={{
+                    fontFamily: '"Space Mono", monospace',
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.45)',
+                  }}>
+                    {expandedCard.label}
+                  </span>
+                  {expandedCard.tools?.length > 0 && (
+                    <div style={{ display: 'flex', gap: '0.35rem' }}>
+                      {expandedCard.tools.map(tool => (
+                        <span key={tool} style={{
+                          fontFamily: '"Space Mono", monospace',
+                          fontSize: '0.58rem',
+                          letterSpacing: '0.1em',
+                          textTransform: 'uppercase',
+                          color: 'rgba(255,255,255,0.9)',
+                          background: 'rgba(255,255,255,0.1)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '4px',
+                          padding: '0.2rem 0.55rem',
+                          backdropFilter: 'blur(6px)',
+                          WebkitBackdropFilter: 'blur(6px)',
+                        }}>
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Prompt text */}
+                {expandedCard.prompt && (
+                  <p style={{
+                    fontFamily: '"Inter", sans-serif',
+                    fontSize: '0.78rem',
+                    lineHeight: 1.6,
+                    color: 'rgba(255,255,255,0.7)',
+                    margin: 0,
+                    fontStyle: 'italic',
+                  }}>
+                    "{expandedCard.prompt}"
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' }) {
+function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', isExpanded = false, onCardClick, onMouseEnter, onMouseLeave }) {
   const [frontLoaded, setFrontLoaded] = useState(false);
   const [backLoaded, setBackLoaded] = useState(false);
   const [frontError, setFrontError] = useState(false);
@@ -708,8 +860,6 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' })
   const entryTransition = isStacked ? 'none' : 'transform 1.2s cubic-bezier(0.34, 1.1, 0.64, 1), opacity 0.7s ease';
 
   const cardStyle = {
-    width: "340px",
-    height: "220px",
     borderRadius: "16px",
     overflow: "hidden",
     backfaceVisibility: "hidden",
@@ -732,17 +882,24 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' })
   );
 
   return (
-    <div style={{
-      width: "340px", height: "220px",
-      perspective: "1000px",
-      WebkitPerspective: "1000px",
-      isolation: "isolate",
-      flexShrink: 0,
-      transform: `translateX(${entryTranslateX}px) scale(${entryScale})`,
-      opacity: entryOpacity,
-      transition: entryTransition,
-      transitionDelay: isSpreading ? `${entryIndex * 120}ms` : '0ms',
-    }}>
+    <div
+      onClick={entryPhase === 'done' ? onCardClick : undefined}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        width: "340px", height: "220px",
+        perspective: "1000px",
+        WebkitPerspective: "1000px",
+        isolation: "isolate",
+        flexShrink: 0,
+        transform: `translateX(${entryTranslateX}px) scale(${entryScale})`,
+        opacity: entryOpacity,
+        transition: entryTransition,
+        transitionDelay: isSpreading ? `${entryIndex * 120}ms` : '0ms',
+        cursor: entryPhase === 'done' ? 'zoom-in' : 'default',
+        // Dim non-expanded cards when one is expanded (overlay handles this via backdrop, but subtle scale helps)
+        filter: isExpanded ? 'none' : 'none',
+      }}>
       <div style={{
         position: "relative",
         width: "100%", height: "100%",
@@ -4605,6 +4762,17 @@ export default function DesignerPortfolio() {
           position: fixed;
           margin: 0;
           padding: 0;
+        }
+
+        @keyframes galleryExpand {
+          from {
+            transform: scale(0.82);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
 
         @keyframes fadeIn {
