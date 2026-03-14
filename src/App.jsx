@@ -637,6 +637,8 @@ const translations = {
 function GalleryFlipRow({ images }) {
   // images[0..2] = front, images[3..5] = back
   const [flipped, setFlipped] = useState([false, false, false]);
+  // entry: null = stacked/hidden, 'spreading' = layout transition, 'done' = ready to flip
+  const [entryPhase, setEntryPhase] = useState('stacked');
   const cycleRef = useRef(null);
 
   const runCycle = () => {
@@ -655,27 +657,55 @@ function GalleryFlipRow({ images }) {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => { runCycle(); }, 5500);
-    runCycle();
-    return () => { clearInterval(interval); };
+    // Phase 1: stacked (brief pause so browser paints initial state)
+    const t1 = setTimeout(() => setEntryPhase('spreading'), 80);
+    // Phase 2: layout transition completes (~900ms), then start flipping
+    const t2 = setTimeout(() => {
+      setEntryPhase('done');
+      runCycle();
+    }, 980);
+    const interval = setInterval(() => { runCycle(); }, 5500 + 980);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
         {[0, 1, 2].map(i => (
-          <FlipCard key={i} front={images[i]} back={images[i + 3]} flipped={flipped[i]} />
+          <FlipCard
+            key={i}
+            front={images[i]}
+            back={images[i + 3]}
+            flipped={entryPhase === 'done' ? flipped[i] : false}
+            entryIndex={i}
+            entryPhase={entryPhase}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function FlipCard({ front, back, flipped }) {
+function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' }) {
   const [frontLoaded, setFrontLoaded] = useState(false);
   const [backLoaded, setBackLoaded] = useState(false);
   const [frontError, setFrontError] = useState(false);
   const [backError, setBackError] = useState(false);
+
+  // Entry animation: cards start stacked at center, then spread to their positions
+  const spreadOffsets = [-364, 0, 364]; // card(340) + gap(24)
+  const stackOffset = spreadOffsets[entryIndex] - spreadOffsets[1];
+  const isStacked = entryPhase === 'stacked';
+  const isSpreading = entryPhase === 'spreading';
+  const entryTranslateX = isStacked ? -stackOffset : 0;
+  const entryScale = isStacked ? 0.88 : 1;
+  const entryOpacity = isStacked ? 0 : 1;
+  const entryTransition = isStacked ? 'none' : 'transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s ease';
 
   const cardStyle = {
     width: "340px",
@@ -708,6 +738,10 @@ function FlipCard({ front, back, flipped }) {
       WebkitPerspective: "1000px",
       isolation: "isolate",
       flexShrink: 0,
+      transform: `translateX(${entryTranslateX}px) scale(${entryScale})`,
+      opacity: entryOpacity,
+      transition: entryTransition,
+      transitionDelay: isSpreading ? `${entryIndex * 60}ms` : '0ms',
     }}>
       <div style={{
         position: "relative",
