@@ -2225,8 +2225,10 @@ export default function DesignerPortfolio() {
 
                 const innerEntryStyle = isDeck
                   ? {
-                      transform: `rotateY(0deg) translateZ(0px)`,
-                      WebkitTransform: `rotateY(0deg) translateZ(0px)`,
+                      // Stay at final depth — no translateZ change = no perspective size jump on Safari/iOS.
+                      // All cards start stacked facing the same direction (rotateY 0), invisible.
+                      transform: `rotateY(0deg) translateZ(${radius}px)`,
+                      WebkitTransform: `rotateY(0deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
                       WebkitTransformStyle: 'preserve-3d',
                       opacity: 0,
@@ -2235,13 +2237,14 @@ export default function DesignerPortfolio() {
                     }
                   : isDealing
                   ? {
+                      // Only rotateY changes — translateZ stays the same, so size never shifts.
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       WebkitTransform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
                       WebkitTransformStyle: 'preserve-3d',
                       opacity: 1,
-                      transition: `transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, -webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.6s ease ${index * 110 + 120}ms`,
-                      WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.6s ease ${index * 110 + 120}ms`,
+                      transition: `transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, -webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.5s ease ${index * 110}ms`,
+                      WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.5s ease ${index * 110}ms`,
                     }
                   : {
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
