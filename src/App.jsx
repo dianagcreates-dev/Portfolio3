@@ -713,34 +713,36 @@ function GalleryFlipRow({ images }) {
   };
 
   return (
-    <div style={{ position: 'relative', display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-        {[0, 1, 2].map(i => (
-          <FlipCard
-            key={i}
-            front={images[i]}
-            back={images[i + 3]}
-            flipped={entryPhase === 'done' ? flipped[i] : false}
-            entryIndex={i}
-            entryPhase={entryPhase}
-            isExpanded={expandedCard?.index === i}
-            onCardClick={() => handleCardClick(i)}
-            onMouseEnter={() => handleHover(i, true)}
-            onMouseLeave={() => handleHover(i, false)}
-          />
-        ))}
+    <>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          {[0, 1, 2].map(i => (
+            <FlipCard
+              key={i}
+              front={images[i]}
+              back={images[i + 3]}
+              flipped={entryPhase === 'done' ? flipped[i] : false}
+              entryIndex={i}
+              entryPhase={entryPhase}
+              isExpanded={expandedCard?.index === i}
+              onCardClick={() => handleCardClick(i)}
+              onMouseEnter={() => handleHover(i, true)}
+              onMouseLeave={() => handleHover(i, false)}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Expanded overlay */}
+      {/* Expanded overlay — outside position:relative so fixed isn't trapped */}
       {expandedCard && (
         <div
           onClick={handleCollapse}
           style={{
-            position: 'fixed',
+            position: 'absolute',
             top: 0,
             left: 0,
             width: '1440px',
-            height: `${1440 / (window.innerWidth / window.innerHeight)}px`,
+            height: '100vh',
             zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
@@ -842,7 +844,7 @@ function GalleryFlipRow({ images }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
