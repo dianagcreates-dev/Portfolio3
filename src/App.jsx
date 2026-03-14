@@ -2126,8 +2126,8 @@ export default function DesignerPortfolio() {
           alignItems: 'center',
           justifyContent: 'flex-start',
           padding: 'clamp(2rem, 4vw, 3rem)',
-          paddingTop: 'clamp(5rem, 10vh, 7rem)',
-          paddingBottom: 'clamp(3rem, 6vh, 5rem)',
+          paddingTop: 'clamp(4rem, 7vh, 5.5rem)',
+          paddingBottom: 'clamp(2rem, 4vh, 3.5rem)',
           paddingRight: 'clamp(5rem, 8vw, 7rem)',
           paddingLeft: 'clamp(2rem, 4vw, 3rem)',
         }}
@@ -4164,7 +4164,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'gallery' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '3rem', paddingBottom: '2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
             <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
               {/* Header */}
               <div
