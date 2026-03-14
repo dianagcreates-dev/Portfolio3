@@ -979,6 +979,9 @@ export default function DesignerPortfolio() {
   const targetMousePosition = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
+  // Carousel entry animation — 'deck' | 'dealing' | 'rotating'
+  const [carouselEntryPhase, setCarouselEntryPhase] = useState('deck');
+  const hasEnteredWorkRef = useRef(false);
   const [frequencyData, setFrequencyData] = useState(new Array(32).fill(0));
   const [visibleSections, setVisibleSections] = useState({});
   const [orionOpen, setOrionOpen] = useState(false);
@@ -1424,9 +1427,26 @@ export default function DesignerPortfolio() {
     }
   };
 
+  // Carousel entry animation — runs once when user first enters work section
+  useEffect(() => {
+    if (activeSection === 'work' && !selectedProject && !hasEnteredWorkRef.current) {
+      hasEnteredWorkRef.current = true;
+      setCarouselEntryPhase('deck');
+      // Brief pause so browser paints the stacked/deck state first
+      const t1 = setTimeout(() => setCarouselEntryPhase('dealing'), 120);
+      // Dealing animation: ~1000ms transition + 4 cards * 100ms stagger = ~1400ms total
+      const t2 = setTimeout(() => setCarouselEntryPhase('rotating'), 1700);
+      return () => { clearTimeout(t1); clearTimeout(t2); };
+    }
+    // If re-entering work after going elsewhere (selectedProject back etc), skip entry
+    if (activeSection !== 'work') {
+      // Reset only if going away entirely (so coming back from a project doesn't re-trigger)
+    }
+  }, [activeSection, selectedProject]);
+
   // Carousel auto-rotation — bypasses React state entirely
   useEffect(() => {
-    if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering) {
+    if (activeSection === 'work' && !selectedProject && !isDragging && !isHovering && carouselEntryPhase === 'rotating') {
       let animationId;
       const rotationSpeed = 360 / 30000;
       let lastTime = Date.now();
@@ -1443,7 +1463,7 @@ export default function DesignerPortfolio() {
       animationId = requestAnimationFrame(animate);
       return () => { if (animationId) cancelAnimationFrame(animationId); };
     }
-  }, [activeSection, selectedProject, isDragging, isHovering]);
+  }, [activeSection, selectedProject, isDragging, isHovering, carouselEntryPhase]);
 
   // Carousel drag — also bypasses React state for smooth dragging
   useEffect(() => {
@@ -2143,23 +2163,48 @@ export default function DesignerPortfolio() {
                 const angle = (360 / totalProjects) * index;
                 const radius = 450;
                 
-                return (
-                  <div
-                    key={project.id}
-                    style={{
+                const isDeck = carouselEntryPhase === 'deck';
+                const isDealing = carouselEntryPhase === 'dealing';
+
+                // Deck state: all cards stacked at center, tiny, invisible
+                // Dealing: each card transitions to its carousel position with a stagger
+                // Rotating: normal static position (carousel container rotates)
+                const cardPositionStyle = isDeck
+                  ? {
                       position: 'absolute',
                       left: '50%',
                       top: '50%',
                       width: '320px',
-                      transform: `
-                        translate(-50%, -50%)
-                        rotateY(${angle}deg)
-                        translateZ(${radius}px)
-                      `,
+                      transform: `translate(-50%, -50%) rotateY(0deg) translateZ(0px) scale(0.7)`,
                       transformStyle: 'preserve-3d',
                       opacity: 0,
-                      animation: `fadeIn 0.8s ease ${index * 0.15}s forwards`
-                    }}
+                      transition: 'none',
+                    }
+                  : isDealing
+                  ? {
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      width: '320px',
+                      transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px) scale(1)`,
+                      transformStyle: 'preserve-3d',
+                      opacity: 1,
+                      transition: `transform 1.0s cubic-bezier(0.34, 1.1, 0.64, 1) ${index * 110}ms, opacity 0.6s ease ${index * 110}ms`,
+                    }
+                  : {
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      width: '320px',
+                      transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`,
+                      transformStyle: 'preserve-3d',
+                      opacity: 1,
+                    };
+
+                return (
+                  <div
+                    key={project.id}
+                    style={cardPositionStyle}
                   >
                     <div
                       onClick={(e) => {
