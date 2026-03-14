@@ -1767,7 +1767,7 @@ export default function DesignerPortfolio() {
       // Scale the entire app from the top-left corner so it always looks
       // identical to your reference laptop regardless of screen size.
       width: `${DESIGN_WIDTH}px`,
-      height: `${DESIGN_WIDTH / (window.innerWidth / window.innerHeight)}px`,
+      height: `${window.innerHeight / (window.innerWidth / DESIGN_WIDTH)}px`,
       transform: `scale(${scale})`,
       transformOrigin: 'top left',
       overflow: 'hidden',
