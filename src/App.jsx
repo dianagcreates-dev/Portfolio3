@@ -2166,20 +2166,22 @@ export default function DesignerPortfolio() {
                 const isDeck = carouselEntryPhase === 'deck';
                 const isDealing = carouselEntryPhase === 'dealing';
 
-                // Use static margins for centering — keeps percentage values OUT of the
-                // animated transform string, which prevents Safari compositor jank.
-                const centeringStyle = {
+                // Two-div approach: outer div handles centering (never animated),
+                // inner div handles the 3D entry transform (only 3D values, no % translate).
+                // This prevents Safari from trying to interpolate % values alongside 3D transforms.
+                const outerStyle = {
                   position: 'absolute',
                   left: '50%',
                   top: '50%',
-                  marginLeft: '-160px',  // half of 320px card width
-                  marginTop: '-200px',   // half of ~400px card height
+                  transform: 'translate(-50%, -50%)',
+                  WebkitTransform: 'translate(-50%, -50%)',
                   width: '320px',
+                  transformStyle: 'preserve-3d',
+                  WebkitTransformStyle: 'preserve-3d',
                 };
 
-                const cardPositionStyle = isDeck
+                const innerEntryStyle = isDeck
                   ? {
-                      ...centeringStyle,
                       transform: `rotateY(0deg) translateZ(0px)`,
                       WebkitTransform: `rotateY(0deg) translateZ(0px)`,
                       transformStyle: 'preserve-3d',
@@ -2190,7 +2192,6 @@ export default function DesignerPortfolio() {
                     }
                   : isDealing
                   ? {
-                      ...centeringStyle,
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       WebkitTransform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
@@ -2200,7 +2201,6 @@ export default function DesignerPortfolio() {
                       WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.7s ease ${index * 110}ms`,
                     }
                   : {
-                      ...centeringStyle,
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       WebkitTransform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
@@ -2209,10 +2209,8 @@ export default function DesignerPortfolio() {
                     };
 
                 return (
-                  <div
-                    key={project.id}
-                    style={cardPositionStyle}
-                  >
+                  <div key={project.id} style={outerStyle}>
+                  <div style={innerEntryStyle}>
                     <div
                       onClick={(e) => {
                         if (!dragMovedRef.current) {
@@ -2352,6 +2350,7 @@ export default function DesignerPortfolio() {
                         zIndex: 2,
                       }} />
                     </div>
+                  </div>
                   </div>
                 );
               })}
