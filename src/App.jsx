@@ -848,6 +848,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
   const [backLoaded, setBackLoaded] = useState(false);
   const [frontError, setFrontError] = useState(false);
   const [backError, setBackError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Entry animation: cards start stacked at center, then spread to their positions
   const spreadOffsets = [-364, 0, 364]; // card(340) + gap(24)
@@ -884,8 +885,8 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
   return (
     <div
       onClick={entryPhase === 'done' ? onCardClick : undefined}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => { setIsHovered(true); onMouseEnter?.(); }}
+      onMouseLeave={() => { setIsHovered(false); onMouseLeave?.(); }}
       style={{
         width: "340px", height: "220px",
         perspective: "1000px",
@@ -897,8 +898,6 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
         transition: entryTransition,
         transitionDelay: isSpreading ? `${entryIndex * 120}ms` : '0ms',
         cursor: entryPhase === 'done' ? 'zoom-in' : 'default',
-        // Dim non-expanded cards when one is expanded (overlay handles this via backdrop, but subtle scale helps)
-        filter: isExpanded ? 'none' : 'none',
       }}>
       <div style={{
         position: "relative",
@@ -919,6 +918,26 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
             />
           ) : placeholder(front)}
+          {/* View Image overlay — front face */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: isHovered ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0)',
+            backdropFilter: isHovered ? 'blur(6px)' : 'blur(0px)',
+            WebkitBackdropFilter: isHovered ? 'blur(6px)' : 'blur(0px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.3s ease, backdrop-filter 0.3s ease, background 0.3s ease',
+            borderRadius: '16px',
+            pointerEvents: 'none',
+          }}>
+            <span style={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '0.78rem',
+              fontWeight: 500,
+              letterSpacing: '0.08em',
+              color: 'rgba(255,255,255,0.92)',
+            }}>View Image</span>
+          </div>
         </div>
 
         {/* Back */}
@@ -934,6 +953,26 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
             />
           ) : placeholder(back)}
+          {/* View Image overlay — back face */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: isHovered ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0)',
+            backdropFilter: isHovered ? 'blur(6px)' : 'blur(0px)',
+            WebkitBackdropFilter: isHovered ? 'blur(6px)' : 'blur(0px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.3s ease, backdrop-filter 0.3s ease, background 0.3s ease',
+            borderRadius: '16px',
+            pointerEvents: 'none',
+          }}>
+            <span style={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '0.78rem',
+              fontWeight: 500,
+              letterSpacing: '0.08em',
+              color: 'rgba(255,255,255,0.92)',
+            }}>View Image</span>
+          </div>
         </div>
       </div>
     </div>
