@@ -4224,7 +4224,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} onExpand={setExpandedGalleryCard} expandedIndex={expandedGalleryCard?.index ?? null} onCollapse={() => { setIsGalleryClosing(true); setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 570); }} />
+                <GalleryFlipRow images={galleryImages} onExpand={setExpandedGalleryCard} expandedIndex={expandedGalleryCard?.index ?? null} onCollapse={() => { setIsGalleryClosing(true); setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 650); }} />
               </div>
             </div>
           </div>
@@ -4701,15 +4701,15 @@ export default function DesignerPortfolio() {
 
         @keyframes galleryCollapse {
           0% {
-            transform: scale(1) translateY(0) rotateX(0deg);
+            transform: scale(1) translateY(0) rotateY(0deg);
             opacity: 1;
           }
-          35% {
-            transform: scale(0.85) translateY(5%) rotateX(90deg);
-            opacity: 0.8;
+          50% {
+            transform: scale(0.7) translateY(15%) rotateY(90deg);
+            opacity: 0.9;
           }
           100% {
-            transform: scale(0.47) translateY(40vh) rotateX(180deg);
+            transform: scale(0.47) translateY(40vh) rotateY(180deg);
             opacity: 0;
           }
         }
@@ -4874,7 +4874,7 @@ export default function DesignerPortfolio() {
           <div
             onClick={() => {
               setIsGalleryClosing(true);
-              setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 570);
+              setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 650);
             }}
             style={{
               position: 'absolute',
@@ -4891,13 +4891,13 @@ export default function DesignerPortfolio() {
               cursor: 'zoom-out',
             }}
           >
-            <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', perspective: '1200px', animation: isGalleryClosing ? 'galleryCollapse 0.55s cubic-bezier(0.4, 0, 0.6, 1) forwards' : 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
+            <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', perspective: '1200px', transformStyle: 'preserve-3d', animation: isGalleryClosing ? 'galleryCollapse 0.6s cubic-bezier(0.4, 0, 0.8, 0.6) forwards' : 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
               <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
                 <img src={expandedGalleryCard.src} alt={expandedGalleryCard.label} style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }} />
                 <div
                   onClick={() => {
                     setIsGalleryClosing(true);
-                    setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 570);
+                    setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 650);
                   }}
                   style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)' }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
