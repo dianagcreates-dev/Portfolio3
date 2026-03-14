@@ -4846,7 +4846,9 @@ export default function DesignerPortfolio() {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-        {/* Gallery lightbox — at root level, no transform/overflow ancestors */}
+      `}</style>
+
+        {/* Gallery lightbox — direct child of root shell, correctly centred */}
         {expandedGalleryCard && (
           <div
             onClick={() => setExpandedGalleryCard(null)}
@@ -4890,8 +4892,6 @@ export default function DesignerPortfolio() {
             </div>
           </div>
         )}
-
-      `}</style>
     </div>
   );
 }
