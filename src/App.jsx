@@ -663,8 +663,8 @@ function GalleryFlipRow({ images }) {
     const t2 = setTimeout(() => {
       setEntryPhase('done');
       runCycle();
-    }, 980);
-    const interval = setInterval(() => { runCycle(); }, 5500 + 980);
+    }, 1600);
+    const interval = setInterval(() => { runCycle(); }, 5500 + 1600);
 
     return () => {
       clearTimeout(t1);
@@ -705,7 +705,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' })
   const entryTranslateX = isStacked ? -stackOffset : 0;
   const entryScale = isStacked ? 0.88 : 1;
   const entryOpacity = isStacked ? 0 : 1;
-  const entryTransition = isStacked ? 'none' : 'transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s ease';
+  const entryTransition = isStacked ? 'none' : 'transform 1.2s cubic-bezier(0.34, 1.1, 0.64, 1), opacity 0.7s ease';
 
   const cardStyle = {
     width: "340px",
@@ -741,7 +741,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done' })
       transform: `translateX(${entryTranslateX}px) scale(${entryScale})`,
       opacity: entryOpacity,
       transition: entryTransition,
-      transitionDelay: isSpreading ? `${entryIndex * 60}ms` : '0ms',
+      transitionDelay: isSpreading ? `${entryIndex * 120}ms` : '0ms',
     }}>
       <div style={{
         position: "relative",
