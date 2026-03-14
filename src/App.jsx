@@ -634,7 +634,7 @@ const translations = {
   }
 };
 
-function GalleryFlipRow({ images }) {
+function GalleryFlipRow({ images, scale = 1 }) {
   const [flipped, setFlipped] = useState([false, false, false]);
   const [entryPhase, setEntryPhase] = useState('stacked');
   const [expandedCard, setExpandedCard] = useState(null);
@@ -737,11 +737,16 @@ function GalleryFlipRow({ images }) {
           onClick={handleCollapse}
           style={{
             position: 'fixed',
-            inset: 0,
+            top: 0,
+            left: 0,
+            width: `${100 / scale}%`,
+            height: `${100 / scale}%`,
             zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            transform: `scale(${1 / scale})`,
+            transformOrigin: 'top left',
             background: 'rgba(0,0,0,0.6)',
             backdropFilter: 'blur(18px)',
             WebkitBackdropFilter: 'blur(18px)',
@@ -4339,7 +4344,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} />
+                <GalleryFlipRow images={galleryImages} scale={scale} />
               </div>
             </div>
           </div>
