@@ -634,7 +634,7 @@ const translations = {
   }
 };
 
-function GalleryFlipRow({ images, scale = 1 }) {
+function GalleryFlipRow({ images }) {
   const [flipped, setFlipped] = useState([false, false, false]);
   const [entryPhase, setEntryPhase] = useState('stacked');
   const [expandedCard, setExpandedCard] = useState(null);
@@ -755,7 +755,7 @@ function GalleryFlipRow({ images, scale = 1 }) {
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              width: 'min(80vw, 720px)',
+              width: '720px',
               animation: 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards',
               cursor: 'default',
             }}
@@ -4342,7 +4342,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} scale={scale} />
+                <GalleryFlipRow images={galleryImages} />
               </div>
             </div>
           </div>
