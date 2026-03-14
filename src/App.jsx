@@ -1082,7 +1082,7 @@ export default function DesignerPortfolio() {
   // ─── Viewport scale normalisation ───────────────────────────────────────────
   // Your design reference width (the laptop you designed on).
   // Change this number to match YOUR laptop's screen width in pixels.
-  const DESIGN_WIDTH = 1440;
+  const DESIGN_WIDTH = 1280;
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
@@ -1096,7 +1096,13 @@ export default function DesignerPortfolio() {
     document.documentElement.style.webkitTextSizeAdjust = '100%';
     document.documentElement.style.textSizeAdjust = '100%';
 
-    // Scale shell removed — app now fills 100vw/100vh natively
+    const updateScale = () => {
+      const s = window.innerWidth / DESIGN_WIDTH;
+      setScale(s);
+    };
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
   }, []);
   // ────────────────────────────────────────────────────────────────────────────
 
@@ -1297,11 +1303,11 @@ export default function DesignerPortfolio() {
 
     const ctx = canvas.getContext('2d');
     let width = DESIGN_WIDTH;
-    let height = Math.round(DESIGN_WIDTH / (window.innerWidth / window.innerHeight));
+    let height = Math.round(window.innerHeight / (window.innerWidth / DESIGN_WIDTH));
 
     const resizeCanvas = () => {
       width = DESIGN_WIDTH;
-      height = Math.round(DESIGN_WIDTH / (window.innerWidth / window.innerHeight));
+      height = Math.round(window.innerHeight / (window.innerWidth / DESIGN_WIDTH));
       canvas.width = width;
       canvas.height = height;
     };
@@ -1758,8 +1764,12 @@ export default function DesignerPortfolio() {
       position: 'fixed',
       top: 0,
       left: 0,
-      width: '100vw',
-      height: '100vh',
+      // Scale the entire app from the top-left corner so it always looks
+      // identical to your reference laptop regardless of screen size.
+      width: `${DESIGN_WIDTH}px`,
+      height: `${window.innerHeight / (window.innerWidth / DESIGN_WIDTH)}px`,
+      transform: `scale(${scale})`,
+      transformOrigin: 'top left',
       overflow: 'hidden',
       margin: 0,
       padding: 0,
@@ -1869,7 +1879,7 @@ export default function DesignerPortfolio() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 'clamp(1rem, 2vh, 1.5rem) clamp(1.5rem, 3vw, 3rem)',
+        padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem)',
         opacity: 0,
         animation: 'fadeIn 1s ease 0.2s forwards'
       }}>
@@ -2115,10 +2125,11 @@ export default function DesignerPortfolio() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          paddingTop: 'clamp(4.5rem, 8vh, 6rem)',
-          paddingBottom: 'clamp(1.5rem, 3vh, 2.5rem)',
-          paddingLeft: 'clamp(1.5rem, 3vw, 3rem)',
-          paddingRight: 'clamp(4rem, 6vw, 6rem)',
+          padding: 'clamp(2rem, 4vw, 3rem)',
+          paddingTop: 'clamp(5rem, 10vh, 7rem)',
+          paddingBottom: 'clamp(3rem, 6vh, 5rem)',
+          paddingRight: 'clamp(5rem, 8vw, 7rem)',
+          paddingLeft: 'clamp(2rem, 4vw, 3rem)',
         }}
       >
         {activeSection === 'home' && (
@@ -4015,7 +4026,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem', marginTop: '0' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', marginTop: '0rem' }}>
           <div
             data-scroll-id="s26"
             style={{
@@ -4153,7 +4164,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'gallery' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '3rem', paddingBottom: '2rem' }}>
             <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
               {/* Header */}
               <div
@@ -4220,7 +4231,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem', paddingRight: '1rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', paddingRight: '1rem' }}>
           <div
             data-scroll-id="s30"
             style={{
