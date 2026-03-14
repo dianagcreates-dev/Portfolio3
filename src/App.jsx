@@ -1041,6 +1041,7 @@ export default function DesignerPortfolio() {
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [expandedGalleryCard, setExpandedGalleryCard] = useState(null);
+  const [isGalleryClosing, setIsGalleryClosing] = useState(false);
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -4223,7 +4224,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} onExpand={setExpandedGalleryCard} expandedIndex={expandedGalleryCard?.index ?? null} onCollapse={() => setExpandedGalleryCard(null)} />
+                <GalleryFlipRow images={galleryImages} onExpand={setExpandedGalleryCard} expandedIndex={expandedGalleryCard?.index ?? null} onCollapse={() => { setIsGalleryClosing(true); setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 300); }} />
               </div>
             </div>
           </div>
@@ -4698,9 +4699,25 @@ export default function DesignerPortfolio() {
           }
         }
 
+        @keyframes galleryCollapse {
+          from {
+            transform: scale(1);
+            opacity: 1;
+          }
+          to {
+            transform: scale(0.82);
+            opacity: 0;
+          }
+        }
+
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
         }
 
         @keyframes fadeInUp {
@@ -4851,7 +4868,10 @@ export default function DesignerPortfolio() {
         {/* Gallery lightbox — direct child of root shell, correctly centred */}
         {expandedGalleryCard && (
           <div
-            onClick={() => setExpandedGalleryCard(null)}
+            onClick={() => {
+              setIsGalleryClosing(true);
+              setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 300);
+            }}
             style={{
               position: 'absolute',
               top: 0, left: 0,
@@ -4863,14 +4883,19 @@ export default function DesignerPortfolio() {
               background: 'rgba(0,0,0,0.6)',
               backdropFilter: 'blur(18px)',
               WebkitBackdropFilter: 'blur(18px)',
-              animation: 'fadeIn 0.3s ease forwards',
+              animation: isGalleryClosing ? 'fadeOut 0.3s ease forwards' : 'fadeIn 0.3s ease forwards',
               cursor: 'zoom-out',
             }}
           >
-            <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', animation: 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
+            <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', animation: isGalleryClosing ? 'galleryCollapse 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards' : 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
               <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
                 <img src={expandedGalleryCard.src} alt={expandedGalleryCard.label} style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }} />
-                <div onClick={() => setExpandedGalleryCard(null)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div
+                  onClick={() => {
+                    setIsGalleryClosing(true);
+                    setTimeout(() => { setExpandedGalleryCard(null); setIsGalleryClosing(false); }, 300);
+                  }}
+                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)' }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
                 </div>
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '3rem 1.5rem 1.4rem', background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)' }}>
