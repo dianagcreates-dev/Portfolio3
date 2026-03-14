@@ -1421,6 +1421,11 @@ export default function DesignerPortfolio() {
   const applyCarouselRotation = (deg) => {
     carouselRotationRef.current = deg;
     if (carouselAnimationRef.current) {
+      // Set willChange only while actively animating — avoids permanent GPU layer
+      // promotion which causes layer explosion on low-end Android/iOS devices
+      if (!carouselAnimationRef.current.style.willChange) {
+        carouselAnimationRef.current.style.willChange = 'transform';
+      }
       const t = `rotateY(${deg}deg)`;
       carouselAnimationRef.current.style.transform = t;
       carouselAnimationRef.current.style.webkitTransform = t;
@@ -1461,7 +1466,12 @@ export default function DesignerPortfolio() {
       };
 
       animationId = requestAnimationFrame(animate);
-      return () => { if (animationId) cancelAnimationFrame(animationId); };
+      return () => {
+        if (animationId) cancelAnimationFrame(animationId);
+        if (carouselAnimationRef.current) {
+          carouselAnimationRef.current.style.willChange = 'auto';
+        }
+      };
     }
   }, [activeSection, selectedProject, isDragging, isHovering, carouselEntryPhase]);
 
@@ -1486,16 +1496,39 @@ export default function DesignerPortfolio() {
         }
       };
 
+      // Touch equivalents
+      const handleTouchMove = (e) => {
+        if (isDraggingRef.current && e.touches.length === 1) {
+          const deltaX = e.touches[0].clientX - dragStartXRef.current;
+          if (Math.abs(deltaX) > 4) dragMovedRef.current = true;
+          let newRotation = (dragStartRotationRef.current + deltaX * 0.5) % 360;
+          if (newRotation < 0) newRotation += 360;
+          applyCarouselRotation(newRotation);
+        }
+      };
+
+      const handleTouchEnd = () => {
+        if (isDraggingRef.current) {
+          setIsDragging(false);
+          setDragStartRotation(carouselRotationRef.current);
+          dragStartRotationRef.current = carouselRotationRef.current;
+        }
+      };
+
       if (isDragging) {
         dragStartXRef.current = dragStartX;
         dragStartRotationRef.current = dragStartRotation;
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
+        window.addEventListener('touchmove', handleTouchMove, { passive: true });
+        window.addEventListener('touchend', handleTouchEnd);
       }
 
       return () => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
       };
     }
   }, [isDragging, dragStartX, dragStartRotation, activeSection, selectedProject]);
@@ -2132,7 +2165,8 @@ export default function DesignerPortfolio() {
             WebkitPerspective: '2000px',
             isolation: 'isolate',
             cursor: isDragging ? 'grabbing' : 'grab',
-            paddingBottom: '3rem'
+            paddingBottom: '3rem',
+            touchAction: 'none',
           }}
           onMouseDown={(e) => {
             dragMovedRef.current = false;
@@ -2140,6 +2174,15 @@ export default function DesignerPortfolio() {
             setDragStartX(e.clientX);
             setDragStartRotation(carouselRotation);
             setShowDragGuide(false);
+          }}
+          onTouchStart={(e) => {
+            if (e.touches.length === 1) {
+              dragMovedRef.current = false;
+              setIsDragging(true);
+              setDragStartX(e.touches[0].clientX);
+              setDragStartRotation(carouselRotationRef.current);
+              setShowDragGuide(false);
+            }
           }}
           >
             <div 
@@ -2154,7 +2197,6 @@ export default function DesignerPortfolio() {
                 transform: `rotateY(0deg)`,
                 WebkitTransform: `rotateY(0deg)`,
                 transition: 'none',
-                willChange: 'transform',
                 userSelect: 'none'
               }}
             >
@@ -2175,6 +2217,7 @@ export default function DesignerPortfolio() {
                   top: '50%',
                   transform: 'translate(-50%, -50%)',
                   WebkitTransform: 'translate(-50%, -50%)',
+                  MozTransform: 'translate(-50%, -50%)',
                   width: '320px',
                   transformStyle: 'preserve-3d',
                   WebkitTransformStyle: 'preserve-3d',
@@ -2197,8 +2240,8 @@ export default function DesignerPortfolio() {
                       transformStyle: 'preserve-3d',
                       WebkitTransformStyle: 'preserve-3d',
                       opacity: 1,
-                      transition: `transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, -webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.7s ease ${index * 110}ms`,
-                      WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.7s ease ${index * 110}ms`,
+                      transition: `transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, -webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.6s ease ${index * 110 + 120}ms`,
+                      WebkitTransition: `-webkit-transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 110}ms, opacity 0.6s ease ${index * 110 + 120}ms`,
                     }
                   : {
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
@@ -2219,6 +2262,15 @@ export default function DesignerPortfolio() {
                       }}
                       onMouseDown={(e) => {
                         dragMovedRef.current = false;
+                      }}
+                      onTouchStart={(e) => {
+                        dragMovedRef.current = false;
+                      }}
+                      onTouchEnd={(e) => {
+                        if (!dragMovedRef.current) {
+                          e.preventDefault();
+                          setSelectedProject(project);
+                        }
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.border = `2px solid ${project.color}`;
