@@ -1879,7 +1879,7 @@ export default function DesignerPortfolio() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem)',
+        padding: '1.5rem 4rem',
         opacity: 0,
         animation: 'fadeIn 1s ease 0.2s forwards'
       }}>
@@ -2125,11 +2125,11 @@ export default function DesignerPortfolio() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          padding: 'clamp(2rem, 4vw, 3rem)',
-          paddingTop: 'clamp(4rem, 7vh, 5.5rem)',
-          paddingBottom: 'clamp(2rem, 4vh, 3.5rem)',
-          paddingRight: 'clamp(5rem, 8vw, 7rem)',
-          paddingLeft: 'clamp(2rem, 4vw, 3rem)',
+          padding: '2rem',
+          paddingTop: '80px',
+          paddingBottom: '2rem',
+          paddingRight: '80px',
+          paddingLeft: '2rem',
         }}
       >
         {activeSection === 'home' && (
@@ -4026,7 +4026,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'about' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', marginTop: '0rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem', marginTop: '0rem' }}>
           <div
             data-scroll-id="s26"
             style={{
@@ -4164,7 +4164,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'gallery' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem' }}>
             <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
               {/* Header */}
               <div
@@ -4231,7 +4231,7 @@ export default function DesignerPortfolio() {
         )}
 
         {activeSection === 'contact' && (
-          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '1rem', paddingBottom: '2rem', paddingRight: '1rem' }}>
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '0', paddingBottom: '1rem', paddingRight: '1rem' }}>
           <div
             data-scroll-id="s30"
             style={{
