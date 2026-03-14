@@ -634,35 +634,27 @@ const translations = {
   }
 };
 
-function GalleryFlipRow({ images }) {
+function GalleryFlipRow({ images, onExpand, expandedIndex, onCollapse }) {
   const [flipped, setFlipped] = useState([false, false, false]);
   const [entryPhase, setEntryPhase] = useState('stacked');
-  const [expandedCard, setExpandedCard] = useState(null);
-  // Per-card pause state — hovering card i sets pausedCards[i] = true
   const [pausedCards, setPausedCards] = useState([false, false, false]);
-  // Per-card flip timers stored in refs so they're independent
   const cardTimers = useRef([null, null, null]);
   const pausedRef = useRef([false, false, false]);
 
-  // Schedule one full flip-and-return cycle for a single card
   const scheduleCard = (i) => {
     if (pausedRef.current[i]) return;
-    // Stagger the initial start slightly per card so they don't all flip at once
     const startDelay = i * 600;
-    const flipDelay = 2800;    // how long it stays flipped
-    const cycleDelay = 5500;   // total cycle length
-
+    const flipDelay = 2800;
+    const cycleDelay = 5500;
     const doFlip = () => {
       if (pausedRef.current[i]) return;
       setFlipped(prev => { const n = [...prev]; n[i] = true; return n; });
       cardTimers.current[i] = setTimeout(() => {
         if (pausedRef.current[i]) return;
         setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
-        // Schedule next cycle
         cardTimers.current[i] = setTimeout(() => scheduleCard(i), cycleDelay - flipDelay);
       }, flipDelay);
     };
-
     cardTimers.current[i] = setTimeout(doFlip, startDelay);
   };
 
@@ -672,7 +664,6 @@ function GalleryFlipRow({ images }) {
       setEntryPhase('done');
       [0, 1, 2].forEach(i => scheduleCard(i));
     }, 1600);
-
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -683,168 +674,55 @@ function GalleryFlipRow({ images }) {
   const handleHover = (i, entering) => {
     pausedRef.current[i] = entering;
     setPausedCards(prev => { const n = [...prev]; n[i] = entering; return n; });
-
     if (!entering) {
-      // Resume this card's cycle from a clean state (unflip if mid-flip, then restart)
       clearTimeout(cardTimers.current[i]);
       setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
       cardTimers.current[i] = setTimeout(() => scheduleCard(i), 800);
     } else {
-      // Pause — clear any pending timers for this card only
       clearTimeout(cardTimers.current[i]);
     }
   };
 
   const handleCardClick = (i) => {
-    const isFlipped = flipped[i];
-    const img = isFlipped ? images[i + 3] : images[i];
-    setExpandedCard({ index: i, src: img.src, label: img.label, prompt: img.prompt, tools: img.tools });
-    // Pause this card while expanded
+    const img = flipped[i] ? images[i + 3] : images[i];
+    onExpand({ index: i, src: img.src, label: img.label, prompt: img.prompt, tools: img.tools });
     clearTimeout(cardTimers.current[i]);
     pausedRef.current[i] = true;
   };
 
-  const handleCollapse = () => {
-    const i = expandedCard.index;
-    setExpandedCard(null);
-    pausedRef.current[i] = false;
-    setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
-    cardTimers.current[i] = setTimeout(() => scheduleCard(i), 800);
-  };
+  // Called by parent when overlay closes — resumes the card that was expanded
+  useEffect(() => {
+    if (expandedIndex === null && onCollapse) {
+      // Find which card was paused and resume it
+      [0, 1, 2].forEach(i => {
+        if (pausedRef.current[i]) {
+          pausedRef.current[i] = false;
+          setFlipped(prev => { const n = [...prev]; n[i] = false; return n; });
+          cardTimers.current[i] = setTimeout(() => scheduleCard(i), 800);
+        }
+      });
+    }
+  }, [expandedIndex]);
 
   return (
-    <>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          {[0, 1, 2].map(i => (
-            <FlipCard
-              key={i}
-              front={images[i]}
-              back={images[i + 3]}
-              flipped={entryPhase === 'done' ? flipped[i] : false}
-              entryIndex={i}
-              entryPhase={entryPhase}
-              isExpanded={expandedCard?.index === i}
-              onCardClick={() => handleCardClick(i)}
-              onMouseEnter={() => handleHover(i, true)}
-              onMouseLeave={() => handleHover(i, false)}
-            />
-          ))}
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        {[0, 1, 2].map(i => (
+          <FlipCard
+            key={i}
+            front={images[i]}
+            back={images[i + 3]}
+            flipped={entryPhase === 'done' ? flipped[i] : false}
+            entryIndex={i}
+            entryPhase={entryPhase}
+            isExpanded={expandedIndex === i}
+            onCardClick={() => handleCardClick(i)}
+            onMouseEnter={() => handleHover(i, true)}
+            onMouseLeave={() => handleHover(i, false)}
+          />
+        ))}
       </div>
-
-      {/* Expanded overlay — outside position:relative so fixed isn't trapped */}
-      {expandedCard && (
-        <div
-          onClick={handleCollapse}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '1440px',
-            height: '100vh',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(0,0,0,0.6)',
-            backdropFilter: 'blur(18px)',
-            WebkitBackdropFilter: 'blur(18px)',
-            animation: 'fadeIn 0.3s ease forwards',
-            cursor: 'zoom-out',
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: '720px',
-              animation: 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards',
-              cursor: 'default',
-            }}
-          >
-            {/* Image */}
-            <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
-              <img
-                src={expandedCard.src}
-                alt={expandedCard.label}
-                style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }}
-              />
-              {/* Close button */}
-              <div
-                onClick={handleCollapse}
-                style={{
-                  position: 'absolute', top: '1rem', right: '1rem',
-                  background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                  borderRadius: '50%', width: '36px', height: '36px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)',
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </div>
-
-              {/* Prompt + tools overlay — bottom of image */}
-              <div style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                padding: '3rem 1.5rem 1.4rem',
-                background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
-              }}>
-                {/* Label + tools row */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                  <span style={{
-                    fontFamily: '"Space Mono", monospace',
-                    fontSize: '0.6rem',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.45)',
-                  }}>
-                    {expandedCard.label}
-                  </span>
-                  {expandedCard.tools?.length > 0 && (
-                    <div style={{ display: 'flex', gap: '0.35rem' }}>
-                      {expandedCard.tools.map(tool => (
-                        <span key={tool} style={{
-                          fontFamily: '"Space Mono", monospace',
-                          fontSize: '0.58rem',
-                          letterSpacing: '0.1em',
-                          textTransform: 'uppercase',
-                          color: 'rgba(255,255,255,0.9)',
-                          background: 'rgba(255,255,255,0.1)',
-                          border: '1px solid rgba(255,255,255,0.2)',
-                          borderRadius: '4px',
-                          padding: '0.2rem 0.55rem',
-                          backdropFilter: 'blur(6px)',
-                          WebkitBackdropFilter: 'blur(6px)',
-                        }}>
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Prompt text */}
-                {expandedCard.prompt && (
-                  <p style={{
-                    fontFamily: '"Inter", sans-serif',
-                    fontSize: '0.78rem',
-                    lineHeight: 1.6,
-                    color: 'rgba(255,255,255,0.7)',
-                    margin: 0,
-                    fontStyle: 'italic',
-                  }}>
-                    "{expandedCard.prompt}"
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 
@@ -1162,6 +1040,7 @@ export default function DesignerPortfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
+  const [expandedGalleryCard, setExpandedGalleryCard] = useState(null);
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -4344,7 +4223,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {t.gallery.subtitle}
                 </p>
-                <GalleryFlipRow images={galleryImages} />
+                <GalleryFlipRow images={galleryImages} onExpand={setExpandedGalleryCard} expandedIndex={expandedGalleryCard?.index ?? null} onCollapse={() => setExpandedGalleryCard(null)} />
               </div>
             </div>
           </div>
@@ -4967,6 +4846,51 @@ export default function DesignerPortfolio() {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
+        {/* Gallery lightbox — at root level, no transform/overflow ancestors */}
+        {expandedGalleryCard && (
+          <div
+            onClick={() => setExpandedGalleryCard(null)}
+            style={{
+              position: 'absolute',
+              top: 0, left: 0,
+              width: '100%', height: '100%',
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(0,0,0,0.6)',
+              backdropFilter: 'blur(18px)',
+              WebkitBackdropFilter: 'blur(18px)',
+              animation: 'fadeIn 0.3s ease forwards',
+              cursor: 'zoom-out',
+            }}
+          >
+            <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', animation: 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
+              <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                <img src={expandedGalleryCard.src} alt={expandedGalleryCard.label} style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }} />
+                <div onClick={() => setExpandedGalleryCard(null)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
+                </div>
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '3rem 1.5rem 1.4rem', background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                    <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>{expandedGalleryCard.label}</span>
+                    {expandedGalleryCard.tools?.length > 0 && (
+                      <div style={{ display: 'flex', gap: '0.35rem' }}>
+                        {expandedGalleryCard.tools.map(tool => (
+                          <span key={tool} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.9)', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px', padding: '0.2rem 0.55rem', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>{tool}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {expandedGalleryCard.prompt && (
+                    <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: 0, fontStyle: 'italic' }}>"{expandedGalleryCard.prompt}"</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       `}</style>
     </div>
   );
