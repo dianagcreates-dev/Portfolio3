@@ -1080,25 +1080,23 @@ export default function DesignerPortfolio() {
   const orionBottomRef = useRef(null);
 
   // ─── Viewport scale normalisation ───────────────────────────────────────────
-  // Your design reference width (the laptop you designed on).
-  // Change this number to match YOUR laptop's screen width in pixels.
   const DESIGN_WIDTH = 1280;
+  const MOBILE_BREAKPOINT = 768; // below this → show mobile screen
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Ensure correct viewport meta
     let meta = document.querySelector('meta[name="viewport"]');
     if (!meta) { meta = document.createElement('meta'); meta.name = 'viewport'; document.head.appendChild(meta); }
     meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-
-    // Lock root font-size so rem units are always 16px
     document.documentElement.style.fontSize = '16px';
     document.documentElement.style.webkitTextSizeAdjust = '100%';
     document.documentElement.style.textSizeAdjust = '100%';
 
     const updateScale = () => {
-      const s = window.innerWidth / DESIGN_WIDTH;
-      setScale(s);
+      const w = window.innerWidth;
+      setIsMobile(w < MOBILE_BREAKPOINT);
+      setScale(w / DESIGN_WIDTH);
     };
     updateScale();
     window.addEventListener('resize', updateScale);
@@ -1758,6 +1756,106 @@ export default function DesignerPortfolio() {
     { id: 'about', label: t.nav.about },
     { id: 'contact', label: t.nav.contact }
   ];
+
+  if (isMobile) {
+    return (
+      <div style={{
+        position: 'fixed', inset: 0,
+        background: '#05050f',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '2rem',
+        fontFamily: '"Space Mono", monospace',
+        textAlign: 'center',
+        gap: '1.5rem',
+      }}>
+        {/* Animated background dots */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          {[...Array(18)].map((_, i) => (
+            <div key={i} style={{
+              position: 'absolute',
+              width: `${Math.random() * 2 + 1}px`,
+              height: `${Math.random() * 2 + 1}px`,
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.25)',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `pulse ${2 + Math.random() * 3}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 2}s`,
+            }} />
+          ))}
+        </div>
+
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+          {/* Logo */}
+          <div style={{
+            fontSize: '1.1rem', fontWeight: 700, color: '#ffffff',
+            letterSpacing: '-0.02em', fontFamily: '"Archivo Black", sans-serif',
+            marginBottom: '0.5rem',
+          }}>
+            DIANA×STUDIO
+          </div>
+
+          {/* Icon */}
+          <div style={{
+            width: '64px', height: '64px', borderRadius: '50%',
+            border: '1px solid rgba(255,255,255,0.15)',
+            background: 'rgba(255,255,255,0.04)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '1.8rem',
+          }}>
+            🖥️
+          </div>
+
+          {/* Message */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <p style={{
+              fontSize: '1.1rem', fontWeight: 700, color: '#ffffff',
+              fontFamily: '"Archivo Black", sans-serif',
+              margin: 0, lineHeight: 1.3,
+            }}>
+              Best viewed on desktop
+            </p>
+            <p style={{
+              fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)',
+              letterSpacing: '0.05em', margin: 0, lineHeight: 1.7,
+              maxWidth: '280px',
+            }}>
+              This portfolio is crafted for a full screen experience. Open it on a laptop or desktop for the full effect.
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div style={{ width: '40px', height: '1px', background: 'rgba(255,255,255,0.15)' }} />
+
+          {/* Contact nudge */}
+          <p style={{
+            fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)',
+            letterSpacing: '0.1em', textTransform: 'uppercase',
+            margin: 0,
+          }}>
+            or reach out directly
+          </p>
+          <a href="mailto:dianaxstudio@gmail.com" style={{
+            fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)',
+            fontFamily: '"Inter", sans-serif',
+            textDecoration: 'none', letterSpacing: '0.02em',
+            borderBottom: '1px solid rgba(255,255,255,0.2)',
+            paddingBottom: '2px',
+          }}>
+            dianaxstudio@gmail.com
+          </a>
+        </div>
+
+        <style>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.4); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div style={{
