@@ -869,9 +869,9 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   // Auto-flip to back then return to front when contact section opens
   useEffect(() => {
     if (!active) return;
-    const t1 = setTimeout(() => setFlipped(true), 800);
-    const t2 = setTimeout(() => setFlipped(false), 2400);
-    const t3 = setTimeout(() => { if (onFlipDone) onFlipDone(); }, 3200);
+    const t1 = setTimeout(() => setFlipped(true), 800);   // flip to back
+    const t2 = setTimeout(() => setFlipped(false), 4000);  // 4s — transition completes + 2.4s reading time
+    const t3 = setTimeout(() => { if (onFlipDone) onFlipDone(); }, 5800); // after flip back completes
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [active]);
   const copyEmail = (e) => { e.stopPropagation(); navigator.clipboard.writeText('dianaxstudio@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2000); };
