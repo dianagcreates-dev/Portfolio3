@@ -904,8 +904,8 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
       onMouseLeave={() => setFlipped(false)}
       style={{
         width: W, height: H, margin: '0 auto',
-        perspective: '1200px',
-        WebkitPerspective: '1200px',
+        perspective: '650px',
+        WebkitPerspective: '650px',
         cursor: 'default',
       }}
     >
@@ -913,10 +913,10 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
         position: 'relative', width: '100%', height: '100%',
         transformStyle: 'preserve-3d',
         WebkitTransformStyle: 'preserve-3d',
-        transition: 'transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1)',
-        WebkitTransition: '-webkit-transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1)',
-        transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-        WebkitTransform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+       transition: 'transform 1.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+       WebkitTransition: '-webkit-transform 1.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+       transform: flipped ? 'rotateX(5deg) rotateY(180deg)' : 'rotateX(5deg) rotateY(0deg)',
+       WebkitTransform: flipped ? 'rotateX(5deg) rotateY(180deg)' : 'rotateX(5deg) rotateY(0deg)',
       }}>
 
         {/* FRONT */}
