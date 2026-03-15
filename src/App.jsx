@@ -4402,8 +4402,8 @@ export default function DesignerPortfolio() {
           }}>
             <p style={{ margin: 0, fontSize: '0.78rem', color: 'rgba(255,255,255,0.9)', fontFamily: '"Inter", sans-serif', lineHeight: 1.5 }}>
               {language === 'de'
-                ? "Hi, Ich bin Orion – hier, um Ihnen zu helfen, Diana zu erreichen oder mehr über ihre Arbeit zu erfahren 😊"
-                : "Hi, I'm Orion. Here to help you reach Diana or learn more about her work 😊"}
+                ? "Hallo, ich bin Orion — der KI-Assistent von Diana. Wie kann ich Ihnen helfen? 😊"
+                : "Hi, I'm Orion — Diana's AI assistant. What brings you here? 😊"}
             </p>
           </div>
         )}
