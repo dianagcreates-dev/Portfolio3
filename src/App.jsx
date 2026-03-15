@@ -4402,8 +4402,8 @@ export default function DesignerPortfolio() {
           }}>
             <p style={{ margin: 0, fontSize: '0.78rem', color: 'rgba(255,255,255,0.9)', fontFamily: '"Inter", sans-serif', lineHeight: 1.5 }}>
               {language === 'de'
-                ? "Brauchen Sie Hilfe, Diana zu kontaktieren?😊"
-                : "Need help reaching Diana?😊"}
+                ? "✦ Brauchen Sie Hilfe, Diana zu kontaktieren?"
+                : "✦ Need help reaching Diana?"}
             </p>
           </div>
         )}
