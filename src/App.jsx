@@ -123,13 +123,13 @@ const translations = {
       subtitle: 'AI-Prompted Image Explorations',
       description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
       images: [
-  { src: '/images/gallery/image1.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377319/image1.1_hfzkiu.mp4', label: 'Still in Bloom', prompt: 'A serene portrait of a young woman lying in a field of wildflowers,wearing a white lace dress. Soft sunlight illuminates her face,highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus.', tools: ['Midjourney'] },
-  { src: '/images/gallery/image2.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377316/image2.1_jhmtdw.mp4', label: 'Scarlet Frame', prompt: 'Fashion photo of a female model against a solid matte red backdrop. Wearing a long, black leather coat. She has a sharp black bob haircut with bangs and a neutral expression. Studio lighting is soft and even,with slight shadows for depth. Realistic skin textures, high-fashion. Cinematic composition, ghostly presence, faded film effect, with her hair and figure in strong motion blur', tools: ['Midjourney'] },
-  { src: '/images/gallery/image3.jpg',   video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377314/image3_bwvj75.mp4', label: 'Creative Exchange', prompt: 'Two creative professionals meet at a lively networking event and exchange numbers. Dressed in expressive, design-forward outfits with layered textures and bold silhouettes, they embody a contemporary blend of street style and creative culture. One person holds their smartphone close to the other’s, ready to tap for contact sharing.', tools: ['Midjourney'] },
-  { src: '/images/gallery/image4.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774375816/image4.1_hnrnns.mp4', label: 'Singular Presence', prompt: 'A male model in a white suit stands out from the blurry people wearing turtlenecks and trousers, posing for the cover. the minimalist style captures his elegance with soft lighting, highlighting every detail of his face. he is surrounded by blurred figures dressed in suits, creating an atmosphere reminiscent of vogue magazine covers. her confident gaze adds to the overall visual appeal, making it stand out among models', tools: ['Midjourney'] },
-  { src: '/images/gallery/image1.6.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774375832/image1.6_ejdzrg.mp4', label: 'Editorial Glow', prompt: 'Realistic close-up portrait of a young person with dewy glowing skin,natural flushed pink cheeks and glossy pink lips, intense direct gaze, one single thin wet black hair strand falling across the center of the face, no extra messy hair, smooth forehead, clean modern makeup, high detail skin texture, soft dramatic beauty lighting, plain white background, minimalistic editorial beauty photo, sharp focus, high-resolution, style photographic', tools: ['Midjourney'] },
-  { src: '/images/gallery/image5.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377319/image5.1_b5vi4l.mp4', label: 'Next Wearable', prompt: 'Next generation wearable technology device, transparent glass interface, glowing UI elements, sleek industrial design, soft volumetric lighting, minimal futuristic environment, premium technology product photography, hyper realistic materials, high contrast shadows', tools: ['Midjourney'] },
-]
+        { src: '/images/gallery/image1.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377319/image1.1_hfzkiu.mp4', label: 'Still in Bloom', prompt: 'A serene portrait of a young woman lying in a field of wildflowers,wearing a white lace dress. Soft sunlight illuminates her face,highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus. ', tools: ['Midjourney'] },
+        { src: '/images/gallery/image2.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377316/image2.1_jhmtdw.mp4', label: 'Scarlet Frame', prompt: 'Fashion photo of a female model against a solid matte red backdrop. Wearing a long, black leather coat. She has a sharp black bob haircut with bangs and a neutral expression. Studio lighting is soft and even,with slight shadows for depth. Realistic skin textures, high-fashion. Cinematic composition, ghostly presence, faded film effect, with her hair and figure in strong motion blur.', tools: ['Midjourney'] },
+        { src: '/images/gallery/image3.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377314/image3_bwvj75.mp4', label: 'Creative Exchange', prompt: 'Two creative professionals meet at a lively networking event and exchange numbers. Dressed in expressive, design-forward outfits with layered textures and bold silhouettes, they embody a contemporary blend of street style and creative culture. One person holds their smartphone close to the other’s, ready to tap for contact sharing.', tools: ['Midjourney'] }, 
+        { src: '/images/gallery/image4.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774375816/image4.1_hnrnns.mp4', label: 'Singular Presence', prompt: 'A male model in a white suit stands out from the blurry people wearing turtlenecks and trousers, posing for the cover. the minimalist style captures his elegance with soft lighting, highlighting every detail of his face. he is surrounded by blurred figures dressed in suits, creating an atmosphere reminiscent of vogue magazine covers. her confident gaze adds to the overall visual appeal, making it stand out among models', tools: ['Midjourney'] },
+        { src: '/images/gallery/image1.6.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774375832/image1.6_ejdzrg.mp4', label: 'Editorial Glow', prompt: 'Realistic close-up portrait of a young person with dewy glowing skin,natural flushed pink cheeks and glossy pink lips, intense direct gaze, one single thin wet black hair strand falling across the center of the face, no extra messy hair, smooth forehead, clean modern makeup, high detail skin texture, soft dramatic beauty lighting, plain white background, minimalistic editorial beauty photo, sharp focus, high-resolution, style photographic', tools: ['Midjourney'] },
+        { src: '/images/gallery/image5.1.jpg', video: 'https://res.cloudinary.com/duq0gafr5/video/upload/v1774377319/image5.1_b5vi4l.mp4', label: 'Next Wearable', prompt: 'Next generation wearable technology device, transparent glass interface, glowing UI elements, sleek industrial design, soft volumetric lighting, minimal futuristic environment, premium technology product photography, hyper realistic materials, high contrast shadows', tools: ['Midjourney'] },
+      ]
     },
     home: {
       headline: 'Where Design Thinks',
@@ -801,7 +801,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
             />
           ) : placeholder(front)}
-          {/* View Image overlay — front face */}
+          {/* Play Video overlay — front face */}
           <div style={{
             position: 'absolute', inset: 0,
             background: isHovered ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0)',
@@ -836,7 +836,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
             />
           ) : placeholder(back)}
-          {/* View Image overlay — back face */}
+          {/* Play Video overlay — back face */}
           <div style={{
             position: 'absolute', inset: 0,
             background: isHovered ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0)',
@@ -854,7 +854,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
               fontWeight: 500,
               letterSpacing: '0.08em',
               color: 'rgba(255,255,255,0.92)',
-            }}>View Image</span>
+            }}>Play Video</span>
           </div>
         </div>
       </div>
@@ -4986,17 +4986,19 @@ export default function DesignerPortfolio() {
             }}
           >
             <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', animation: isGalleryClosing ? 'galleryCollapse 0.4s cubic-bezier(0.4, 0, 1, 1) forwards' : 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
+              {/* Video */}
               <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
-               <video
-  key={expandedGalleryCard.video}
-  src={expandedGalleryCard.video}
-  autoPlay
-  loop
-  muted
-  playsInline
-  preload="none"
-  style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }}
-/>
+                <video
+                  key={expandedGalleryCard.video}
+                  src={expandedGalleryCard.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="none"
+                  style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '60vh', objectFit: 'cover' }}
+                />
+                {/* Close button */}
                 <div
                   onClick={() => {
                     setIsGalleryClosing(true);
@@ -5005,21 +5007,22 @@ export default function DesignerPortfolio() {
                   style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.2)' }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
                 </div>
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '3rem 1.5rem 1.4rem', background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                    <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>{expandedGalleryCard.label}</span>
-                    {expandedGalleryCard.tools?.length > 0 && (
-                      <div style={{ display: 'flex', gap: '0.35rem' }}>
-                        {expandedGalleryCard.tools.map(tool => (
-                          <span key={tool} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.9)', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px', padding: '0.2rem 0.55rem', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>{tool}</span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {expandedGalleryCard.prompt && (
-                    <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: 0, fontStyle: 'italic' }}>"{expandedGalleryCard.prompt}"</p>
+              </div>
+              {/* Text below video */}
+              <div style={{ padding: '1.2rem 1.5rem 1.4rem', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderTop: 'none', borderRadius: '0 0 20px 20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.7rem' }}>
+                  <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>{expandedGalleryCard.label}</span>
+                  {expandedGalleryCard.tools?.length > 0 && (
+                    <div style={{ display: 'flex', gap: '0.35rem' }}>
+                      {expandedGalleryCard.tools.map(tool => (
+                        <span key={tool} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.9)', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px', padding: '0.2rem 0.55rem', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>{tool}</span>
+                      ))}
+                    </div>
                   )}
                 </div>
+                {expandedGalleryCard.prompt && (
+                  <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: 0, fontStyle: 'italic' }}>"{expandedGalleryCard.prompt}"</p>
+                )}
               </div>
             </div>
           </div>
