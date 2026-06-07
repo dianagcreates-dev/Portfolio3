@@ -2298,7 +2298,7 @@ export default function DesignerPortfolio() {
               e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
             }}
           >
-            <span style={{ fontSize: '16px', pointerEvents: 'none', lineHeight: 1 }}>🌐</span>
+            <span style={{ fontSize: '16px', pointerEvents: 'none', lineHeight: 1, filter: 'grayscale(1) brightness(5)' }}>🌐</span>
           </button>
 
           <button
