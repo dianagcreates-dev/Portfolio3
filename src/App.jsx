@@ -1964,6 +1964,19 @@ export default function DesignerPortfolio() {
     }
   };
 
+  // Resume audio when user returns from a vibe code project tab
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && audioRef.current && !isPlaying) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [isPlaying]);
+
   const navItems = [
     { id: 'home', label: t.nav.home },
     { id: 'work', label: t.nav.work },
