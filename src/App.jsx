@@ -177,7 +177,7 @@ const translations = {
           year: '2026',
           tags: ['Simulation', 'Canvas API', 'Game Design'],
           description: 'An ecosystem game simulation exploring how reward systems influence behavior and environmental change.',
-          link: null,
+          link: 'https://dianagcreates-dev.github.io/algorithmic-ecosystem/',
         },
         {
           id: 'vc4',
