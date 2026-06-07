@@ -466,7 +466,7 @@ const translations = {
       skills: ['Figma', 'Prototyping', 'Nutzerforschung']
     },
     vibeCode: {
-      title: 'What I Build',
+      title: 'Was ich baue',
       subtitle: 'Mit KI gebaut — mit Absicht kodiert',
       description: 'Ein Raum für experimentelle Interfaces, interaktive Artefakte und KI-gestützte Builds. Diese Projekte entstehen an der Schnittstelle von Design-Intuition und generativem Code — schnell, ausdrucksstark und ein bisschen unberechenbar.',
       projects: [
