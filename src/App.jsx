@@ -176,7 +176,7 @@ const translations = {
           color: '#EC4899',
           year: '2026',
           tags: ['Simulation', 'Canvas API', 'Game Design'],
-          description: 'Exploring how reward systems influence behavior and environmental change.',
+          description: 'An ecosystem game simulation exploring how reward systems influence behavior and environmental change.',
           link: null,
         },
         {
@@ -500,7 +500,7 @@ const translations = {
           color: '#EC4899',
           year: '2026',
           tags: ['Simulation', 'Canvas API', 'Game Design'],
-          description: 'Erforschung, wie Belohnungssysteme Verhalten und Umweltveränderungen beeinflussen.',
+          description: 'Eine Ökosystem-Spielsimulation, die untersucht, wie Belohnungssysteme Verhalten und Umweltveränderungen beeinflussen.',
           link: null,
         },
         {
