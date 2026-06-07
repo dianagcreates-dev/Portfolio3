@@ -150,33 +150,33 @@ const translations = {
           id: 'vc1',
           video: '/videos/vc1.mp4',
           video: '/videos/vc1.mp4',
-          title: 'Particle Self',
+          title: 'AI Agents vs Humans',
           color: '#10B981',
           year: '2025',
-          tags: ['TouchDesigner', 'Generative', 'Interactive'],
-          description: 'Motion-based particle system that transforms human presence into dynamic visual behavior.',
+          tags: ['WebGL', 'MediaPipe', 'Data Visualisation'],
+          description: 'A WebGL data visualisation exploring global AI adoption, controlled by hand gestures via MediaPipe.',
           link: 'https://chimerical-semolina-0b0dae.netlify.app/',
         },
         {
           id: 'vc2',
           video: '/videos/vc2.mp4',
           video: '/videos/vc2.mp4',
-          title: 'Orion Chat UI',
+          title: 'Huddle',
           color: '#6366F1',
           year: '2025',
-          tags: ['React', 'Claude API', 'Conversational UI'],
-          description: 'An in-portfolio AI assistant built entirely through vibe coding — prompted, iterated, and shipped.',
+          tags: ['HTML', 'Claude Code', 'UX Design'],
+          description: 'A collaborative platform for student group work.',
           link: 'https://dianagcreates-dev.github.io/Huddle/',
         },
         {
           id: 'vc3',
           video: '/videos/vc3.mp4',
           video: '/videos/vc3.mp4',
-          title: 'Nebula Canvas',
+          title: 'Algorithmic Ecosystem',
           color: '#EC4899',
           year: '2026',
-          tags: ['Canvas API', 'WebGL', 'Animation'],
-          description: 'Fluid particle background rendered in real-time — the same galaxy you\'re looking at right now.',
+          tags: ['Simulation', 'Canvas API', 'Game Design'],
+          description: 'Exploring how reward systems influence behavior and environmental change.',
           link: null,
         },
         {
@@ -474,33 +474,33 @@ const translations = {
           id: 'vc1',
           video: '/videos/vc1.mp4',
           video: '/videos/vc1.mp4',
-          title: 'Particle Self',
+          title: 'AI Agents vs Humans',
           color: '#10B981',
           year: '2025',
-          tags: ['TouchDesigner', 'Generativ', 'Interaktiv'],
-          description: 'Bewegungsbasiertes Partikelsystem, das menschliche Präsenz in dynamisches visuelles Verhalten verwandelt.',
+          tags: ['WebGL', 'MediaPipe', 'Datenvisualisierung'],
+          description: 'Eine WebGL-Datenvisualisierung zur globalen KI-Verbreitung, gesteuert durch Handgesten via MediaPipe.',
           link: null,
         },
         {
           id: 'vc2',
           video: '/videos/vc2.mp4',
           video: '/videos/vc2.mp4',
-          title: 'Orion Chat UI',
+          title: 'Huddle',
           color: '#6366F1',
           year: '2025',
-          tags: ['React', 'Claude API', 'Konversations-UI'],
-          description: 'Ein KI-Assistent im Portfolio — vollständig durch Vibe Coding geprompted, iteriert und deployed.',
+          tags: ['HTML', 'Claude Code', 'UX Design'],
+          description: 'Eine kollaborative Plattform für studentische Gruppenarbeit.',
           link: null,
         },
         {
           id: 'vc3',
           video: '/videos/vc3.mp4',
           video: '/videos/vc3.mp4',
-          title: 'Nebula Canvas',
+          title: 'Algorithmic Ecosystem',
           color: '#EC4899',
           year: '2026',
-          tags: ['Canvas API', 'WebGL', 'Animation'],
-          description: 'Flüssiger Partikelhintergrund in Echtzeit gerendert — dieselbe Galaxie, die du gerade siehst.',
+          tags: ['Simulation', 'Canvas API', 'Game Design'],
+          description: 'Erforschung, wie Belohnungssysteme Verhalten und Umweltveränderungen beeinflussen.',
           link: null,
         },
         {
@@ -1206,9 +1206,6 @@ function VibeCodeSection({ t }) {
 
               {/* info — only visible on hover */}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px 14px', zIndex: 1, opacity: isActive ? 1 : 0, transform: isActive ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.3s ease 0.1s, transform 0.35s ease 0.05s' }}>
-                <span style={{ display: 'block', fontFamily: '"Space Mono", monospace', fontSize: '0.38rem', letterSpacing: '0.12em', color: project.color, marginBottom: '4px' }}>
-                  {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                </span>
                 <h3 style={{ fontFamily: '"Archivo Black", sans-serif', fontSize: '0.82rem', color: '#fff', margin: '0 0 5px', lineHeight: 1.2 }}>
                   {project.title}
                 </h3>
@@ -1219,7 +1216,6 @@ function VibeCodeSection({ t }) {
                   {project.tags.slice(0, 2).map(tag => (
                     <span key={tag} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.32rem', letterSpacing: '0.07em', textTransform: 'uppercase', color: project.color, background: `${project.color}18`, border: `1px solid ${project.color}40`, borderRadius: '3px', padding: '0.1rem 0.3rem' }}>{tag}</span>
                   ))}
-                  {project.link && <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.32rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: project.color, marginLeft: 'auto' }}>Open ↗</span>}
                 </div>
               </div>
             </div>
