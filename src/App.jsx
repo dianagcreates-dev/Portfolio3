@@ -142,7 +142,7 @@ const translations = {
       skills: ['Figma', 'Prototyping', 'User Research']
     },
     vibeCode: {
-      title: 'Vibe Code',
+      title: 'What I Build',
       subtitle: 'Built with AI — Coded with Intent',
       description: 'I thrive on mastering new tools and staying ahead of design trends — exploring vibe coding to prototype, experiment, and bring ideas to life faster while applying UX/UI principles to create meaningful experiences.',
       projects: [
@@ -466,7 +466,7 @@ const translations = {
       skills: ['Figma', 'Prototyping', 'Nutzerforschung']
     },
     vibeCode: {
-      title: 'Vibe Code',
+      title: 'What I Build',
       subtitle: 'Mit KI gebaut — mit Absicht kodiert',
       description: 'Ein Raum für experimentelle Interfaces, interaktive Artefakte und KI-gestützte Builds. Diese Projekte entstehen an der Schnittstelle von Design-Intuition und generativem Code — schnell, ausdrucksstark und ein bisschen unberechenbar.',
       projects: [
