@@ -2198,7 +2198,7 @@ export default function DesignerPortfolio() {
         backdropFilter: isScrolled ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
         borderBottom: 'none',
-        transition: 'background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease',
+        transition: 'background 0.7s ease, backdrop-filter 0.7s ease',
         opacity: 0,
         animation: 'fadeIn 1s ease 0.2s forwards'
       }}>
