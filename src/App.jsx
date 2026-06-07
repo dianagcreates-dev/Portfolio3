@@ -114,6 +114,7 @@ const translations = {
     nav: {
       home: 'Home',
       work: 'Work',
+      vibeCode: 'Vibe Code',
       gallery: 'Gallery',
       about: 'About',
       contact: 'Contact'
@@ -139,6 +140,66 @@ const translations = {
     work: {
       backButton: '← Back to Projects',
       skills: ['Figma', 'Prototyping', 'User Research']
+    },
+    vibeCode: {
+      title: 'Vibe Code',
+      subtitle: 'Built with AI — Coded with Intent',
+      description: 'I thrive on mastering new tools and staying ahead of design trends — exploring vibe coding to prototype, experiment, and bring ideas to life faster while applying UX/UI principles to create meaningful experiences.',
+      projects: [
+        {
+          id: 'vc1',
+          video: '/videos/vc1.mp4',
+          video: '/videos/vc1.mp4',
+          title: 'Particle Self',
+          color: '#10B981',
+          year: '2025',
+          tags: ['TouchDesigner', 'Generative', 'Interactive'],
+          description: 'Motion-based particle system that transforms human presence into dynamic visual behavior.',
+          link: 'https://chimerical-semolina-0b0dae.netlify.app/',
+        },
+        {
+          id: 'vc2',
+          video: '/videos/vc2.mp4',
+          video: '/videos/vc2.mp4',
+          title: 'Orion Chat UI',
+          color: '#6366F1',
+          year: '2025',
+          tags: ['React', 'Claude API', 'Conversational UI'],
+          description: 'An in-portfolio AI assistant built entirely through vibe coding — prompted, iterated, and shipped.',
+          link: 'https://dianagcreates-dev.github.io/Huddle/',
+        },
+        {
+          id: 'vc3',
+          video: '/videos/vc3.mp4',
+          video: '/videos/vc3.mp4',
+          title: 'Nebula Canvas',
+          color: '#EC4899',
+          year: '2026',
+          tags: ['Canvas API', 'WebGL', 'Animation'],
+          description: 'Fluid particle background rendered in real-time — the same galaxy you\'re looking at right now.',
+          link: null,
+        },
+        {
+          id: 'vc4',
+          video: '/videos/vc4.mp4',
+          video: '/videos/vc4.mp4',
+          title: 'Motion Type',
+          color: '#F59E0B',
+          year: '2026',
+          tags: ['GSAP', 'Typography', 'Kinetic'],
+          description: 'Kinetic typography experiments where every letter becomes a choreographed motion object.',
+          link: null,
+        },
+        {
+          id: 'vc5',
+          title: 'Spatial Form',
+          color: '#A78BFA',
+          year: '2026',
+          tags: ['Three.js', '3D', 'Interaction'],
+          description: 'A 3D form explorer that bends geometry in response to cursor pressure and scroll velocity.',
+          link: null,
+        },
+      ]
     },
     about: {
       title: 'Design Philosophy',
@@ -377,6 +438,7 @@ const translations = {
     nav: {
       home: 'Start',
       work: 'Arbeit',
+      vibeCode: 'Vibe Code',
       gallery: 'Galerie',
       about: 'Über',
       contact: 'Kontakt'
@@ -402,6 +464,66 @@ const translations = {
     work: {
       backButton: '← Zurück zu Projekten',
       skills: ['Figma', 'Prototyping', 'Nutzerforschung']
+    },
+    vibeCode: {
+      title: 'Vibe Code',
+      subtitle: 'Mit KI gebaut — mit Absicht kodiert',
+      description: 'Ein Raum für experimentelle Interfaces, interaktive Artefakte und KI-gestützte Builds. Diese Projekte entstehen an der Schnittstelle von Design-Intuition und generativem Code — schnell, ausdrucksstark und ein bisschen unberechenbar.',
+      projects: [
+        {
+          id: 'vc1',
+          video: '/videos/vc1.mp4',
+          video: '/videos/vc1.mp4',
+          title: 'Particle Self',
+          color: '#10B981',
+          year: '2025',
+          tags: ['TouchDesigner', 'Generativ', 'Interaktiv'],
+          description: 'Bewegungsbasiertes Partikelsystem, das menschliche Präsenz in dynamisches visuelles Verhalten verwandelt.',
+          link: null,
+        },
+        {
+          id: 'vc2',
+          video: '/videos/vc2.mp4',
+          video: '/videos/vc2.mp4',
+          title: 'Orion Chat UI',
+          color: '#6366F1',
+          year: '2025',
+          tags: ['React', 'Claude API', 'Konversations-UI'],
+          description: 'Ein KI-Assistent im Portfolio — vollständig durch Vibe Coding geprompted, iteriert und deployed.',
+          link: null,
+        },
+        {
+          id: 'vc3',
+          video: '/videos/vc3.mp4',
+          video: '/videos/vc3.mp4',
+          title: 'Nebula Canvas',
+          color: '#EC4899',
+          year: '2026',
+          tags: ['Canvas API', 'WebGL', 'Animation'],
+          description: 'Flüssiger Partikelhintergrund in Echtzeit gerendert — dieselbe Galaxie, die du gerade siehst.',
+          link: null,
+        },
+        {
+          id: 'vc4',
+          video: '/videos/vc4.mp4',
+          video: '/videos/vc4.mp4',
+          title: 'Motion Type',
+          color: '#F59E0B',
+          year: '2026',
+          tags: ['GSAP', 'Typografie', 'Kinetisch'],
+          description: 'Kinetische Typografie-Experimente, bei denen jeder Buchstabe ein choreografiertes Bewegungsobjekt wird.',
+          link: null,
+        },
+        {
+          id: 'vc5',
+          title: 'Spatial Form',
+          color: '#A78BFA',
+          year: '2026',
+          tags: ['Three.js', '3D', 'Interaktion'],
+          description: 'Ein 3D-Form-Explorer, der Geometrie als Reaktion auf Cursordruck und Scroll-Geschwindigkeit verformt.',
+          link: null,
+        },
+      ]
     },
     about: {
       title: 'Design-Philosophie',
@@ -1025,6 +1147,92 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
 }
 
 
+// ── VibeCodeSection — horizontal row, place-from-left entrance ───────────────
+function VibeCodeSection({ t }) {
+  const projects = t.vibeCode.projects.slice(0, 3);
+  const [activeIdx, setActiveIdx] = useState(null);
+  const [enteredIdx, setEnteredIdx] = useState(-1);
+
+  useEffect(() => {
+    const timers = projects.map((_, i) =>
+      setTimeout(() => setEnteredIdx(i), i * 350 + 200)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px' }}>
+
+      {/* ── Cards row ── */}
+      <div style={{ flex: 1, display: 'flex', gap: '1rem', minWidth: 0, justifyContent: 'center' }}>
+        {projects.map((project, i) => {
+          const isActive = activeIdx === i;
+          const anyActive = activeIdx !== null;
+          const hasEntered = enteredIdx >= i;
+          return (
+            <div
+              key={project.id}
+              onMouseEnter={() => setActiveIdx(i)}
+              onMouseLeave={() => setActiveIdx(null)}
+              onClick={() => { if (project.link) window.open(project.link, '_blank', 'noopener,noreferrer'); }}
+              style={{
+                width: '340px',
+                height: '220px',
+                flexShrink: 0,
+                borderRadius: '12px',
+                border: `1px solid ${isActive ? project.color + '65' : 'rgba(255,255,255,0.18)'}`,
+                background: '#000',
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: project.link ? 'pointer' : 'default',
+                opacity: hasEntered ? (anyActive && !isActive ? 0.35 : 1) : 0,
+                filter: anyActive && !isActive ? 'blur(3px)' : 'blur(0px)',
+                transform: hasEntered
+                  ? isActive ? 'scale(1.18)' : 'scale(1)'
+                  : 'translateX(-60px) rotateY(-35deg) scale(0.88)',
+                transition: hasEntered
+                  ? 'transform 0.55s cubic-bezier(0.34,1.1,0.64,1), border-color 0.3s ease, box-shadow 0.35s ease, opacity 0.45s ease, filter 0.35s ease'
+                  : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease',
+                boxShadow: isActive ? `0 24px 60px ${project.color}30` : 'none',
+                zIndex: isActive ? 10 : 1,
+              }}
+            >
+              {/* video */}
+              <video src={project.video} autoPlay loop muted playsInline
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', pointerEvents: 'none' }}
+              />
+              {/* gradient — only on hover */}
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)', opacity: isActive ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
+
+              {/* info — only visible on hover */}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px 14px', zIndex: 1, opacity: isActive ? 1 : 0, transform: isActive ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.3s ease 0.1s, transform 0.35s ease 0.05s' }}>
+                <span style={{ display: 'block', fontFamily: '"Space Mono", monospace', fontSize: '0.38rem', letterSpacing: '0.12em', color: project.color, marginBottom: '4px' }}>
+                  {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                </span>
+                <h3 style={{ fontFamily: '"Archivo Black", sans-serif', fontSize: '0.82rem', color: '#fff', margin: '0 0 5px', lineHeight: 1.2 }}>
+                  {project.title}
+                </h3>
+                <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.55rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.55, margin: '0 0 6px' }}>
+                  {project.description}
+                </p>
+                <div style={{ display: 'flex', gap: '3px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  {project.tags.slice(0, 2).map(tag => (
+                    <span key={tag} style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.32rem', letterSpacing: '0.07em', textTransform: 'uppercase', color: project.color, background: `${project.color}18`, border: `1px solid ${project.color}40`, borderRadius: '3px', padding: '0.1rem 0.3rem' }}>{tag}</span>
+                  ))}
+                  {project.link && <span style={{ fontFamily: '"Space Mono", monospace', fontSize: '0.32rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: project.color, marginLeft: 'auto' }}>Open ↗</span>}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function DesignerPortfolio() {
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
@@ -1038,6 +1246,7 @@ export default function DesignerPortfolio() {
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isScrolled, setIsScrolled] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [expandedGalleryCard, setExpandedGalleryCard] = useState(null);
@@ -1612,6 +1821,11 @@ export default function DesignerPortfolio() {
     }
   }, [isDragging, dragStartX, dragStartRotation, activeSection, selectedProject]);
 
+  // Show frosted nav when not on home section
+  useEffect(() => {
+    setIsScrolled(activeSection !== 'home');
+  }, [activeSection]);
+
   // Handle wheel scroll for section navigation
   useEffect(() => {
     const handleWheel = (e) => {
@@ -1623,7 +1837,7 @@ export default function DesignerPortfolio() {
 
       e.preventDefault();
       
-      const sections = ['home', 'work', 'gallery', 'about', 'contact'];
+      const sections = ['home', 'work', 'vibeCode', 'gallery', 'about', 'contact'];
       const currentIndex = sections.indexOf(activeSection);
       
       if (e.deltaY > 0 && currentIndex < sections.length - 1) {
@@ -1752,6 +1966,7 @@ export default function DesignerPortfolio() {
   const navItems = [
     { id: 'home', label: t.nav.home },
     { id: 'work', label: t.nav.work },
+    { id: 'vibeCode', label: t.nav.vibeCode },
     { id: 'gallery', label: t.nav.gallery },
     { id: 'about', label: t.nav.about },
     { id: 'contact', label: t.nav.contact }
@@ -1890,7 +2105,8 @@ export default function DesignerPortfolio() {
           left: 0,
           width: '100%',
           height: '100%',
-          zIndex: 0
+          zIndex: 0,
+          pointerEvents: 'none'
         }}
       />
 
@@ -1974,15 +2190,21 @@ export default function DesignerPortfolio() {
         left: 0,
         right: 0,
         zIndex: 100,
-        display: 'flex',
-        justifyContent: 'space-between',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
-        padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem)',
+        padding: 'clamp(1rem, 2vw, 1.5rem) clamp(2rem, 5vw, 4rem)',
+        background: isScrolled ? 'rgba(8,8,14,0.45)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        borderBottom: 'none',
+        transition: 'background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease',
         opacity: 0,
         animation: 'fadeIn 1s ease 0.2s forwards'
       }}>
+        {/* Logo */}
         <div style={{
-          fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
+          fontSize: 'clamp(1rem, 2vw, 1.25rem)',
           fontWeight: 700,
           color: '#ffffff',
           letterSpacing: '-0.02em',
@@ -1991,9 +2213,15 @@ export default function DesignerPortfolio() {
           DIANA×STUDIO
         </div>
 
+        {/* Frosted pill nav */}
         <div style={{
           display: 'flex',
-          gap: 'clamp(1.5rem, 3vw, 2.5rem)'
+          alignItems: 'center',
+          background: 'rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: '50px',
+          padding: '5px 6px',
+          gap: '2px',
         }}>
           {navItems.map((item) => (
             <button
@@ -2003,25 +2231,32 @@ export default function DesignerPortfolio() {
                 setSelectedProject(null);
               }}
               style={{
-                background: 'none',
+                background: activeSection === item.id ? 'rgba(255,255,255,0.18)' : 'none',
                 border: 'none',
-                color: activeSection === item.id ? '#ffffff' : 'rgba(255,255,255,0.5)',
-                fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
-                fontWeight: 500,
+                color: activeSection === item.id ? '#ffffff' : 'rgba(255,255,255,0.45)',
+                fontSize: 'clamp(0.65rem, 0.9vw, 0.78rem)',
+                fontWeight: activeSection === item.id ? 600 : 400,
                 cursor: 'pointer',
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                padding: '0.5rem 0',
+                transition: 'all 0.25s ease',
+                padding: '6px 14px',
+                borderRadius: '40px',
                 fontFamily: '"Space Mono", monospace',
-                outline: 'none'
+                outline: 'none',
+                whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#ffffff';
+                if (activeSection !== item.id) {
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                }
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = activeSection === item.id ? '#ffffff' : 'rgba(255,255,255,0.5)';
+                if (activeSection !== item.id) {
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.45)';
+                  e.currentTarget.style.background = 'none';
+                }
               }}
             >
               {item.label}
@@ -2029,102 +2264,97 @@ export default function DesignerPortfolio() {
           ))}
         </div>
 
+        {/* Right controls */}
         <div style={{
           display: 'flex',
           gap: '0.5rem',
-          alignItems: 'center'
+          alignItems: 'center',
+          justifyContent: 'flex-end',
         }}>
-          {['EN', 'DE'].map((lang) => (
-            <button
-              key={lang}
-              onClick={() => setLanguage(lang.toLowerCase())}
-              style={{
-                background: language === lang.toLowerCase() ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)',
-                border: `1px solid ${language === lang.toLowerCase() ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.15)'}`,
-                color: language === lang.toLowerCase() ? '#ffffff' : 'rgba(255,255,255,0.6)',
-                padding: '0.5rem 0.9rem',
-                borderRadius: '8px',
-                fontSize: 'clamp(0.75rem, 1.3vw, 0.85rem)',
-                fontWeight: 700,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily: '"Space Mono", monospace',
-                letterSpacing: '0.05em',
-                outline: 'none'
-              }}
-              onMouseEnter={(e) => {
-                if (language !== lang.toLowerCase()) {
-                  e.target.style.background = 'rgba(255,255,255,0.15)';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (language !== lang.toLowerCase()) {
-                  e.target.style.background = 'rgba(255,255,255,0.05)';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.15)';
-                }
-              }}
-            >
-              {lang}
-            </button>
-          ))}
-          
           <button
-            onClick={toggleAudio}
+            onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
+            title={language === 'en' ? 'Switch to Deutsch' : 'Switch to English'}
             style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.3)',
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.15)',
               color: '#ffffff',
-              width: '40px',
-              height: '40px',
+              width: '38px',
+              height: '38px',
               borderRadius: '50%',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginLeft: '0.5rem',
-              outline: 'none'
+              outline: 'none',
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.2)';
-              e.target.style.transform = 'scale(1.1)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.1)';
-              e.target.style.transform = 'scale(1)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </button>
+
+          <button
+            onClick={toggleAudio}
+            style={{
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              color: '#ffffff',
+              width: '38px',
+              height: '38px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              outline: 'none',
+              flexShrink: 0,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
             }}
           >
             {isPlaying ? (
-              <div style={{ display: 'flex', gap: '3px' }}>
-                <div style={{ width: '3px', height: '14px', background: '#ffffff', borderRadius: '2px' }} />
-                <div style={{ width: '3px', height: '14px', background: '#ffffff', borderRadius: '2px' }} />
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="6" y="4" width="4" height="16"/>
+                <rect x="14" y="4" width="4" height="16"/>
+              </svg>
             ) : (
-              <div style={{
-                width: 0,
-                height: 0,
-                borderLeft: '10px solid #ffffff',
-                borderTop: '6px solid transparent',
-                borderBottom: '6px solid transparent',
-                marginLeft: '3px'
-              }} />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <polygon points="5,3 19,12 5,21"/>
+              </svg>
             )}
           </button>
-          
+
           {/* Frequency Visualizer */}
           <div style={{
             display: 'flex',
             gap: '2px',
             alignItems: 'center',
             height: '40px',
-            marginLeft: '1rem',
+            marginLeft: '0.5rem',
             padding: '0 0.5rem'
           }}>
             {frequencyData.slice(0, 20).map((value, i) => {
               const normalizedHeight = (value / 255) * 100;
               const height = isPlaying ? Math.max(normalizedHeight * 0.35, 3) : 3;
-              
               return (
                 <div
                   key={i}
@@ -2136,7 +2366,6 @@ export default function DesignerPortfolio() {
                     transition: 'none',
                     opacity: isPlaying ? 1 : 0.25,
                     boxShadow: isPlaying && value > 80 ? '0 0 8px rgba(255,255,255,0.9)' : 'none',
-                    transform: 'scaleY(1)',
                     transformOrigin: 'center'
                   }}
                 />
@@ -2226,7 +2455,7 @@ export default function DesignerPortfolio() {
           padding: 'clamp(2rem, 4vw, 3rem)',
           paddingTop: 'clamp(5rem, 10vh, 7rem)',
           paddingBottom: 'clamp(3rem, 6vh, 5rem)',
-          paddingRight: 'clamp(5rem, 8vw, 7rem)',
+          paddingRight: 'clamp(2rem, 4vw, 3rem)',
           paddingLeft: 'clamp(2rem, 4vw, 3rem)',
         }}
       >
@@ -4258,6 +4487,42 @@ export default function DesignerPortfolio() {
               })()}
             </div>
           </div>
+          </div>
+        )}
+
+        {activeSection === 'vibeCode' && (
+          <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '3rem', paddingBottom: '2rem' }}>
+            <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0' }}>
+                <h2 style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)', color: '#ffffff', margin: '0 0 0.5rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1.1, width: '100%', textAlign: 'center' }}>
+                  {t.vibeCode.title.split('').map((char, index) => (
+                    char === ' ' ? <span key={index}> </span> : (
+                      <span key={index} style={{ display: 'inline-block', transition: 'text-shadow 0.2s ease', cursor: 'pointer' }}
+                        onMouseMove={(e) => { const rect = e.currentTarget.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8)`; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; }}
+                      >{char}</span>
+                    )
+                  ))}
+                </h2>
+                <p style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1rem)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif' }}>
+                  {t.vibeCode.description}
+                </p>
+              </div>
+              <p style={{
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
+                  color: 'rgba(255,255,255,0.45)',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: '"Space Mono", monospace',
+                  fontWeight: 400,
+                  textAlign: 'center',
+                  marginBottom: '1.2rem',
+                  marginTop: '0',
+                }}>
+                AI Project Experimentation
+              </p>
+              <VibeCodeSection t={t} />
+            </div>
           </div>
         )}
 
