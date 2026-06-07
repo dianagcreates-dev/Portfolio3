@@ -1174,7 +1174,12 @@ function VibeCodeSection({ t }) {
               key={project.id}
               onMouseEnter={() => setActiveIdx(i)}
               onMouseLeave={() => setActiveIdx(null)}
-              onClick={() => { if (project.link) window.open(project.link, '_blank', 'noopener,noreferrer'); }}
+              onClick={() => { 
+                if (project.link) {
+                  if (isPlaying) toggleAudio();
+                  window.open(project.link, '_blank', 'noopener,noreferrer');
+                }
+              }}
               style={{
                 width: '340px',
                 height: '220px',
