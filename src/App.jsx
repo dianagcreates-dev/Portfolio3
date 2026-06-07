@@ -1246,6 +1246,8 @@ export default function DesignerPortfolio() {
   const dataArrayRef = useRef(null);
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
+  const pillRef = useRef(null);
+  const sliderRef = useRef(null);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
@@ -1822,6 +1824,17 @@ export default function DesignerPortfolio() {
     }
   }, [isDragging, dragStartX, dragStartRotation, activeSection, selectedProject]);
 
+  // Slide the nav capsule to the active link
+  useEffect(() => {
+    if (!pillRef.current || !sliderRef.current) return;
+    const activeBtn = pillRef.current.querySelector('[data-active="true"]');
+    if (!activeBtn) return;
+    const pillRect = pillRef.current.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    sliderRef.current.style.left = (btnRect.left - pillRect.left) + 'px';
+    sliderRef.current.style.width = btnRect.width + 'px';
+  }, [activeSection]);
+
   // Show frosted nav when not on home section
   useEffect(() => {
     setIsScrolled(activeSection !== 'home');
@@ -2227,50 +2240,62 @@ export default function DesignerPortfolio() {
           DIANA×STUDIO
         </div>
 
-        {/* Frosted pill nav */}
-        <div style={{
+        {/* Soft liquid glass pill nav */}
+        <div ref={pillRef} style={{
+          position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          background: 'rgba(255,255,255,0.07)',
-          border: '1px solid rgba(255,255,255,0.12)',
+          background: 'rgba(255,255,255,0.04)',
+          border: '0.5px solid rgba(255,255,255,0.10)',
           borderRadius: '50px',
-          padding: '5px 6px',
-          gap: '2px',
+          padding: '4px 5px',
+          backdropFilter: 'blur(30px) saturate(2)',
+          WebkitBackdropFilter: 'blur(30px) saturate(2)',
         }}>
+          {/* Sliding capsule */}
+          <div ref={sliderRef} style={{
+            position: 'absolute',
+            top: '4px',
+            height: 'calc(100% - 8px)',
+            borderRadius: '40px',
+            background: 'rgba(255,255,255,0.14)',
+            border: '0.5px solid rgba(255,255,255,0.18)',
+            boxShadow: 'inset 0 0.5px 0 rgba(255,255,255,0.35), 0 1px 8px rgba(255,255,255,0.06)',
+            transition: 'left 0.45s cubic-bezier(0.34, 1.15, 0.64, 1), width 0.45s cubic-bezier(0.34, 1.15, 0.64, 1)',
+            pointerEvents: 'none',
+          }} />
+
           {navItems.map((item) => (
             <button
               key={item.id}
+              data-active={activeSection === item.id ? 'true' : 'false'}
               onClick={() => {
                 setActiveSection(item.id);
                 setSelectedProject(null);
               }}
               style={{
-                background: activeSection === item.id ? 'rgba(255,255,255,0.18)' : 'none',
+                position: 'relative',
+                zIndex: 1,
+                background: 'none',
                 border: 'none',
-                color: activeSection === item.id ? '#ffffff' : 'rgba(255,255,255,0.45)',
+                color: activeSection === item.id ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.38)',
                 fontSize: 'clamp(0.65rem, 0.9vw, 0.78rem)',
                 fontWeight: activeSection === item.id ? 600 : 400,
                 cursor: 'pointer',
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',
-                transition: 'all 0.25s ease',
-                padding: '6px 14px',
+                transition: 'color 0.35s ease',
+                padding: '6px 13px',
                 borderRadius: '40px',
                 fontFamily: '"Space Mono", monospace',
                 outline: 'none',
                 whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
-                if (activeSection !== item.id) {
-                  e.currentTarget.style.color = '#ffffff';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                }
+                if (activeSection !== item.id) e.currentTarget.style.color = 'rgba(255,255,255,0.65)';
               }}
               onMouseLeave={(e) => {
-                if (activeSection !== item.id) {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.45)';
-                  e.currentTarget.style.background = 'none';
-                }
+                if (activeSection !== item.id) e.currentTarget.style.color = 'rgba(255,255,255,0.38)';
               }}
             >
               {item.label}
