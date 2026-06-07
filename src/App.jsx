@@ -1148,7 +1148,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
 
 
 // ── VibeCodeSection — horizontal row, place-from-left entrance ───────────────
-function VibeCodeSection({ t }) {
+function VibeCodeSection({ t, isPlaying, toggleAudio }) {
   const projects = t.vibeCode.projects.slice(0, 3);
   const [activeIdx, setActiveIdx] = useState(null);
   const [enteredIdx, setEnteredIdx] = useState(-1);
@@ -4513,7 +4513,7 @@ export default function DesignerPortfolio() {
                 }}>
                 AI Project Experimentation
               </p>
-              <VibeCodeSection t={t} />
+              <VibeCodeSection t={t} isPlaying={isPlaying} toggleAudio={toggleAudio} />
             </div>
           </div>
         )}
