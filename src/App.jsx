@@ -1831,13 +1831,19 @@ export default function DesignerPortfolio() {
 
   // Slide the nav capsule to the active link
   useEffect(() => {
-    if (!pillRef.current || !sliderRef.current) return;
-    const activeBtn = pillRef.current.querySelector('[data-active="true"]');
-    if (!activeBtn) return;
-    const pillRect = pillRef.current.getBoundingClientRect();
-    const btnRect = activeBtn.getBoundingClientRect();
-    sliderRef.current.style.left = (btnRect.left - pillRect.left) + 'px';
-    sliderRef.current.style.width = btnRect.width + 'px';
+    const moveSlider = () => {
+      if (!pillRef.current || !sliderRef.current) return;
+      const activeBtn = pillRef.current.querySelector('[data-active="true"]');
+      if (!activeBtn) return;
+      const pillRect = pillRef.current.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      sliderRef.current.style.left = (btnRect.left - pillRect.left) + 'px';
+      sliderRef.current.style.width = btnRect.width + 'px';
+    };
+
+    moveSlider();
+    window.addEventListener('resize', moveSlider);
+    return () => window.removeEventListener('resize', moveSlider);
   }, [activeSection]);
 
   // Show frosted nav when not on home section
