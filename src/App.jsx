@@ -1979,8 +1979,11 @@ export default function DesignerPortfolio() {
 
   // Resume audio when user returns from a vibe code project tab
   useEffect(() => {
+    let wasPlaying = false;
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && audioRef.current && !isPlaying) {
+      if (document.visibilityState === 'hidden') {
+        wasPlaying = isPlaying;
+      } else if (document.visibilityState === 'visible' && wasPlaying && audioRef.current) {
         audioRef.current.play().then(() => {
           setIsPlaying(true);
         }).catch(() => {});
