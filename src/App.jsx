@@ -1176,7 +1176,10 @@ function VibeCodeSection({ t, isPlaying, toggleAudio }) {
               onMouseLeave={() => setActiveIdx(null)}
               onClick={() => { 
                 if (project.link) {
-                  if (isPlaying) toggleAudio();
+                  if (isPlaying) {
+                    toggleAudio();
+                    pausedForProjectRef.current = true;
+                  }
                   window.open(project.link, '_blank', 'noopener,noreferrer');
                 }
               }}
@@ -1248,6 +1251,7 @@ export default function DesignerPortfolio() {
   const dragMovedRef = useRef(false);
   const pillRef = useRef(null);
   const sliderRef = useRef(null);
+  const pausedForProjectRef = useRef(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
@@ -1979,11 +1983,9 @@ export default function DesignerPortfolio() {
 
   // Resume audio when user returns from a vibe code project tab
   useEffect(() => {
-    let wasPlaying = false;
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        wasPlaying = isPlaying;
-      } else if (document.visibilityState === 'visible' && wasPlaying && audioRef.current) {
+      if (document.visibilityState === 'visible' && pausedForProjectRef.current && audioRef.current) {
+        pausedForProjectRef.current = false;
         audioRef.current.play().then(() => {
           setIsPlaying(true);
         }).catch(() => {});
@@ -1991,7 +1993,7 @@ export default function DesignerPortfolio() {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [isPlaying]);
+  }, []);
 
   const navItems = [
     { id: 'home', label: t.nav.home },
