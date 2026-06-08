@@ -1148,7 +1148,7 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
 
 
 // ── VibeCodeSection — horizontal row, place-from-left entrance ───────────────
-function VibeCodeSection({ t, isPlaying, toggleAudio }) {
+function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pausedForProjectRef }) {
   const projects = t.vibeCode.projects.slice(0, 3);
   const [activeIdx, setActiveIdx] = useState(null);
   const [enteredIdx, setEnteredIdx] = useState(-1);
@@ -1176,8 +1176,9 @@ function VibeCodeSection({ t, isPlaying, toggleAudio }) {
               onMouseLeave={() => setActiveIdx(null)}
               onClick={() => { 
                 if (project.link) {
-                  if (isPlaying) {
-                    toggleAudio();
+                  if (isPlaying && audioRef.current) {
+                    audioRef.current.pause();
+                    setIsPlaying(false);
                     pausedForProjectRef.current = true;
                   }
                   window.open(project.link, '_blank', 'noopener,noreferrer');
@@ -4556,7 +4557,7 @@ export default function DesignerPortfolio() {
                 }}>
                 AI Project Experimentation
               </p>
-              <VibeCodeSection t={t} isPlaying={isPlaying} toggleAudio={toggleAudio} />
+              <VibeCodeSection t={t} isPlaying={isPlaying} toggleAudio={toggleAudio} audioRef={audioRef} setIsPlaying={setIsPlaying} pausedForProjectRef={pausedForProjectRef} />
             </div>
           </div>
         )}
