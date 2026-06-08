@@ -1846,7 +1846,7 @@ export default function DesignerPortfolio() {
       clearTimeout(timer);
       window.removeEventListener('resize', moveSlider);
     };
-  }, [activeSection]);
+  }, [activeSection, language]);
 
   // Show frosted nav when not on home section
   useEffect(() => {
