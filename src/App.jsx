@@ -1835,15 +1835,17 @@ export default function DesignerPortfolio() {
       if (!pillRef.current || !sliderRef.current) return;
       const activeBtn = pillRef.current.querySelector('[data-active="true"]');
       if (!activeBtn) return;
-      const pillRect = pillRef.current.getBoundingClientRect();
-      const btnRect = activeBtn.getBoundingClientRect();
-      sliderRef.current.style.left = (btnRect.left - pillRect.left) + 'px';
-      sliderRef.current.style.width = btnRect.width + 'px';
+      sliderRef.current.style.left = activeBtn.offsetLeft + 'px';
+      sliderRef.current.style.width = activeBtn.offsetWidth + 'px';
     };
 
-    moveSlider();
+    // Small delay to ensure DOM is painted
+    const timer = setTimeout(moveSlider, 50);
     window.addEventListener('resize', moveSlider);
-    return () => window.removeEventListener('resize', moveSlider);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', moveSlider);
+    };
   }, [activeSection]);
 
   // Show frosted nav when not on home section
