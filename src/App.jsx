@@ -155,7 +155,7 @@ const translations = {
           year: '2025',
           tags: ['WebGL', 'MediaPipe', 'Data Visualisation'],
           description: 'A WebGL data visualisation exploring global AI adoption, controlled by hand gestures via MediaPipe.',
-          link: 'https://dianagcreates-dev.github.io/ai-adoption-viz/,
+          link: 'https://dianagcreates-dev.github.io/ai-adoption-viz/',
         },
         {
           id: 'vc2',
