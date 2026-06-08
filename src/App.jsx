@@ -2351,13 +2351,14 @@ export default function DesignerPortfolio() {
               e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ pointerEvents: 'none' }}>
-              <circle cx="12" cy="12" r="9.5" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5"/>
-              <ellipse cx="12" cy="12" rx="3.5" ry="9.5" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5"/>
-              <line x1="2.5" y1="12" x2="21.5" y2="12" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="4.5" y1="7" x2="19.5" y2="7" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="4.5" y1="17" x2="19.5" y2="17" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+            <span style={{ 
+              fontSize: '11px', 
+              fontFamily: '"Space Mono", monospace',
+              fontWeight: 700,
+              color: 'rgba(255,255,255,0.9)',
+              letterSpacing: '0.05em',
+              pointerEvents: 'none',
+            }}>{language.toUpperCase()}</span>
           </button>
 
           <button
