@@ -4544,7 +4544,10 @@ export default function DesignerPortfolio() {
         {activeSection === 'vibeCode' && (
           <div style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '3rem', paddingBottom: '2rem' }}>
             <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0 1rem' }}>
-              <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0' }}>
+              <div
+                data-scroll-id="s50"
+                style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0', ...scrollReveal('s50', null) }}
+              >
                 <h2 style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)', color: '#ffffff', margin: '0 0 0.5rem 0', fontWeight: 900, fontFamily: '"Archivo Black", sans-serif', lineHeight: 1.1, width: '100%', textAlign: 'center' }}>
                   {t.vibeCode.title.split('').map((char, index) => (
                     char === ' ' ? <span key={index}> </span> : (
@@ -4555,11 +4558,16 @@ export default function DesignerPortfolio() {
                     )
                   ))}
                 </h2>
-                <p style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1rem)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif' }}>
+                <p
+                  data-scroll-id="s51"
+                  style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1rem)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif', ...scrollReveal('s51', null) }}
+                >
                   {t.vibeCode.description}
                 </p>
               </div>
-              <p style={{
+              <p
+                data-scroll-id="s52"
+                style={{
                   fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)',
                   color: 'rgba(255,255,255,0.45)',
                   letterSpacing: '0.18em',
@@ -4569,7 +4577,9 @@ export default function DesignerPortfolio() {
                   textAlign: 'center',
                   marginBottom: '1.2rem',
                   marginTop: '0',
-                }}>
+                  ...scrollReveal('s52', null)
+                }}
+              >
                 AI Project Experimentation
               </p>
               <VibeCodeSection t={t} isPlaying={isPlaying} toggleAudio={toggleAudio} audioRef={audioRef} setIsPlaying={setIsPlaying} pausedForProjectRef={pausedForProjectRef} />
