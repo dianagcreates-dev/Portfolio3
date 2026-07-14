@@ -1814,11 +1814,16 @@ export default function DesignerPortfolio() {
       const t1 = setTimeout(() => setCarouselEntryPhase('dealing'), 120);
       // Dealing animation: ~1000ms transition + 4 cards * 100ms stagger = ~1400ms total
       const t2 = setTimeout(() => setCarouselEntryPhase('rotating'), 1700);
-      return () => { clearTimeout(t1); clearTimeout(t2); };
-    }
-    // If re-entering work after going elsewhere (selectedProject back etc), skip entry
-    if (activeSection !== 'work') {
-      // Reset only if going away entirely (so coming back from a project doesn't re-trigger)
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        // If the user navigates away before the deal-in sequence finishes, the
+        // pending timers above never fire and carouselEntryPhase would otherwise
+        // stay stuck on 'deck'/'dealing' forever (hasEnteredWorkRef blocks this
+        // effect from ever running again) — snap to the final state so the
+        // auto-rotation effect can still pick up next time Work is visited.
+        setCarouselEntryPhase('rotating');
+      };
     }
   }, [activeSection, selectedProject]);
 
