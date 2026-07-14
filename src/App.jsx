@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import BlurText from './BlurText';
 
 // ── SplashCursor ─────────────────────────────────────────────────────────────
 function SplashCursor(){
@@ -1168,6 +1167,7 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
       <div style={{ flex: 1, display: 'flex', gap: '1rem', minWidth: 0, justifyContent: 'center' }}>
         {projects.map((project, i) => {
           const isActive = activeIdx === i;
+          const anyActive = activeIdx !== null;
           const hasEntered = enteredIdx >= i;
           return (
             <div
@@ -1189,19 +1189,20 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
                 height: '220px',
                 flexShrink: 0,
                 borderRadius: '12px',
-                border: `1px solid ${isActive ? project.color + 'a0' : 'rgba(255,255,255,0.18)'}`,
+                border: `1px solid ${isActive ? project.color + '65' : 'rgba(255,255,255,0.18)'}`,
                 background: '#000',
                 position: 'relative',
                 overflow: 'hidden',
                 cursor: project.link ? 'pointer' : 'default',
-                opacity: hasEntered ? 1 : 0,
+                opacity: hasEntered ? (anyActive && !isActive ? 0.35 : 1) : 0,
+                filter: anyActive && !isActive ? 'blur(3px)' : 'blur(0px)',
                 transform: hasEntered
-                  ? 'scale(1)'
+                  ? isActive ? 'scale(1.18)' : 'scale(1)'
                   : 'translateX(-60px) rotateY(-35deg) scale(0.88)',
                 transition: hasEntered
-                  ? 'transform 0.7s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.45s ease'
+                  ? 'transform 0.55s cubic-bezier(0.34,1.1,0.64,1), border-color 0.3s ease, box-shadow 0.35s ease, opacity 0.45s ease, filter 0.35s ease'
                   : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease',
-                boxShadow: isActive ? `0 0 20px ${project.color}50, 0 0 55px ${project.color}30, 0 0 90px ${project.color}18` : 'none',
+                boxShadow: isActive ? `0 24px 60px ${project.color}30` : 'none',
                 zIndex: isActive ? 10 : 1,
               }}
             >
@@ -1209,16 +1210,8 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
               <video src={project.video} autoPlay loop muted playsInline
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', pointerEvents: 'none' }}
               />
-              {/* frosted dim — same blur/dark treatment as the gallery hover, only on hover */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.15) 100%)',
-                backdropFilter: isActive ? 'blur(6px)' : 'blur(0px)',
-                WebkitBackdropFilter: isActive ? 'blur(6px)' : 'blur(0px)',
-                opacity: isActive ? 1 : 0,
-                transition: 'opacity 0.35s ease, backdrop-filter 0.35s ease',
-                pointerEvents: 'none'
-              }} />
+              {/* gradient — only on hover */}
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)', opacity: isActive ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
 
               {/* info — only visible on hover */}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px 14px', zIndex: 1, opacity: isActive ? 1 : 0, transform: isActive ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.3s ease 0.1s, transform 0.35s ease 0.05s' }}>
@@ -2535,9 +2528,9 @@ export default function DesignerPortfolio() {
             textAlign: 'center',
             maxWidth: '900px',
             opacity: 0,
-            animation: showStartPrompt ? 'none' : 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+            animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
           }}>
-            <div role="heading" aria-level="1" style={{
+            <h1 style={{
               fontSize: 'clamp(2.5rem, 10vw, 6rem)',
               fontWeight: 900,
               margin: 0,
@@ -2546,34 +2539,40 @@ export default function DesignerPortfolio() {
               lineHeight: 1.1,
               letterSpacing: '-0.03em',
               fontFamily: '"Archivo Black", sans-serif',
-              textShadow: '0 4px 20px rgba(0,0,0,0.4)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
+              textShadow: '0 4px 20px rgba(0,0,0,0.4)'
             }}>
-              {!showStartPrompt && (() => {
-                const [firstWord, ...restWords] = t.home.headline.split(' ');
+              {t.home.headline.split('').map((char, index) => {
+                if (char === ' ' && index === t.home.headline.indexOf('Design') - 1) {
+                  return <br key={index} />;
+                }
+                if (char === ' ') {
+                  return <span key={index}> </span>;
+                }
                 return (
-                  <>
-                    <BlurText
-                      text={firstWord}
-                      delay={120}
-                      animateBy="words"
-                      direction="top"
-                      className="home-headline-blur"
-                    />
-                    <BlurText
-                      text={restWords.join(' ')}
-                      delay={120}
-                      animateBy="words"
-                      direction="top"
-                      className="home-headline-blur"
-                    />
-                  </>
+                  <span
+                    key={index}
+                    style={{
+                      display: 'inline-block',
+                      position: 'relative',
+                      transition: 'text-shadow 0.2s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left - rect.width / 2;
+                      const y = e.clientY - rect.top - rect.height / 2;
+                      e.currentTarget.style.textShadow = `${x * 0.15}px ${y * 0.15}px 25px rgba(255,255,255,0.8), 0 4px 20px rgba(0,0,0,0.4)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textShadow = '0 4px 20px rgba(0,0,0,0.4)';
+                    }}
+                  >
+                    {char}
+                  </span>
                 );
-              })()}
-            </div>
-            <div style={{
+              })}
+            </h1>
+            <p style={{
               fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
               color: 'rgba(255,255,255,0.8)',
               marginBottom: '2.5rem',
@@ -2581,20 +2580,10 @@ export default function DesignerPortfolio() {
               fontWeight: 400,
               maxWidth: '780px',
               margin: '0 auto 2.5rem',
-              fontFamily: '"Inter", sans-serif',
-              display: 'flex',
-              justifyContent: 'center'
+              fontFamily: '"Inter", sans-serif'
             }}>
-              {!showStartPrompt && (
-                <BlurText
-                  text={t.home.subheadline}
-                  delay={12}
-                  animateBy="words"
-                  direction="top"
-                  className="home-subheadline-blur"
-                />
-              )}
-            </div>
+              {t.home.subheadline}
+            </p>
             <button
               onClick={() => setActiveSection('work')}
               onMouseEnter={(e) => {
@@ -4583,7 +4572,7 @@ export default function DesignerPortfolio() {
                 </h2>
                 <p
                   data-scroll-id="s51"
-                  style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif', ...scrollReveal('s51', null) }}
+                  style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1rem)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif', ...scrollReveal('s51', null) }}
                 >
                   {t.vibeCode.description}
                 </p>
@@ -4645,8 +4634,8 @@ export default function DesignerPortfolio() {
                   ))}
                 </h2>
                 <p style={{
-                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-                  color: 'rgba(255,255,255,0.85)',
+                  fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
+                  color: 'rgba(255,255,255,0.65)',
                   lineHeight: 1.7,
                   maxWidth: '600px',
                   margin: '0.40rem auto 2rem auto',
@@ -5368,12 +5357,6 @@ export default function DesignerPortfolio() {
         .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
-        }
-
-        .home-headline-blur,
-        .home-subheadline-blur {
-          justify-content: center;
-          margin: 0;
         }
       `}</style>
 
