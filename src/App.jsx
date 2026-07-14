@@ -239,7 +239,7 @@ const translations = {
     },
     about: {
       title: 'Design Philosophy',
-      description: "My design philosophy blends aesthetics with functionality, and artificial intelligence with human intuition. I create digital products that don't just look good—they feel natural to use. Every pixel I place is intentional, because the future of design belongs to those who dare to think beyond the screen.",
+      description: "I believe great design is more than aesthetics. It's about creating intuitive, meaningful experiences that solve real problems. Every decision is guided by clarity, purpose, and the people using the product.",
       skills: ['Research', 'Visual', 'Interaction', 'Execution'],
       skillLabel: 'Core Focus',
       tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
@@ -563,7 +563,7 @@ const translations = {
     },
     about: {
       title: 'Design-Philosophie',
-      description: 'Meine Designphilosophie verbindet Ästhetik mit Funktionalität sowie künstliche Intelligenz mit menschlicher Intuition. Ich gestalte digitale Produkte, die nicht nur gut aussehen, sondern sich auch natürlich anfühlen. Jedes Pixel, das ich setze, ist bewusst gewählt, denn die Zukunft des Designs gehört denen, die den Mut haben, über den Bildschirm hinaus zu denken.',
+      description: 'Ich glaube, dass gutes Design mehr ist als Ästhetik. Es geht darum, intuitive, bedeutungsvolle Erlebnisse zu schaffen, die reale Probleme lösen. Jede Entscheidung wird von Klarheit, Zweck und den Menschen geleitet, die das Produkt nutzen.',
       skills: ['Forschung', 'Visuell', 'Interaktion', 'Ausführung'],
       skillLabel: 'Kernfokus',
       tools: ['Figma', 'HTML', 'CSS', 'JavaScript', 'React', 'Adobe XD', 'Claude', 'GitHub', 'Canva', 'Webflow', 'Midjourney'],
