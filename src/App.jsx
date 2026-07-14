@@ -107,6 +107,41 @@ function SplashCursor(){
   return null;
 }
 // ─────────────────────────────────────────────────────────────────────────────
+
+// ── LoadableImage — background-image div that shows a spinner until loaded ───
+function LoadableImage({ src, style, spinnerSize = 40, children, ...rest }) {
+  const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+    setErrored(false);
+    if (!src) return;
+    const img = new window.Image();
+    img.onload = () => setLoaded(true);
+    img.onerror = () => setErrored(true);
+    img.src = src;
+    return () => { img.onload = null; img.onerror = null; };
+  }, [src]);
+
+  return (
+    <div
+      {...rest}
+      style={{
+        position: 'relative',
+        ...style,
+        backgroundImage: src && loaded ? `url(${src})` : 'none'
+      }}
+    >
+      {src && !loaded && !errored && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="loader" style={{ width: spinnerSize, height: spinnerSize }} />
+        </div>
+      )}
+      {(!src || errored) && children}
+    </div>
+  );
+}
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Translation content
@@ -919,10 +954,17 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
           boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
         }}>
           {!frontError ? (
-            <img src={front.src} alt={front.label}
-              onLoad={() => setFrontLoaded(true)} onError={() => setFrontError(true)}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
-            />
+            <>
+              <img src={front.src} alt={front.label}
+                onLoad={() => setFrontLoaded(true)} onError={() => setFrontError(true)}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: frontLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
+              />
+              {!frontLoaded && (
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div className="loader" style={{ width: 28, height: 28 }} />
+                </div>
+              )}
+            </>
           ) : placeholder(front)}
           {/* View Image overlay — front face */}
           <div style={{
@@ -954,10 +996,17 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
           boxShadow: "0 8px 30px -8px rgba(0,0,0,0.7)",
         }}>
           {!backError ? (
-            <img src={back.src} alt={back.label}
-              onLoad={() => setBackLoaded(true)} onError={() => setBackError(true)}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
-            />
+            <>
+              <img src={back.src} alt={back.label}
+                onLoad={() => setBackLoaded(true)} onError={() => setBackError(true)}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: backLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
+              />
+              {!backLoaded && (
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div className="loader" style={{ width: 28, height: 28 }} />
+                </div>
+              )}
+            </>
           ) : placeholder(back)}
           {/* View Image overlay — back face */}
           <div style={{
@@ -988,6 +1037,7 @@ function FlipCard({ front, back, flipped, entryIndex = 1, entryPhase = 'done', i
 function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   // Auto-flip to back then return to front when contact section opens
   useEffect(() => {
@@ -1053,13 +1103,19 @@ function IDCard({ emailLabel, linkedinLabel, active, onFlipDone }) {
             <img
               src="/images/profile.jpg"
               alt="Diana"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block', opacity: photoLoaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
+              onLoad={() => setPhotoLoaded(true)}
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 e.currentTarget.parentElement.style.cssText += ';background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center';
                 e.currentTarget.parentElement.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-size:3rem">&#128105;&#8205;&#128187;</div><div style="font-size:0.5rem;color:rgba(255,255,255,0.3);font-family:monospace;letter-spacing:0.1em">PHOTO</div></div>';
               }}
             />
+            {!photoLoaded && (
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="loader" style={{ width: 24, height: 24 }} />
+              </div>
+            )}
             {/* Fade bottom of photo into card */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '60px', background: 'linear-gradient(to top, rgba(10,10,20,0.9), transparent)', pointerEvents: 'none' }} />
             {/* Portfolio label — pushed below 4px accent bar */}
@@ -1265,6 +1321,7 @@ export default function DesignerPortfolio() {
   const [legalPage, setLegalPage] = useState(null); // 'impressum' | 'datenschutz' | null
   const [selectedProject, setSelectedProject] = useState(null);
   const [expandedGalleryCard, setExpandedGalleryCard] = useState(null);
+  const [lightboxImgLoaded, setLightboxImgLoaded] = useState(false);
   const [isGalleryClosing, setIsGalleryClosing] = useState(false);
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
@@ -1330,6 +1387,11 @@ export default function DesignerPortfolio() {
 
   // Get current translations
   const t = translations[language];
+
+  // Gallery lightbox: reset loading state whenever a new image is opened
+  useEffect(() => {
+    setLightboxImgLoaded(false);
+  }, [expandedGalleryCard?.src]);
 
   // Orion: scroll to bottom on new messages
   useEffect(() => {
@@ -2787,10 +2849,9 @@ export default function DesignerPortfolio() {
                     >
                       {/* Hero image overlay — fades in on hover */}
                       {project.images?.hero && (
-                        <div style={{
+                        <LoadableImage src={project.images.hero} spinnerSize={24} style={{
                           position: 'absolute',
                           top: 0, left: 0, right: 0, bottom: 0,
-                          backgroundImage: `url(${project.images.hero})`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           borderRadius: '20px',
@@ -3064,7 +3125,7 @@ export default function DesignerPortfolio() {
               </p>
 
               {/* Hero Image */}
-              <div style={{
+              <LoadableImage src={selectedProject.images?.hero} style={{
                 width: '100%',
                 height: '500px',
                 background: `linear-gradient(135deg, ${selectedProject.color}60, ${selectedProject.color}20)`,
@@ -3075,29 +3136,25 @@ export default function DesignerPortfolio() {
                 justifyContent: 'center',
                 border: `2px solid ${selectedProject.color}80`,
                 backdropFilter: 'blur(20px)',
-                position: 'relative',
                 overflow: 'hidden',
                 opacity: 0,
                 animation: 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards',
-                backgroundImage: selectedProject.images?.hero ? `url(${selectedProject.images.hero})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}>
-                {!selectedProject.images?.hero && (
-                  <div style={{
-                    fontSize: 'clamp(3rem, 8vw, 6rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem',
-                    zIndex: 1
-                  }}>
-                    Hero Image
-                  </div>
-                )}
-              </div>
+                <div style={{
+                  fontSize: 'clamp(3rem, 8vw, 6rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem',
+                  zIndex: 1
+                }}>
+                  Hero Image
+                </div>
+              </LoadableImage>
 
               {/* Skills and Project Details - Compact Row */}
               <div style={{
@@ -3338,7 +3395,8 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Section 2: Process 1 - Large full-width image (16:10) */}
-              <div
+              <LoadableImage
+                src={selectedProject.images?.process1}
                 data-scroll-id="s2"
                 style={{
                 width: '100%',
@@ -3353,25 +3411,22 @@ export default function DesignerPortfolio() {
                 overflow: 'hidden',
 
                 ...scrollReveal('s2', selectedProject.id),
-                backgroundImage: selectedProject.images?.process1 ? `url(${selectedProject.images.process1})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}>
-                {!selectedProject.images?.process1 && (
-                  <div style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem'
-                  }}>
-                    Process Image 1<br/>
-                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1920x1200px (16:10)</span>
-                  </div>
-                )}
-              </div>
+                <div style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem'
+                }}>
+                  Process Image 1<br/>
+                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1920x1200px (16:10)</span>
+                </div>
+              </LoadableImage>
 
               {/* Discovery Section - Only for Synkro, after Process 1 */}
               {selectedProject.id === 2 && selectedProject.content?.discovery && (
@@ -3406,7 +3461,8 @@ export default function DesignerPortfolio() {
 
               {/* Before Define Image - Only for Synkro (1920x1080) */}
               {selectedProject.id === 2 && selectedProject.images?.beforeDefine && (
-                <div
+                <LoadableImage
+                  src={selectedProject.images.beforeDefine}
                   data-scroll-id="s4"
                   style={{
                   width: '100%',
@@ -3421,12 +3477,11 @@ export default function DesignerPortfolio() {
                   overflow: 'hidden',
 
                   ...scrollReveal('s4', selectedProject.id),
-                  backgroundImage: `url(${selectedProject.images.beforeDefine})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat'
                 }}>
-                </div>
+                </LoadableImage>
               )}
               
               {/* Section 3: Device Objective / Design Approach / Define Text */}
@@ -3501,7 +3556,8 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[2, 3, 4].map((num) => (
-                  <div key={num}
+                  <LoadableImage key={num}
+                    src={selectedProject.images?.[`process${num}`]}
                     data-scroll-id="s6"
                     style={{
                     width: '100%',
@@ -3514,30 +3570,28 @@ export default function DesignerPortfolio() {
                     justifyContent: 'center',
 
                     ...scrollReveal('s6', selectedProject.id),
-                    backgroundImage: selectedProject.images?.[`process${num}`] ? `url(${selectedProject.images[`process${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     overflow: 'hidden'
                   }}>
-                    {!selectedProject.images?.[`process${num}`] && (
-                      <div style={{
-                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                        color: 'rgba(255,255,255,0.15)',
-                        fontWeight: 900,
-                        fontFamily: '"Archivo Black", sans-serif',
-                        textAlign: 'center'
-                      }}>
-                        Process {num}<br/>
-                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>800x600px (4:3)</span>
-                      </div>
-                    )}
-                  </div>
+                    <div style={{
+                      fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Process {num}<br/>
+                      <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>800x600px (4:3)</span>
+                    </div>
+                  </LoadableImage>
                 ))}
               </div>
 
               {/* Section 3b: Full width process image */}
-              <div
+              <LoadableImage
+                src={selectedProject.images?.processWide}
                 data-scroll-id="s7"
                 style={{
                 width: '100%',
@@ -3552,25 +3606,22 @@ export default function DesignerPortfolio() {
                 overflow: 'hidden',
 
                 ...scrollReveal('s7', selectedProject.id),
-                backgroundImage: selectedProject.images?.processWide ? `url(${selectedProject.images.processWide})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}>
-                {!selectedProject.images?.processWide && (
-                  <div style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                    color: 'rgba(255,255,255,0.15)',
-                    fontWeight: 900,
-                    fontFamily: '"Archivo Black", sans-serif',
-                    textAlign: 'center',
-                    padding: '2rem'
-                  }}>
-                    Wide Process Image<br/>
-                    <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
-                  </div>
-                )}
-              </div>
+                <div style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  color: 'rgba(255,255,255,0.15)',
+                  fontWeight: 900,
+                  fontFamily: '"Archivo Black", sans-serif',
+                  textAlign: 'center',
+                  padding: '2rem'
+                }}>
+                  Wide Process Image<br/>
+                  <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
+                </div>
+              </LoadableImage>
 
               {/* Section 4: Two images side by side */}
               <div style={{
@@ -3580,7 +3631,8 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[1, 2].map((num) => (
-                  <div key={num}
+                  <LoadableImage key={num}
+                    src={selectedProject.images?.[`detail${num}`]}
                     data-scroll-id="s8"
                     style={{
                     width: '100%',
@@ -3593,24 +3645,21 @@ export default function DesignerPortfolio() {
                     justifyContent: 'center',
 
                     ...scrollReveal('s8', selectedProject.id),
-                    backgroundImage: selectedProject.images?.[`detail${num}`] ? `url(${selectedProject.images[`detail${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     overflow: 'hidden'
                   }}>
-                    {!selectedProject.images?.[`detail${num}`] && (
-                      <div style={{
-                        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                        color: 'rgba(255,255,255,0.15)',
-                        fontWeight: 900,
-                        fontFamily: '"Archivo Black", sans-serif',
-                        textAlign: 'center'
-                      }}>
-                        Detail {num}
-                      </div>
-                    )}
-                  </div>
+                    <div style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Detail {num}
+                    </div>
+                  </LoadableImage>
                 ))}
               </div>
 
@@ -3625,7 +3674,7 @@ export default function DesignerPortfolio() {
 
                   ...scrollReveal('s9', selectedProject.id),
                 }}>
-                  <div style={{
+                  <LoadableImage src={selectedProject.images.beforePortrait} style={{
                     width: '100%',
                     aspectRatio: '1366/812',
                     background: `linear-gradient(90deg, ${selectedProject.color}30, ${selectedProject.color}10, ${selectedProject.color}30)`,
@@ -3635,12 +3684,11 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    backgroundImage: `url(${selectedProject.images.beforePortrait})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
                   }}>
-                  </div>
+                  </LoadableImage>
                 </div>
               )}
 
@@ -3653,7 +3701,9 @@ export default function DesignerPortfolio() {
 
                 ...scrollReveal('s10', selectedProject.id),
               }}>
-                <div style={{
+                <LoadableImage
+                  src={(selectedProject.id !== 3 && selectedProject.id !== 4) ? selectedProject.images?.portrait : undefined}
+                  style={{
                   width: '100%',
                   aspectRatio: selectedProject.id === 2 ? '1366/2116' : '3/4',
                   background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -3663,12 +3713,9 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   overflow: 'hidden',
-                  // ─── For social media (id=3) and Particle Self (id=4), use video not backgroundImage ───
-                  backgroundImage: (selectedProject.id !== 3 && selectedProject.id !== 4) && selectedProject.images?.portrait ? `url(${selectedProject.images.portrait})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                  position: 'relative'
+                  backgroundRepeat: 'no-repeat'
                 }}>
                   {/* Social media (id=3) and Particle Self (id=4) use <video> for portrait */}
                   {(selectedProject.id === 3 || selectedProject.id === 4) && selectedProject.images?.portrait ? (
@@ -3696,7 +3743,7 @@ export default function DesignerPortfolio() {
                       </span>
                     </div>
                   )}
-                </div>
+                </LoadableImage>
               </div>
 
               {/* Two wide images before Design section - Only for Synkro */}
@@ -3707,7 +3754,8 @@ export default function DesignerPortfolio() {
                   gap: '2rem',
                   marginBottom: '4rem'
                 }}>
-                  <div
+                  <LoadableImage
+                    src={selectedProject.images?.beforeDesign1}
                     data-scroll-id="s11"
                     style={{
                     width: '100%',
@@ -3721,26 +3769,24 @@ export default function DesignerPortfolio() {
                     overflow: 'hidden',
 
                     ...scrollReveal('s11', selectedProject.id),
-                    backgroundImage: selectedProject.images?.beforeDesign1 ? `url(${selectedProject.images.beforeDesign1})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
                   }}>
-                    {!selectedProject.images?.beforeDesign1 && (
-                      <div style={{
-                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                        color: 'rgba(255,255,255,0.15)',
-                        fontWeight: 900,
-                        fontFamily: '"Archivo Black", sans-serif',
-                        textAlign: 'center'
-                      }}>
-                        Wide Image 1<br/>
-                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-                      </div>
-                    )}
-                  </div> 
+                    <div style={{
+                      fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Wide Image 1<br/>
+                      <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+                    </div>
+                  </LoadableImage>
 
-                  <div
+                  <LoadableImage
+                    src={selectedProject.images?.beforeDesign2}
                     data-scroll-id="s12"
                     style={{
                     width: '100%',
@@ -3754,24 +3800,21 @@ export default function DesignerPortfolio() {
                     overflow: 'hidden',
 
                     ...scrollReveal('s12', selectedProject.id),
-                    backgroundImage: selectedProject.images?.beforeDesign2 ? `url(${selectedProject.images.beforeDesign2})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
                   }}>
-                    {!selectedProject.images?.beforeDesign2 && (
-                      <div style={{
-                        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                        color: 'rgba(255,255,255,0.15)',
-                        fontWeight: 900,
-                        fontFamily: '"Archivo Black", sans-serif',
-                        textAlign: 'center'
-                      }}>
-                        Wide Image 2<br/>
-                        <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
-                      </div>
-                    )}
-                  </div>
+                    <div style={{
+                      fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Wide Image 2<br/>
+                      <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>1366x812px</span>
+                    </div>
+                  </LoadableImage>
                 </div>
               )}
 
@@ -3785,7 +3828,7 @@ export default function DesignerPortfolio() {
 
                   ...scrollReveal('s13', selectedProject.id),
                 }}>
-                  <div style={{
+                  <LoadableImage src={selectedProject.images?.finalMockup} style={{
                     width: '100%',
                     aspectRatio: '1366/2171',
                     background: `linear-gradient(180deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -3795,7 +3838,6 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    backgroundImage: selectedProject.images?.finalMockup ? `url(${selectedProject.images.finalMockup})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
@@ -3813,7 +3855,7 @@ export default function DesignerPortfolio() {
                         <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>1366x2171px</span>
                       </div>
                     )}
-                  </div>
+                  </LoadableImage>
                 </div>
               )}
 
@@ -3884,7 +3926,7 @@ export default function DesignerPortfolio() {
 
                 ...scrollReveal('s15', selectedProject.id),
               }}>
-                <div style={{
+                <LoadableImage src={selectedProject.images?.solution} style={{
                   width: '100%',
                   aspectRatio: '4/3',
                   background: `linear-gradient(315deg, ${selectedProject.color}35, ${selectedProject.color}10)`,
@@ -3894,7 +3936,6 @@ export default function DesignerPortfolio() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   order: 1,
-                  backgroundImage: selectedProject.images?.solution ? `url(${selectedProject.images.solution})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
@@ -3911,7 +3952,7 @@ export default function DesignerPortfolio() {
                       Solution Image
                     </div>
                   )}
-                </div>
+                </LoadableImage>
                 <div style={{ order: 2 }}>
                   <h2 style={{
                     fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
@@ -4036,7 +4077,8 @@ export default function DesignerPortfolio() {
                 marginBottom: '4rem'
               }}>
                 {[1, 2, 3].map((num) => (
-                  <div key={num}
+                  <LoadableImage key={num}
+                    src={selectedProject.images?.[`screen${num}`]}
                     data-scroll-id="s18"
                     style={{
                     width: '100%',
@@ -4049,24 +4091,21 @@ export default function DesignerPortfolio() {
                     justifyContent: 'center',
 
                     ...scrollReveal('s18', selectedProject.id),
-                    backgroundImage: selectedProject.images?.[`screen${num}`] ? `url(${selectedProject.images[`screen${num}`]})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     overflow: 'hidden'
                   }}>
-                    {!selectedProject.images?.[`screen${num}`] && (
-                      <div style={{
-                        fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-                        color: 'rgba(255,255,255,0.15)',
-                        fontWeight: 900,
-                        fontFamily: '"Archivo Black", sans-serif',
-                        textAlign: 'center'
-                      }}>
-                        Screen {num}
-                      </div>
-                    )}
-                  </div>
+                    <div style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+                      color: 'rgba(255,255,255,0.15)',
+                      fontWeight: 900,
+                      fontFamily: '"Archivo Black", sans-serif',
+                      textAlign: 'center'
+                    }}>
+                      Screen {num}
+                    </div>
+                  </LoadableImage>
                 ))}
               </div>
 
@@ -4081,7 +4120,9 @@ export default function DesignerPortfolio() {
 
                   ...scrollReveal('s19', selectedProject.id),
                 }}>
-                  <div style={{
+                  <LoadableImage
+                    src={selectedProject.id !== 3 ? selectedProject.images?.screen4 : undefined}
+                    style={{
                     width: '100%',
                     aspectRatio: '3/4',
                     background: `linear-gradient(180deg, ${selectedProject.color}40, ${selectedProject.color}15)`,
@@ -4091,12 +4132,9 @@ export default function DesignerPortfolio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    // ─── CHANGE 2: For social media project (id=3), don't use backgroundImage ───
-                    backgroundImage: selectedProject.id !== 3 && selectedProject.images?.screen4 ? `url(${selectedProject.images.screen4})` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    position: 'relative'
+                    backgroundRepeat: 'no-repeat'
                   }}>
                     {/* Social media project uses <video> for screen4 */}
                     {selectedProject.id === 3 && selectedProject.images?.screen4 ? (
@@ -4122,7 +4160,7 @@ export default function DesignerPortfolio() {
                         <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>3:4 Portrait</span>
                       </div>
                     )}
-                  </div>
+                  </LoadableImage>
                 </div>
               )}
 
@@ -4182,7 +4220,8 @@ export default function DesignerPortfolio() {
 
               {/* Section 8c: Before Purpose Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforePurpose && (
-                <div
+                <LoadableImage
+                  src={selectedProject.images.beforePurpose}
                   data-scroll-id="s21"
                   style={{
                   width: '100%',
@@ -4197,17 +4236,17 @@ export default function DesignerPortfolio() {
                   overflow: 'hidden',
 
                   ...scrollReveal('s21', selectedProject.id),
-                  backgroundImage: `url(${selectedProject.images.beforePurpose})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat'
                 }}>
-                </div>
+                </LoadableImage>
               )}
 
               {/* Before Final Image - Only for Palmi (1920x1080) */}
               {selectedProject.id === 1 && selectedProject.images?.beforeFinal && (
-                <div
+                <LoadableImage
+                  src={selectedProject.images.beforeFinal}
                   data-scroll-id="s22"
                   style={{
                   width: '100%',
@@ -4222,12 +4261,11 @@ export default function DesignerPortfolio() {
                   overflow: 'hidden',
 
                   ...scrollReveal('s22', selectedProject.id),
-                  backgroundImage: `url(${selectedProject.images.beforeFinal})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat'
                 }}>
-                </div>
+                </LoadableImage>
               )}
 
               {/* Section 10: Results/Outcomes */}
@@ -4315,7 +4353,8 @@ export default function DesignerPortfolio() {
               </div>
 
               {/* Final Image - moved to bottom */}
-              <div
+              <LoadableImage
+                src={selectedProject.id !== 4 ? selectedProject.images?.final : undefined}
                 data-scroll-id="s24"
                 style={{
                 width: '100%',
@@ -4330,11 +4369,9 @@ export default function DesignerPortfolio() {
                 overflow: 'hidden',
 
                 ...scrollReveal('s24', selectedProject.id),
-                backgroundImage: selectedProject.id !== 4 && selectedProject.images?.final ? `url(${selectedProject.images.final})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                position: 'relative'
+                backgroundRepeat: 'no-repeat'
               }}>
                 {selectedProject.id === 4 && selectedProject.images?.final ? (
                   <video
@@ -4380,7 +4417,7 @@ export default function DesignerPortfolio() {
                     <span style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>21:9 Aspect Ratio</span>
                   </div>
                 )}
-              </div>
+              </LoadableImage>
 
               {/* Bottom navigation */}
               <div
@@ -5375,6 +5412,22 @@ export default function DesignerPortfolio() {
           justify-content: center;
           margin: 0;
         }
+
+        /* From Uiverse.io by mrhyddenn */
+        .loader {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 3px solid rgb(255,255,255,.2);
+          border-top-color: transparent;
+          animation: rot1 1.2s linear infinite;
+        }
+
+        @keyframes rot1 {
+          to {
+            transform: rotate(360deg);
+          }
+        }
       `}</style>
 
         {/* Gallery lightbox — direct child of root shell, correctly centred */}
@@ -5401,7 +5454,17 @@ export default function DesignerPortfolio() {
           >
             <div onClick={e => e.stopPropagation()} style={{ width: '720px', cursor: 'default', animation: isGalleryClosing ? 'galleryCollapse 0.4s cubic-bezier(0.4, 0, 1, 1) forwards' : 'galleryExpand 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards' }}>
               <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}>
-                <img src={expandedGalleryCard.src} alt={expandedGalleryCard.label} style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover' }} />
+                <img
+                  src={expandedGalleryCard.src}
+                  alt={expandedGalleryCard.label}
+                  onLoad={() => setLightboxImgLoaded(true)}
+                  style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover', opacity: lightboxImgLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
+                />
+                {!lightboxImgLoaded && (
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
+                    <div className="loader" style={{ width: 36, height: 36 }} />
+                  </div>
+                )}
                 <div
                   onClick={() => {
                     setIsGalleryClosing(true);
