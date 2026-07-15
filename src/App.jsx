@@ -142,6 +142,29 @@ function LoadableImage({ src, style, spinnerSize = 40, children, ...rest }) {
     </div>
   );
 }
+
+// ── LoadableVideo — video that shows a spinner until its first frame is ready ─
+function LoadableVideo({ videoRef, spinnerSize = 40, style, children, ...videoProps }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        onLoadedData={() => setLoaded(true)}
+        style={style}
+        {...videoProps}
+      >
+        {children}
+      </video>
+      {!loaded && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="loader" style={{ width: spinnerSize, height: spinnerSize }} />
+        </div>
+      )}
+    </>
+  );
+}
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Translation content
@@ -1262,7 +1285,7 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
               }}
             >
               {/* video */}
-              <video src={project.video} autoPlay loop muted playsInline
+              <LoadableVideo src={project.video} autoPlay loop muted playsInline spinnerSize={24}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', pointerEvents: 'none' }}
               />
               {/* frosted dim — same blur/dark treatment as the gallery hover, only on hover */}
@@ -3724,7 +3747,7 @@ export default function DesignerPortfolio() {
                 }}>
                   {/* Social media (id=3) and Particle Self (id=4) use <video> for portrait */}
                   {(selectedProject.id === 3 || selectedProject.id === 4) && selectedProject.images?.portrait ? (
-                    <video
+                    <LoadableVideo
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       autoPlay
                       loop
@@ -3732,7 +3755,7 @@ export default function DesignerPortfolio() {
                       playsInline
                     >
                       <source src={selectedProject.images.portrait} type="video/mp4" />
-                    </video>
+                    </LoadableVideo>
                   ) : !selectedProject.images?.portrait && (
                     <div style={{
                       fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -3888,7 +3911,7 @@ export default function DesignerPortfolio() {
                     position: 'relative'
                   }}>
                     {selectedProject.images?.demoVideo ? (
-                      <video
+                      <LoadableVideo
                         style={{
                           width: '100%',
                           height: '100%',
@@ -3901,7 +3924,7 @@ export default function DesignerPortfolio() {
                       >
                         <source src={selectedProject.images.demoVideo} type="video/mp4" />
                         Your browser does not support the video tag.
-                      </video>
+                      </LoadableVideo>
                     ) : (
                       <div style={{
                         fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
@@ -4143,7 +4166,7 @@ export default function DesignerPortfolio() {
                   }}>
                     {/* Social media project uses <video> for screen4 */}
                     {selectedProject.id === 3 && selectedProject.images?.screen4 ? (
-                      <video
+                      <LoadableVideo
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         autoPlay
                         loop
@@ -4151,7 +4174,7 @@ export default function DesignerPortfolio() {
                         playsInline
                       >
                         <source src={selectedProject.images.screen4} type="video/mp4" />
-                      </video>
+                      </LoadableVideo>
                     ) : !selectedProject.images?.screen4 && (
                       <div style={{
                         fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -4192,7 +4215,7 @@ export default function DesignerPortfolio() {
                     position: 'relative'
                   }}>
                     {selectedProject.images?.screen4Video ? (
-                      <video
+                      <LoadableVideo
                         style={{
                           width: '100%',
                           height: '100%',
@@ -4205,7 +4228,7 @@ export default function DesignerPortfolio() {
                       >
                         <source src={selectedProject.images.screen4Video} type="video/mp4" />
                         Your browser does not support the video tag.
-                      </video>
+                      </LoadableVideo>
                     ) : (
                       <div style={{
                         fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -4379,8 +4402,8 @@ export default function DesignerPortfolio() {
                 backgroundRepeat: 'no-repeat'
               }}>
                 {selectedProject.id === 4 && selectedProject.images?.final ? (
-                  <video
-                    ref={finalVideoRef}
+                  <LoadableVideo
+                    videoRef={finalVideoRef}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     controls
                     playsInline
@@ -4408,7 +4431,7 @@ export default function DesignerPortfolio() {
                     }}
                   >
                     <source src={selectedProject.images.final} type="video/mp4" />
-                  </video>
+                  </LoadableVideo>
                 ) : !selectedProject.images?.final && (
                   <div style={{
                     fontSize: 'clamp(2rem, 5vw, 3.5rem)',
