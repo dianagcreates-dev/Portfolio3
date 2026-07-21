@@ -2027,7 +2027,8 @@ export default function DesignerPortfolio() {
 
   // Initialize audio analyzer
   const initializeAudioAnalyzer = () => {
-    if (!audioContextRef.current && audioRef.current) {
+    if (!audioRef.current) return;
+    if (!audioContextRef.current) {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         audioContextRef.current = new AudioContext();
@@ -2038,13 +2039,21 @@ export default function DesignerPortfolio() {
         analyzerRef.current.maxDecibels = -10;
         const bufferLength = analyzerRef.current.frequencyBinCount;
         dataArrayRef.current = new Uint8Array(bufferLength);
-        
+
         const source = audioContextRef.current.createMediaElementSource(audioRef.current);
         source.connect(analyzerRef.current);
         analyzerRef.current.connect(audioContextRef.current.destination);
       } catch (err) {
         console.log('Audio context initialization failed:', err);
       }
+    }
+    // The context is created in a 'suspended' state if there's no user
+    // gesture yet (e.g. our initial autoplay attempt on mount) — and since
+    // the guard above only builds the graph once, it never gets another
+    // chance to resume unless we explicitly try here on every call,
+    // including ones that DO happen inside a real user gesture.
+    if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+      audioContextRef.current.resume().catch(() => {});
     }
   };
 
