@@ -1350,6 +1350,7 @@ export default function DesignerPortfolio() {
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showStartPrompt, setShowStartPrompt] = useState(true);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -2102,7 +2103,12 @@ export default function DesignerPortfolio() {
     const startTime = performance.now();
 
     const step = now => {
-      const t = Math.min((now - startTime) / duration, 1);
+      // Clamp both ends — requestAnimationFrame's timestamp can occasionally
+      // land slightly before startTime due to browser timing precision,
+      // which produced a tiny negative t and an out-of-range volume that
+      // threw (and silently broke playback) since only the upper bound was
+      // clamped before.
+      const t = Math.max(0, Math.min((now - startTime) / duration, 1));
       audio.volume = startVolume + (targetVolume - startVolume) * t;
       fadeRafRef.current = t < 1 ? requestAnimationFrame(step) : null;
     };
@@ -2129,47 +2135,6 @@ export default function DesignerPortfolio() {
       }
     }
   };
-
-  // Autoplay background music on load. Browsers block audio-with-sound
-  // autoplay until the user has interacted with the page at least once, so
-  // if the initial play() is rejected we fall back to starting on the very
-  // first click/keypress/touch/scroll anywhere on the page instead. Either
-  // way, it always starts silent and fades in — never a sudden blast of
-  // sound if someone's system volume happens to be high.
-  useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.volume = 0;
-
-    const attemptPlay = () => {
-      initializeAudioAnalyzer();
-      return audioRef.current.play().then(() => {
-        setIsPlaying(true);
-        fadeAudioTo(TARGET_VOLUME);
-        return true;
-      }).catch(() => false);
-    };
-
-    let cancelled = false;
-    let removeListeners = () => {};
-
-    attemptPlay().then(started => {
-      if (started || cancelled) return;
-
-      const retryOnInteraction = () => {
-        attemptPlay().then(ok => { if (ok) removeListeners(); });
-      };
-      const events = ['click', 'keydown', 'touchstart', 'scroll'];
-      removeListeners = () => {
-        events.forEach(evt => window.removeEventListener(evt, retryOnInteraction));
-      };
-      events.forEach(evt => window.addEventListener(evt, retryOnInteraction, { once: true }));
-    });
-
-    return () => {
-      cancelled = true;
-      removeListeners();
-    };
-  }, []);
 
   // Resume audio when user returns from a vibe code project tab
   useEffect(() => {
@@ -2332,6 +2297,89 @@ export default function DesignerPortfolio() {
         }}
       />
 
+      {showStartPrompt && (
+        <div
+          onClick={() => {
+            if (audioRef.current) {
+              initializeAudioAnalyzer();
+              audioRef.current.volume = 0;
+              const onSuccess = () => {
+                setIsPlaying(true);
+                fadeAudioTo(TARGET_VOLUME);
+              };
+              audioRef.current.play().then(onSuccess).catch(err => {
+                // A single missed attempt shouldn't strand the user without
+                // sound until a full page refresh — retry immediately once,
+                // still within the same click gesture, before giving up.
+                console.log('Audio play failed, retrying once:', err);
+                initializeAudioAnalyzer();
+                audioRef.current.play().then(onSuccess).catch(err2 => {
+                  console.log('Audio play failed again:', err2);
+                });
+              });
+            }
+            setShowStartPrompt(false);
+          }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.8)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 200,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            animation: 'fadeIn 0.5s ease'
+          }}
+        >
+          <div style={{
+            position: 'relative',
+            textAlign: 'center',
+            padding: '3rem',
+            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '20px',
+            border: '2px solid rgba(255,255,255,0.3)',
+            width: '420px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            {/* Music icon — top left corner */}
+            <div style={{
+              position: 'absolute',
+              top: '1.6rem',
+              left: '1.8rem',
+              fontSize: '2.5rem',
+              animation: 'pulse 2s ease-in-out infinite',
+              opacity: 0.7,
+            }}>🎵</div>
+
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+              color: '#ffffff',
+              marginBottom: '0.8rem',
+              fontFamily: '"Archivo Black", sans-serif',
+              margin: '0 0 0.8rem 0',
+            }}>
+              Click to Start
+            </h2>
+            <p style={{
+              fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+              color: 'rgba(255,255,255,0.6)',
+              fontFamily: '"Inter", sans-serif',
+              margin: 0,
+            }}>
+              Enable background music for the full experience
+            </p>
+          </div>
+        </div>
+      )}
+
       <nav style={{
         position: 'absolute',
         top: 0,
@@ -2348,7 +2396,7 @@ export default function DesignerPortfolio() {
         borderBottom: 'none',
         transition: 'background 0.7s ease, backdrop-filter 0.7s ease',
         opacity: 0,
-        animation: 'fadeIn 1s ease 0.2s forwards'
+        animation: showStartPrompt ? 'none' : 'fadeIn 1s ease 0.2s forwards'
       }}>
         {/* Logo */}
         <div style={{
@@ -2543,7 +2591,7 @@ export default function DesignerPortfolio() {
         flexDirection: 'column',
         gap: '1.5rem',
         opacity: 0,
-        animation: 'fadeIn 1s ease 0.5s forwards'
+        animation: showStartPrompt ? 'none' : 'fadeIn 1s ease 0.5s forwards'
       }}>
         {navItems.map((item) => (
           <div
@@ -2623,7 +2671,7 @@ export default function DesignerPortfolio() {
             textAlign: 'center',
             maxWidth: '900px',
             opacity: 0,
-            animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+            animation: showStartPrompt ? 'none' : 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
           }}>
             <div role="heading" aria-level="1" style={{
               fontSize: 'clamp(2.5rem, 10vw, 6rem)',
@@ -2639,7 +2687,7 @@ export default function DesignerPortfolio() {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
-              {(() => {
+              {!showStartPrompt && (() => {
                 const [firstWord, ...restWords] = t.home.headline.split(' ');
                 return (
                   <>
@@ -2673,13 +2721,15 @@ export default function DesignerPortfolio() {
               display: 'flex',
               justifyContent: 'center'
             }}>
-              <BlurText
-                text={t.home.subheadline}
-                delay={12}
-                animateBy="words"
-                direction="top"
-                className="home-subheadline-blur"
-              />
+              {!showStartPrompt && (
+                <BlurText
+                  text={t.home.subheadline}
+                  delay={12}
+                  animateBy="words"
+                  direction="top"
+                  className="home-subheadline-blur"
+                />
+              )}
             </div>
             <button
               onClick={() => setActiveSection('work')}
