@@ -221,7 +221,7 @@ const translations = {
           video: '/videos/vc2.mp4',
           video: '/videos/vc2.mp4',
           title: 'Huddle',
-          color: '#6366F1',
+          color: '#818CF8',
           year: '2025',
           tags: ['HTML', 'Claude Code', 'UX Design'],
           description: 'A collaborative platform for student group work.',
@@ -545,7 +545,7 @@ const translations = {
           video: '/videos/vc2.mp4',
           video: '/videos/vc2.mp4',
           title: 'Huddle',
-          color: '#6366F1',
+          color: '#818CF8',
           year: '2025',
           tags: ['HTML', 'Claude Code', 'UX Design'],
           description: 'Eine kollaborative Plattform für studentische Gruppenarbeit.',
@@ -1268,7 +1268,7 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
                 height: '220px',
                 flexShrink: 0,
                 borderRadius: '12px',
-                border: `1px solid ${isActive ? project.color + 'a0' : 'rgba(255,255,255,0.18)'}`,
+                border: '1px solid rgba(255,255,255,0.18)',
                 background: '#000',
                 position: 'relative',
                 overflow: 'hidden',
@@ -1280,7 +1280,7 @@ function VibeCodeSection({ t, isPlaying, toggleAudio, audioRef, setIsPlaying, pa
                 transition: hasEntered
                   ? 'transform 0.7s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.45s ease'
                   : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease',
-                boxShadow: isActive ? `0 0 20px ${project.color}50, 0 0 55px ${project.color}30, 0 0 90px ${project.color}18` : 'none',
+                boxShadow: 'none',
                 zIndex: isActive ? 10 : 1,
               }}
             >
@@ -1334,6 +1334,7 @@ export default function DesignerPortfolio() {
   const audioContextRef = useRef(null);
   const analyzerRef = useRef(null);
   const dataArrayRef = useRef(null);
+  const fadeRafRef = useRef(null);
   const animationIdRef = useRef(null);
   const dragMovedRef = useRef(false);
   const pillRef = useRef(null);
@@ -1349,7 +1350,6 @@ export default function DesignerPortfolio() {
   const [language, setLanguage] = useState('en');
   const [isScrolling, setIsScrolling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showStartPrompt, setShowStartPrompt] = useState(true);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const carouselAnimationRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -2081,23 +2081,86 @@ export default function DesignerPortfolio() {
     }
   };
 
+  const TARGET_VOLUME = 0.5;
+
+  // Ramps audio.volume smoothly to targetVolume instead of jumping straight
+  // there — avoids startling anyone whose system volume is already high.
+  const fadeAudioTo = (targetVolume, duration = 2500) => {
+    if (!audioRef.current) return;
+    if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current);
+    const audio = audioRef.current;
+    const startVolume = audio.volume;
+    const startTime = performance.now();
+
+    const step = now => {
+      const t = Math.min((now - startTime) / duration, 1);
+      audio.volume = startVolume + (targetVolume - startVolume) * t;
+      fadeRafRef.current = t < 1 ? requestAnimationFrame(step) : null;
+    };
+    fadeRafRef.current = requestAnimationFrame(step);
+  };
+
   // Toggle audio play/pause
   const toggleAudio = () => {
     if (audioRef.current) {
       if (isPlaying) {
+        if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current);
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
         initializeAudioAnalyzer();
-        
+        audioRef.current.volume = 0;
+
         audioRef.current.play().then(() => {
           setIsPlaying(true);
+          fadeAudioTo(TARGET_VOLUME);
         }).catch(err => {
           console.log('Audio play failed:', err);
         });
       }
     }
   };
+
+  // Autoplay background music on load. Browsers block audio-with-sound
+  // autoplay until the user has interacted with the page at least once, so
+  // if the initial play() is rejected we fall back to starting on the very
+  // first click/keypress/touch/scroll anywhere on the page instead. Either
+  // way, it always starts silent and fades in — never a sudden blast of
+  // sound if someone's system volume happens to be high.
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.volume = 0;
+
+    const attemptPlay = () => {
+      initializeAudioAnalyzer();
+      return audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        fadeAudioTo(TARGET_VOLUME);
+        return true;
+      }).catch(() => false);
+    };
+
+    let cancelled = false;
+    let removeListeners = () => {};
+
+    attemptPlay().then(started => {
+      if (started || cancelled) return;
+
+      const retryOnInteraction = () => {
+        attemptPlay().then(ok => { if (ok) removeListeners(); });
+      };
+      const events = ['click', 'keydown', 'touchstart', 'scroll'];
+      removeListeners = () => {
+        events.forEach(evt => window.removeEventListener(evt, retryOnInteraction));
+      };
+      events.forEach(evt => window.addEventListener(evt, retryOnInteraction, { once: true }));
+    });
+
+    return () => {
+      cancelled = true;
+      removeListeners();
+    };
+  }, []);
 
   // Resume audio when user returns from a vibe code project tab
   useEffect(() => {
@@ -2259,80 +2322,6 @@ export default function DesignerPortfolio() {
           pointerEvents: 'none'
         }}
       />
-
-      {showStartPrompt && (
-        <div
-          onClick={() => {
-            if (audioRef.current) {
-              audioRef.current.volume = 0.5;
-              initializeAudioAnalyzer();
-              audioRef.current.play().then(() => {
-                setIsPlaying(true);
-              }).catch(err => {
-                console.log('Audio play failed:', err);
-              });
-            }
-            setShowStartPrompt(false);
-          }}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.8)',
-            backdropFilter: 'blur(10px)',
-            zIndex: 200,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            animation: 'fadeIn 0.5s ease'
-          }}
-        >
-          <div style={{
-            position: 'relative',
-            textAlign: 'center',
-            padding: '3rem',
-            background: 'rgba(255,255,255,0.1)',
-            borderRadius: '20px',
-            border: '2px solid rgba(255,255,255,0.3)',
-            width: '420px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            {/* Music icon — top left corner */}
-            <div style={{
-              position: 'absolute',
-              top: '1.6rem',
-              left: '1.8rem',
-              fontSize: '2.5rem',
-              animation: 'pulse 2s ease-in-out infinite',
-              opacity: 0.7,
-            }}>🎵</div>
-
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-              color: '#ffffff',
-              marginBottom: '0.8rem',
-              fontFamily: '"Archivo Black", sans-serif',
-              margin: '0 0 0.8rem 0',
-            }}>
-              Click to Start
-            </h2>
-            <p style={{
-              fontSize: 'clamp(0.9rem, 2vw, 1rem)',
-              color: 'rgba(255,255,255,0.6)',
-              fontFamily: '"Inter", sans-serif',
-              margin: 0,
-            }}>
-              Enable background music for the full experience
-            </p>
-          </div>
-        </div>
-      )}
 
       <nav style={{
         position: 'absolute',
@@ -2625,7 +2614,7 @@ export default function DesignerPortfolio() {
             textAlign: 'center',
             maxWidth: '900px',
             opacity: 0,
-            animation: showStartPrompt ? 'none' : 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
+            animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards'
           }}>
             <div role="heading" aria-level="1" style={{
               fontSize: 'clamp(2.5rem, 10vw, 6rem)',
@@ -2641,7 +2630,7 @@ export default function DesignerPortfolio() {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
-              {!showStartPrompt && (() => {
+              {(() => {
                 const [firstWord, ...restWords] = t.home.headline.split(' ');
                 return (
                   <>
@@ -2675,15 +2664,13 @@ export default function DesignerPortfolio() {
               display: 'flex',
               justifyContent: 'center'
             }}>
-              {!showStartPrompt && (
-                <BlurText
-                  text={t.home.subheadline}
-                  delay={12}
-                  animateBy="words"
-                  direction="top"
-                  className="home-subheadline-blur"
-                />
-              )}
+              <BlurText
+                text={t.home.subheadline}
+                delay={12}
+                animateBy="words"
+                direction="top"
+                className="home-subheadline-blur"
+              />
             </div>
             <button
               onClick={() => setActiveSection('work')}
