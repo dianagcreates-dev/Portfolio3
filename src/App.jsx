@@ -181,7 +181,7 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'AI-Prompted Image Explorations',
-      description: 'I prompt, evaluate, refine, and repeat until the result feels intentional. Most generations are discarded; the craft is in making thoughtful decisions, not producing endless variations. My background in fashion influences the way I approach form, material, and light, giving each visual a clear sense of direction.',
+      description: 'I prompt, evaluate, refine, and repeat until the result feels intentional. Most generations are discarded; the craft is in making thoughtful decisions. My background in fashion influences the way I approach form, material, and light, giving each visual a clear sense of direction.',
       images: [
         { src: '/images/gallery/image1.1.jpg', label: 'Still in Bloom', prompt: 'A serene portrait of a young woman lying in a field of wildflowers,wearing a white lace dress. Soft sunlight illuminates her face,highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus. ', tools: ['Midjourney'] },
         { src: '/images/gallery/image2.1.jpg', label: 'Scarlet Frame', prompt: 'Fashion photo of a female model against a solid matte red backdrop. Wearing a long, black leather coat. She has a sharp black bob haircut with bangs and a neutral expression. Studio lighting is soft and even,with slight shadows for depth. Realistic skin textures, high-fashion. Cinematic composition, ghostly presence, faded film effect, with her hair and figure in strong motion blur.', tools: ['Midjourney'] },
@@ -505,7 +505,7 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'KI-gestützte Bildexperimente',
-      description: 'Ich prompte, bewerte, verfeinere und wiederhole, bis sich das Ergebnis stimmig anfühlt. Die meisten Generierungen werden verworfen; die Kunst liegt in durchdachten Entscheidungen, nicht in endlosen Variationen. Mein Hintergrund in der Mode prägt meinen Umgang mit Form, Material und Licht und gibt jedem Visual eine klare Richtung.',
+      description: 'Ich prompte, bewerte, verfeinere und wiederhole, bis sich das Ergebnis stimmig anfühlt. Die meisten Generierungen werden verworfen; die Kunst liegt in durchdachten Entscheidungen. Mein Hintergrund in der Mode prägt meinen Umgang mit Form, Material und Licht und gibt jedem Visual eine klare Richtung.',
       images: [
         { src: '/images/gallery/image1.png', label: 'Bild 01', prompt: 'Ein High-Fashion-Editorial-Portrait, futuristisches Couture-Kleid aus flüssigem Quecksilber und geometrischen Lichtscherben, umgeben von tiefer Weltraumnebel, kinematische Beleuchtung', tools: ['Midjourney'] },
         { src: '/images/gallery/image2.png', label: 'Bild 02', prompt: 'Abstrakte Modesilhouette, die sich in fließende Datenströme und Neon-Partikel auflöst, dunkler Hintergrund, Editorial-Stimmung, hyperrealistische Texturen', tools: ['Midjourney'] },
