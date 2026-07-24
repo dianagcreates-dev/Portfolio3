@@ -181,7 +181,7 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'AI-Prompted Image Explorations',
-      description: 'A space where AI becomes a creative tool, not a shortcut. Each visual is intentionally prompted, curated, and crafted to push the boundaries of what design can look like. This is where fashion, technology, and imagination collide.',
+      description: 'I prompt, evaluate, refine, and repeat until the result feels intentional. Most generations are discarded; the craft is in making thoughtful decisions, not producing endless variations. My background in fashion influences the way I approach form, material, and light, giving each visual a clear sense of direction.',
       images: [
         { src: '/images/gallery/image1.1.jpg', label: 'Still in Bloom', prompt: 'A serene portrait of a young woman lying in a field of wildflowers,wearing a white lace dress. Soft sunlight illuminates her face,highlighting her natural beauty and gentle expression. The background features lush green grass and scattered daisies, creating a peaceful and dreamy atmosphere. Use warm tones and soft focus. ', tools: ['Midjourney'] },
         { src: '/images/gallery/image2.1.jpg', label: 'Scarlet Frame', prompt: 'Fashion photo of a female model against a solid matte red backdrop. Wearing a long, black leather coat. She has a sharp black bob haircut with bangs and a neutral expression. Studio lighting is soft and even,with slight shadows for depth. Realistic skin textures, high-fashion. Cinematic composition, ghostly presence, faded film effect, with her hair and figure in strong motion blur.', tools: ['Midjourney'] },
@@ -193,7 +193,7 @@ const translations = {
     },
     home: {
       headline: 'Where Design Thinks',
-      subheadline: "I'm a UX/UI & Generative AI Designer. Grounded in Fashion and UX, I use generative tools to create high-impact, high-fidelity visuals that explore the future of design through a thoughtful creative approach.",
+      subheadline: "I'm a product designer working with AI. I design and build functional digital products from user research and interface design to interactive prototypes and AI-assisted development. My background in UX and fashion shapes how I think about people and detail.",
       cta: 'View Projects'
     },
     work: {
@@ -203,7 +203,7 @@ const translations = {
     vibeCode: {
       title: 'What I Build',
       subtitle: 'Built with AI — Coded with Intent',
-      description: 'I thrive on mastering new tools and staying ahead of design trends — exploring vibe coding to prototype, experiment, and bring ideas to life faster while applying UX/UI principles to create meaningful experiences.',
+      description: 'I learn tools by building with them, not reading about them. Two of these use MediaPipe for gesture control; one is a working app tested with real users. I direct AI coding tools well enough to debug and restructure what they produce.',
       projects: [
         {
           id: 'vc1',
@@ -505,7 +505,7 @@ const translations = {
     gallery: {
       title: 'Generative Visuals',
       subtitle: 'KI-gestützte Bildexperimente',
-      description: 'Ein Raum, in dem KI zum kreativen Werkzeug wird, nicht zur Abkürzung. Jedes Visual ist bewusst geprompted, kuratiert und gestaltet, um die Grenzen des Designs zu erweitern. Hier treffen Mode, Technologie und Vorstellungskraft aufeinander.',
+      description: 'Ich prompte, bewerte, verfeinere und wiederhole, bis sich das Ergebnis stimmig anfühlt. Die meisten Generierungen werden verworfen; die Kunst liegt in durchdachten Entscheidungen, nicht in endlosen Variationen. Mein Hintergrund in der Mode prägt meinen Umgang mit Form, Material und Licht und gibt jedem Visual eine klare Richtung.',
       images: [
         { src: '/images/gallery/image1.png', label: 'Bild 01', prompt: 'Ein High-Fashion-Editorial-Portrait, futuristisches Couture-Kleid aus flüssigem Quecksilber und geometrischen Lichtscherben, umgeben von tiefer Weltraumnebel, kinematische Beleuchtung', tools: ['Midjourney'] },
         { src: '/images/gallery/image2.png', label: 'Bild 02', prompt: 'Abstrakte Modesilhouette, die sich in fließende Datenströme und Neon-Partikel auflöst, dunkler Hintergrund, Editorial-Stimmung, hyperrealistische Texturen', tools: ['Midjourney'] },
@@ -517,7 +517,7 @@ const translations = {
     },
     home: {
       headline: 'Wo Design denkt',
-      subheadline: 'Ich bin UX/UI & Generative-AI-Designerin. Mit Wurzeln in Mode und UX nutze ich generative Tools,um wirkungsstarke, hochauflösende Visuals zu entwickeln, die mit meinem Designansatz die Zukunft des Designs erkunden.',
+      subheadline: 'Ich bin Produktdesignerin und arbeite mit KI. Ich gestalte und entwickle funktionale digitale Produkte von der Nutzerforschung über Interfacedesign bis hin zu interaktiven Prototypen und KI-gestützter Entwicklung. Mein Hintergrund in UX und Modedesign prägt, wie ich über Menschen und Details denke.',
       cta: 'Projekte Ansehen'
     },
     work: {
@@ -527,7 +527,7 @@ const translations = {
     vibeCode: {
       title: 'Was ich baue',
       subtitle: 'Mit KI gebaut — mit Absicht kodiert',
-      description: 'Ein Raum für experimentelle Interfaces, interaktive Artefakte und KI-gestützte Builds. Diese Projekte entstehen an der Schnittstelle von Design-Intuition und generativem Code — schnell, ausdrucksstark und ein bisschen unberechenbar.',
+      description: 'Ich lerne Tools, indem ich damit baue, nicht indem ich darüber lese. Zwei dieser Projekte nutzen MediaPipe für Gestensteuerung; eines ist eine funktionierende App, getestet mit echten Nutzern. Ich steuere KI-Coding-Tools sicher genug, um das Ergebnis zu debuggen und umzustrukturieren.',
       projects: [
         {
           id: 'vc1',
@@ -4694,7 +4694,7 @@ export default function DesignerPortfolio() {
                 </h2>
                 <p
                   data-scroll-id="s51"
-                  style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto', fontFamily: '"Inter", sans-serif', ...scrollReveal('s51', null) }}
+                  style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.7, maxWidth: '720px', margin: '0 auto', fontFamily: '"Inter", sans-serif', ...scrollReveal('s51', null) }}
                 >
                   {t.vibeCode.description}
                 </p>
@@ -4759,7 +4759,7 @@ export default function DesignerPortfolio() {
                   fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                   color: 'rgba(255,255,255,0.85)',
                   lineHeight: 1.7,
-                  maxWidth: '600px',
+                  maxWidth: '680px',
                   margin: '0.40rem auto 2rem auto',
                   fontFamily: '"Inter", sans-serif',
                 }}>
